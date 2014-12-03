@@ -27,11 +27,15 @@ angular
       })
       .when('/observations', {
         templateUrl: 'views/observations.html',
-        controller: 'ObservationsCtrl'
+        controller: 'ObservationListCtrl'
       })      
       .when('/about', {
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl'
+      })
+      .when('/observation/:id', {
+        templateUrl: 'views/observation.html', 
+        controller: 'ObservationCtrl'   
       })
       .otherwise({
         redirectTo: '/'

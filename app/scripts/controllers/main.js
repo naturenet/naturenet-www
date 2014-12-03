@@ -30,7 +30,7 @@ angular.module('naturenetWebApp')
         $scope.pageSize = 12
 
     })
-	.controller('ObservationsCtrl', function($scope, $http) {
+	.controller('ObservationListCtrl', function($scope, $http) {
 
         $http.get('data.json').success(function(data) {
 
@@ -47,6 +47,16 @@ angular.module('naturenetWebApp')
         $scope.pageSize = 12
 
     })   
+    .controller('ObservationCtrl', function($scope, $http, $routeParams){
+
+
+    	var url = 'http://naturenet.herokuapp.com/api/note/' + $routeParams.id
+		
+		$http.get(url).success(function(data) {
+			$scope.observation = data.data;
+		});
+
+    })
     .controller('OtherController', function($scope) {
         $scope.pageChangeHandler = function(num) {
             console.log('going to page ' + num);

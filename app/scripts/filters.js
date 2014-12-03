@@ -17,6 +17,13 @@ angular.module('naturenetWebApp.filters', [])
             };
         }
     ])
+    .filter('large', [
+        function() {
+            return function(text) {
+                return String(text).replace('upload/', 'upload/h_600,c_fit/');
+            };
+        }
+    ])    
     .filter('medium', [
         function() {
             return function(text) {

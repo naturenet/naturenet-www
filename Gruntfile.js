@@ -165,11 +165,12 @@ module.exports = function (grunt) {
       app: {
         src: ['<%= yeoman.app %>/index.html'],
         ignorePath:  /\.\.\//
-      },
-      sass: {
-        src: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
-        ignorePath: /(\.\.\/){1,2}bower_components\//
       }
+      // ,
+      // sass: {
+      //   src: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
+      //   ignorePath: /(\.\.\/){1,2}bower_components\//
+      // }
     },
 
     // // Compiles Sass to CSS and generates necessary files if requested
@@ -342,6 +343,7 @@ module.exports = function (grunt) {
             'fonts/{,*/}*',
             'views/{,*/}*.html',
             'images/{,*/}*.{webp}',
+            'styles/{,*/}*',
             'fonts/{,*/}*.*'
           ]
         }, {
@@ -374,8 +376,8 @@ module.exports = function (grunt) {
       ],
       dist: [
         //'compass:dist',
-        'imagemin',
-        'svgmin'
+        // 'imagemin',
+        // 'svgmin'
       ]
     },
 
@@ -422,12 +424,12 @@ module.exports = function (grunt) {
     'wiredep',
     'useminPrepare',
     'concurrent:dist',
-    'autoprefixer',
+    // 'autoprefixer',
     'concat',
     'ngAnnotate',
     'copy:dist',
     'cdnify',
-    'cssmin',
+    // 'cssmin',
     'uglify',
     'filerev',
     'usemin',

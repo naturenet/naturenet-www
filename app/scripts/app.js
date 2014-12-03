@@ -16,14 +16,19 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'naturenetWebApp.filters'
+    'naturenetWebApp.filters',
+    'angularUtils.directives.dirPagination'
   ])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'views/main.html',
+        templateUrl: 'views/home.html',
         controller: 'MainCtrl'
       })
+      .when('/observations', {
+        templateUrl: 'views/observations.html',
+        controller: 'ObservationsCtrl'
+      })      
       .when('/about', {
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl'

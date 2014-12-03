@@ -20,7 +20,7 @@ angular.module('naturenetWebApp.filters', [])
     .filter('medium', [
         function() {
             return function(text) {
-                return String(text).replace('upload/', 'upload/w_640/');
+                return String(text).replace('upload/', 'upload/w_292,h_200,c_fit/');
             };
         }
     ]);

@@ -72,6 +72,7 @@ body {
   height: 200px;
   border: 1px solid #8da34e;
   text-align: center;
+  padding: 0px;
 }
 .observation .tree::before {
   font-size: 130pt;

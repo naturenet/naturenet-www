@@ -17,7 +17,8 @@ angular
     'ngSanitize',
     'ngTouch',
     'naturenetWebApp.filters',
-    'angularUtils.directives.dirPagination'
+    'angularUtils.directives.dirPagination',
+    'bootstrapLightbox'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -41,3 +42,5 @@ angular
         redirectTo: '/'
       });
   });
+
+

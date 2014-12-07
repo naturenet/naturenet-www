@@ -53,9 +53,8 @@ body {
   background: #83b330;
 }
 .activity {
-  height: 300px;
-  border-top: 1px solid #8da34e;
-  border-left: 1px solid #8da34e;
+  border: 1px solid #8da34e;
+  padding-bottom: 30px;
 }
 /* standard type of trick to get equal width border */
 .activity:nth-child(2n) {
@@ -68,8 +67,7 @@ body {
   padding-top: 15px;
   padding-bottom: 15px;
 }
-.activities .row {
-  border-bottom: 1px solid #8da34e;
+.activities .row { 
   padding-bottom: 0;
   margin-bottom: 30px;
 }
@@ -89,21 +87,24 @@ body {
 }
 .activity-info {
   margin: 15px;
+  height: 100px;
 }
 .activity-picture {
-  width: 200px;
+  width: 100px;
   margin-top: 15px;
   margin-right: 10px;
-  height: 200px;
+  height: 100px;
   float: left;
   position: relative;
 }
 .activity-thumb {
-  width: 50px;
-  height: 50px;
+  margin: 5px;
+  width: 100px;
+  height: 100px;
   float: left;
   position: relative;
   padding-right: 60px;
+  border: 1px solid #8da34e;
 }
 .designs.container .fa-thumbs-o-up {
   color: #777;
@@ -112,10 +113,19 @@ body {
 .designs.container .fa-thumbs-o-up:hover {
   color: black;
 }
-.designs.container .design-idea {
-  opacity: 0.5;
+.designs .design-idea .account {
+  font-size: 80%;
+  color: #777;
 }
-.designs.container .design-idea:hover {
+.designs .design-idea .account .name {
+  color: #f8ba12;
+}
+
+.designs .design-idea {
+  opacity: 0.9;
+  font-size: 120%;
+}
+.designs .design-idea:hover {
   opacity: 1;
 }
 .triangle-top {
@@ -161,24 +171,33 @@ body {
 }
 
 /* the caption overlays the top left corner of the image */
-.lightbox-image-caption {
-  position: absolute;
-  top: 0;
-  left: 0;
-  margin: 0.5em 0.9em; /* the left and right margins are offset by 0.4em for the span box-shadow */
+.observation-lightbox {
+  background-color: rgba(255, 255, 255, 0.75);
   color: #000;
   font-size: 1.5em;
   font-weight: bold;
+  left: 0;
+  margin: 0.5em 0.9em; /* the left and right margins are offset by 0.4em for the span box-shadow */
+  position: absolute;
   text-align: left;
   text-shadow: 0.1em 0.1em 0.2em rgba(255, 255, 255, 0.5);
+  top: 0;
+  padding: 3px;
 }
 
-.lightbox-image-caption span {
+.observation-lightbox .content {
   padding-top: 0.1em;
-  padding-bottom: 0.1em;
-  background-color: rgba(255, 255, 255, 0.75);
+  padding-bottom: 0.1em;  
   /* pad the left and right of each line of text */
-  box-shadow: 0.4em 0 0 rgba(255, 255, 255, 0.75),
-    -0.4em 0 0 rgba(255, 255, 255, 0.75);
+ /* box-shadow: 0.4em 0 0 rgba(255, 255, 255, 0.5),
+    -0.4em 0 0 rgba(255, 255, 255, 0.75);*/
+}
+
+.observation-lightbox .account {
+  font-size: 80%;
+}
+
+.observation-lightbox .name {  
+  color: #EE7600;
 }
 

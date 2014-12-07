@@ -1,0 +1,21 @@
+
+<div class="container designs">
+	<div class="row" ng-repeat="designIdea in designIdeas">
+		<div class="design-idea">
+			<div class="col-md-1 col-md-offset-1">
+				<i class="fa fa-3x fa-thumbs-o-up"></i>
+				{{ designIdea.likes}}
+			</div>
+			<div class="col-md-7 col-md-offset-1">{{ designIdea.content }}
+
+				<div class="account">
+					submitted by <span class="name">{{designIdea.account.name}}</span>
+					on {{ designIdea.created_at | date }}
+				</div>
+			</div>			
+			<div class="col-md-2">
+				<i class="fa fa-3x fa-edit"></i>
+			</div>
+		</div>
+	</div>
+</div>

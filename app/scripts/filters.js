@@ -13,7 +13,7 @@ angular.module('naturenetWebApp.filters', [])
     .filter('thumb', [
         function() {
             return function(text) {
-                return String(text).replace('upload/', 'upload/w_300,h_200,c_fit/');
+                return String(text).replace('upload/', 'upload/w_100,h_100,c_fill/');
             };
         }
     ])

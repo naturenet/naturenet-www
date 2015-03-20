@@ -6,12 +6,203 @@ body {
   font-size: 25pt;
 }
 
+/*added by Jinyue Xia*/
+.page-header.nn-page-header {
+  margin:  10px 0 10px;
+  border-bottom: none;
+}
+
+.pager h3 {
+  margin: 0;
+}
+
+.navbar .nav-pills.nn-nav-pills {
+  background-color: rgba(0, 176, 36, 0.96);
+}
+
+.nn-nav-pills > li + li {
+    margin-left: 0px;
+}
+
+
+.nn-nav-pills > li > a {
+  color: white; 
+}
+
+.nn-nav-pills > li > a:hover {
+  /*color: #428bca;*/
+  background-color: rgba(2, 129, 28, 0.96); 
+}
+
+.nn-nav-pills > li > a:visited {
+  background-color: rgba(2, 129, 28, 0.96); 
+}
+
+.nn-nav-pills > li > a > h3 {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+
+/*~~~~~~~~~ Main Page ~~~~~~~~~~*/
+.main-signup-btn {
+  /*margin-top: 5px;*/
+}
+
+.form-signin {
+  max-width: 350px;
+  padding: 10px 1px 0px 0;
+  margin: 0 auto;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 5px;
+  font-size: 13px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="name"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 5px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.form-signin .name-group {
+  margin-bottom: 0;
+}
+.signdiv label {
+  max-width: 350px;
+  bottom: 0;
+  margin: 0 auto;
+}
+.signdiv {
+  position: absolute;
+    bottom:0;
+    right:0;
+}
+
+.page-header .row {
+  position: relative;
+}
+
+.pull-down {
+  padding: 2px;
+  margin-bottom: 0;
+  margin-right: 2px;
+}
+/*.form-signin button[type="submit"]  {
+  display: inline-block;
+  width: auto;
+  vertical-align: middle;
+}*/
+
+.form-signin .errormessage {
+  margin-bottom: 1px;
+}
+/*~~~~~~~~~~~~~~~~~~~*/
 .navbar-default .navbar-nav > li > a {
   color: white; 
 }
 
+/*~~~~~~~~observation detail~~~~~~~~~~~*/
+.observation-detail{
+  padding-top: 0 !important;
+}
+
+/*~~~~~~~~comment ~~~~~~~~~~~*/
+
+.detailBox {
+    /*width:320px;*/
+    border:1px solid #bbb;
+}
+.detailBox .add-comment-btn{
+  margin: 12px 3px 10px 0;
+}
+.titleBox {
+    background-color:#fdfdfd;
+    padding-left:5px;
+}
+.titleBox label{
+  color:#444;
+  margin:0;
+  display:inline-block;
+}
+
+.titleBox .spinner {
+  vertical-align: middle;
+  margin: 5px auto;
+}
+
+.commentBox {
+    padding:10px;
+    border-top:1px dotted #bbb;
+}
+.commentBox .form-group:first-child, .actionBox .form-group:first-child {
+    width:80%;
+}
+.commentBox .form-group:nth-child(2), .actionBox .form-group:nth-child(2) {
+    width:18%;
+}
+.actionBox .form-group * {
+    width:100%;
+}
+.taskDescription {
+    margin-top:10px 0;
+}
+.commentList {
+    /*padding:0;*/
+    /*list-style:none;*/
+    max-height:500px;
+    overflow:auto;
+}
+.commentList li {
+    margin:0;
+    margin-top:10px;
+}
+/*.commentList li > div {
+    display:table-cell;
+}*/
+.commenterImage {
+    width:30px;
+    margin-right:5px;
+    height:100%;
+    float:left;
+}
+.commenterImage img {
+    width:100%;
+    border-radius:50%;
+}
+.commentText p {
+    margin:0;
+}
+.sub-text {
+    color:#aaa;
+    font-family:verdana;
+    font-size:11px;
+}
+.actionBox {
+    border-top:1px dotted #bbb;
+    padding:10px;
+}
+.actionBox .btn-add-comment {
+  padding: 6px 6px ;
+}
+
+.designs .btn-addidea-div {
+  padding-top: 5px;
+}
+
+
 .nn-index-info {
-  margin-top: 15px;
   font-size: 120%;
 }
 .nn-index button {
@@ -91,10 +282,10 @@ body {
   height: 100px;
 }
 .activity-picture {
-  width: 100px;
+  /*width: 100px;*/
   margin-top: 15px;
   margin-right: 10px;
-  height: 100px;
+  /*height: 100px;*/
   float: left;
   position: relative;
 }
@@ -201,4 +392,3 @@ body {
 .observation-lightbox .name {  
   color: #EE7600;
 }
-

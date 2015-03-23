@@ -1,25 +1,101 @@
-<html class="no-js"> <head> <meta charset="utf-8"> <title>NatureNet@ACES</title> <meta name="description" content=""> <meta name="viewport" content="width=device-width"> <!-- Place favicon.ico and apple-touch-icon.png in the root directory --> <link rel="stylesheet" href="styles/vendor.css"> <link rel="stylesheet" href="styles/bootstrap.css"> <!-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"> --> <link rel="stylesheet" href="styles/style.css"> <link rel="stylesheet" href="styles/fonts.css">  <body ng-app="naturenetWebApp"> <!--[if lt IE 7]>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title>NatureNet@ACES</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <link rel="stylesheet" href="styles/vendor.css">
+
+    <link rel="stylesheet" href="styles/bootstrap.css">
+    <link rel="stylesheet" href="styles/font-awesome.min.css">
+
+    <!-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"> -->
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/fonts.css">    
+
+  </head>
+  <body ng-app="naturenetWebApp">
+    <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]--> <!-- Add your site or application content here --> <div class="page-header nn-page-header"> <div class="row" ng-controller="SigninController"> <div class="col-xs-8 col-md-4"> <img src="images/logo_transparentback.png" class="img-responsive"> </div> <div class="col-xs-4 col-md-2 pull-right signdiv"> <!-- SHOW ERROR/SUCCESS MESSAGES --> <div id="messages" class="well" ng-cloak ng-show="message">{{ message }} <a ng-cloak ng-if="account.isSignedIn" href="" ng-click="signout()">Sign Out.</a> </div> <div ng-switch> <form class="form-signin" ng-if="!account.isSignedIn" ng-submit="submit()"> <div class="form-group name-group" ng-class="{ 'has-error' : errorName }"> <span class="help-block errormessage" ng-cloak ng-show="errorName">{{ errorName }}</span> <label for="inputEmail" class="sr-only">Username</label> <input ng-model="account.username" type="name" id="inputEmail" class="form-control" placeholder="Username" required autofocus> </div> <div class="form-group name-group" ng-class="{ 'has-error' : errorName }"> <label for="inputPassword" class="sr-only">Password</label> <input ng-model="account.password" type="password" id="inputPassword" class="form-control" placeholder="Password" required> </div> <button class="btn btn-success btn-block" type="submit">Sign in</button> </form> </div> </div> <!-- <div class="col-xs-4 col-md-2 pull-right signdiv">
+    <![endif]-->
+
+    <!-- Add your site or application content here -->
+
+    <div class="page-header nn-page-header">
+        <div class="row" ng-controller="SigninController">
+            <div class="col-xs-8 col-md-4">
+                <img src="images/logo_transparentback.png" class="img-responsive"/>
+            </div>
+            <div class="col-xs-4 col-md-2 pull-right signdiv" >
+                <!-- SHOW ERROR/SUCCESS MESSAGES -->
+                <div id="messages" class="well" ng-cloak ng-show="message">{{ message }}
+                    <a ng-cloak ng-if="account.isSignedIn" href="" ng-click="signout()">Sign Out.</a> 
+                </div>
+                <div ng-switch>
+                    <form class="form-signin" ng-if="!account.isSignedIn" ng-submit="submit()" >
+                        <div class="form-group name-group" ng-class="{ 'has-error' : errorName }">
+                            <span class="help-block errormessage" ng-cloak ng-show="errorName">{{ errorName }}</span>
+                            <label for="inputEmail" class="sr-only">Username</label>
+                            <input ng-model="account.username" type="name" id="inputEmail" class="form-control" placeholder="Username" required="" autofocus="">
+                        </div>
+                        <div class="form-group name-group" ng-class="{ 'has-error' : errorName }">
+                            <label for="inputPassword" class="sr-only">Password</label>
+                            <input ng-model="account.password" type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+                        </div>
+                        <button  class="btn btn-success btn-block" type="submit">Sign in</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- <div class="col-xs-4 col-md-2 pull-right signdiv">
                 <div class="well" ng-cloak ng-show="message" class="form-signin" >{{ message }} 
                     <br> <a ng-if="account.isSignedIn" href="signout()">Sign Out.</a> 
                 </div>
                 <button  ng-click="" class="btn btn-success btn-block" type="submit" >Sign up</button>
-            </div> --> </div> <!-- <img src="images/logo_transparentback.png" class="image-responsive"/> --> </div> <nav role="navigation" class="navbar navbar-default"> <!-- Brand and toggle get grouped for better mobile display--> <!-- <div class="navbar-header">
+            </div> -->
+        </div>
+        <!-- <img src="images/logo_transparentback.png" class="image-responsive"/> -->
+    </div>
+
+    <nav role="navigation" class="navbar navbar-default">
+        <!-- Brand and toggle get grouped for better mobile display-->
+        <!-- <div class="navbar-header">
             <button type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" class="navbar-toggle collapsed">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-        </div> --> <!-- Collect the nav links, forms, and other content for toggling--> <!-- <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
+        </div> -->
+        <!-- Collect the nav links, forms, and other content for toggling-->
+        <!-- <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
             <ul class="nav navbar-nav nn-nav">
                 <li><a href="#/observations">Observations(current)</a></li>
                 <li><a href="#/activities">Activities</a></li>
                 <li><a href="#/designs">Design Ideas</a></li>
                 <li><a href="https://www.aspennature.org/" target="_blank">ACES</a></li>
             </ul>
-        </div> --> <ul class="nav nav-pills nn-nav-pills nav-justified"> <li role="presentation"><a href="#/naturenet"><h3>NatureNet</h3></a></li> <li role="presentation"><a href="#/observations"><h3>Observations</h3></a></li> <li role="presentation"><a href="#/activities"><h3>Activities</h3></a></li> <li role="presentation"><a href="#/designs"><h3>Design Ideas</h3></a></li> <li role="presentation"><a href="https://www.aspennature.org/" target="_blank"><h3>ACES</h3></a></li> </ul> </nav> <div class="container"> <div ng-cloak ng-view=""></div> </div> <!--  <footer class="footer">
+        </div> -->
+
+        <ul class="nav nav-pills nn-nav-pills nav-justified">
+            <li role="presentation"><a href="#/naturenet"><h3>NatureNet</h3></a></li>
+            <li role="presentation"><a href="#/observations"><h3>Observations</h3></a></li>
+            <li role="presentation"><a href="#/activities"><h3>Activities</h3></a></li>
+            <li role="presentation"><a href="#/designs"><h3>Design Ideas</h3></a></li>
+            <li role="presentation"><a href="https://www.aspennature.org/" target="_blank"><h3>ACES</h3></a></li>
+        </ul>
+    </nav>
+
+
+
+    <div class="container">
+
+      <div ng-cloak ng-view=""></div>
+
+    </div>
+    
+   <!--  <footer class="footer">
         <nav role="navigation" class="navbar navbar-default">
             <ul class="nav nav-pills nn-nav-pills nav-justified">
                 <li role="presentation"><a href="#/naturenet"><h3>NatureNet</h3></a></li>
@@ -28,11 +104,25 @@
                 <li role="presentation"><a href="https://www.aspennature.org/" target="_blank"><h3>ACES</h3></a></li>
             </ul>
         </nav>      
-    </footer> --> <!-- Google Analytics: change UA-XXXXX-X to be your site's ID --> <script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    </footer> -->
+
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+     <script>
+       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
        ga('create', 'UA-XXXXX-X');
-       ga('send', 'pageview');</script> <!--[if lt IE 9]>
+       ga('send', 'pageview');
+    </script>
+
+    <!--[if lt IE 9]>
     <script src="scripts/oldieshim.js"></script>
-    <![endif]--> <script src="scripts/vendor.js"></script> <script src="scripts/scripts.js"></script>  
+    <![endif]-->
+
+    <script src="scripts/vendor.js"></script>
+
+        <script src="scripts/scripts.js"></script>
+</body>
+</html>

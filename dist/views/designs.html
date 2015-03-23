@@ -1,1 +1,30 @@
-<div class="container designs"> <div class="row"> <div class="col-md-1 col-md-offset-2"> <i class="fa fa-3x fa-spinner fa-pulse" ng-show="loading"></i> </div> <div class="col-md-7"> <div class="alert alert-warning alert-dismissible" ng-show="showAlert" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span></button> <strong>Warning!</strong> You need to sign in to leave a comment. </div> <textarea class="form-control" placeholder="Add your design ideas here..." rows="3" ng-model="designidea"></textarea> <!-- <button class="btn btn-default btn-add-comment"  ng-click="addComment()">Submit</button> --> <div role="form" class="btn-addidea-div pull-right"> <button class="btn btn-default btn-add-idea" ng-click="addIdea()">Submit</button> </div> </div> </div> <div class="row" ng-repeat="designIdea in designIdeas"> <div class="design-idea"> <div class="col-md-1 col-md-offset-2"> <i class="fa fa-3x fa-thumbs-o-up"></i> <p>{{ designIdea.likes}}</p><p> </p> </div> <div class="col-md-7">{{ designIdea.content }} <div class="account"> submitted by <span class="name">{{designIdea.account.name}}</span> created on {{ designIdea.created_at | date }} modified on {{ designIdea.modified_at | date }} </div> </div> </div> </div> </div>
+
+<div class="container designs"> 
+	<div class="row"> 
+		<div class="col-md-1 col-md-offset-2"> 
+			<i class="fa fa-3x fa-spinner fa-pulse" ng-show="loading"></i> 
+		</div> 
+		<div class="col-md-7"> 
+			<div class="alert alert-warning alert-dismissible" ng-show="showAlert" role="alert"> 
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span></button> <strong>Warning!</strong> You need to sign in to leave a comment. 
+			</div> 
+			<textarea class="form-control" placeholder="Add your design ideas here..." rows="3" ng-model="designidea"></textarea> 
+			<!-- <button class="btn btn-default btn-add-comment"  ng-click="addComment()">Submit</button> --> 
+			<div role="form" class="btn-addidea-div pull-right"> 
+				<button class="btn btn-default btn-add-idea" ng-click="addIdea()">Submit</button> 
+			</div> 
+		</div> 
+	</div> 
+	<div class="row" ng-repeat="designIdea in designIdeas"> 
+		<div class="design-idea"> 
+			<div class="col-md-1 col-md-offset-2"> 
+				<i class="fa fa-3x fa-thumbs-o-up"></i> 
+				<p>{{ designIdea.likes}}</p><p> </p>
+			</div> 
+			<div class="col-md-7">{{ designIdea.content }}
+				<div class="account"> submitted by <span class="name">{{designIdea.account.name}}</span> created on {{ designIdea.created_at | date }} modified on {{ designIdea.modified_at | date }} 
+				</div> 
+			</div> 
+		</div> 
+	</div> 
+</div>

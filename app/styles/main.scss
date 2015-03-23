@@ -3,8 +3,8 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
 @import "bootstrap-sass/lib/bootstrap";
-$fa-font-path: "/bower_components/font-awesome/fonts";
-@import "font-awesome/scss/font-awesome";
+$fa-font-path: "../bower_components/font-awesome/fonts";
+@import 'font-awesome/scss/font-awesome';
 
 
 .browsehappy {

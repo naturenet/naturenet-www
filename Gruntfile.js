@@ -346,7 +346,8 @@ module.exports = function(grunt) {
                         'views/{,*/}*.html',
                         'images/{,*/}*', //.{webp}',
                         'styles/{,*/}*',
-                        'fonts/{,*/}*.*'
+                        'fonts/{,*/}*.*',
+                        'bower_components/font-awesome/css/*'
                     ]
                 }, {
                     expand: true,
@@ -362,8 +363,9 @@ module.exports = function(grunt) {
                 }, {
                     expand: true,
                     dot: true,
-                    cwd: 'bower_components/fontawesome',
-                    src: ['fonts/*.*'],
+                    cwd: '.',
+                    src: ['bower_components/font-awesome/fonts/*'],
+                    // src: ['fonts/*.*'],
                     dest: '<%= yeoman.dist %>'
                 }]
             },
@@ -442,7 +444,7 @@ module.exports = function(grunt) {
         'uglify',
         // 'filerev',
         'usemin',
-        'htmlmin'
+        // 'htmlmin'
     ]);
 
     grunt.registerTask('default', [

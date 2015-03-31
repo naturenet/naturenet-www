@@ -15,6 +15,11 @@
 			</div> 
 		</div> 
 	</div> 
+	<div class="row">
+		<div ng-if="designIdeas === undefined" class="col-md-offset-5 col-md-2">
+			<img src="images/loading.gif">
+		</div>
+	</div>
 	<div class="row" ng-repeat="designIdea in designIdeas"> 
 		<div class="design-idea"> 
 			<div class="col-md-1 col-md-offset-2"> 

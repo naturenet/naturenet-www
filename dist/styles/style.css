@@ -45,10 +45,6 @@ body {
 
 
 /*~~~~~~~~~ Main Page ~~~~~~~~~~*/
-.main-signup-btn {
-  /*margin-top: 5px;*/
-}
-
 .form-signin {
   max-width: 350px;
   padding: 10px 1px 0px 0;
@@ -90,6 +86,48 @@ body {
     right:0;
 }
 
+/************** home join button *****************/
+.main-signup-btn {
+  /*margin-top: 5px;*/
+}
+
+.main-signup-btn button{
+  width: 100%;
+}
+
+/************** footer *****************/
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 110px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 110px;
+  /*background-color: #f5f5f5;*/
+  background-color: #334561;
+}
+
+.footer p {
+  font-size: 20px;
+  color: rgba(161, 161, 161, 0.67);
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+.footer img {
+  margin-top: 5px;
+}
+
+
 .page-header .row {
   position: relative;
 }
@@ -119,7 +157,6 @@ body {
 }
 
 /*~~~~~~~~comment ~~~~~~~~~~~*/
-
 .detailBox {
     /*width:320px;*/
     border:1px solid #bbb;

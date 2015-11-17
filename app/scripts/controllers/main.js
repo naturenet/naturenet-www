@@ -294,6 +294,8 @@ nnWebApp.controller('MainCtrl', ["$scope", "$http", function($scope, $http) {
                 }
             });
         };
+    }])
+    .controller('MapCtrl', ["$scope", function($scope){
     }]);
 
 nnWebApp.factory('UserService', function () {

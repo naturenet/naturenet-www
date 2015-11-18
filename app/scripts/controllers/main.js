@@ -295,7 +295,21 @@ nnWebApp.controller('MainCtrl', ["$scope", "$http", function($scope, $http) {
             });
         };
     }])
-    .controller('MapCtrl', ["$scope", function($scope){
+    .controller("MapCtrl", ["$scope", "$http", "NgMap", function($scope, $http, NgMap){
+        $scope.gmap = this;
+        $scope.gmap.observations = [];
+        
+        NgMap.getMap().then(function(map) {
+            $scope.gmap.map = map;
+            console.log("Loaded map");
+            
+            var url = "http://naturenet.herokuapp.com/api/sync/notes/within/2015/3/at/aces";
+                    
+            $http.get(url).then(function(response) {
+                $scope.gmap.observations = response.data.data;
+                console.log("Loaded observations: " + $scope.gmap.observations.length);
+            }, function(err) { console.log("Error getting observations: " + err)});
+        });
     }]);
 
 nnWebApp.factory('UserService', function () {

@@ -190,7 +190,7 @@ nnWebApp.controller('MainCtrl', ["$scope", "$http", function($scope, $http) {
                 $scope.activities.push(x);
             });
             $scope.activities.forEach(function(activity){
-
+                activity.extras = angular.fromJson(activity.extras);
                 var context_notes_url = 'http://naturenet.herokuapp.com/api/context/' + 
                     activity.id + '/notes';
 
@@ -295,20 +295,21 @@ nnWebApp.controller('MainCtrl', ["$scope", "$http", function($scope, $http) {
             });
         };
     }])
-    .controller("MapCtrl", ["$scope", "$http", "NgMap", function($scope, $http, NgMap){
+    .controller("ObservationsCtrl", ["$scope", "$http", "NgMap", 'observations', 
+        function($scope, $http, NgMap, observations){
         $scope.gmap = this;
         $scope.gmap.observations = [];
         
         NgMap.getMap().then(function(map) {
             $scope.gmap.map = map;
             console.log("Loaded map");
-            
-            var url = "http://naturenet.herokuapp.com/api/sync/notes/within/2015/3/at/aces";
-                    
-            $http.get(url).then(function(response) {
-                $scope.gmap.observations = response.data.data;
-                console.log("Loaded observations: " + $scope.gmap.observations.length);
-            }, function(err) { console.log("Error getting observations: " + err)});
+            observations.success(function(data) {
+                var obs = data.data;
+			     obs.forEach(function(o) {
+				    o.context.extras = angular.fromJson(o.context.extras);
+			     });
+                $scope.gmap.observations = obs;
+            });
         });
     }]);
 
@@ -318,5 +319,26 @@ nnWebApp.factory('UserService', function () {
             username: "", 
             isSignedIn: false
         }
+    };
+});
+
+nnWebApp.factory('observations', ['$http', function($http) {
+	return $http.get('http://naturenet.herokuapp.com/api/sync/notes/within/2015/3/at/aces')
+		.success(function(data){
+            return data;
+		})
+		.error(function(err){
+			console.log("Error getting observations: ", err);
+			return err;
+		});	
+}]);
+
+nnWebApp.directive('obsMarker', function() {
+    return {
+        restrict: 'E',
+        scope: {
+            obs: '=',
+        },
+        templateUrl: 'scripts/directives/obsMarker.html'
     };
 });

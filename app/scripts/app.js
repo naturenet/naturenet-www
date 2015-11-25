@@ -28,8 +28,8 @@ angular
                 controller: 'MainCtrl'
             })
             .when('/observations', {
-                templateUrl: 'views/observations.html',
-                controller: 'ObservationListCtrl'
+                templateUrl: 'views/map.html',
+                controller: 'ObservationsCtrl'
             })
             .when('/activities', {
                 templateUrl: 'views/activities.html',
@@ -47,9 +47,9 @@ angular
               templateUrl: 'views/about.html',
               controller: 'AboutCtrl'
             })
-            .when('/map', {
-                templateUrl: 'views/map.html',
-                controller: 'MapCtrl'
+            .when('/community', {
+                templateUrl: 'views/map_users.html',
+                controller: 'ObservationsCtrl'
             })
             .otherwise({
                 redirectTo: '/'

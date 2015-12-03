@@ -12,6 +12,7 @@ angular
     .module('naturenetWebApp', [
         'ngAnimate',
         'ngCookies',
+        'ngMap',
         'ngResource',
         'ngRoute',
         'ngSanitize',
@@ -27,8 +28,8 @@ angular
                 controller: 'MainCtrl'
             })
             .when('/observations', {
-                templateUrl: 'views/observations.html',
-                controller: 'ObservationListCtrl'
+                templateUrl: 'views/map.html',
+                controller: 'ObservationsCtrl'
             })
             .when('/activities', {
                 templateUrl: 'views/activities.html',
@@ -46,6 +47,11 @@ angular
               templateUrl: 'views/about.html',
               controller: 'AboutCtrl'
             })
+            /* TODO: user-oriented map view
+            .when('/community', {
+                templateUrl: 'views/map_users.html',
+                controller: 'ObservationsCtrl'
+            })*/
             .otherwise({
                 redirectTo: '/'
             });

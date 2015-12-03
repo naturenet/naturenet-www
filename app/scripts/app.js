@@ -47,10 +47,11 @@ angular
               templateUrl: 'views/about.html',
               controller: 'AboutCtrl'
             })
+            /* TODO: user-oriented map view
             .when('/community', {
                 templateUrl: 'views/map_users.html',
                 controller: 'ObservationsCtrl'
-            })
+            })*/
             .otherwise({
                 redirectTo: '/'
             });

@@ -179,14 +179,18 @@ nnWebApp.controller('MainCtrl', ["$scope", "$http", function($scope, $http) {
             }            
         };
     }])
+    .controller('ObservationWindowController', ["$scope", function($scope) {
+        
+    }])
     .controller('ActivityListCtrl', ["$scope", "$http", function($scope, $http) {
 
         var url = 'http://naturenet.herokuapp.com/api/context/activities';
         $scope.activities = [];     
         $http.get(url).success(function(data) {
-            data.data.filter(function(x) {
+            //TODO: parameterize site filter
+            data.data/*.filter(function(x) {
                 return x.site.name == 'aces';
-            }).forEach(function(x){                
+            })*/.forEach(function(x){                
                 $scope.activities.push(x);
             });
             $scope.activities.forEach(function(activity){
@@ -295,22 +299,36 @@ nnWebApp.controller('MainCtrl', ["$scope", "$http", function($scope, $http) {
             });
         };
     }])
-    .controller("ObservationsCtrl", ["$scope", "$http", "NgMap", 'observations', 
-        function($scope, $http, NgMap, observations){
+    .controller("ObservationsCtrl", ["$scope", "$http", "NgMap", function($scope, $http, NgMap){
         $scope.gmap = this;
         $scope.gmap.observations = [];
         
         NgMap.getMap().then(function(map) {
             $scope.gmap.map = map;
             console.log("Loaded map");
-            observations.success(function(data) {
-                var obs = data.data;
-			     obs.forEach(function(o) {
-				    o.context.extras = angular.fromJson(o.context.extras);
-			     });
-                $scope.gmap.observations = obs;
+            
+            return $http.get('http://naturenet.herokuapp.com/api/sync/notes/within/2015/11/at/aces')
+            .success(function(data){
+                $scope.gmap.observations = data.data;
+                $scope.gmap.observations.forEach(function(o) {
+                    o.context.extras = angular.fromJson(o.context.extras);
+                });
+            })
+            .error(function(err){
+                console.log("Error getting observations: ", err);
             });
+            
         });
+        
+        $scope.showWindow = function(event, observation) {
+            var iw = new google.maps.InfoWindow({content: angular.toJson(observation)});
+            iw.open($scope.gmap.map, this);
+        };
+        
+        $scope.selectObservation = function(event, observation) {
+            $scope.obs = observation;
+            $scope.gmap.map.showInfoWindow(event, "iw");
+        }
     }]);
 
 nnWebApp.factory('UserService', function () {
@@ -322,15 +340,14 @@ nnWebApp.factory('UserService', function () {
     };
 });
 
-nnWebApp.factory('observations', ['$http', function($http) {
-	return $http.get('http://naturenet.herokuapp.com/api/sync/notes/within/2015/3/at/aces')
-		.success(function(data){
-            return data;
-		})
-		.error(function(err){
-			console.log("Error getting observations: ", err);
-			return err;
-		});	
+nnWebApp.factory('observations', ['$resource', function($resource) {
+    var obsResource = $resource('http://naturenet.herokuapp.com/api/sync/notes/within/:yyyy/:mm/at/aces', {yyyy: '2015', mm: '03'});
+    //TODO: let the controller define dates
+	var obsData = obsResource.get({yyyy: '2015', mm: '11'}).data;
+    obsData.forEach(function(o) {
+        o.context.extras = angular.fromJson(o.context.extras);
+    });
+    return obsData;
 }]);
 
 nnWebApp.directive('obsMarker', function() {
@@ -341,4 +358,15 @@ nnWebApp.directive('obsMarker', function() {
         },
         templateUrl: 'scripts/directives/obsMarker.html'
     };
+});
+
+nnWebApp.directive('obsWindow', function($templateRequest, $compile) {
+    return {
+        scope: true,
+        link: function(scope, element, attrs) {
+            $templateRequest("views/obsWindow.html").then(function(html){
+                element.append($compile(html)(scope));
+            });
+        }
+    }
 });

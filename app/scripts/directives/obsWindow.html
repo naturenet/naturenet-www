@@ -1,6 +1,4 @@
-<info-window
-	id="iw_{{id}}">
-	<div ng-cloak ng-non-bindable="">
+<div ng-cloak ng-non-bindable="" ng-controller="ObservationWindowController">
 	<h3><img ng-src='{{obs.context.extras.Icon}}' style="width:32px; height:32px"/>{{obs.context.title}}</h3>
 	<img ng-repeat="m in obs.medias" src="{{m.link}}" style="width:250px; height:250px" />
 	<blockquote>{{obs.content}}</blockquote>
@@ -34,5 +32,4 @@
 		</div> 
 		</div> 
 	</div> 
-	</div>
-</info-window>
+</div>

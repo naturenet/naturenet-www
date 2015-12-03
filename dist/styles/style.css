@@ -8,12 +8,23 @@ body {
 
 /*added by Jinyue Xia*/
 .page-header.nn-page-header {
-  margin:  10px 0 10px;
+  margin:  0px 0 10px;
   border-bottom: none;
+  padding-bottom: 0px;
+}
+
+.container .row.signup-row {
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 .pager h3 {
   margin: 0;
+}
+
+.nn-nav-customize {
+  min-height: 20px;
+  margin-bottom: 0px;
 }
 
 .navbar .nav-pills.nn-nav-pills {

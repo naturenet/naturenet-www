@@ -188,13 +188,13 @@ nnWebApp.controller('MainCtrl', ["$scope", "$http", function($scope, $http) {
         $scope.activities = [];     
         $http.get(url).success(function(data) {
             //TODO: parameterize site filter
-            data.data/*.filter(function(x) {
-                return x.site.name == 'aces';
-            })*/.forEach(function(x){                
+            data.data.filter(function(x) {
+                return x.site.name == 'aces' || x.site.name == 'elsewhere';
+            }).forEach(function(x){                
                 $scope.activities.push(x);
             });
             $scope.activities.forEach(function(activity){
-                activity.extras = angular.fromJson(activity.extras);
+                activity.extras = activity.extras && angular.fromJson(activity.extras);
                 var context_notes_url = 'http://naturenet.herokuapp.com/api/context/' + 
                     activity.id + '/notes';
 

@@ -326,7 +326,7 @@ nnWebApp.controller('MainCtrl', ['$scope', function($scope) {
         
         $scope.selectObservation = function(event, observation) {
             $scope.obs = observation;
-            $scope.gmap.map.showInfoWindow(event, 'iw');
+            $scope.gmap.map.showInfoWindow('iw', this);
         };
     }]);
 

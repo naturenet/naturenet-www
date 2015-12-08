@@ -27,7 +27,8 @@
 					<h5> commented by: {{ feedback.account.username }} on {{ feedback.created_at | date}}</h5>
 					</span>                      
 				</div> 
-				</li> 
+				</li>
+				<strong><a href="#/observation/{{obs.id}}">Leave a comment</a></strong>
 			</ul> 
 			<!--<form class="form-inline" role="form"> 
 				<div class="form-group"> 
@@ -36,10 +37,10 @@
 				<button class="btn btn-default btn-add-comment" ng-click="addComment()">Submit</button> 
 				</div>
 			</form>
-			--> 
 			<div class="alert alert-warning alert-dismissible" ng-show="showAlert" role="alert"> 
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> <strong>Warning!</strong> You need to sign in to leave a comment. 
-			</div> 
+			</div>
+			-->
 			</div> 
 		</div> 
 		</div>

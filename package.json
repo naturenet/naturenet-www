@@ -37,7 +37,13 @@
     "karma-jasmine": "latest",
     "karma-phantomjs-launcher": "latest",
     "load-grunt-tasks": "latest",
-    "time-grunt": "latest"
+    "time-grunt": "latest",
+    "phantomjs": "latest",
+    "jshint": "latest",
+    "caw": "latest",
+    "clap": "latest",
+    "fancy-log": "latest",
+    "lodash": "latest"
   },
   "engines": {
     "node": "4.2.3"

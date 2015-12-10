@@ -302,15 +302,38 @@ nnWebApp.controller('MainCtrl', ['$scope', function($scope) {
         $scope.gmap = this;
         $scope.gmap.observations = [];
         
+        $scope.formatExtras = function(observation) {
+            if(observation && observation.id) {
+                switch(observation.id) {
+                    case 44:
+                    case 45:
+                    case 46:
+                        formatBirdCountingExtras(observation);
+                        break;
+                }
+            }
+        }
+        
+        $scope.formatBirdCountingExtras = function(observation) {
+            
+        }
+        
         NgMap.getMap().then(function(map) {
             $scope.gmap.map = map;
             console.log('Loaded map');
             
-            return $http.get('http://naturenet.herokuapp.com/api/sync/notes/within/2015/11/at/aces')
+            return $http.get('http://naturenet.herokuapp.com/api/notes')
             .success(function(data){
-                $scope.gmap.observations = data.data;
+                $scope.gmap.observations = data.data.filter(function(o) {
+                    //TODO: put this somewhere generic
+                    return o.kind === 'FieldNote' && o.status !== 'deleted';
+                });
                 $scope.gmap.observations.forEach(function(o) {
-                    o.context.extras = angular.fromJson(o.context.extras);
+                    try {
+                        o.context.extras = angular.fromJson(o.context.extras);
+                    } catch(e) {
+                        console.log("Could not format extras: ", o.context.extras);
+                    }
                 });
             })
             .error(function(err){
@@ -325,8 +348,11 @@ nnWebApp.controller('MainCtrl', ['$scope', function($scope) {
         };
         
         $scope.selectObservation = function(event, observation) {
+            //TODO: switch on context.id for custom template
+            // 44,45,46: BirdCounting
             $scope.obs = observation;
             $scope.gmap.map.showInfoWindow('iw', this);
+            console.log(observation);
         };
     }]);
 
@@ -344,6 +370,8 @@ nnWebApp.factory('observations', ['$resource', function($resource) {
     //TODO: let the controller define dates
 	var obsData = obsResource.get({yyyy: '2015', mm: '11'}).data;
     obsData.forEach(function(o) {
+        //TODO: switch on context.id for additional parsing
+        // 44,45,46: content
         o.context.extras = angular.fromJson(o.context.extras);
     });
     return obsData;

@@ -256,6 +256,17 @@ nnWebApp.controller('MainCtrl', ['$scope', function($scope) {
         $scope.likeIdea = function(idea) {
             //TODO: array of users who like it
             idea.likes += 1;
+            var url = 'http://naturenet.herokuapp.com/api/note/' + idea.id + '/update';
+            $http({
+                url: url,
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                data: $.param(idea)
+            }).success(function(data) {
+                console.log("Updated note: ", data);
+            });
         };
 
     }])
@@ -292,7 +303,7 @@ nnWebApp.controller('MainCtrl', ['$scope', function($scope) {
                     })
                 }).success(function(data){
                     //TODO: sign in automatically (reuse code)
-                    $scope.success = data;
+                    $scope.success = "Welcome to NatureNet, " + data.data.username + "!";
                     console.log('User successfully created');
                 }).error(function(data, status){
                     $scope.errorMessage = (data && data.status_txt) || "Oops, something went wrong. Please check your information and try again.";

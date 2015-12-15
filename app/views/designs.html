@@ -22,7 +22,7 @@
 	</div>
 	<div class="row" ng-repeat="designIdea in designIdeas"> 
 		<div class="design-idea"> 
-			<div class="col-md-1 col-md-offset-2"> 
+			<div class="col-md-1 col-md-offset-2" ng-click="likeIdea(designIdea)"> 
 				<i class="fa fa-3x fa-thumbs-o-up"></i> 
 				<p>{{ designIdea.likes}}</p><p> </p>
 			</div> 

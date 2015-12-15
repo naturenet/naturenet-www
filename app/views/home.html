@@ -11,9 +11,12 @@
 	</div>
 </div>
 
-<div class="row signup-row">
+<div class="row signup-row" ng-init="showRegister = false">
 	<div class="col-md-6 col-md-offset-3 main-signup-btn"> 
-		<button type="button" style="font-size: 14pt" class="btn btn-success">Join NatureNet Today</button> 
+		<button type="button" style="font-size: 14pt" class="btn btn-success" ng-click="showRegister = !showRegister">Join NatureNet Today</button>
+		<div ng-show="showRegister">
+			<register-form>
+		</div>
 	</div>
 </div>
 <div class="row">

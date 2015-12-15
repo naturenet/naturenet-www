@@ -252,6 +252,11 @@ nnWebApp.controller('MainCtrl', ['$scope', function($scope) {
                 });
             }            
         };
+        
+        $scope.likeIdea = function(idea) {
+            //TODO: array of users who like it
+            idea.likes += 1;
+        };
 
     }])
     .controller('OtherController', ['$scope', function($scope) {
@@ -259,7 +264,43 @@ nnWebApp.controller('MainCtrl', ['$scope', function($scope) {
             console.log('going to page ' + num);
         };
     }])
+    .controller('SignUpController', ['$scope', '$http', 'UserService', function($scope, $http, UserService) {
+        $scope.account = {};
+        
+        $scope.consent = {
+            upload: '(Required) I agree that any nature photos I take using the NatureNet application may be uploaded to the tabletop at ACES and/or a website now under development.',
+            share: '(Required) I agree to allow any comments, observations, and profile information that I choose to share with others via the online application to be visible to others who use the application at the same time or after me.',
+            recording: '(Optional) I agree to be videotaped/audiotaped during my participation in this study.',
+            survey: '(Optional) I agree to complete a short questionnaire during or after my participation in this study.'
+        };
+        
+        $scope.submit = function() {
+            var url = 'http://naturenet-dev.herokuapp.com/api/account/new/' + $scope.account.username;
+            $http({
+                    url: url,
+                    method:'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    data: $.param({
+                        name: $scope.account.name,
+                        password: $scope.account.password,
+                        email: $scope.account.email,
+                        //TODO: concat or represent differently
+                        consent: angular.toJson($scope.account.consent)
+                    })
+                }).success(function(data){
+                    //TODO: sign in automatically (reuse code)
+                    $scope.success = data;
+                    console.log('User successfully created');
+                }).error(function(data, status){
+                    $scope.errorMessage = data;
+                    console.log('Error creating user');
+                });
+        };
+    }])
     .controller('SigninController', ['$scope', '$http', 'UserService', function($scope, $http, UserService) {
+        //TODO: move state mgt to auth service
         $scope.account = {
             isSignedIn: false
         };
@@ -396,4 +437,15 @@ nnWebApp.directive('obsWindow', function($templateRequest, $compile) {
             });
         }
     };
+});
+
+nnWebApp.directive('registerForm', function($templateRequest, $compile) {
+    return {
+        scope: true,
+        link: function(scope, element, attrs) {
+            $templateRequest('views/register.html').then(function(html){
+                element.append($compile(html)(scope));
+            })
+        }
+    }
 });

@@ -1,0 +1,25 @@
+<div ng-controller="SignUpController">
+	<form novalidate>
+		<div>
+			<div>
+				<label><input type="checkbox" required="true" ng-model="account.consent.upload"/>{{ consent.upload }}</label>
+			</div>
+			<div>
+				<label><input type="checkbox" required="true" ng-model="account.consent.share"/>{{ consent.share }}</label>
+			</div>
+			<div>
+				<label><input type="checkbox" ng-model="account.consent.recording"/>{{ consent.recording }}</label>
+			</div>
+			<div>
+				<label><input type="checkbox" ng-model="account.consent.survey"/>{{ consent.survey }}</label>
+			</div>
+		</div>
+		<div><label>Username:<input type="text" ng-model="account.username"></label></div>
+		<div><label>PIN:<input type="number" ng-model="account.password" integer></label></div>
+		<div><label>Name:<input type="text" ng-model="account.name"></label></div>
+		<div><label>Email:<input type="email" ng-model="account.email"></label></div>
+		<div><input type="submit" ng-click="submit()" value="Submit"></div>
+		<p ng-if="errorMessage">{{ errorMessage }}</p>
+		<p ng-if="successMessage">{{ successMessage }}</p>
+	</form>
+</div>

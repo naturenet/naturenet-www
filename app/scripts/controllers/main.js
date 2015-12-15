@@ -275,8 +275,9 @@ nnWebApp.controller('MainCtrl', ['$scope', function($scope) {
         };
         
         $scope.submit = function() {
-            var url = 'http://naturenet-dev.herokuapp.com/api/account/new/' + $scope.account.username;
-            $http({
+            if($scope.validate()) {
+                var url = 'http://naturenet.herokuapp.com/api/account/new/' + $scope.account.username;
+                $http({
                     url: url,
                     method:'POST',
                     headers: {
@@ -294,9 +295,23 @@ nnWebApp.controller('MainCtrl', ['$scope', function($scope) {
                     $scope.success = data;
                     console.log('User successfully created');
                 }).error(function(data, status){
-                    $scope.errorMessage = data;
+                    $scope.errorMessage = (data && data.status_txt) || "Oops, something went wrong. Please check your information and try again.";
                     console.log('Error creating user');
                 });
+            }
+        };
+        
+        $scope.validate = function() {
+            if(!($scope.account.consent && $scope.account.consent.upload && $scope.account.consent.share)) {
+                $scope.errorMessage = "You must consent to the required terms to participate."
+                return false;
+            }
+            if(!($scope.account.name && $scope.account.password && $scope.account.name && $scope.account.email)) {
+                $scope.errorMessage = "Please fill in all fields."
+                return false;
+            }
+            $scope.errorMessage = null;
+            return true;  
         };
     }])
     .controller('SigninController', ['$scope', '$http', 'UserService', function($scope, $http, UserService) {

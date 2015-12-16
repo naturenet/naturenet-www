@@ -8,6 +8,9 @@
  * Controller of the naturenetWebApp
  */
 var nnWebApp = angular.module('naturenetWebApp');
+
+nnWebApp.value('apiRoot', 'http://naturenet.herokuapp.com/api');
+
 nnWebApp.controller('MainCtrl', ['$scope', function($scope) {
         $scope.awesomeThings = [
             'HTML5 Boilerplate',
@@ -62,13 +65,11 @@ nnWebApp.controller('MainCtrl', ['$scope', function($scope) {
 
 
     }])
-    .controller('ObservationListCtrl', ['$scope', '$http', 'Lightbox', function($scope, $http, Lightbox) {
+    .controller('ObservationListCtrl', ['$scope', '$http', 'Lightbox', 'apiRoot', function($scope, $http, Lightbox, apiRoot) {
 
-        // var url = 'http://naturenet-dev.herokuapp.com/api/notes';
         $scope.currentYear = 2015;
         $scope.currentMonth = 3;
-        var url = 'http://naturenet.herokuapp.com/api/sync/notes/within/' +
-                    $scope.currentYear + '/' + $scope.currentMonth + '/at/aces';
+        var url = apiRoot + '/sync/notes/within/' + $scope.currentYear + '/' + $scope.currentMonth + '/at/aces';
         // var url = 'data.json';
         $http.get(url).success(function(data) {
             success(data);
@@ -113,8 +114,7 @@ nnWebApp.controller('MainCtrl', ['$scope', function($scope) {
             } 
             $scope.dateTitle = monthForTitle($scope.currentMonth, $scope.currentYear);
 
-            var url = 'http://naturenet.herokuapp.com/api/sync/notes/within/' +
-                    $scope.currentYear + '/' + $scope.currentMonth + '/at/aces';
+            var url = apiRoot + '/sync/notes/within/' + $scope.currentYear + '/' + $scope.currentMonth + '/at/aces';
             $http.get(url).success(function(data) {
                 success(data);
             });
@@ -128,18 +128,17 @@ nnWebApp.controller('MainCtrl', ['$scope', function($scope) {
                 $scope.currentMonth = 12;
             } 
             $scope.dateTitle = monthForTitle($scope.currentMonth, $scope.currentYear);
-            var url = 'http://naturenet.herokuapp.com/api/sync/notes/within/' +
-                    $scope.currentYear + '/' + $scope.currentMonth + '/at/aces';
+            var url = apiRoot + '/sync/notes/within/' + $scope.currentYear + '/' + $scope.currentMonth + '/at/aces';
             $http.get(url).success(function(data) {
                 success(data);
             });
         };
     }])
-    .controller('ObservationCtrl', ['$scope', '$http', '$routeParams', 'UserService', function($scope, $http, $routeParams, UserService) {
-        var url = 'http://naturenet.herokuapp.com/api/note/' + $routeParams.id;
+    .controller('ObservationCtrl', ['$scope', '$http', '$routeParams', 'UserService', 'apiRoot', function($scope, $http, $routeParams, UserService, apiRoot) {
+        var url = apiRoot + '/note/' + $routeParams.id;
         $http.get(url).success(function(data) {
             $scope.observation = data.data;
-            var feedbacksURL = 'http://naturenet.herokuapp.com/api/note/' + data.data.id + '/feedbacks';
+            var feedbacksURL = apiRoot + '/note/' + data.data.id + '/feedbacks';
             $http.get(feedbacksURL).success(function(data) {
                 var feedbacks = data.data;
                 $scope.comments = feedbacks.filter(function(x) {
@@ -157,7 +156,7 @@ nnWebApp.controller('MainCtrl', ['$scope', function($scope) {
             } else {
                 $scope.loading = true;
                 $scope.showAlert = false;
-                var addFeedbackURL = 'http://naturenet.herokuapp.com/api/feedback/new/comment/for/note/' + 
+                var addFeedbackURL = apiRoot + '/feedback/new/comment/for/note/' + 
                     $routeParams.id + '/by/' + UserService.user.username;
                 $http({
                     url: addFeedbackURL,
@@ -181,9 +180,9 @@ nnWebApp.controller('MainCtrl', ['$scope', function($scope) {
     .controller('ObservationWindowController', ['$scope', function($scope) {
         
     }])
-    .controller('ActivityListCtrl', ['$scope', '$http', function($scope, $http) {
+    .controller('ActivityListCtrl', ['$scope', '$http', 'apiRoot', function($scope, $http, apiRoot) {
 
-        var url = 'http://naturenet.herokuapp.com/api/context/activities';
+        var url = apiRoot + '/context/activities';
         $scope.activities = [];     
         $http.get(url).success(function(data) {
             //TODO: parameterize site filter
@@ -194,8 +193,7 @@ nnWebApp.controller('MainCtrl', ['$scope', function($scope) {
             });
             $scope.activities.forEach(function(activity){
                 activity.extras = activity.extras && angular.fromJson(activity.extras);
-                var urlNotes = 'http://naturenet.herokuapp.com/api/context/' + 
-                    activity.id + '/notes';
+                var urlNotes = apiRoot + '/context/' + activity.id + '/notes';
 
                 $http.get(urlNotes).success(function(data){
 
@@ -208,9 +206,9 @@ nnWebApp.controller('MainCtrl', ['$scope', function($scope) {
             });
         });
     }])
-    .controller('DesignIdeaListCtrl', ['$scope', '$http', '$routeParams', 'UserService', function($scope, $http, $routeParams, UserService) {
+    .controller('DesignIdeaListCtrl', ['$scope', '$http', '$routeParams', 'UserService', 'apiRoot', function($scope, $http, $routeParams, UserService, apiRoot) {
         // var url = 'data.json'
-        var url = 'http://naturenet.herokuapp.com/api/designideas/at/aces';
+        var url = apiRoot + '/designideas/at/aces';
         $http.get(url).success(function(data) {
             $scope.designIdeas = data.data;
 
@@ -227,8 +225,7 @@ nnWebApp.controller('MainCtrl', ['$scope', function($scope) {
             } else {
                 $scope.loading = true; // show loading icon
                 $scope.showAlert = false;
-                var addFeedbackURL = 'http://naturenet.herokuapp.com/api/note/new/' + UserService.user.username;              
-                // var addFeedbackURL = 'http://naturenet-dev.herokuapp.com/api/note/new/catz';
+                var addFeedbackURL = apiRoot + '/note/new/' + UserService.user.username;
                 $http({
                     url: addFeedbackURL,
                     method:'POST',
@@ -256,14 +253,17 @@ nnWebApp.controller('MainCtrl', ['$scope', function($scope) {
         $scope.likeIdea = function(idea) {
             //TODO: array of users who like it
             idea.likes += 1;
-            var url = 'http://naturenet.herokuapp.com/api/note/' + idea.id + '/update';
+            var url = apiRoot + '/feedback/new/like/for/Note/' + idea.id + '/by/' + UserService.user.username;
             $http({
                 url: url,
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                data: $.param(idea)
+                data: $.param({
+                    content: true,
+                    parent_id: 0
+                })
             }).success(function(data) {
                 console.log("Updated note: ", data);
             });
@@ -275,7 +275,7 @@ nnWebApp.controller('MainCtrl', ['$scope', function($scope) {
             console.log('going to page ' + num);
         };
     }])
-    .controller('SignUpController', ['$scope', '$http', 'UserService', function($scope, $http, UserService) {
+    .controller('SignUpController', ['$scope', '$http', 'UserService', 'apiRoot', function($scope, $http, UserService, apiRoot) {
         $scope.account = {};
         
         $scope.consent = {
@@ -287,7 +287,7 @@ nnWebApp.controller('MainCtrl', ['$scope', function($scope) {
         
         $scope.submit = function() {
             if($scope.validate()) {
-                var url = 'http://naturenet.herokuapp.com/api/account/new/' + $scope.account.username;
+                var url = apiRoot + '/account/new/' + $scope.account.username;
                 $http({
                     url: url,
                     method:'POST',
@@ -303,9 +303,12 @@ nnWebApp.controller('MainCtrl', ['$scope', function($scope) {
                     })
                 }).success(function(data){
                     //TODO: sign in automatically (reuse code)
-                    $scope.success = "Welcome to NatureNet, " + data.data.username + "!";
+                    $scope.errorMessage = null;
+                    $scope.successMessage = "Welcome to NatureNet, " + data.data.username + "!";
+                    $scope.account = {};
                     console.log('User successfully created');
                 }).error(function(data, status){
+                    $scope.successMessage = null;
                     $scope.errorMessage = (data && data.status_txt) || "Oops, something went wrong. Please check your information and try again.";
                     console.log('Error creating user');
                 });
@@ -314,18 +317,22 @@ nnWebApp.controller('MainCtrl', ['$scope', function($scope) {
         
         $scope.validate = function() {
             if(!($scope.account.consent && $scope.account.consent.upload && $scope.account.consent.share)) {
-                $scope.errorMessage = "You must consent to the required terms to participate."
+                $scope.errorMessage = "You must consent to the required terms to participate.";
                 return false;
             }
             if(!($scope.account.name && $scope.account.password && $scope.account.name && $scope.account.email)) {
-                $scope.errorMessage = "Please fill in all fields."
+                $scope.errorMessage = "Please fill in all fields.";
+                return false;
+            }
+            if(!/^[0-9]{4}$/.test($scope.account.password)) {
+                $scope.errorMessage = "Please provide a 4-digit PIN.";
                 return false;
             }
             $scope.errorMessage = null;
             return true;  
         };
     }])
-    .controller('SigninController', ['$scope', '$http', 'UserService', function($scope, $http, UserService) {
+    .controller('SigninController', ['$scope', '$http', 'UserService', 'apiRoot', function($scope, $http, UserService, apiRoot) {
         //TODO: move state mgt to auth service
         $scope.account = {
             isSignedIn: false
@@ -339,7 +346,7 @@ nnWebApp.controller('MainCtrl', ['$scope', function($scope) {
 
         $scope.submit = function() {
             // console.log('sign in clicked' + $scope.account);
-            var url = 'http://naturenet.herokuapp.com/api/account/' + $scope.account.username;
+            var url = apiRoot + '/account/' + $scope.account.username;
             $http.get(url).success(function(data) {
                 if (data.status_code === 200) {
                     var user = data.data;
@@ -365,7 +372,7 @@ nnWebApp.controller('MainCtrl', ['$scope', function($scope) {
             });
         };
     }])
-    .controller('ObservationsCtrl', ['$scope', '$http', 'NgMap', function($scope, $http, NgMap){
+    .controller('ObservationsCtrl', ['$scope', '$http', 'NgMap', 'apiRoot', function($scope, $http, NgMap, apiRoot){
         $scope.gmap = this;
         $scope.gmap.observations = [];
         
@@ -389,7 +396,7 @@ nnWebApp.controller('MainCtrl', ['$scope', function($scope) {
             $scope.gmap.map = map;
             console.log('Loaded map');
             
-            return $http.get('http://naturenet.herokuapp.com/api/notes')
+            return $http.get(apiRoot + '/notes')
             .success(function(data){
                 $scope.gmap.observations = data.data.filter(function(o) {
                     //TODO: put this somewhere generic
@@ -432,8 +439,8 @@ nnWebApp.factory('UserService', function () {
     };
 });
 
-nnWebApp.factory('observations', ['$resource', function($resource) {
-    var obsResource = $resource('http://naturenet.herokuapp.com/api/sync/notes/within/:yyyy/:mm/at/aces', {yyyy: '2015', mm: '03'});
+nnWebApp.factory('observations', ['$resource', 'apiRoot', function($resource, apiRoot) {
+    var obsResource = $resource(apiRoot + '/sync/notes/within/:yyyy/:mm/at/aces', {yyyy: '2015', mm: '03'});
     //TODO: let the controller define dates
 	var obsData = obsResource.get({yyyy: '2015', mm: '11'}).data;
     obsData.forEach(function(o) {

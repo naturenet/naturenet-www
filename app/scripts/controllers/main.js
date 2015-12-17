@@ -279,11 +279,19 @@ nnWebApp.controller('MainCtrl', ['$scope', function($scope) {
         $scope.account = {};
         
         $scope.consent = {
-            upload: '(Required) I agree that any nature photos I take using the NatureNet application may be uploaded to the tabletop at ACES and/or a website now under development.',
+            notice: 'You are invited to participate in NatureNet, a research project being conducted by the researchers listed at http://research.nature-net.org/people.html. In order for us to collect and study the way people are using technology like NatureNet, we must have your consent.',
+            upload: '(Required) I agree that any observations (photos) or comments I contribute to NatureNet may be publicly displayed on the web, mobile phone, or tabletop platforms that comprise NatureNet.',
             share: '(Required) I agree to allow any comments, observations, and profile information that I choose to share with others via the online application to be visible to others who use the application at the same time or after me.',
             recording: '(Optional) I agree to be videotaped/audiotaped during my participation in this study.',
             survey: '(Optional) I agree to complete a short questionnaire during or after my participation in this study.'
         };
+        
+        $scope.affiliations = [
+            { name: "ACES in Colorado", key: "aces_user" },
+            { name: "AWS in Maryland", key: "aws_user" },
+            { name: "Reedy Creek in North Carolina", key: "rcnp_user" },
+            { name: "Other", key: "" }
+        ];
         
         $scope.submit = function() {
             if($scope.validate()) {
@@ -299,7 +307,8 @@ nnWebApp.controller('MainCtrl', ['$scope', function($scope) {
                         password: $scope.account.password,
                         email: $scope.account.email,
                         //TODO: concat or represent differently
-                        consent: angular.toJson($scope.account.consent)
+                        consent: angular.toJson($scope.account.consent),
+                        affiliation: $scope.account.affiliation
                     })
                 }).success(function(data){
                     //TODO: sign in automatically (reuse code)

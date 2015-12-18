@@ -1,5 +1,8 @@
 <div ng-controller="SignUpController">
 	<form novalidate>
+        <div>
+            <p>{{consent.notice}}</p>
+        </div>
 		<div>
 			<div>
 				<label><input type="checkbox" required="true" ng-model="account.consent.upload"/>{{ consent.upload }}</label>
@@ -40,6 +43,15 @@
             <div class="col-sm-9">
                 <input type="text" ng-model="account.email" class="form-control" id="input-email" aria-describedby="input-email-status">
                 <span id="input-email-status" class="sr-only">(valid)</span>
+            </div>
+		</div>
+		<div class="form-group has-feedback">
+			<label class="control-label col-sm-3" for="input-affiliation">Affiliation:</label>
+            <div class="col-sm-9">
+                <select ng-model="account.affiliation" class="form-control" id="input-affiliation" aria-describedby="input-affiliation-status">
+                    <option ng-repeat="aff in affiliations" value="{{aff.key}}">{{aff.name}}</option>
+                </select>
+                <span id="input-affiliation-status" class="sr-only">(valid)</span>
             </div>
 		</div>
 		<div>

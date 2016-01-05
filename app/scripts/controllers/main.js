@@ -218,6 +218,23 @@ nnWebApp.controller('MainCtrl', ['$scope', function($scope) {
 
             $scope.designIdeas = $scope.designIdeas.reverse();
         });
+      
+        $scope.prompts = [
+          { 
+            name: "Wouldn't it be cool if...", 
+            context: "aces_design_new", 
+            text: "Tell us about new features or activities you would like on this app:" },
+          { 
+            name: "It would be better if...", 
+            context: "aces_design_existing", 
+            text: "Is there something we could do better?" },
+          { 
+            name: "Open Suggestion", 
+            context: "aces_design_idea", 
+            text: "Contribute a design idea to make NatureNet better" }
+        ];
+        $scope.selected_prompt = $scope.prompts[0];
+        
         $scope.account = UserService.user;
         $scope.addIdea = function() {
             if (!$scope.account.isSignedIn) {
@@ -235,7 +252,7 @@ nnWebApp.controller('MainCtrl', ['$scope', function($scope) {
                     data: $.param({
                         content: $scope.designidea,
                         kind: 'DesignIdea',
-                        context:  'aces_design_idea'
+                        context:  $scope.selected_prompt.context
                     })
                 }).success(function(data) {
                     // console.log(data);

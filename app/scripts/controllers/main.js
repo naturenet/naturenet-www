@@ -402,20 +402,21 @@ nnWebApp.controller('MainCtrl', ['$scope', function($scope) {
         $scope.gmap = this;
         $scope.gmap.observations = [];
         
-        $scope.formatExtras = function(observation) {
-            if(observation && observation.id) {
-                switch(observation.id) {
-                    case 44:
-                    case 45:
-                    case 46:
-                        formatBirdCountingExtras(observation);
-                        break;
+        $scope.fixFormatting = function(observation) {
+            if(observation) {
+                observation.context.extras = angular.fromJson(observation.context.extras);
+                if(observation.kind === "BirdCounting") {
+                    observation.content = angular.fromJson(observation.content);
+                    //TODO: this is ugly
+                    observation.context.extras.Birds.forEach(function(be) {
+                        observation.content.birds.forEach(function(b){
+                            if(be.name === b.name) {
+                                b.image = be.image;
+                            }
+                        });
+                    });
                 }
             }
-        }
-        
-        $scope.formatBirdCountingExtras = function(observation) {
-            
         }
         
         NgMap.getMap().then(function(map) {
@@ -426,11 +427,11 @@ nnWebApp.controller('MainCtrl', ['$scope', function($scope) {
             .success(function(data){
                 $scope.gmap.observations = data.data.filter(function(o) {
                     //TODO: put this somewhere generic
-                    return o.kind === 'FieldNote' && o.status !== 'deleted';
+                    return o.status !== 'deleted';
                 });
                 $scope.gmap.observations.forEach(function(o) {
                     try {
-                        o.context.extras = angular.fromJson(o.context.extras);
+                        $scope.fixFormatting(o);
                     } catch(e) {
                         console.log("Could not format extras: ", o.context.extras);
                     }

@@ -177,9 +177,6 @@ nnWebApp.controller('MainCtrl', ['$scope', function($scope) {
             }            
         };
     }])
-    .controller('ObservationWindowController', ['$scope', function($scope) {
-        
-    }])
     .controller('ActivityListCtrl', ['$scope', '$http', 'apiRoot', function($scope, $http, apiRoot) {
 
         var url = apiRoot + '/context/activities';
@@ -221,19 +218,19 @@ nnWebApp.controller('MainCtrl', ['$scope', function($scope) {
       
         $scope.prompts = [
           { 
-            name: "Wouldn't it be cool if...", 
-            context: "aces_design_new", 
-            text: "Tell us about new features or activities you would like on this app:" },
+            name: 'Wouldn\'t it be cool if...', 
+            context: 'aces_design_new', 
+            text: 'Tell us about new features or activities you would like on this app:' },
           { 
-            name: "It would be better if...", 
-            context: "aces_design_existing", 
-            text: "Is there something we could do better?" },
+            name: 'It would be better if...', 
+            context: 'aces_design_existing', 
+            text: 'Is there something we could do better?' },
           { 
-            name: "Open Suggestion", 
-            context: "aces_design_idea", 
-            text: "Contribute a design idea to make NatureNet better" }
+            name: 'Open Suggestion', 
+            context: 'aces_design_idea', 
+            text: 'Contribute a design idea to make NatureNet better' }
         ];
-        $scope.selected_prompt = $scope.prompts[0];
+        $scope.selectedPrompt = $scope.prompts[0];
         
         $scope.account = UserService.user;
         $scope.addIdea = function() {
@@ -252,7 +249,7 @@ nnWebApp.controller('MainCtrl', ['$scope', function($scope) {
                     data: $.param({
                         content: $scope.designidea,
                         kind: 'DesignIdea',
-                        context:  $scope.selected_prompt.context
+                        context:  $scope.selectedPrompt.context
                     })
                 }).success(function(data) {
                     // console.log(data);
@@ -282,7 +279,7 @@ nnWebApp.controller('MainCtrl', ['$scope', function($scope) {
                     parent_id: 0
                 })
             }).success(function(data) {
-                console.log("Updated note: ", data);
+                console.log('Updated note: ', data);
             });
         };
 
@@ -304,10 +301,10 @@ nnWebApp.controller('MainCtrl', ['$scope', function($scope) {
         };
         
         $scope.affiliations = [
-            { name: "ACES in Colorado", key: "aces_user" },
-            { name: "AWS in Maryland", key: "aws_user" },
-            { name: "Reedy Creek in North Carolina", key: "rcnp_user" },
-            { name: "Other", key: "" }
+            { name: 'ACES in Colorado', key: 'aces_user' },
+            { name: 'AWS in Maryland', key: 'aws_user' },
+            { name: 'Reedy Creek in North Carolina', key: 'rcnp_user' },
+            { name: 'Other', key: '' }
         ];
         
         $scope.submit = function() {
@@ -330,12 +327,12 @@ nnWebApp.controller('MainCtrl', ['$scope', function($scope) {
                 }).success(function(data){
                     //TODO: sign in automatically (reuse code)
                     $scope.errorMessage = null;
-                    $scope.successMessage = "Welcome to NatureNet, " + data.data.username + "!";
+                    $scope.successMessage = 'Welcome to NatureNet, ' + data.data.username + '!';
                     $scope.account = {};
                     console.log('User successfully created');
                 }).error(function(data, status){
                     $scope.successMessage = null;
-                    $scope.errorMessage = (data && data.status_txt) || "Oops, something went wrong. Please check your information and try again.";
+                    $scope.errorMessage = (data && data.status_txt) || 'Oops, something went wrong. Please check your information and try again.';
                     console.log('Error creating user');
                 });
             }
@@ -343,15 +340,15 @@ nnWebApp.controller('MainCtrl', ['$scope', function($scope) {
         
         $scope.validate = function() {
             if(!($scope.account.consent && $scope.account.consent.upload && $scope.account.consent.share)) {
-                $scope.errorMessage = "You must consent to the required terms to participate.";
+                $scope.errorMessage = 'You must consent to the required terms to participate.';
                 return false;
             }
             if(!($scope.account.name && $scope.account.password && $scope.account.name && $scope.account.email)) {
-                $scope.errorMessage = "Please fill in all fields.";
+                $scope.errorMessage = 'Please fill in all fields.';
                 return false;
             }
             if(!/^[0-9]{4}$/.test($scope.account.password)) {
-                $scope.errorMessage = "Please provide a 4-digit PIN.";
+                $scope.errorMessage = 'Please provide a 4-digit PIN.';
                 return false;
             }
             $scope.errorMessage = null;
@@ -405,7 +402,7 @@ nnWebApp.controller('MainCtrl', ['$scope', function($scope) {
         $scope.fixFormatting = function(observation) {
             if(observation) {
                 observation.context.extras = angular.fromJson(observation.context.extras);
-                if(observation.kind === "BirdCounting") {
+                if(observation.kind === 'BirdCounting') {
                     observation.content = angular.fromJson(observation.content);
                     //TODO: this is ugly
                     observation.context.extras.Birds.forEach(function(be) {
@@ -417,7 +414,7 @@ nnWebApp.controller('MainCtrl', ['$scope', function($scope) {
                     });
                 }
             }
-        }
+        };
         
         NgMap.getMap().then(function(map) {
             $scope.gmap.map = map;
@@ -427,13 +424,13 @@ nnWebApp.controller('MainCtrl', ['$scope', function($scope) {
             .success(function(data){
                 $scope.gmap.observations = data.data.filter(function(o) {
                     //TODO: put this somewhere generic
-                    return o.status !== 'deleted';
+                    return /*o.kind === 'FieldNote' &&*/ o.status !== 'deleted';
                 });
                 $scope.gmap.observations.forEach(function(o) {
                     try {
                         $scope.fixFormatting(o);
                     } catch(e) {
-                        console.log("Could not format extras: ", o.context.extras);
+                        console.log('Could not format extras: ', o.context.extras);
                     }
                 });
             })
@@ -505,7 +502,7 @@ nnWebApp.directive('registerForm', function($templateRequest, $compile) {
         link: function(scope, element, attrs) {
             $templateRequest('views/register.html').then(function(html){
                 element.append($compile(html)(scope));
-            })
+            });
         }
-    }
+    };
 });

@@ -17,7 +17,7 @@
     "ngmap": "latest"
   },
   "devDependencies": {
-    "angular-mocks": "latest",
+    "angular-mocks": "~1.4",
     "angular-scenario": "latest"
   },
   "appPath": "app"

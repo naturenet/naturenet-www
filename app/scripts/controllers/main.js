@@ -207,7 +207,7 @@ nnWebApp.controller('MainCtrl', ['$scope', function($scope) {
         // var url = 'data.json'
         var url = apiRoot + '/designideas/at/aces';
         $http.get(url).success(function(data) {
-            $scope.designIdeas = data.data;
+            $scope.designIdeas = data.data.filter(function(i) { return i.status !== 'deleted'; });
 
             $scope.designIdeas.forEach(function(x) {
                 x.likes = x.feedbacks.filter(function(f) {return f.kind === 'like';}).length;

@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/naturenet/naturenet-www.svg)](https://travis-ci.org/naturenet/naturenet-www)
+
 # Git subtree command
 
 [http://yeoman.io/learning/deployment.html)(http://yeoman.io/learning/deployment.html)

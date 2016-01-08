@@ -8,13 +8,18 @@
 			<div class="alert alert-warning alert-dismissible" ng-show="showAlert" role="alert"> 
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span></button> <strong>Warning!</strong> You need to sign in to leave a comment. 
 			</div> 
-      <form class="form-horizontal">
-      <select class="form-control" name="contextSelect" ng-model="selectedPrompt" ng-options="prompt.name for prompt in prompts track by prompt.context"></select>
-			<textarea class="form-control" placeholder="{{selectedPrompt.text}}" rows="3" ng-model="designidea"></textarea> 
-			<!-- <button class="btn btn-default btn-add-comment"  ng-click="addComment()">Submit</button> --> 
-			<div role="form" class="btn-addidea-div pull-right">
-				<button class="btn btn-default btn-add-idea form-control" ng-click="addIdea()">Submit</button> 
-			</div> 
+        <form class="form-horizontal">
+        <li class="radio" ng-repeat="prompt in prompts">
+            <label>
+                <input type="radio" name="contextRadios" ng-model="$parent.selectedPrompt" ng-value="prompt">
+                {{prompt.name}}
+            </label>
+        </li>
+        <textarea class="form-control" placeholder="{{selectedPrompt.text}}" rows="3" ng-model="designidea"></textarea> 
+        <!-- <button class="btn btn-default btn-add-comment"  ng-click="addComment()">Submit</button> --> 
+        <div role="form" class="btn-addidea-div pull-right">
+            <button class="btn btn-default btn-add-idea form-control" ng-click="addIdea()">Submit</button> 
+        </div> 
     </form>
 		</div> 
 	</div> 

@@ -12,12 +12,6 @@ var nnWebApp = angular.module('naturenetWebApp');
 nnWebApp.value('apiRoot', 'http://naturenet.herokuapp.com/api');
 
 nnWebApp.controller('MainCtrl', ['$scope', function($scope) {
-        $scope.awesomeThings = [
-            'HTML5 Boilerplate',
-            'AngularJS',
-            'Karma'
-        ];
-
 
         var slides = $scope.slides = [];
         $scope.addSlide = function() {
@@ -30,7 +24,6 @@ nnWebApp.controller('MainCtrl', ['$scope', function($scope) {
         for (var i = 4; i < 9; i++) {
             $scope.addSlide(i);
         }
-
 
         // $http.get('data.json').success(function(data) {
 

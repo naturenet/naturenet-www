@@ -1,0 +1,119 @@
+/* Shell Layout
+
+   SPA layout with a fixed top aligned header/nav, a footer, and an overlay.
+ 
+   This creates a body of full height and width with a fixed header at the
+     top of the page, and a fixed footer at the bottom of the page. It also
+     contains an overlay to be used for notifications/forms.
+  
+   Example HTML:
+  
+   <div class="outer">
+     <header class="page-head"></header>
+     <main class="page-main"></main>
+     <footer class="page-foot"></footer>
+     <div class="page-map"></div>
+     <div class="page-over"></div>
+   </div>
+   ========================================================================== */
+
+  /**
+    * Outer container
+    */
+
+    .outer {
+      position: relative;
+
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+      
+      font-family: sans-serif; }
+
+  /**
+    * Page header
+    */
+
+    .page-head {
+      position: fixed;
+      z-index: 777;
+      top: 0;
+      left: 0;
+
+      overflow: hidden;
+      width: 100%;
+      height: @page-head-height;
+      
+      background-color: @dark-blue; }
+
+  /**
+    * Page content
+    */
+
+    .page-main {
+      position: fixed;
+      z-index: 111;
+      top: @page-head-height;
+      bottom: @page-foot-height;
+
+      width: 100%;
+      /* padding: 0 50px; */ }
+
+  /**
+    * Page footer
+    */
+
+    .page-foot {
+      position: fixed;
+      z-index: 666;
+      left: 0;
+      bottom: 0;
+
+      width: 100%;
+      height: @page-foot-height; }
+
+  /**
+    * Page overlay and map
+    */
+
+    .page-map,
+    .page-over {
+      position: absolute;
+      z-index: 999;
+      left: 0;
+      bottom: 0;
+
+      width: 100%;
+      height: calc(~'100% -'@page-head-height); }
+
+    .page-map {
+      z-index: 888;
+      top: 100%; //~'calc(100% - 50px)';
+      transition: top ease .5s; }
+    .page-map.has-map {
+      top: @page-head-height; }//0; }
+
+    .page-over {
+      display: none; }
+
+  /**
+    * Media queries
+    */
+
+    /* @media screen and (max-width: 1023px) {
+      .page-navbar {
+        z-index: 996;
+        width: 100%; }
+      .page-main {
+        position: absolute;
+        top: 73px;
+        bottom: 0;
+        width: 100%;
+        height: auto;
+        margin-left: 0; } }
+    @media screen and (max-width: 767px) {
+      .page-main {
+        top: 54px;
+        left: 0; } } */
+   
+   

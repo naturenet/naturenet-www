@@ -1,0 +1,108 @@
+/* Map Layout
+
+   Example HTML:
+
+   <ng-map class="map">
+     <div class="map-action"></div>
+     <div class="map-sidebar"></div>
+     <!-- content from ng-map directive -->
+   </div>
+   ========================================================================== */
+
+  /**
+    * Map
+    *
+    *  Plugin doesn't apply a class but the map is always
+    *  contained in the last div.
+    */
+
+  /**
+    * Map container
+    */
+
+    .map {
+      position: relative;
+
+      width: 100% !important;
+      height: 100% !important;
+
+      > div:last-child {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: @head-logo-width;
+        
+        width: auto !important;
+        height: auto !important;
+        
+        transition: none; }
+    }
+
+    .has-sidebar > div:last-child {
+      //width: 50% !important;
+      transition: width ease .5s; }
+      
+    .map-marker {
+      width: 50px;
+      height: 50px;
+
+      background-image: url('/images/marker-blue.png');
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+      background-size: 50px; }
+
+  /**
+    * Map action bar
+    */
+
+    .map-actions {
+      display: none;
+      
+      background: #cacaca;
+
+      position: absolute;
+      z-index: 200;
+      top: 0;
+
+      width: 100%;
+      height: 50px;
+      transition: top ease .5s; }
+
+    .has-sidebar > .map-actions {
+      top: -50px; }
+
+
+
+    /* .map-tile__text:after {
+        content: '';
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 50%);
+
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+
+        height: 50px; } */
+
+
+  /**
+    * Media queries
+    */
+
+    /* @media screen and (max-width: 1023px) {
+      .page-navbar {
+        z-index: 996;
+        width: 100%; }
+      .page-main {
+        position: absolute;
+        top: 73px;
+        bottom: 0;
+        width: 100%;
+        height: auto;
+        margin-left: 0; } }
+    @media screen and (max-width: 767px) {
+      .page-main {
+        top: 54px;
+        left: 0; }
+    } */

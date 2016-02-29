@@ -1,0 +1,89 @@
+/* Sidebar
+   ========================================================================== */
+
+    .dropdown {
+      position: relative;
+      display: block;
+
+      background-color: #354A5F;
+      color: @light-green;
+
+      > .dropdown__display {
+        padding-left: 10px;
+        width: 100%;
+        height: 45px;
+
+        font-size: 20px;
+        line-height: 45px; }
+
+      > .dropdown__options {
+        height: 0;
+        //position: absolute;
+        //top: 100%;
+        width: 100%;
+        overflow: hidden;
+        
+        background-color: #E9EAEE;
+        color: #595959;
+        
+        transition: height 0.5s ease; }
+    }
+    
+    .dropdown__display {
+      > .dropdown__action {
+        position: relative;
+        float: right;
+
+        display: block;
+        width: 45px;
+        height: 45px; }
+        
+      > .dropdown__action:before {
+          content: '';
+          
+          display: block;
+          width: 100%;
+          height: 100%;
+
+          background-image: url('/images/arrow.png');
+          background-repeat: no-repeat;
+          background-position: 50% 50%;
+          background-size: 32px;
+          
+          transition: transform 0.5s ease;
+          
+          /* -webkit-transform: rotate(90deg);
+             -moz-transform: rotate(90deg);
+              -ms-transform: rotate(90deg);
+               -o-transform: rotate(90deg);
+                  transform: rotate(90deg); */ }
+
+      &.dropdown__display--clicked > .dropdown__action {
+        background-color: #E9EAEE; }
+
+      &.dropdown__display--clicked > .dropdown__action:before {
+        -webkit-transform: rotate(90deg);
+           -moz-transform: rotate(90deg);
+            -ms-transform: rotate(90deg);
+             -o-transform: rotate(90deg);
+                transform: rotate(90deg); }
+    }
+    
+    .dropdown__options {
+      &.dropdown__options--visible {
+        height: 45px; }
+      
+      > .dropdown__option {
+        padding-left: 10px;
+        width: 100%;
+        height: 45px;
+
+        font-size: 20px;
+        line-height: 45px; }
+    }
+
+  /**
+    * Map dropdown
+    */
+
+

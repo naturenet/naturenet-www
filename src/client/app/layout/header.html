@@ -1,0 +1,33 @@
+﻿<a class="head-logo" href="/" ng-click="vm.hideMap()">
+  <!-- TODO: used as background for page logo -->
+</a>
+
+
+
+
+
+<div class="head-menu">
+  <div class="head-menu__list">
+    <a class="head-menu__item item-explore" ng-click="vm.toggleMap()" ng-class="{'is-current': !!vm.isMapActive}"  href="#">Explore</a>
+    <a class="head-menu__item"
+      ng-repeat="r in vm.navRoutes"
+      ng-class="vm.getClasses(r)"
+      ng-bind-html="r.settings.content"
+      ng-click="vm.hideMap()"
+      ui-sref="{{r.name}}">
+    </a>
+  </div>
+  <div class="head-menu__foot" style="display: none">
+    <!-- TODO: add reference to footer template here for mobile -->
+  </div>
+</div>
+
+
+
+
+
+<div class="head-user">
+  <!-- TODO: add conditional template here for if user is logged in -->
+  <a class="head-user__item item-register" href="#">Join</a>
+  <a class="head-user__item item-login" href="#">Login</a>
+</div>

@@ -32,7 +32,7 @@
     return directive;
 
     function link(scope, element, attrs) {
-      if(!attrs.avatarUrl || attrs.avatarUrl === '') {
+      if (!attrs.avatarUrl || attrs.avatarUrl === '') {
         // TODO: get proper avatar image
         attrs.avatarUrl = 'https://1.viki.io/a/ph/avatar_profile-acc6c5a5a9d35bd7d292dfd776cfec76.png';
       }

@@ -1,60 +1,66 @@
 {
-    "bitwise": true,
-    "camelcase": true,
-    "curly": true,
-    "eqeqeq": true,
-    "es3": false,
-    "forin": true,
-    "freeze": true,
-    "immed": true,
-    "indent": 2,
-    "latedef": "nofunc",
-    "newcap": true,
-    "noarg": true,
-    "noempty": true,
-    "nonbsp": true,
-    "nonew": true,
-    "plusplus": false,
-    "quotmark": "single",
-    "undef": true,
-    "unused": false,
-    "strict": false,
-    "maxparams": 10,
-    "maxdepth": 5,
-    "maxstatements": 40,
-    "maxcomplexity": 8,
-    "maxlen": 120,
+  /*
+   * ENVIRONMENTS
+   * =================
+   */
 
-    "asi": false,
-    "boss": false,
-    "debug": false,
-    "eqnull": true,
-    "esnext": false,
-    "evil": false,
-    "expr": false,
-    "funcscope": false,
-    "globalstrict": false,
-    "iterator": false,
-    "lastsemic": false,
-    "laxbreak": false,
-    "laxcomma": false,
-    "loopfunc": true,
-    "maxerr": 50,
-    "moz": false,
-    "multistr": false,
-    "notypeof": false,
-    "proto": false,
-    "scripturl": false,
-    "shadow": false,
-    "sub": true,
-    "supernew": false,
-    "validthis": false,
-    "noyield": false,
+  // Define globals exposed by modern browsers.
+  "browser": true,
 
-    "browser": true,
-    "node": true,
+  // Define globals exposed by jQuery.
+  "jquery": true,
 
-    "globals": {
-        "angular": false
-    }
+  // Define globals exposed by Node.js.
+  "node": true,
+
+  // Allow ES6.
+  "esnext": true,
+
+  /*
+   * ENFORCING OPTIONS
+   * =================
+   */
+
+  // Force all variable names to use either camelCase style or UPPER_CASE
+  // with underscores.
+  "camelcase": true,
+
+  // Prohibit use of == and != in favor of === and !==.
+  "eqeqeq": true,
+
+  // Enforce tab width of 2 spaces.
+  "indent": 2,
+
+  // Prohibit use of a variable before it is defined.
+  "latedef": true,
+
+  // Enforce line length to 100 characters
+  "maxlen": 120, //100
+
+  // Require capitalized names for constructor functions.
+  "newcap": true,
+
+  // Enforce use of single quotation marks for strings.
+  "quotmark": "single",
+
+  // Enforce placing 'use strict' at the top function scope
+  "strict": true,
+
+  // Prohibit use of explicitly undeclared variables.
+  "undef": true,
+
+  // Warn when variables are defined but never used.
+  "unused": true,
+
+  /*
+   * RELAXING OPTIONS
+   * =================
+   */
+
+  // Suppress warnings about == null comparisons.
+  "eqnull": true,
+
+  "globals": {
+    "angular": false
+  }
 }

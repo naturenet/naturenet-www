@@ -1,5 +1,5 @@
 /* jshint -W117, -W030 */
-describe('ExploreController', function () {
+xdescribe('ExploreController', function () {
   var controller;
 
   beforeEach(function () {

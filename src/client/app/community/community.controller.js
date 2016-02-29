@@ -5,10 +5,6 @@
     .module('app.community')
     .controller('CommunityController', CommunityController);
 
-
-
-
-
   /* Community controller
      ======================================================================== */
 
@@ -20,10 +16,6 @@
     vm.community = [];
 
     activate();
-
-
-
-
 
     /* Activate function
        ================================================== */

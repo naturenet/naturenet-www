@@ -5,10 +5,6 @@
     .module('app.projects')
     .controller('ProjectsController', ProjectsController);
 
-
-
-
-
   /* Projects controller
      ======================================================================== */
 
@@ -20,10 +16,6 @@
     vm.projects = [];
 
     activate();
-
-
-
-
 
     /* Activate function
        ================================================== */

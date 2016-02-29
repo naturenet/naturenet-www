@@ -16,13 +16,13 @@
       scope: {
         // placeholder text for the dropdown
         placeholder: '@',
-        
+
         // list of options for the dropdown
         options: '=',
-        
+
         // the selected option
         selectedOption: '=',
-        
+
         // name of property used to display
         property: '@',
       },
@@ -44,6 +44,7 @@
 
       function activate() {
         if (scope.options.some(function (o) { return o === scope.selectedOption; })) {
+
           scope.isPlaceholder = scope.selectedOption[scope.property] === undefined;
           scope.display = scope.selectedOption[scope.property];
         }

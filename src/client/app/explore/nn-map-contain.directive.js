@@ -26,6 +26,7 @@
         map = scope.map;
         google.maps.event
           .addListener(map, 'bounds_changed', limitMapBounds);
+
         // TODO: .removeListener when changing views
       }
 

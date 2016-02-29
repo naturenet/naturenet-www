@@ -89,15 +89,16 @@
       function getStates() { return $state.get(); }
 
       function updateDocTitle() {
-        $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-          stateCounts.changes++;
-          handlingStateChangeError = false;
-          var title = (toState.title || '') + ' ' + config.docTitle;
-          $rootScope.title = title; // data bind to <title>
-          
-          // Hide's map on successful state change
-          $rootScope.$broadcast('map:hide');
-        });
+        $rootScope
+          .$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+            stateCounts.changes++;
+            handlingStateChangeError = false;
+            var title = (toState.title || '') + ' ' + config.docTitle;
+            $rootScope.title = title; // data bind to <title>
+
+            // Hide's map on successful state change
+            $rootScope.$broadcast('map:hide');
+          });
       }
     }
   }

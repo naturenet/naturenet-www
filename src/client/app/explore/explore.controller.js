@@ -6,15 +6,10 @@
     .module('app.explore')
     .controller('ExploreController', ExploreController);
 
-
-
-
-
   /* Explore controller
      ======================================================================== */
 
-  ExploreController.$inject = ['$rootScope', '$scope', '$q', '$timeout',
-                               'dataservice', 'logger', 'NgMap'];
+  ExploreController.$inject = ['$rootScope', '$scope', '$q', '$timeout', 'dataservice', 'logger', 'NgMap'];
   /* @ngInject */
   function ExploreController($rootScope, $scope, $q, $timeout, dataservice, logger, NgMap) {
     var vm = this;
@@ -34,7 +29,7 @@
     vm.hideSidebar = hideSidebar;
 
     vm.map = void 0;
-    
+
     // TODO: move to core/config.js
     vm.mapOptions = {
       zoom: 15, // 15
@@ -47,6 +42,7 @@
       //    position: google.maps.ControlPosition.RIGHT_BOTTOM,
       //},
       zoomControl: true,
+
       //zoomControlOptions: {
       //    position: google.maps.ControlPosition.LEFT_BOTTOM,
       //},
@@ -57,10 +53,6 @@
     };
 
     activate();
-
-
-
-
 
     /* Activate function
        ================================================== */
@@ -79,10 +71,6 @@
             });
         });
     }
-
-
-
-
 
     /* Map functions
        ================================================== */
@@ -109,15 +97,12 @@
       $scope.$parent.hasMap = false;
     }
 
-
-
-
-
     /* Sidebar functions
        ================================================== */
 
     function showSidebar() {
       vm.hasSidebar = true;
+
       // $timeout(function () {
       //   google.maps.event.trigger(vm.map, 'resize');
       // }, 500);
@@ -125,6 +110,7 @@
 
     function hideSidebar() {
       vm.hasSidebar = false;
+
       // $timeout(function () {
       //   google.maps.event.trigger(vm.map, 'resize');
       // }, 100);

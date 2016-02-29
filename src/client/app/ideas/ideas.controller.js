@@ -5,10 +5,6 @@
     .module('app.ideas')
     .controller('IdeasController', IdeasController);
 
-
-
-
-
   /* Design Ideas controller
      ======================================================================== */
 
@@ -19,10 +15,6 @@
     vm.title = 'Design Ideas';
 
     activate();
-
-
-
-
 
     /* Activate function
        ================================================== */

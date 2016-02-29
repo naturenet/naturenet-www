@@ -5,10 +5,6 @@
     .module('app.layout')
     .controller('HeaderController', HeaderController);
 
-
-
-
-
   /* Header controller
      ======================================================================== */
 
@@ -17,7 +13,7 @@
   function HeaderController($rootScope, $scope, $state, routerHelper, logger) {
     var vm = this;
     var states = routerHelper.getStates();
-    
+
     vm.getClasses = getClasses;
 
     vm.isMapActive = false;
@@ -26,20 +22,12 @@
 
     activate();
 
-
-
-
-
     /* Activate function
        ================================================== */
 
     function activate() {
       getNavRoutes();
     }
-
-
-
-
 
     /* Route function
        ================================================== */
@@ -51,10 +39,6 @@
         return r1.settings.nav - r2.settings.nav;
       });
     }
-
-
-
-
 
     /* Css class function
        ================================================== */
@@ -75,10 +59,6 @@
       var menuName = route.title;
       return $state.current.title.substr(0, menuName.length) === menuName ? 'is-current' : '';
     }
-
-
-
-
 
     /* Map function
        ================================================== */

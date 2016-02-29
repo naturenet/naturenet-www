@@ -5,10 +5,6 @@
     .module('app.layout')
     .controller('ShellController', ShellController);
 
-
-
-
-
   /* Shell controller
      ======================================================================== */
 
@@ -22,10 +18,6 @@
 
     activate();
 
-
-
-
-
     /* Activate function
        ================================================== */
 
@@ -33,10 +25,6 @@
       logger.success(config.appTitle + ' loaded!', null);
       hideSplash();
     }
-
-
-
-
 
     /* Overlay function
        ================================================== */

@@ -42,6 +42,7 @@
   "disallowMultipleVarDecl": true,
   "disallowSpaceBeforeComma": true,
   "disallowSpaceBeforeSemicolon": true,
+  //"disallowSpacesInsideTemplateStringPlaceholders": true,
   "requireSpaceBeforeBlockStatements": true,
   "requireParenthesesAroundIIFE": true,
   "requireSpacesInAnonymousFunctionExpression": {
@@ -55,7 +56,9 @@
   "requireCommaBeforeLineBreak": true,
   "requireSpaceBeforeBinaryOperators": true,
   "requireSpaceAfterBinaryOperators": true,
-  "requireCamelCaseOrUpperCaseIdentifiers": true,
+  "requireCamelCaseOrUpperCaseIdentifiers": {
+    "ignoreProperties": true
+  },
   "requireDollarBeforejQueryAssignment": true,
   "requireLineFeedAtFileEnd": true,
   "requireCapitalizedConstructors": true,
@@ -85,11 +88,12 @@
   "requirePaddingNewLinesAfterBlocks": true,
   "requireSemicolons": true,
   //"safeContextKeyword": "_this",
-  "validateLineBreaks": "LF",
+  //"validateLineBreaks": "LF",
   "validateQuoteMarks": {
     "mark": "'",
     "escape": true,
     "ignoreJSX": true
   },
-  "validateIndentation": 2
+  "validateIndentation": 2,
+  "maximumLineLength": 120 // 100
 }

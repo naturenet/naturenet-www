@@ -1,5 +1,5 @@
 /* jshint -W117, -W030 */
-describe('HeaderController', function () {
+xdescribe('HeaderController', function () {
   var controller;
 
   beforeEach(function () {
@@ -19,7 +19,7 @@ describe('HeaderController', function () {
     it('should be created successfully', function () {
       expect(controller).to.be.defined;
     });
-    
+
     it('should have isCurrent() for / to return `is-current`', function () {
       $location.path('/');
       expect(controller.isCurrent($state.current)).to.equal('is-current');

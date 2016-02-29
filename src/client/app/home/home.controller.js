@@ -5,10 +5,6 @@
     .module('app.home')
     .controller('HomeController', HomeController);
 
-
-
-
-
   /* Home controller
      ======================================================================== */
 
@@ -25,10 +21,6 @@
     vm.title = 'Home';
 
     activate();
-
-
-
-
 
     /* Activate function
        ================================================== */

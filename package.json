@@ -5,7 +5,7 @@
   "main": "src/server/app.js",
   "scripts": {
     "init": "npm install",
-    "postinstall": "bower install",
+    "install": "bower install",
     "start": "node src/server/app.js",
     "test": "gulp test"
   },

@@ -1,9 +1,8 @@
 {
   "name": "NatureNet",
-  "version": "0.1.0",
-  "description": "NatureNet",
+  "version": "0.0.1",
+  "description": "",
   "authors": [],
-  "license": "MIT",
   "ignore": [
     "**/.*",
     "node_modules",

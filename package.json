@@ -4,13 +4,14 @@
   "version": "0.0.1",
   "main": "src/server/app.js",
   "scripts": {
-    "install": "npm install",
+    "init": "npm install",
     "postinstall": "bower install",
     "start": "node src/server/app.js",
     "test": "gulp test"
   },
   "engines": {
-    "node": "5.5.0"
+    "node": "5.5.0",
+    "npm": "3.5.3"
   },
   "dependencies": {
     "bower": "^1.7.7",

@@ -593,7 +593,10 @@ function startTests(singleRun, done) {
     configFile: __dirname + '/karma.conf.js',
     exclude: excludeFiles,
     singleRun: !!singleRun,
-  }, karmaCompleted);
+  }, karmaCompleted)
+  .on('error', function(err) {
+   this.emit('end');
+  });
 
   ////////////////
 

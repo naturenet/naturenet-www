@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('app.community', [
+    .module('app.communities', [
       'app.core',
       'app.widgets',
     ]);

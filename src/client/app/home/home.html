@@ -1,2 +1,94 @@
-<section id="home-view">
+<!-- HomeController as vm -->
+
+<section class="home">
+
+  <div class="home-content">
+    <div class="content content--what">
+      <div class="content__image" style="background-image: url('/images/what.png')"></div>
+      <div class="content__text">
+        <h1 class="content__title">What is NatureNet?</h1>
+        <h2 class="content__subtitle">Citizen Science Project with a Crowd-Sourced Design</h2>
+        <p class="content__description">
+          NatureNet is a citizen science project with a crowd-sourced design. The goal to increase motivation for participation and
+          to identify creative ways in which people can contribute to sustainable bio-diversity at the Aspen Center for Environmental
+          Studies (ACES). NatureNet is funded by the National Science Foundation (IIS-1221513) in a grant to the University
+          of North Carolina at Charlotte, the University of Maryland, and the University of Colorado. The project is in coordination
+          with the naturalists at ACES.
+        </p>
+      </div>
+    </div>
+    <div class="content content--why">
+      <div class="content__image" style="background-image: url('/images/why.png')"></div>
+      <div class="content__text">
+        <h1 class="content__title">Why join NatureNet?</h1>
+        <h2 class="content__subtitle">Citizen Science Project with a Crowd-Sourced Design</h2>
+        <p class="content__description">
+          NatureNet is a citizen science project with a crowd-sourced design. The goal to increase motivation for participation and
+          to identify creative ways in which people can contribute to sustainable bio-diversity at the Aspen Center for Environmental
+          Studies (ACES). NatureNet is funded by the National Science Foundation (IIS-1221513) in a grant to the University
+          of North Carolina at Charlotte, the University of Maryland, and the University of Colorado. The project is in coordination
+          with the naturalists at ACES.
+        </p>
+      </div>
+    </div>
+    <div class="recent-observations"></div>
+  </div>
+
+
+
+
+
+  <div class="home-items">
+    <ul class="items items--observations">
+      <li class="items__group">Recent Observations</li>
+      <li class="item">
+        <nn-user-details class="user-details item__user" name="John Demo" date="Jan 28 2016"
+          avatar-url="http://thecatapi.com/api/images/get.php?api_key=MTAx&id=9jj">
+        </nn-user-details>
+        <div class="item__totals -centerv">
+          <div class="item__total item__total--likes">17</div>
+          <div class="item__total item__total--comments">5</div>
+        </div>
+      </li>
+      <li class="item">
+        <nn-user-details class="user-details item__user" name="Day Mough" date="Jan 27 2016"
+          avatar-url="http://25.media.tumblr.com/tumblr_lyxwww98E11r6b7kmo1_500.jpg">
+        </nn-user-details>
+        <div class="item__totals -centerv">
+          <div class="item__total item__total--likes">26</div>
+          <div class="item__total item__total--comments">9</div>
+        </div>
+      </li>
+      <li class="items__action">
+        <a href="#">See More</a>
+      </li>
+    </ul>
+    <ul class="items items--ideas">
+      <li class="items__group">Recent Design Ideas</li>
+      <li class="item">
+        <nn-user-details class="user-details item__user" name="Day Mough" date="Jan 29 2016"
+          avatar-url="http://25.media.tumblr.com/tumblr_lyxwww98E11r6b7kmo1_500.jpg">
+        </nn-user-details>
+        <div class="item__totals -centerv">
+          <div class="item__total item__total--likes">32</div>
+          <div class="item__total item__total--dislikes">5</div>
+          <div class="item__total item__total--comments">3</div>
+        </div>
+      </li>
+      <li class="item">
+        <nn-user-details class="user-details item__user" name="John Demo" date="Jan 28 2016"
+          avatar-url="http://thecatapi.com/api/images/get.php?api_key=MTAx&id=9jj">
+        </nn-user-details>
+        <div class="item__totals -centerv">
+          <div class="item__total item__total--likes">11</div>
+          <div class="item__total item__total--dislikes">21</div>
+          <div class="item__total item__total--comments">2</div>
+        </div>
+      </li>
+      <li class="items__action">
+        <a href="#">See More</a>
+      </li>
+    </ul>
+  </div>
+
 </section>

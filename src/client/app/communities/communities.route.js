@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('app.community')
+    .module('app.communities')
     .run(appRun);
 
   appRun.$inject = ['routerHelper'];
@@ -14,16 +14,16 @@
   function getStates() {
     return [
       {
-        state: 'community',
+        state: 'communities',
         config: {
-          url: '/community',
-          templateUrl: 'app/community/community.html',
-          controller: 'CommunityController',
+          url: '/communities',
+          templateUrl: 'app/communities/communities.html',
+          controller: 'CommunitiesController',
           controllerAs: 'vm',
-          title: 'Community',
+          title: 'Communities',
           settings: {
-            nav: 5,
-            content: 'Community',
+            nav: 2,
+            content: 'Communities',
           },
         },
       },

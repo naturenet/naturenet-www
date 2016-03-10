@@ -8,9 +8,9 @@
       'app.layout',
       'app.home',
       'app.explore',
+      'app.communities',
       'app.projects',
       'app.ideas',
-      'app.community',
     ]);
 
 })();

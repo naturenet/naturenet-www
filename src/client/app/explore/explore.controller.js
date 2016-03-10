@@ -9,11 +9,12 @@
   /* Explore controller
      ======================================================================== */
 
-  ExploreController.$inject = ['$rootScope', '$scope', '$q', '$timeout', 'dataservice', 'logger', 'NgMap'];
+  ExploreController.$inject = ['$rootScope', '$scope', '$q', 'dataservice', 'logger', 'NgMap'];
   /* @ngInject */
-  function ExploreController($rootScope, $scope, $q, $timeout, dataservice, logger, NgMap) {
+  function ExploreController($rootScope, $scope, $q, dataservice, logger, NgMap) {
     var vm = this;
     vm.title = 'Explore';
+
     vm.options = [{
         name: 'Recent',
       }, {

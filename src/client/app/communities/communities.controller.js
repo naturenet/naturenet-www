@@ -2,18 +2,18 @@
   'use strict';
 
   angular
-    .module('app.community')
-    .controller('CommunityController', CommunityController);
+    .module('app.communities')
+    .controller('CommunitiesController', CommunitiesController);
 
-  /* Community controller
+  /* Communities controller
      ======================================================================== */
 
-  CommunityController.$inject = ['$q', 'dataservice', 'logger'];
+  CommunitiesController.$inject = ['$q', 'dataservice', 'logger'];
   /* @ngInject */
-  function CommunityController($q, dataservice, logger) {
+  function CommunitiesController($q, dataservice, logger) {
     var vm = this;
-    vm.title = 'Community';
-    vm.community = [];
+    vm.title = 'Communities';
+    vm.communities = [];
 
     activate();
 
@@ -23,7 +23,7 @@
     function activate() {
       var promises = [];
       return $q.all(promises).then(function () {
-        logger.info('Activated Community View');
+        logger.info('Activated Communities View');
       });
     }
   }

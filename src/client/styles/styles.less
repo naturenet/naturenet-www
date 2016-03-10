@@ -7,26 +7,29 @@
    SETTINGS
    colors                   NatureNet's color palette
    pixels                   Variables for default dimensions
-   
+
    TOOLS
    myutils                  Set of utilities used for general layout
 
    GENERAL
    necolas Normalize.css    https://github.com/necolas/normalize.css/ 
    meyerweb Reset           http://meyerweb.com/eric/tools/css/reset/
-   
+
    LAYOUT
    shell
    header
    map
    explore
-   
+   home
+
    OBJECTS
-   sidebar
-   user details
    comment
    dropdown
-   
+   observations
+   people
+   sidebar
+   user details
+
    ========================================================================== */
 
 
@@ -57,7 +60,7 @@
 /* ==========================================================================
    #GENERAL
    ========================================================================== */
-   
+
   @import (less) 'normalize.css';
   @import (less) 'reset.css';
 
@@ -68,10 +71,11 @@
 /* ==========================================================================
    #LAYOUT
    ========================================================================== */
-   
+
   @import 'layout-shell';
   @import 'layout-header';
   @import 'layout-map';
+  @import 'layout-home';
 
 
 
@@ -80,9 +84,11 @@
 /* ==========================================================================
    #OBJECTS
    ========================================================================== */
-   
-  @import 'objects-sidebar';
-  @import 'objects-user-details';
+
   @import 'objects-comment';
   @import 'objects-dropdown';
+  @import 'objects-observations';
+  @import 'objects-people';
+  @import 'objects-sidebar';
+  @import 'objects-user-details';
 

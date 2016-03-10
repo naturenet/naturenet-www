@@ -8,9 +8,9 @@
   /* Header controller
      ======================================================================== */
 
-  HeaderController.$inject = ['$rootScope', '$scope', '$state', 'routerHelper', 'logger'];
+  HeaderController.$inject = ['$rootScope', '$state', 'routerHelper', 'logger'];
   /* @ngInject */
-  function HeaderController($rootScope, $scope, $state, routerHelper, logger) {
+  function HeaderController($rootScope, $state, routerHelper, logger) {
     var vm = this;
     var states = routerHelper.getStates();
 

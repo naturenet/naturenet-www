@@ -2,9 +2,10 @@
   "name": "NatureNet",
   "description": "",
   "version": "0.0.1",
+  "main": "src/server/app.js",
   "scripts": {
-    "init": "npm install",
-    "install": "bower install",
+    "install": "npm install",
+    "postinstall": "bower install",
     "start": "node src/server/app.js",
     "test": "gulp test"
   },

@@ -8,17 +8,38 @@
   /* Home controller
      ======================================================================== */
 
-  HomeController.$inject = ['$q', 'dataservice', 'logger'];
+  HomeController.$inject = [
+    '$q',
+    '$rootScope',
+    'logger',
+    'utility',
+    'dataservice',
+  ];
+
   /* @ngInject */
-  function HomeController($q, dataservice, logger) {
+  function HomeController(
+    $q,
+    $rootScope,
+    logger,
+    utility,
+    dataservice
+  ) {
     var vm = this;
-    vm.news = {
-      title: 'NatureNet',
-      description: 'Hot Towel Angular is a SPA template for Angular developers.',
-    };
-    vm.messageCount = 0;
-    vm.people = [];
     vm.title = 'Home';
+
+    /* Variables
+       ================================================== */
+
+    // Data
+    vm.observations = [];
+    vm.ideas = [];
+
+    vm.observationsDisplayLimit = 5;
+    vm.ideasDisplayLimit = 5;
+
+    // Function assignments
+    vm.showObservation = showObservation;
+    vm.formatDate = utility.formatDate;
 
     activate();
 
@@ -26,25 +47,41 @@
        ================================================== */
 
     function activate() {
-      var promises = [getMessageCount(), getPeople()];
-      return $q.all(promises).then(function () {
-        logger.info('Activated Home View');
-      });
+      utility.showSplash();
+
+      var promises = [getObservations(), getIdeas()];
+      return $q.all(promises)
+        .then(function () {
+          utility.hideSplash();
+          logger.info('Activated Home View');
+        });
     }
 
-    function getMessageCount() {
-      return dataservice.getMessageCount().then(function (data) {
-        vm.messageCount = data;
-        return vm.messageCount;
-      });
+    /* Data functions
+       ================================================== */
+
+    function getObservations() {
+      return dataservice.getArray('observations')
+        .then(function (data) {
+          vm.observations = data;
+          return vm.observations;
+        });
     }
 
-    function getPeople() {
-      return dataservice.getPeople().then(function (data) {
-        vm.people = data;
-        return vm.people;
-      });
+    function getIdeas() {
+      return dataservice.getArray('ideas')
+        .then(function (data) {
+          vm.ideas = data;
+          return vm.ideas;
+        });
     }
+
+    /* Click functions
+       ================================================== */
+
+    function showObservation(o) {
+      $rootScope.$broadcast('map:show', o);
+    }
+
   }
-
 })();

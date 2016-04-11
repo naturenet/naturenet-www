@@ -8,13 +8,35 @@
   /* Shell controller
      ======================================================================== */
 
-  ShellController.$inject = ['$rootScope', '$timeout', 'config', 'logger'];
+  ShellController.$inject = [
+    '$q',
+    '$rootScope',
+    'logger',
+    'config',
+    'utility',
+    'dataservice',
+  ];
+
   /* @ngInject */
-  function ShellController($rootScope, $timeout, config, logger) {
+  function ShellController(
+    $q,
+    $rootScope,
+    logger,
+    config,
+    utility,
+    dataservice
+  ) {
     var vm = this;
-    vm.busyMessage = 'Please wait ...';
-    vm.isBusy = true;
-    $rootScope.showSplash = true;
+
+    /* Variables
+       ================================================== */
+
+    // States
+    vm.isAuth = false;
+
+    // Function assignments
+    vm.hideAuth = hideAuth;
+    vm.broadcastHideAuth = broadcastHideAuth;
 
     activate();
 
@@ -22,18 +44,64 @@
        ================================================== */
 
     function activate() {
-      logger.success(config.appTitle + ' loaded!', null);
-      hideSplash();
+      logger.info(config.appTitle + ' loaded!', null);
+      utility.showSplash();
+
+      var promises = [getUsers(), getGroups(), getProjects()];
+      return $q.all(promises)
+        .then(function () {
+          utility.hideSplash();
+        });
     }
 
-    /* Overlay function
+    /* Data functions
        ================================================== */
 
-    function hideSplash() {
-      //Force a 1 second delay so we can see the splash.
-      $timeout(function () {
-        $rootScope.showSplash = false;
-      }, 1000);
+    function getUsers() {
+      return dataservice.getUsers()
+        .then(function (data) {
+          $rootScope.users = data;
+          return $rootScope.users;
+        });
     }
+
+    function getGroups() {
+      return dataservice.getGroups()
+        .then(function (data) {
+          $rootScope.groups = data;
+          return $rootScope.groups;
+        });
+    }
+
+    function getProjects() {
+      return dataservice.getProjects()
+        .then(function (data) {
+          $rootScope.projects = data;
+          return $rootScope.projects;
+        });
+    }
+
+    /* Click function
+       ================================================== */
+
+    function broadcastHideAuth() {
+      $rootScope.$broadcast('auth:hide');
+    }
+
+    /* Listener Functions
+       ================================================== */
+
+    $rootScope.$on('register:show', showAuth);
+    $rootScope.$on('signin:show', showAuth);
+    $rootScope.$on('auth:hide', hideAuth);
+
+    function showAuth() {
+      vm.isAuth = true;
+    }
+
+    function hideAuth() {
+      vm.isAuth = false;
+    }
+
   }
 })();

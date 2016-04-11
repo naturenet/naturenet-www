@@ -11,6 +11,7 @@
       'blocks.router',
 
       'ui.router',
+      'firebase',
       'ngMap',
       'ngplus',
     ]);

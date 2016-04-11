@@ -1,0 +1,11 @@
+<!-- <nn-badge class="badge"> -->
+<div class="badge__avatar" ng-if="showDefault"
+  style="background-image: url('/images/default-avatar.png')">
+</div>
+<div class="badge__avatar" ng-if="!showDefault"
+  style="background-image: url('{{avatarUrl}}')">
+</div>
+<div class="badge__text">
+  <p class="badge__title">{{title}}</p>
+  <p ng-if="!!subtitle" class="badge__subtitle">{{subtitle}}</p>
+</div>

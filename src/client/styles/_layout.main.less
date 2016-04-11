@@ -1,0 +1,33 @@
+/* Main
+   ========================================================================== */
+
+    .main {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+
+      overflow: auto;
+      height: 100%;
+      padding: 35px 80px;
+
+      background-color: #E9EAEE;
+
+      &.main--with-sidebar {
+        left: @head-logo-width; }
+      
+      > section {
+        margin-bottom: 40px; }
+
+      > section:last-child {
+        margin-bottom: 0; }
+    }
+    
+    .main__section {
+      > .main__subtitle {
+        padding-bottom: 12px;
+
+        font-size: 25px; }
+    }
+
+

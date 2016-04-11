@@ -16,12 +16,12 @@
       return function (e) {
         var thrownDescription;
         var newMessage;
-        if (e.data && e.data.description) {
-          thrownDescription = '\n' + e.data.description;
+        if (e.code && e.message) {
+          thrownDescription = '\n' + e.message;
           newMessage = message + thrownDescription;
         }
 
-        e.data.description = newMessage;
+        e.message = newMessage;
         logger.error(newMessage);
         return $q.reject(e);
       };

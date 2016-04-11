@@ -21,6 +21,14 @@ describe('ProjectsController', function () {
       it('should have title of Projects', function () {
         expect(controller.title).to.be.equal('Projects');
       });
+
+      it('should have projects', function () {
+        expect(controller.projects).to.exist;
+      });
+
+      it('should have projectObservations', function () {
+        expect(controller.projectObservations).to.exist;
+      });
     });
   });
 

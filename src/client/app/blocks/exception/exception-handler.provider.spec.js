@@ -26,7 +26,7 @@ describe('blocks.exception', function () {
       expect(exceptionHandlerProvider).to.be.defined;
     }));
 
-    it('should have configuration', inject(function () {
+    it('should have config', inject(function () {
       expect(exceptionHandlerProvider.config).to.be.defined;
     }));
 

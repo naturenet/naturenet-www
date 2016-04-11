@@ -1,0 +1,40 @@
+<form class="auth__form auth__form--register"
+  ng-submit="vm.join(vm.email, vm.password)">
+
+  <div class="auth__text">
+    You are invited to participate in NatureNet, a research project conducted by
+    the researchers listed at http://research.nature-net.org/people.html. In
+    order for us to collect and study the way people are using technology like
+    NatureNet, we must have your consent.
+  </div>
+
+  <!-- TODO: determine approach for consent. this is placeholder text. -->
+  <div style="margin-bottom: 30px; line-height: 1.4;">
+    By joining, you agree to our Terms and that you have read our Privacy
+    Policy and Content Policy.
+  </div>
+
+  <input class="auth__field"
+    placeholder="Username"
+    type="text"
+    ng-model="vm.name">
+  </input>
+
+  <input class="auth__field"
+    placeholder="password"
+    type="password"
+    ng-model="vm.password">
+  </input>
+
+  <input class="auth__field"
+    placeholder="email"
+    type="text"
+    ng-model="vm.email">
+  </input>
+
+  <input class="button button--auth"
+    value="join"
+    type="submit">
+  </input>
+
+</form>

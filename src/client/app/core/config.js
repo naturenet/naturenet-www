@@ -15,6 +15,15 @@
   var config = {
     appErrorPrefix: '[NN Error] ',
     appTitle: 'NatureNet',
+
+    mapOptions: {
+      zoom: 5,
+      minZoom: 3,
+      zoomControl: true,
+      scaleControl: false,
+      streetViewControl: false,
+      keyboardShortcuts: false,
+    },
   };
 
   core.value('config', config);

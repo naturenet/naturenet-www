@@ -15,6 +15,7 @@
       resolveAlways: {},
     };
 
+    // TODO: change to false?
     $locationProvider.html5Mode(true);
 
     this.configure = function (cfg) {

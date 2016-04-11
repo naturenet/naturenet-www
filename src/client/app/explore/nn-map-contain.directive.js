@@ -26,8 +26,6 @@
         map = scope.map;
         google.maps.event
           .addListener(map, 'bounds_changed', limitMapBounds);
-
-        // TODO: .removeListener when changing views
       }
 
       function limitMapBounds() {
@@ -56,7 +54,8 @@
         } else if (!isLatContained) {
           return containLat();
         } else if (!isLngContained) {
-          return containLng();
+          // commenting out for now since this breaks panTo() functionality.
+          return; //containLng();
         }
 
         function containLat() {

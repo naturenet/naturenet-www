@@ -8,8 +8,8 @@
   nnDropdown.$inject = ['$rootScope', 'logger'];
   /* @ngInject */
   function nnDropdown($rootScope, logger) {
-    //Usage:
-    // <div nn-dropdown class="dropdown"></div>
+    // Usage:
+    //   <div nn-dropdown class="dropdown"></div>
     // Creates:
     //
     var directive = {
@@ -51,7 +51,10 @@
       }
 
       function isCurrent(item) {
-        return item[scope.property] === scope.selectedOption[scope.property] ? 'is-current' : '';
+        if (!scope.isPlaceholder) {
+          return item[scope.property] === scope.selectedOption[scope.property] ? 'is-current' : '';
+
+        }
       }
 
       function toggleOptions() {

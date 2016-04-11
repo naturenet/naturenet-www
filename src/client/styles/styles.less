@@ -9,6 +9,7 @@
    pixels                   Variables for default dimensions
 
    TOOLS
+   mixins
    myutils                  Set of utilities used for general layout
 
    GENERAL
@@ -18,17 +19,21 @@
    LAYOUT
    shell
    header
+   auth
+   main
    map
    explore
    home
 
    OBJECTS
    comment
+   badge
+   button
    dropdown
-   observations
-   people
+   list item
+   masthead
    sidebar
-   user details
+   totals
 
    ========================================================================== */
 
@@ -40,8 +45,8 @@
    #SETTINGS
    ========================================================================== */
 
-  @import 'settings-colors';
-  @import 'settings-pixels';
+  @import '_settings.colors.less';
+  @import '_settings.pixels.less';
 
 
 
@@ -51,7 +56,8 @@
    #TOOLS
    ========================================================================== */
 
-  @import 'tools-myutils';
+  @import '_tools.mixins.less';
+  @import '_tools.myutils.less';
 
 
 
@@ -72,10 +78,12 @@
    #LAYOUT
    ========================================================================== */
 
-  @import 'layout-shell';
-  @import 'layout-header';
-  @import 'layout-map';
-  @import 'layout-home';
+  @import '_layout.shell.less';
+  @import '_layout.header.less';
+  @import '_layout.auth.less';
+  @import '_layout.main.less';
+  @import '_layout.map.less';
+  @import '_layout.home.less';
 
 
 
@@ -85,10 +93,12 @@
    #OBJECTS
    ========================================================================== */
 
-  @import 'objects-comment';
-  @import 'objects-dropdown';
-  @import 'objects-observations';
-  @import 'objects-people';
-  @import 'objects-sidebar';
-  @import 'objects-user-details';
+  @import '_objects.comment.less';
+  @import '_objects.badge.less';
+  @import '_objects.button.less';
+  @import '_objects.dropdown.less';
+  @import '_objects.list-item.less';
+  @import '_objects.masthead.less';
+  @import '_objects.sidebar.less';
+  @import '_objects.totals.less';
 

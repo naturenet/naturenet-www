@@ -1,0 +1,133 @@
+/* Dropdown
+   ========================================================================== */
+
+    .dropdown {
+      position: relative;
+
+      display: block;
+      width: 100%;
+
+      color: @light-green;
+
+      background-color: #354A5F;
+
+      cursor: pointer;
+
+      > div {
+        padding-left: 80px; }
+
+      > .dropdown__display {
+        width: 100%;
+        height: 45px;
+
+        line-height: 45px;
+        font-size: 25px;
+
+        background-position: 15px 0;
+        background-repeat: no-repeat;
+        background-size: contain; }
+
+      > .dropdown__options {
+        overflow: hidden;
+        height: 0;
+        width: 100%;
+        padding-top: 20px;
+        
+        color: white;
+        
+        /* transition: height 0.5s ease; */ }
+    }
+    
+    .dropdown__display {
+      > .dropdown__action {
+        position: relative;
+        float: right;
+
+        display: block;
+        width: 45px;
+        height: 45px; }
+        
+      > .dropdown__action:before {
+          content: '';
+          
+          display: block;
+          width: 100%;
+          height: 100%;
+
+          background-image: url('/images/arrow.png');
+          background-position: 50%;
+          background-repeat: no-repeat;
+          background-size: 28px;
+          
+          /* transition: transform 0.5s ease; */
+          
+          /* -webkit-transform: rotate(90deg);
+             -moz-transform: rotate(90deg);
+              -ms-transform: rotate(90deg);
+               -o-transform: rotate(90deg);
+                  transform: rotate(90deg); */ }
+    }
+    
+    // height animation does not work with 100%
+    .dropdown__options {
+      > .dropdown__option {
+        display: block;
+        padding-top: 15px; }
+    }
+    
+    .dropdown--show-list {
+      > .dropdown__options {
+        height: 100%; }
+
+      .dropdown__action:before {
+        -webkit-transform: rotate(90deg);
+           -moz-transform: rotate(90deg);
+            -ms-transform: rotate(90deg);
+             -o-transform: rotate(90deg);
+                transform: rotate(90deg); }
+    }
+
+  /**
+    * Display backgrounds
+    */
+
+    .dropdown--explore {
+      > .dropdown__display {
+        background-image: url('/images/sidebar-observations.png'); }
+
+      > .dropdown__options {
+        padding-left: 0; }
+    }
+
+    .dropdown--projects {
+      > .dropdown__display {
+        background-image: url('/images/sidebar-projects.png'); }
+    }
+
+    .dropdown--ideas {
+      > .dropdown__display {
+        background-image: url('/images/sidebar-ideas.png'); }
+
+      > .dropdown__options {
+        padding-left: 0; }
+    }
+
+    .dropdown--challenges {
+      > .dropdown__display {
+        background-image: url('/images/sidebar-challenges.png'); }
+
+      > .dropdown__options {
+        padding-left: 0; }
+    }
+
+    .dropdown--people {
+      > .dropdown__display {
+        background-image: url('/images/sidebar-people.png'); }
+    }
+
+    .dropdown--groups {
+      > .dropdown__display {
+        background-image: url('/images/sidebar-groups.png'); }
+    }
+
+

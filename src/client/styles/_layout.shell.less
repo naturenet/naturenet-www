@@ -1,0 +1,116 @@
+/* Shell Layout
+
+   SPA layout with a fixed top aligned header/nav, a footer, and an overlay.
+ 
+   This creates a body of full height and width with a fixed header at the
+     top of the page, and a fixed footer at the bottom of the page. It also
+     contains an overlay to be used for notifications/forms.
+  
+   Example HTML:
+  
+   <div class="outer">
+     <header class="page-head"></header>
+     <main class="page-main"></main>
+     <footer class="page-foot"></footer>
+     <div class="page-map"></div>
+   </div>
+   <div class="overlay"></div>
+   ========================================================================== */
+
+  /**
+    * Outer container
+    */
+
+    .outer {
+      position: relative;
+
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+      
+      color: @dark-blue;
+      font-family: sans-serif;
+      font-size: 14px; }
+
+  /**
+    * Outer container
+    */
+
+    .overlay {
+      z-index: 999;
+      position: absolute;
+      top: 0;
+
+      width: 100%;
+      height: 100%;
+      
+      background: rgba(53,74,95,0.9);
+      
+      &.overlay--splash {
+        background-image: url("/images/logo-white.png");
+        background-position: 50%;
+        background-repeat: no-repeat;
+        background-size: 40%; }
+    }
+
+  /**
+    * Page header
+    */
+
+    .page-head {
+      position: fixed;
+      top: 0;
+      left: 0;
+
+      overflow: hidden;
+      width: 100%;
+      height: @page-head-height;
+      
+      background-color: @dark-blue; }
+
+  /**
+    * Page content
+    */
+
+    .page-main {
+      position: fixed;
+      top: @page-head-height;
+      bottom: @page-foot-height;
+
+      width: 100%; }
+
+  /**
+    * Page footer
+    */
+
+    .page-foot {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+
+      width: 100%;
+      height: @page-foot-height; }
+
+  /**
+    * Page map
+    */
+
+    .page-map {
+      z-index: 111;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+
+      width: 100%;
+      height: calc(~'100% -'@page-head-height); }
+
+    .page-map {
+      z-index: 888;
+      top: 100%;
+
+      transition: top ease .5s; }
+
+    .page-map.has-map {
+      top: @page-head-height; }
+   
+   

@@ -48,6 +48,10 @@
 
 
 
-<div class="page-over">
-  <!-- TODO: Determine whether an overlay is inline with UNCC's design -->
+<div class="page-over overlay"
+  ng-hide="!vm.isAuth"
+  ng-click="vm.broadcastHideAuth()">
+  <div ng-include="'app/auth/auth.html'"
+    ng-controller="AuthController as vm">
+  </div>
 </div>

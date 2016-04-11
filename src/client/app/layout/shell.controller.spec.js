@@ -8,6 +8,7 @@ describe('ShellController', function () {
   });
 
   beforeEach(function () {
+    sinon.spy($rootScope, '$broadcast');
     controller = $controller('ShellController');
     $rootScope.$apply();
   });
@@ -23,13 +24,20 @@ describe('ShellController', function () {
       expect($rootScope.showSplash).to.be.true;
     });
 
-    it('should hide splash screen after timeout', function (done) {
-      $timeout(function () {
-        expect($rootScope.showSplash).to.be.false;
-        done();
-      }, 1000);
+    it('should start with authentication form hidden', function () {
+      expect(controller.isAuth).to.be.false;
+    });
 
-      $timeout.flush();
+    describe('Auth functions', function () {
+      it('should hide authentication form', function () {
+        controller.hideAuth();
+        expect(controller.isAuth).to.be.false;
+      });
+
+      it('should broadcast to hide authentication form', function () {
+        controller.broadcastHideAuth();
+        expect($rootScope.$broadcast.calledWith('auth:hide')).to.be.true;
+      });
     });
   });
 });

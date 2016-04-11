@@ -54,6 +54,8 @@
     <script src="/bower_components/toastr/toastr.js"></script>
     <script src="/bower_components/angular-animate/angular-animate.js"></script>
     <script src="/bower_components/ngmap/build/scripts/ng-map.js"></script>
+    <script src="/bower_components/firebase/firebase.js"></script>
+    <script src="/bower_components/angularfire/dist/angularfire.js"></script>
     <script src="/bower_components/angular-mocks/angular-mocks.js"></script>
     <script src="/bower_components/sinon/index.js"></script>
     <script src="/bower_components/bardjs/dist/bard.js"></script>
@@ -62,6 +64,7 @@
 
     <!-- inject:js -->
     <script src="/src/client/app/app.module.js"></script>
+    <script src="/src/client/app/auth/auth.module.js"></script>
     <script src="/src/client/app/blocks/exception/exception.module.js"></script>
     <script src="/src/client/app/blocks/logger/logger.module.js"></script>
     <script src="/src/client/app/blocks/router/router.module.js"></script>
@@ -73,6 +76,7 @@
     <script src="/src/client/app/layout/layout.module.js"></script>
     <script src="/src/client/app/projects/projects.module.js"></script>
     <script src="/src/client/app/widgets/widgets.module.js"></script>
+    <script src="/src/client/app/auth/auth.controller.js"></script>
     <script src="/src/client/app/blocks/exception/exception-handler.provider.js"></script>
     <script src="/src/client/app/blocks/exception/exception.js"></script>
     <script src="/src/client/app/blocks/logger/logger.js"></script>
@@ -83,6 +87,7 @@
     <script src="/src/client/app/core/constants.js"></script>
     <script src="/src/client/app/core/core.route.js"></script>
     <script src="/src/client/app/core/dataservice.js"></script>
+    <script src="/src/client/app/core/utility.js"></script>
     <script src="/src/client/app/explore/explore.controller.js"></script>
     <script src="/src/client/app/explore/explore.route.js"></script>
     <script src="/src/client/app/explore/nn-map-contain.directive.js"></script>
@@ -94,9 +99,12 @@
     <script src="/src/client/app/layout/shell.controller.js"></script>
     <script src="/src/client/app/projects/projects.controller.js"></script>
     <script src="/src/client/app/projects/projects.route.js"></script>
+    <script src="/src/client/app/widgets/nn-badge.directive.js"></script>
     <script src="/src/client/app/widgets/nn-comment.directive.js"></script>
     <script src="/src/client/app/widgets/nn-dropdown.directive.js"></script>
-    <script src="/src/client/app/widgets/nn-user-details.directive.js"></script>
+    <script src="/src/client/app/widgets/nn-image.directive.js"></script>
+    <script src="/src/client/app/widgets/nn-observations-list.directive.js"></script>
+    <script src="/src/client/app/widgets/nn-social-totals.directive.js"></script>
     <!-- endinject -->
 
     <!-- inject:spechelpers:js -->
@@ -105,6 +113,7 @@
     <!-- endinject -->
 
     <!-- inject:specs:js -->
+    <script src="/src/client/app/auth/auth.controller.spec.js"></script>
     <script src="/src/client/app/blocks/exception/exception-handler.provider.spec.js"></script>
     <script src="/src/client/app/communities/communities.controller.spec.js"></script>
     <script src="/src/client/app/communities/community.route.spec.js"></script>

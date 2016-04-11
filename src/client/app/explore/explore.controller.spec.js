@@ -26,7 +26,6 @@ describe('ExploreController', function () {
       });
 
       it('should have a map', function () {
-        // TODO: look into why this passes.
         expect(controller.map).to.be.defined;
       });
 

@@ -21,6 +21,18 @@ describe('IdeasController', function () {
       it('should have title of Design Ideas', function () {
         expect(controller.title).to.be.equal('Design Ideas');
       });
+
+      it('should have content', function () {
+        expect(controller.content).to.exist;
+      });
+
+      it('should have ideas', function () {
+        expect(controller.ideas).to.exist;
+      });
+
+      it('should have challenges', function () {
+        expect(controller.challenges).to.exist;
+      });
     });
   });
 

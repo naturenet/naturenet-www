@@ -1,0 +1,139 @@
+/* Home Layout
+
+   Example HTML:
+
+   <section class="home">
+     <div class="home-content"></div>
+     <div class="home-items"></div>
+   </div>
+   ========================================================================== */
+
+  /**
+    * Home container
+    */
+
+    .home {
+      position: relative;
+
+      width: 100%;
+      height: 100%;
+      overflow: auto; }
+
+  /**
+    * Content
+    */
+
+    .home-content {
+      overflow: auto;
+      width: calc(~'100% -'446px);
+      height: 100%; }
+
+    .content {
+      width: 95%;
+      padding: 25px 0;
+      margin: 0 auto; }
+    
+    .content--what {
+      > .content__image {
+        background-image: url('/images/what.png'); }
+    }
+    
+    .content--why {
+      > .content__image {
+        background-image: url('/images/why.png'); }
+    }
+    
+    .content__image {
+      display: inline-block;
+      vertical-align: middle;
+      width: 33%;
+      height: 175px;
+      
+      background-position: 50%;
+      background-repeat: no-repeat;
+      background-size: contain; }
+      
+    .content__text {
+      display: inline-block;
+      vertical-align: middle;
+      width: 66%;
+      padding-left: 50px;
+      
+      > .content__title {
+        margin-bottom: 10px;
+
+        font-family: 'Segoe UI Light';
+        font-size: 47px; }
+
+      > .content__subtitle {
+        margin-bottom: 24px;
+
+        font-family: 'Segoe UI Light';
+        font-size: 25px; }
+        
+      > .content__description {
+        line-height: 1.4; }
+    }
+
+
+  /**
+    * Items
+    */
+
+    .home-items {
+      position: absolute;
+      top: 0;
+      right: 0;
+
+      overflow: auto;
+      width: 446px;
+      height: calc(~'100% -'66px);
+      margin: 33px 0;
+
+      border-left: 1px solid #e7e7e7;
+
+      > .items {
+        margin: 20px;
+        margin-top: 0;
+        padding-bottom: 28px; }
+
+      > .items:first-child {
+        border-bottom: 1px solid #e7e7e7; }
+    }
+
+    .items {
+      > .items__group {
+        padding: 12px 0;
+
+        font-size: 25px; }
+
+      > .item {
+        position: relative;
+
+        padding: 5px 0;
+        height: 55px;
+
+        cursor: pointer; }
+
+      > .items__action {
+        padding: 12px 0 0 30px;
+
+        font-size: 18px; }
+    }
+
+    .items__action {
+        > a {
+          color: @dark-blue;
+          text-decoration: none;
+
+          cursor: pointer; }
+    }
+
+    .item {
+      > .item__user {
+        padding-left: 30px; }
+
+      > .item__totals {
+        position: absolute;
+        right: 0; }
+    }

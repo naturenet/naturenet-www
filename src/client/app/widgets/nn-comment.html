@@ -1,3 +1,8 @@
 <!-- <nn-comment class="comment"> -->
-<nn-user-details class="user-details comment__user" name="{{name}}" date="{{date}}" avatar-url="{{avatarUrl}}"></nn-user-details>
+<nn-badge
+  class="badge comment__user"
+  title="{{name}}" subtitle="{{formatDate(date)}}"
+  avatar-url="{{avatarUrl}}">
+</nn-badge>
+
 <div class="comment__text">{{comment}}</div>

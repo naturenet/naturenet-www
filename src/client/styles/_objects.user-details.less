@@ -1,0 +1,44 @@
+/* Badge
+
+   Example HTML:
+
+   <div class="badge">
+     <div class="badge__avatar"
+       style="background-image: url('')">
+      </div>
+     <div class="badge__text">
+       <p class="badge__title">John Demo</p>
+       <p class="badge__subtitle">Jan 28 2016</p>
+     </div>
+   </div>
+   ========================================================================== */
+
+    .badge {
+      > div {
+        display: inline-block;
+        vertical-align: middle; }
+
+      > .badge__text {
+        margin-left: 10px; }
+
+      > .badge__avatar {
+        width: 45px;
+        height: 45px;
+
+        background-position: 50%;
+        background-repeat: no-repeat;
+        background-size: cover;
+        border-radius: 50%; }
+    }
+    
+    .badge__text {
+      > .badge__title {
+        margin-bottom: 6px;
+
+        color: @light-green;
+        font-size: 20px; }
+
+      > .badge__subtitle {
+        color: #7F7F7F }
+    }
+

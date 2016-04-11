@@ -29,5 +29,15 @@ xdescribe('HeaderController', function () {
       $location.path('/invalid');
       expect(controller.isCurrent({ title: 'invalid' })).not.to.equal('is-current');
     });
+
+    describe('states', function () {
+      it('starts with map inactive', function () {
+        expect(controller.isMapActive).to.be.false;
+      });
+
+      it('starts unauthenticated', function () {
+        expect(controller.isAuthenticated).to.be.false;
+      });
+    });
   });
 });

@@ -1,7 +1,8 @@
 /* jshint -W117, -W030 */
 describe('HomeController', function () {
   var controller;
-  var people = mockData.getMockPeople();
+
+  //var people = mockData.getMockPeople();
 
   beforeEach(function () {
     bard.appModule('app.home');
@@ -9,7 +10,9 @@ describe('HomeController', function () {
   });
 
   beforeEach(function () {
-    sinon.stub(dataservice, 'getPeople').returns($q.when(people));
+
+    //sinon.stub(dataservice, 'getPeople').returns($q.when(people));
+    sinon.spy($rootScope, '$broadcast');
     controller = $controller('HomeController');
     $rootScope.$apply();
   });
@@ -21,27 +24,30 @@ describe('HomeController', function () {
       expect(controller).to.be.defined;
     });
 
+    it('should show splash screen', function () {
+      expect($rootScope.showSplash).to.be.true;
+    });
+
     describe('after activate', function () {
       it('should have title of Home', function () {
         expect(controller.title).to.equal('Home');
       });
 
-      it('should have logged "Activated"', function () {
-        expect($log.info.logs).to.match(/Activated/);
+      it('should have observations', function () {
+        expect(controller.observations).to.exist;
       });
 
-      it('should have news', function () {
-        expect(controller.news).to.not.be.empty;
+      it('should have ideas', function () {
+        expect(controller.ideas).to.exist;
       });
 
-      it('should have at least 1 person', function () {
-        expect(controller.people).to.have.length.above(0);
-      });
+    });
 
-      it('should have people count of 5', function () {
-        expect(controller.people).to.have.length(7);
+    describe('map functions', function () {
+      it('should broadcast to show map', function () {
+        controller.showObservation();
+        expect($rootScope.$broadcast.calledWith('map:show')).to.be.true;
       });
-
     });
 
   });

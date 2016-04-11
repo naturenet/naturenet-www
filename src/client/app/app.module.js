@@ -6,6 +6,7 @@
       'app.core',
       'app.widgets',
       'app.layout',
+      'app.auth',
       'app.home',
       'app.explore',
       'app.communities',

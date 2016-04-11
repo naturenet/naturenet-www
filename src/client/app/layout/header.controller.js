@@ -8,17 +8,40 @@
   /* Header controller
      ======================================================================== */
 
-  HeaderController.$inject = ['$rootScope', '$state', 'routerHelper', 'logger'];
+  HeaderController.$inject = [
+    '$rootScope',
+    '$state',
+    'routerHelper',
+    'logger',
+    'dataservice',
+  ];
+
   /* @ngInject */
-  function HeaderController($rootScope, $state, routerHelper, logger) {
+  function HeaderController(
+    $rootScope,
+    $state,
+    routerHelper,
+    logger,
+    dataservice
+  ) {
     var vm = this;
     var states = routerHelper.getStates();
 
-    vm.getClasses = getClasses;
+    /* Variables
+       ================================================== */
 
+    // Data
+    vm.userUid = void 0;
+
+    // States
     vm.isMapActive = false;
+    vm.isAuthenticated = false;
+
+    // Function assignments
+    vm.getClasses = getClasses;
     vm.toggleMap = toggleMap;
-    vm.hideMap = hideMap;
+    vm.showRegister = showRegister;
+    vm.showSignin = showSignin;
 
     activate();
 
@@ -27,6 +50,18 @@
 
     function activate() {
       getNavRoutes();
+    }
+
+    /* Data functions
+       ================================================== */
+
+    function onAuth() {
+      return dataservice.onAuth()
+        .then(function (data) {
+          vm.isAuthenticated = true;
+          vm.userUid = data.uid;
+          return vm.userUid;
+        });
     }
 
     /* Route function
@@ -57,20 +92,50 @@
       }
 
       var menuName = route.title;
-      return $state.current.title.substr(0, menuName.length) === menuName ? 'is-current' : '';
+      return $state.current.title.substr(0, menuName.length) === menuName
+        ? 'is-current'
+        : '';
     }
 
     /* Map function
        ================================================== */
 
-    function toggleMap() {
-      $rootScope.$broadcast('map:toggle');
-      vm.isMapActive = !vm.isMapActive;
+    function toggleMap(isActive) {
+      if (typeof (isActive) === 'boolean' && isActive) {
+        $rootScope.$broadcast('map:show');
+        vm.isMapActive = isActive;
+      } else if (typeof (isActive) === 'boolean' && !isActive) {
+        $rootScope.$broadcast('map:hide');
+        vm.isMapActive = isActive;
+      } else if (typeof (isActive) !== 'boolean') {
+        $rootScope.$broadcast('map:toggle');
+        vm.isMapActive = !vm.isMapActive;
+      }
     }
 
-    function hideMap() {
-      $rootScope.$broadcast('map:hide');
-      vm.isMapActive = false;
+    /* Click function
+       ================================================== */
+
+    function showRegister() {
+      $rootScope.$broadcast('register:show');
+    }
+
+    function showSignin() {
+      $rootScope.$broadcast('signin:show');
+    }
+
+    /* Listener Functions
+       ================================================== */
+
+    $rootScope.$on('auth:success', showUserInfo);
+    $rootScope.$on('map:show', showMap);
+
+    function showUserInfo() {
+      onAuth();
+    }
+
+    function showMap() {
+      vm.isMapActive = true;
     }
   }
 })();

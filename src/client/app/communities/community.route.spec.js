@@ -1,5 +1,5 @@
 /* jshint -W117, -W030 */
-describe('communities routes', function () {
+describe('Communities routes', function () {
   describe('state', function () {
     var view = 'app/communities/communities.html';
 

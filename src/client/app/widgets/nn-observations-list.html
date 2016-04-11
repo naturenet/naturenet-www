@@ -1,0 +1,27 @@
+<!-- <nn-observations-list>" -->
+
+<div class="main__observations">
+  <div class="list-item list-item--square"
+    ng-if="observations.length > 0"
+    ng-repeat="o in observations | limitTo: limit"
+    ng-click="showObservation(o)">
+    <nn-image class="list-item__image" image-url="{{o.data.image}}">
+    </nn-image>
+    <div class="list-item__detail">
+      <nn-badge class="badge item__user"
+        title="{{$root.users[o.observer].display_name}}"
+        subtitle="{{formatDate(o.updated_at)}}"
+        avatar-url="{{$root.users[o.observer].avatar}}">
+      </nn-badge>
+    </div>
+  </div>
+  <div ng-if="observations.length === 0">No contributions.</div>
+</div>
+
+
+
+
+
+<div class="" ng-if="observations.length > limit">
+  <a href="#" ng-click="incrementLimit()">See More</a>
+</div>

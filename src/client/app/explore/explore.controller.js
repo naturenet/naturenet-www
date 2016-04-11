@@ -9,49 +9,51 @@
   /* Explore controller
      ======================================================================== */
 
-  ExploreController.$inject = ['$rootScope', '$scope', '$q', 'dataservice', 'logger', 'NgMap'];
+  ExploreController.$inject = [
+    '$q',
+    '$rootScope',
+    '$scope',
+    '$timeout',
+    'logger',
+    'config',
+    'utility',
+    'dataservice',
+    'NgMap',
+  ];
+
   /* @ngInject */
-  function ExploreController($rootScope, $scope, $q, dataservice, logger, NgMap) {
+  function ExploreController(
+    $q,
+    $rootScope,
+    $scope,
+    $timeout,
+    logger,
+    config,
+    utility,
+    dataservice,
+    NgMap
+  ) {
     var vm = this;
     vm.title = 'Explore';
 
-    vm.options = [{
-        name: 'Recent',
-      }, {
-        name: 'Featured',
-      },
-    ];
-    vm.option = vm.options[0];
+    /* Variables
+       ================================================== */
 
+    // Data
+    vm.map = void 0;
+    vm.observations = void 0;
+    vm.currentObservation = void 0;
+
+    // States
     $scope.$parent.hasMap = false;
-    vm.toggleMap = toggleMap;
     vm.hasSidebar = false;
+    vm.isObservationsListVisible = true;
+
+    // Function assignments
+    vm.toggleMap = toggleMap;
     vm.showSidebar = showSidebar;
     vm.hideSidebar = hideSidebar;
-
-    vm.map = void 0;
-
-    // TODO: move to core/config.js
-    vm.mapOptions = {
-      zoom: 15, // 15
-      minZoom: 3,
-
-      //disableDefaultUI: true,
-      //mapTypeId: google.maps.MapTypeId.HYBRID,
-      //mapTypeControlOptions: {
-      //    style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
-      //    position: google.maps.ControlPosition.RIGHT_BOTTOM,
-      //},
-      zoomControl: true,
-
-      //zoomControlOptions: {
-      //    position: google.maps.ControlPosition.LEFT_BOTTOM,
-      //},
-      scaleControl: false,
-      streetViewControl: false,
-
-      keyboardShortcuts: false,
-    };
+    vm.formatDate = utility.formatDate;
 
     activate();
 
@@ -59,7 +61,9 @@
        ================================================== */
 
     function activate() {
-      var promises = [];
+      utility.showSplash();
+
+      var promises = [getObservations()];
       return NgMap.getMap()
         .then(function (map) {
           logger.info('Google Maps Ready');
@@ -68,16 +72,41 @@
 
           $q.all(promises)
             .then(function () {
+              utility.hideSplash();
               logger.info('Activated Map View');
             });
         });
+    }
+
+    /* Data functions
+       ================================================== */
+
+    function getObservations() {
+      return dataservice.getArray('observations')
+        .then(function (data) {
+          vm.observations = data;
+          return vm.observations;
+        });
+    }
+
+    /* Listener Functions
+       ================================================== */
+
+    $scope.$watch('vm.currentObservation', currentObservationUpdated);
+
+    function currentObservationUpdated() {
+      showSidebar(vm.currentObservation);
+      updateMap(vm.currentObservation);
     }
 
     /* Map functions
        ================================================== */
 
     function initializeMap() {
-      vm.map.setOptions(vm.mapOptions);
+      config.mapOptions.center = new google.maps.LatLng(39.833333, -98.583333);
+      config.mapOptions.mapTypeId = google.maps.MapTypeId.HYBRID;
+
+      vm.map.setOptions(config.mapOptions);
 
       $scope.$broadcast('map:init');
 
@@ -86,11 +115,31 @@
       $rootScope.$on('map:hide', hideMap);
     }
 
+    function resetMap() {
+      vm.map.setOptions(config.mapOptions);
+    }
+
+    function updateMap(o) {
+      if (!o) { return; }
+
+      var newCenter = new google.maps
+        .LatLng({ lat: o.l[0], lng: o.l[1], });
+      var currentZoom = vm.map.getZoom();
+
+      vm.map.panTo(newCenter);
+
+      if (currentZoom < 18) {
+        vm.map.setZoom(18);
+      }
+    }
+
     function toggleMap() {
       $scope.$parent.hasMap = !$scope.$parent.hasMap;
     }
 
-    function showMap() {
+    function showMap(event, o) {
+      if (!!o) { vm.currentObservation = o; }
+
       $scope.$parent.hasMap = true;
     }
 
@@ -101,22 +150,14 @@
     /* Sidebar functions
        ================================================== */
 
-    function showSidebar() {
+    function showSidebar(o) {
+      vm.currentObservation = o;
       vm.hasSidebar = true;
-
-      // $timeout(function () {
-      //   google.maps.event.trigger(vm.map, 'resize');
-      // }, 500);
     }
 
     function hideSidebar() {
       vm.hasSidebar = false;
-
-      // $timeout(function () {
-      //   google.maps.event.trigger(vm.map, 'resize');
-      // }, 100);
     }
 
   }
-
 })();

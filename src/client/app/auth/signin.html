@@ -1,0 +1,26 @@
+<form class="auth__form auth__form--signin" 
+  ng-submit="vm.login(vm.email, vm.password)">
+
+  <!-- TODO: placeholder logo until correct is available
+    check _layout.auth.less -->
+
+  <div class="auth__logo"></div>
+
+  <input class="auth__field"
+    placeholder="email"
+    type="text"
+    ng-model="vm.email">
+  </input>
+
+  <input class="auth__field"
+    placeholder="password"
+    type="password"
+    ng-model="vm.password">
+  </input>
+
+  <input class="button button--auth"
+    value="sign in"
+    type="submit">
+  </input>
+
+</form>

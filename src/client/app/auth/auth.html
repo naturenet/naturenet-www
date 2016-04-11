@@ -1,0 +1,26 @@
+<div class="auth -center" 
+  ng-click="$event.stopPropagation()">
+
+  <div class="auth__header">
+    <div class="auth__avatar -centerh"></div>
+    <div class="auth__close" 
+      ng-click="vm.close()">
+    </div>
+  </div>
+
+
+
+
+
+  <!-- I would rather bind a value to ng-include
+    but that causes an app breaking bug -->
+
+  <div ng-if="vm.isRegister && !vm.isSignin"
+    ng-include="'app/auth/register.html'">
+  </div>
+
+  <div ng-if="!vm.isRegister && vm.isSignin"
+    ng-include="'app/auth/signin.html'">
+  </div>
+
+</div>

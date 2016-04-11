@@ -1,0 +1,40 @@
+﻿<a class="head-logo" href="/" ng-click="vm.toggleMap(false)">
+</a>
+
+
+
+
+
+<div class="head-menu">
+  <div class="head-menu__list">
+    <a class="head-menu__item item-explore"
+      ng-click="vm.toggleMap()"
+      ng-class="{'is-current': !!vm.isMapActive}"  href="#">Explore</a>
+    <a class="head-menu__item"
+      ng-repeat="r in vm.navRoutes"
+      ng-class="vm.getClasses(r)"
+      ng-bind-html="r.settings.content"
+      ng-click="vm.toggleMap(false)"
+      ui-sref="{{r.name}}">
+    </a>
+  </div>
+  <div class="head-menu__foot" style="display: none">
+    <!-- TODO: add reference to footer template here for mobile -->
+  </div>
+</div>
+
+
+
+
+
+<div class="head-user">
+  <div ng-hide="vm.isAuthenticated">
+    <a class="button head-user__item button--join" href="#" ng-click="vm.showRegister()">Join</a>
+    <a class="button head-user__item button--signin" href="#" ng-click="vm.showSignin()">Sign In</a>
+  </div>
+  <div ng-show="vm.isAuthenticated">
+    <nn-badge class="badge head-user__item badge--header"
+      title="{{$root.users[vm.userUid].display_name}}">
+    </nn-badge>
+  </div>
+</div>

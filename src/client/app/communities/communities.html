@@ -1,0 +1,112 @@
+<!-- CommunitiesController as vm -->
+
+<div class="sidebar sidebar--communities">
+
+  <header class="sidebar__header sidebar__header--people">
+    <div class="dropdown dropdown--people" ng-class="{ 'dropdown--show-list': !!vm.isPeopleListVisible }">
+
+      <div class="dropdown__display"
+        ng-click="vm.isPeopleListVisible = !vm.isPeopleListVisible">
+        <span>People</span>
+        <div class="dropdown__action"></div>
+      </div>
+
+      <div class="dropdown__options">
+
+        <div class="dropdown__option"
+          ng-repeat="u in vm.users | limitTo: vm.peopleDisplayLimit"
+          ng-click="vm.updateUserId(u.id)">
+          <nn-badge class="badge"
+            title="{{u.display_name}}"
+            subtitle=""
+            avatar-url="{{u.avatar}}">
+          </nn-badge>
+        </div>
+
+        <div class="sidebar__see-more" ng-if="vm.users.length > vm.peopleDisplayLimit">
+          <a href="#" ng-click="vm.peopleDisplayLimit = vm.peopleDisplayLimit + vm.sidebarDisplayLimit">See More</a>
+        </div>
+
+      </div>
+
+    </div>
+  </header>
+
+
+
+  <header class="sidebar__header sidebar__header--groups">
+    <div class="dropdown dropdown--groups" ng-class="{ 'dropdown--show-list': !!vm.isGroupsListVisible }">
+
+      <div class="dropdown__display"
+        ng-click="vm.isGroupsListVisible = !vm.isGroupsListVisible">
+        <span>Groups</span>
+        <div class="dropdown__action"></div>
+      </div>
+
+      <div class="dropdown__options">
+
+        <!-- TODO: add ng-click to above markup for displaying groups -->
+        <div class="dropdown__option"
+          ng-repeat="g in vm.groups | limitTo: vm.groupsDisplayLimit">
+          <nn-badge class="badge"
+            title="{{g.name}}"
+            subtitle=""
+            avatar-url="{{g.avatar}}">
+          </nn-badge>
+        </div>
+
+        <div class="sidebar__see-more" ng-if="vm.groups.length > vm.groupsDisplayLimit">
+          <a href="#" ng-click="vm.groupsDisplayLimit = vm.groupsDisplayLimit + vm.sidebarDisplayLimit">See More</a>
+        </div>
+
+      </div>
+
+    </div>
+  </header>
+
+</div>
+
+
+
+
+
+<div class="main main--with-sidebar main--communities">
+
+  <section class="main__section masthead">
+    <header class="masthead__header">
+      <div class="masthead__avatar"
+        style="background-image: url('{{$root.users[vm.userId].avatar}}')">
+      </div>
+      <div class="masthead__title">{{$root.users[vm.userId].display_name}}</div>
+    </header>
+    <div class="masthead__text">{{$root.users[vm.userId].bio}}</div>
+  </section>
+
+
+
+  <section class="main__section recent-contributions">
+    <div class="main__subtitle">Recent Contributions</div>
+    <nn-observations-list observations="vm.userObservations" limit="{{vm.mainDisplayLimit}}">
+  </section>
+
+
+
+  <section class="main__section main__section--groups">
+    <div class="main__subtitle">Groups</div>
+    <div class="main__groups">
+      <nn-badge class="badge badge--large"
+        ng-if="vm.userGroups.length > 0"
+        ng-repeat="g in vm.userGroups | limitTo: vm.groupsDisplayLimit"
+        title="{{g.name}}"
+        avatar-url="{{g.avatar}}">
+        <!-- TODO: once roles are sorted out add subtitle="{{g.role}}" -->
+      </nn-badge>
+      <div ng-if="vm.userGroups.length === 0">No groups.</ndiv>
+    </div>
+
+    <div class="" ng-if="vm.userGroups.length > vm.groupsDisplayLimit">
+      <a href="#" ng-click="vm.groupsDisplayLimit = vm.groupsDisplayLimit + vm.mainDisplayLimit">See More</a>
+    </div>
+  </section>
+
+</div>

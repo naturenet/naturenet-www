@@ -1,0 +1,115 @@
+/* Header Layout
+
+   Header which contains a logo, a navigation menu, and user-related actions.
+ 
+   This will align three children elements inside a header horizontally across
+    the page.
+
+   Example HTML:
+  
+   <header class="page-head clearfix">
+     <div class="head-logo"></div>
+     <nav class="head-menu">
+       <div class="head-menu__list">
+         <a class="head-menu__item"></a>
+         ...
+         <a class="head-menu__item"></a>
+       </div>
+       <div class="head-menu__foot"></div>
+     </nav>
+     <div class="head-user"></div>
+   </header>
+   ========================================================================== */
+
+  /**
+    * General page-head children positioning
+    */
+
+    // .page-head > * {
+    //   float: left;
+
+    //   height: 100%;
+    //   line-height: @page-header-height; }
+        
+    // .head-user {
+    //   float: right; }
+
+  /**
+    * Menu list
+    */
+
+    .head-logo {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+
+      width: @head-logo-width;
+
+      background-color: @light-green;
+      background-image: url('/images/logo-color.png');
+      background-position: 50%;
+      background-repeat: no-repeat;
+      background-size: contain; }
+
+  /**
+    * Menu list
+    */
+
+    .head-menu {
+      position: absolute;
+      top: 0;
+      right: @head-user-width;
+      bottom: 0;
+      left: @head-logo-width; }
+
+    .head-menu__list {
+      height: 100%; }
+
+    .head-menu__item {
+      display: inline-block;
+      width: @head-menu__item-width;
+      height: 100%;
+      padding-top: 76px;
+
+      font-size: 14px;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+
+      background-position: 50% 33%;
+      background-repeat: no-repeat;
+      background-size: 50px 50px;
+
+      &.is-current {
+        background-color: @light-blue; }
+
+      &.item-explore {
+        background-image: url('/images/explore.png'); }
+      &.item-communities {
+        background-image: url('/images/communities.png'); }
+      &.item-projects {
+        background-image: url('/images/projects.png'); }
+      &.item-ideas {
+        background-image: url('/images/ideas.png'); }
+      
+    }
+
+  /**
+    * User actions
+    */
+
+    .head-user {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      
+      width: @head-user-width; }
+
+      .head-user__item {
+        display: inline-block;
+        margin: 30px 0; }
+   
+   

@@ -1,0 +1,41 @@
+/* Social Totals
+   ========================================================================== */
+
+    .totals {
+      > .totals__total {
+        display: inline-block;
+        width: 55px;
+        height: 20px;
+        padding: 0 10px 0 25px;
+
+        line-height: 20px;
+        font-size: 18px;
+
+        background-repeat: no-repeat;
+        background-size: 20px; }
+
+      > .totals__total:last-child {
+        width: 45px;
+        padding-right: 0; }
+    }
+
+    .totals__total {
+      &.totals__total--likes {
+        color: @light-green;
+        background-image: url('/images/like.png'); }
+
+      &.totals__total--dislikes {
+        color: red;
+        background-image: url('/images/dislike.png'); }
+
+      &.totals__total--comments {
+        color: @dark-blue;
+        background-image: url('/images/comment.png'); }
+    }
+    
+    .list-item__detail {
+      > .totals {
+        position: absolute;
+        bottom: 0;
+        left: 0; }
+    }

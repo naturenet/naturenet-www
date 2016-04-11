@@ -1,0 +1,90 @@
+<!-- ExploreController as vm -->
+
+<ng-map
+  nn-map-contain
+  class="map"
+  default-style="false"
+  center="United States of America"
+  ng-class="{'has-sidebar': !!vm.hasSidebar}">
+
+
+
+
+
+  <div class="sidebar sidebar--map-list">
+    
+    <header class="sidebar__header">
+      <div class="dropdown dropdown--explore"
+        ng-class="{ 'dropdown--show-list': !!vm.isObservationsListVisible }">
+
+        <div class="dropdown__display"
+          ng-click="vm.isObservationsListVisible = !vm.isObservationsListVisible">
+          <span>Observations</span>
+          <div class="dropdown__action"></div>
+        </div>
+
+        <div class="dropdown__options">
+
+          <div class="list-item" ng-repeat="o in vm.observations" ng-click="vm.showSidebar(o)">
+            <nn-image class="list-item__image" image-url="{{o.data.image}}">
+            </nn-image>
+            <div class="list-item__detail">
+              <nn-comment class="comment list-item__comment"
+                name="{{$root.users[o.observer].display_name}}"
+                date="{{o.updated_at}}"
+                avatar-url="{{$root.users[o.observer].avatar}}"
+                comment="{{o.data.text}}">
+              </nn-comment>
+              <nn-social-totals class="totals" data="o"></nn-social-totals>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </header>
+    
+  </div>
+
+
+
+
+
+  <div ng-if="!!vm.currentObservation" class="sidebar sidebar--slide sidebar--map-detail">
+
+    <header class="sidebar__header">
+      <nn-badge class="badge sidebar__user"
+        title="{{$root.users[vm.currentObservation.observer].display_name}}"
+        subtitle="{{vm.formatDate(vm.currentObservation.updated_at)}}"
+        avatar-url="{{$root.users[vm.currentObservation.observer].avatar}}">
+      </nn-badge>
+      <a class="sidebar__close" href="#" ng-click="vm.hideSidebar()"></a>
+    </header>
+    
+    <section class="sidebar__content">
+      <div ng-if="vm.currentObservation.data.image" nn-image class="sidebar__image" image-url="{{vm.currentObservation.data.image}}">
+      </div>
+      <p ng-if="vm.currentObservation.data.text" class="sidebar__description">{{vm.currentObservation.data.text}}</p>
+      <nn-social-totals class="totals" data="vm.currentObservation"></nn-social-totals>
+    </section>
+
+    <section class="sidebar__comments">
+      <nn-comment class="comment list-item__comment" ng-repeat="c in vm.currentObservation.comments"
+        name="{{$root.users[c.commenter].display_name}}"
+        date="{{c.updated_at}}"
+        avatar-url="{{$root.users[c.commenter].avatar}}"
+        comment="{{c.comment}}">
+      </nn-comment>
+    </section>
+
+  </div>
+
+
+
+
+
+  <custom-marker ng-repeat="o in vm.observations" position="{{o.l}}">
+    <div class="map-marker" ng-click="vm.showSidebar(o)"></div>
+  </custom-marker>
+
+</ng-map>

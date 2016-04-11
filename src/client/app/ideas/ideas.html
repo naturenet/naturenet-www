@@ -1,0 +1,112 @@
+<!-- IdeasController as vm -->
+
+<div class="sidebar sidebar--ideas">
+  
+  <header class="sidebar__header">
+    <div class="dropdown dropdown--ideas" ng-class="{ 'dropdown--show-list': !!vm.isIdeasListVisible }">
+
+      <div class="dropdown__display"
+        ng-click="vm.isIdeasListVisible = !vm.isIdeasListVisible">
+        <span>Design Ideas</span>
+        <div class="dropdown__action"></div>
+      </div>
+
+      <div class="dropdown__options">
+
+        <div class="list-item" ng-repeat="i in vm.ideas | limitTo: vm.ideasDisplayLimit"
+          ng-click="">
+          <nn-image class="list-item__image" image-url="{{}}">
+          </nn-image>
+          <div class="list-item__detail">
+            <nn-comment class="comment list-item__comment"
+              name="{{$root.users[i.submitter].display_name}}"
+              date="{{vm.formatDate(i.updated_at)}}"
+              avatar-url="{{$root.users[i.submitter].avatar}}"
+              comment="{{i.content}}">
+            </nn-comment>
+            <nn-social-totals class="totals" data="i"></nn-social-totals>
+          </div>
+        </div>
+
+        <div class="sidebar__see-more" ng-if="vm.ideas.length > vm.ideasDisplayLimit">
+          <a href="#" ng-click="vm.ideasDisplayLimit = vm.ideasDisplayLimit + vm.sidebarDisplayLimit">See More</a>
+        </div>
+
+      </div>
+
+    </div>
+  </header>
+
+  <header class="sidebar__header">
+    <div class="dropdown dropdown--challenges" ng-class="{ 'dropdown--show-list': !!vm.isChallengesListVisible }">
+
+      <div class="dropdown__display"
+        ng-click="vm.isChallengesListVisible = !vm.isChallengesListVisible">
+        <span>Design Challenges</span>
+        <div class="dropdown__action"></div>
+      </div>
+
+      <div class="dropdown__options">
+
+        <div class="list-item" ng-repeat="c in vm.challenges | limitTo: vm.challengesDisplayLimit"
+          ng-click="">
+          <nn-image class="list-item__image" image-url="{{}}">
+          </nn-image>
+          <div class="list-item__detail">
+            <nn-comment class="comment list-item__comment"
+              name="{{$root.users[c.submitter].display_name}}"
+              date="{{vm.formatDate(c.updated_at)}}"
+              avatar-url="{{$root.users[c.submitter].avatar}}"
+              comment="{{c.content}}">
+            </nn-comment>
+            <nn-social-totals class="totals" data="c"></nn-social-totals>
+          </div>
+        </div>
+
+        <div class="sidebar__see-more" ng-if="vm.challenges.length > vm.challengesDisplayLimit">
+          <a href="#" ng-click="vm.challengesDisplayLimit = vm.challengesDisplayLimit + vm.sidebarDisplayLimit">See More</a>
+        </div>
+
+      </div>
+
+    </div>
+  </header>
+  
+</div>
+
+
+
+
+
+<div class="main main--with-sidebar main--ideas">
+
+  <section class="main__section masthead">
+    <header class="masthead__header">
+      <div class="masthead__avatar" style="background-size: cover; background-image: url('/images/design-ideas.png')"></div>
+      <div class="masthead__title">Design Ideas</div>
+    </header>
+    <div class="masthead__text">
+      <p class="masthead__description">
+        Crowdsourcing design is a way for anyone to contribute to the NatureNet experience. Designers
+        change the world and the NatureNet project gives everyone a chance to be a designer. Your
+        design ideas can be a new way of using NatureNet in your community, and new to use mobile
+        technology for learning about sustainability or changes in the environment, or a new feature
+        on the web site.
+      </p>
+      <p class="masthead__directions">
+        Join the discussion below with an idea or challenge of your own, comment on someone
+        else's idea, or vote for your favorite idea.
+      </p>
+      <form class="masthead__form clearfix" ng-submit="vm.addIdea()">
+        <div>
+          <textarea class="masthead__textarea" placeholder="Write a design challenge..."
+            ng-model="vm.content">
+          </textarea>
+          <div class="add-me">Adding photos coming soon</div>
+        </div>
+        <input class="button button--masthead" value="submit" type="submit"></input>
+      </form>
+    </div>
+  </section>
+
+</div>

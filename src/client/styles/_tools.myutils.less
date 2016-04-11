@@ -1,0 +1,57 @@
+/* Utilities
+   ========================================================================== */
+
+  /**
+    * my mini-reset
+    *
+    * Quick reset of the box-sizing property and the body
+    *  height.
+    */
+    
+    * {
+      box-sizing: border-box; }
+    body, html {
+      height: 100%; }
+
+  /**
+    * clearfix
+    *
+    * Used to clear objects that have been floated.
+    *  this is to avoid overflow issues.
+    */
+
+    .clearfix:after {
+      content: '';
+      display: table;
+      clear: both; }
+
+      .clearfix .-left {
+        float: left;
+        text-align: left; }
+
+      .clearfix .-right {
+        float: right;
+        text-align: right; }
+
+  /**
+    * centerv; centerh; center
+    *
+    * Classes to be used on elements that need to be
+    *  centered on the screen.
+    */
+
+    .-centerv {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%); }
+        
+    .-centerh {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%); }
+        
+    .-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%); }

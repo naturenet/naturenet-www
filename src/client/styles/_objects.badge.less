@@ -1,0 +1,169 @@
+/* Badge
+
+   Example HTML:
+
+   <div class="badge">
+     <div class="badge__avatar"
+       style="background-image: url('')">
+      </div>
+     <div class="badge__text">
+       <p class="badge__title">John Demo</p>
+       <p class="badge__subtitle">Jan 28 2016</p>
+     </div>
+   </div>
+   ========================================================================== */
+
+  /**
+    * Default badge
+    *
+    *  Avatar to the left of the text. Typically used to
+    *  display user related information.
+    */
+
+    .badge {
+      > div {
+        display: inline-block;
+
+        vertical-align: middle; }
+
+      > .badge__avatar {
+        width: 45px;
+        height: 45px;
+
+        background-image: url('/images/default-avatar.png');
+        background-position: 50%;
+        background-repeat: no-repeat;
+        background-size: cover;
+        border-radius: 50%; }
+
+      > .badge__text {
+        margin-left: 10px; }
+    }
+    
+    .badge__text {
+      > .badge__title {
+        color: @light-green;
+        font-size: 20px; }
+
+      > .badge__subtitle {
+        margin-top: 6px;
+
+        color: #7F7F7F; }
+    }
+
+  /**
+    * Large variant
+    *
+    *  Avatar above the text. Current usecase is to display
+    *  group information on the communities page.
+    */
+
+    .badge--large {
+      display: inline-block;
+      width: 150px;
+      margin-right: 10px;
+      margin-bottom: 25px;
+
+      > div {
+        display: block; }
+
+      > .badge__avatar {
+        width: 100px;
+        height: 100px;
+        margin: 0 auto;
+        margin-bottom: 12px; }
+
+      > .badge__text {
+        margin-left: 0px;
+
+        text-align: center;
+        
+        > p {
+          color: @dark-blue; }
+      }
+
+      .badge__title {
+        margin-bottom: 5px;
+
+        font-size: 16px; }
+
+      .badge__subtitle {
+        font-size: 12px; }
+    }
+
+  /**
+    * Small variant
+    *
+    *  Specific case used for .list-item--square.
+    */
+
+    .list-item--square {
+      .badge {
+        > .badge__avatar {
+          width: 25px;
+          height: 25px; }
+
+        > .badge__text {
+          margin-left: 6px; }
+      }
+      
+      .badge__text {
+        > .badge__title {
+          margin-bottom: 3px;
+          font-size: 11px; }
+
+        > .badge__subtitle {
+          font-size: 8px; }
+      }
+    }
+
+  /**
+    * Items Variant
+    *
+    *  Color of title changed to @dark-blue.
+    */
+
+    .items {
+      .badge__title {
+        color: @dark-blue; }
+    }
+
+  /**
+    * Dropdown Variant
+    *
+    *  Color of all text changed to white.
+    */
+
+    .dropdown {
+      .badge__title,
+      .bade__subtitle {
+        color: white; }
+    }
+
+  /**
+    * List-item Variant
+    *
+    *  Color of all text changed to white.
+    */
+
+    .list-item {
+      .badge__title {
+        color: @light-green; }
+
+      .bade__subtitle {
+        color: #7F7F7F; }
+    }
+
+  /**
+    * Items Variant
+    *
+    *  Color of title changed to @dark-blue.
+    */
+
+    .badge--header {
+      float: right;
+      margin-right: 68px;
+      
+      .badge__title {
+        color: white; }
+      }

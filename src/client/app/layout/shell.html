@@ -1,0 +1,57 @@
+<!-- ShellController as vm -->
+
+<div class="page-logo">
+  <a href="#">
+    <i class="icon">
+      <!-- TODO: Consider using icon font -->
+    </i>
+  </a>
+</div>
+
+
+
+
+
+<header class="page-head"
+  ng-include="'app/layout/header.html'"
+  ng-controller="HeaderController as vm">
+</header>
+
+
+
+
+
+<main class="page-main"
+    ui-view>
+</main>
+
+
+
+
+
+<footer class="page-foot">
+  <!-- TODO: Update the markup once you get a better idea of what the footer
+              will look like. Probably use another .html file -->
+</footer>
+
+
+
+
+
+<div class="page-map"
+  ng-include="'app/explore/explore.html'"
+  ng-controller="ExploreController as vm"
+  ng-class="{'has-map': !!hasMap}">
+</div>
+
+
+
+
+
+<div class="page-over overlay"
+  ng-hide="!vm.isAuth"
+  ng-click="vm.broadcastHideAuth()">
+  <div ng-include="'app/auth/auth.html'"
+    ng-controller="AuthController as vm">
+  </div>
+</div>

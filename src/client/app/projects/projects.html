@@ -1,0 +1,63 @@
+<!-- ProjectsController as vm -->
+
+<div class="sidebar sidebar--projects">
+
+  <header class="sidebar__header sidebar__header--projects">
+    <div class="dropdown dropdown--projects"
+      ng-class="{ 'dropdown--show-list': !!vm.isProjectsListVisible }">
+
+      <div class="dropdown__display"
+        ng-click="vm.isProjectsListVisible = !vm.isProjectsListVisible">
+        <span>Projects</span>
+        <div class="dropdown__action"></div>
+      </div>
+
+      <div class="dropdown__options">
+
+        <div class="dropdown__option"
+          ng-repeat="p in vm.projects"
+          ng-click="vm.updateProjectId(p.id)">
+          <nn-badge class="badge"
+            title="{{p.name}}"
+            subtitle=""
+            avatar-url="{{p.icon_url}}">
+          </nn-badge>
+        </div>
+
+      </div>
+
+    </div>
+  </header>
+
+</div>
+
+
+
+
+
+<div class="main main--with-sidebar main--projects">
+
+  <section class="main__section masthead">
+    <header class="masthead__header">
+      <div class="masthead__avatar"
+        style="background-image: url('{{$root.projects[vm.projectId].icon_url}}')">
+      </div>
+      <div class="masthead__title">{{$root.projects[vm.projectId].name}}</div>
+    </header>
+    <div class="masthead__text">{{$root.projects[vm.projectId].description}}</div>
+  </section>
+
+
+
+  <section class="main__section recent-contributions">
+    <div class="main__subtitle">Recent Contributions</div>
+    <nn-observations-list observations="vm.projectObservations" limit="{{vm.displayLimit}}">
+  </section>
+
+  <!-- <section class="main__section main__section--featured">
+    <div class="main__subtitle">Most Discussed</div>
+    <div class="main__featured">
+    </div>
+  </section> -->
+
+</div>

@@ -1,0 +1,122 @@
+/* List item
+   ========================================================================== */
+
+  /**
+    * Default list item
+    *
+    *  Image to the left of the text. Primarily used in the sidebar.
+    */
+      
+    .list-item {
+      width: 100%;
+      height: 138px;
+      padding: 10px;
+      margin-bottom: 10px;
+
+      background-color: white;
+
+      > .list-item__image {
+        display: inline-block;
+        width: 116px;
+        height: 118px;
+        
+        > div {
+          height: 100%;
+
+          background-position: 50%;
+          background-size: cover; }
+      }
+
+      > .list-item__detail {
+        position: relative;
+
+        display: inline-block;
+        width: ~'calc(100% - 130px)';
+        height: 100%;
+        margin-left: 10px;
+
+        vertical-align: top; }
+
+      .list-item__comment {
+        > .comment__text {
+          overflow: hidden;
+          width: 100%;
+          height: 15px;
+          margin-bottom: 0;
+
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          
+          color: #595959;
+        }
+      }
+    }
+
+  /**
+    * Square variant
+    *
+    *  This version omits the comment.
+    */
+      
+    .list-item--square {
+      display: inline-block;
+      width: 150px;
+      height: auto;
+      padding: 0;
+      margin: 0 10px 15px 0;
+      
+      > .list-item__image {
+        display: block;
+        width: 100%;
+        height: 100px;
+        
+        background-position: 50%;
+        background-size: cover; }
+
+      > .list-item__detail {
+        display: block;
+        width: 100%;
+        height: auto;
+        padding: 3px;
+        margin-left: 0; }
+    }
+
+  /**
+    * Large variant
+    *
+    *  Larger image, and contains a comment box.
+    */
+      
+    .list-item--large {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+
+      background-color: white;
+
+      > .list-item__image {
+        display: inline-block;
+        width: 116px;
+        height: 116px;
+        
+        background-position: 50%;
+        background-size: cover; }
+
+      > .list-item__detail {
+        display: inline-block;
+        width: ~'calc(100% - 130px)';
+        height: 100%;
+        margin-left: 10px;
+
+        vertical-align: top; }
+
+      .list-item__comment {
+        > .comment__text {
+          overflow: hidden;
+          width: 100%;
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    

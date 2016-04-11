@@ -1,0 +1,83 @@
+<!-- HomeController as vm -->
+
+<div class="home-content">
+  <div class="content content--what">
+    <div class="content__image"></div>
+    <div class="content__text">
+      <h1 class="content__title">What is NatureNet?</h1>
+      <h2 class="content__subtitle">Citizen Science Project with a Crowd-Sourced Design</h2>
+      <p class="content__description">
+        NatureNet is a citizen science project with a crowd-sourced design. The goal to increase motivation for participation and
+        to identify creative ways in which people can contribute to sustainable bio-diversity at the Aspen Center for Environmental
+        Studies (ACES). NatureNet is funded by the National Science Foundation (IIS-1221513) in a grant to the University
+        of North Carolina at Charlotte, the University of Maryland, and the University of Colorado. The project is in coordination
+        with the naturalists at ACES.
+      </p>
+    </div>
+  </div>
+  <div class="content content--why">
+    <div class="content__image"></div>
+    <div class="content__text">
+      <h1 class="content__title">Why join NatureNet?</h1>
+      <h2 class="content__subtitle">Citizen Science Project with a Crowd-Sourced Design</h2>
+      <p class="content__description">
+        NatureNet is a citizen science project with a crowd-sourced design. The goal to increase motivation for participation and
+        to identify creative ways in which people can contribute to sustainable bio-diversity at the Aspen Center for Environmental
+        Studies (ACES). NatureNet is funded by the National Science Foundation (IIS-1221513) in a grant to the University
+        of North Carolina at Charlotte, the University of Maryland, and the University of Colorado. The project is in coordination
+        with the naturalists at ACES.
+      </p>
+    </div>
+  </div>
+  <div class="recent-observations"></div>
+</div>
+
+
+
+
+
+<div class="home-items">
+
+  <ul class="items items--observations">
+    <li class="items__group">Recent Observations</li>
+
+    <li class="item"
+      ng-repeat="o in vm.observations | limitTo: vm.observationsDisplayLimit"
+      ng-click="vm.showObservation(o)">
+      <nn-badge class="badge item__user"
+        title="{{$root.users[o.observer].display_name}}"
+        subtitle="{{vm.formatDate(o.updated_at)}}"
+        avatar-url="{{$root.users[o.observer].avatar}}">
+      </nn-badge>
+      <nn-social-totals class="item__totals totals -centerv" data="o">
+      </nn-social-totals>
+    </li>
+
+    <li class="items__action" ng-if="vm.observations.length > vm.observationsDisplayLimit">
+      <a href="#" ng-click="vm.observationsDisplayLimit = vm.observationsDisplayLimit + 5">See More</a>
+    </li>
+  </ul>
+
+
+
+  <ul class="items items--ideas">
+    <li class="items__group">Recent Design Ideas</li>
+
+    <li class="item" ng-repeat="i in vm.ideas | limitTo: vm.ideasDisplayLimit">
+      <nn-badge class="badge item__user"
+        title="{{$root.users[i.submitter].display_name}}"
+        subtitle="{{vm.formatDate(i.updated_at)}}"
+        avatar-url="{{$root.users[i.submitter].avatar}}">
+      </nn-badge>
+      
+      <!-- TODO: Add dislikes to data model -->
+      <nn-social-totals class="item__totals totals -centerv" data="i">
+      </nn-social-totals>
+    </li>
+
+    <li class="items__action" ng-if="vm.ideas.length > vm.ideasDisplayLimit">
+      <a href="#" ng-click="vm.ideasDisplayLimit = vm.ideasDisplayLimit + 5">See More</a>
+    </li>
+  </ul>
+
+</div>

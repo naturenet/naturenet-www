@@ -1,0 +1,14 @@
+<!-- <nn-dropdown> -->
+<div class="dropdown" ng-class="{ 'dropdown--show-list': !!listVisible }">
+  <div class="dropdown__display" ng-click="toggleOptions()">
+    <span ng-if="!isPlaceholder">{{display}}</span>
+    <span class="placeholder" ng-if="isPlaceholder">{{placeholder}}</span>
+    <div class="dropdown__action"></div>
+  </div>
+
+  <div class="dropdown__options">
+    <div class="dropdown__option" ng-repeat="o in options" ng-class="isCurrent(o)" ng-click="selectOption(o)">
+      <span>{{property !== undefined ? o[property] : o}}</span>
+    </div>
+  </div>
+</div>

@@ -24,7 +24,7 @@
         </div>
 
         <div class="sidebar__see-more" ng-if="vm.users.length > vm.peopleDisplayLimit">
-          <a href="#" ng-click="vm.peopleDisplayLimit = vm.peopleDisplayLimit + vm.sidebarDisplayLimit">See More</a>
+          <a href="#" ng-click="vm.peopleDisplayLimit = vm.peopleDisplayLimit + vm.sidebarDisplayLimit">Show More</a>
         </div>
 
       </div>
@@ -56,7 +56,7 @@
         </div>
 
         <div class="sidebar__see-more" ng-if="vm.groups.length > vm.groupsDisplayLimit">
-          <a href="#" ng-click="vm.groupsDisplayLimit = vm.groupsDisplayLimit + vm.sidebarDisplayLimit">See More</a>
+          <a href="#" ng-click="vm.groupsDisplayLimit = vm.groupsDisplayLimit + vm.sidebarDisplayLimit">Show More</a>
         </div>
 
       </div>
@@ -85,7 +85,7 @@
 
 
   <section class="main__section recent-contributions">
-    <div class="main__subtitle">Recent Contributions</div>
+    <div class="main__subtitle">Recent Contributions by {{$root.users[vm.userId].display_name}}</div>
     <nn-observations-list observations="vm.userObservations" limit="{{vm.mainDisplayLimit}}">
   </section>
 
@@ -105,7 +105,7 @@
     </div>
 
     <div class="" ng-if="vm.userGroups.length > vm.groupsDisplayLimit">
-      <a href="#" ng-click="vm.groupsDisplayLimit = vm.groupsDisplayLimit + vm.mainDisplayLimit">See More</a>
+      <a href="#" ng-click="vm.groupsDisplayLimit = vm.groupsDisplayLimit + vm.mainDisplayLimit">Show More</a>
     </div>
   </section>
 

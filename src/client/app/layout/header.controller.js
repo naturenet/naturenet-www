@@ -42,6 +42,7 @@
     vm.toggleMap = toggleMap;
     vm.showRegister = showRegister;
     vm.showSignin = showSignin;
+    vm.signOut = signOut;
 
     activate();
 
@@ -122,6 +123,10 @@
 
     function showSignin() {
       $rootScope.$broadcast('signin:show');
+    }
+
+    function signOut() {
+      $rootScope.$broadcast('signout');
     }
 
     /* Listener Functions

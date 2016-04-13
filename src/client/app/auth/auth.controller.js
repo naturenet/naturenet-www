@@ -67,6 +67,7 @@
             $rootScope.$broadcast('auth:success', vm.userUid);
             return vm.userUid;
           } else {
+            logger.success('You are now logged out.');
             return;
           }
         });
@@ -100,6 +101,10 @@
       });
     }
 
+    function unAuth() {
+      return dataservice.unAuth();
+    }
+
     function addUser(uid, email, name) {
       return dataservice.addUser(uid, email, name)
         .then(function (data) {
@@ -114,6 +119,7 @@
     $rootScope.$on('register:show', showRegister);
     $rootScope.$on('signin:show', showSignin);
     $rootScope.$on('auth:hide', resetForm);
+    $rootScope.$on('signout', unAuth);
 
     function showRegister() {
       vm.isRegister = true;

@@ -11,7 +11,7 @@
   dataservice.$inject = ['$q', '$firebaseObject', '$firebaseArray', '$firebaseAuth', '$filter', 'exception', 'logger'];
   /* @ngInject */
   function dataservice($q, $firebaseObject, $firebaseArray, $firebaseAuth, $filter, exception, logger) {
-    var url = 'https://naturenet-staging.firebaseio.com/';
+    var url = 'https://naturenet-testing.firebaseio.com/';
 
     var service = {
       // Utility functions
@@ -21,6 +21,7 @@
       onAuth: onAuth,
       getAuth: getAuth,
       authWithPassword: authWithPassword,
+      unAuth: unAuth,
       createUser: createUser,
       removeUser: removeUser,
       addUser: addUser,
@@ -129,10 +130,16 @@
       }
     }
 
-    function createUser(cred) {
+    function unAuth() {
       var ref = new Firebase(url);
       var data = $firebaseAuth(ref);
 
+      return data.$unauth();
+    }
+
+    function createUser(cred) {
+      var ref = new Firebase(url);
+      var data = $firebaseAuth(ref);
       return data.$createUser(cred)
         .then(success)
         .catch(fail);
@@ -165,19 +172,20 @@
 
     function addUser(uid, email, name) {
       var d = $q.defer();
-      var ref = new Firebase(url + 'users').child(uid);
+      var ref = new Firebase(url);
 
       // Create the data we want to update
       var updatedUserData = {};
-      updatedUserData['private'] = {
+      updatedUserData['users-private/' + uid] = {
         consent: {
           required: true,
         },
       };
-      updatedUserData['public'] = {
+      updatedUserData['users/' + uid] = {
         id: uid,
         display_name: name,
         created_at: Firebase.ServerValue.TIMESTAMP,
+        updated_at: Firebase.ServerValue.TIMESTAMP,
 
         // TODO: update object to include other fields
       };

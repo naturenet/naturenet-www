@@ -148,7 +148,7 @@ module.exports = function () {
 
   function getKarmaOptions() {
     var options = {
-      files: [].concat(
+      files: [{pattern: 'node_modules/phantomjs-polyfill/bind-polyfill.js', instrument: false}].concat(
         bowerFiles,
         config.specHelpers,
         clientApp + '**/*.module.js',

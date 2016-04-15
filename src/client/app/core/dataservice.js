@@ -11,7 +11,7 @@
   dataservice.$inject = ['$q', '$firebaseObject', '$firebaseArray', '$firebaseAuth', '$filter', 'exception', 'logger'];
   /* @ngInject */
   function dataservice($q, $firebaseObject, $firebaseArray, $firebaseAuth, $filter, exception, logger) {
-    var url = 'https://naturenet-testing.firebaseio.com/';
+    var url = 'https://naturenet.firebaseio.com/';
 
     var service = {
       // Utility functions

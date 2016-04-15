@@ -8,14 +8,13 @@
       <h2 class="content__subtitle">A community of citizen environmentalists whose members keep making it better.</h2>
       <div class="content__description">
           <p>NatureNet is a community of citizen environmentalists whose members keep making it better. Active sites include the Anacostia Watershed in Washington, D.C. and Maryland, Reedy Creek Nature Center in Charlotte, North Carolina, Aspen Center for Environmental Studies in Aspen, Colorado, and your backyard!</p>
-          <p>
+          <br>
           <p class="content__lineitem">LEARN about nature in your community</p>
           <p class="content__lineitem">SHARE your observations and ideas</p>
           <p class="content__lineitem">SHAPE nature projects in your local community</p>
           <p class="content__lineitem">DESIGN this nature technology with your community</p>
-          <p>
-          <p>This project is supported by the National Science Foundation under Grant No.  IIS-1221513 and Grant No. 1423212 to the University of North Carolina at Charlotte, Grant No. 1423207 to the University of Maryland, and Grant No. 1423338 to the University of Colorado.
-          </p>
+          <br>
+          <p>This project is supported by the National Science Foundation under Grant No.  IIS-1221513 and Grant No. 1423212 to the University of North Carolina at Charlotte, Grant No. 1423207 to the University of Maryland, and Grant No. 1423338 to the University of Colorado.</p>
       </div>
     </div>
   </div>
@@ -28,11 +27,14 @@
       </p>
     </div>
   </div>
-  <div class="recent-observations"></div>
+    <div ng-controller="HeaderController as vm">
+    <center>
+  <div ng-hide="vm.isAuthenticated">
+    <a class="button button--joinnow" href="#" ng-click="vm.showRegister()">Join NatureNet Today</a>
+  </div>
+    </center>
+    </div>
 </div>
-
-
-
 
 
 <div class="home-items">

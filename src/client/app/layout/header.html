@@ -33,8 +33,9 @@
     <a class="button head-user__item button--signin" href="#" ng-click="vm.showSignin()">Sign In</a>
   </div>
   <div ng-show="vm.isAuthenticated">
-    <nn-badge class="badge head-user__item badge--header"
-      title="Welcome, {{$root.users[vm.userUid].display_name}}">
+    <nn-badge class="badge head-user__item badge--header"  ng-click="vm.signOut()"
+      title="Welcome, {{$root.users[vm.userUid].display_name}}"
+      subtitle="Click to Sign Out">
     </nn-badge>
     <a class="button head-user__item button--signout" href="#" ng-click="vm.signOut()">Sign Out</a>
   </div>

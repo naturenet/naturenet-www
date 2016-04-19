@@ -65,6 +65,11 @@
         });
     }
 
+    function unAuth() {
+      vm.isAuthenticated = false;
+      vm.userUid = void 0;
+    }
+
     /* Route function
        ================================================== */
 
@@ -134,6 +139,7 @@
 
     $rootScope.$on('auth:success', showUserInfo);
     $rootScope.$on('map:show', showMap);
+    $rootScope.$on('signout', unAuth);
 
     function showUserInfo() {
       onAuth();

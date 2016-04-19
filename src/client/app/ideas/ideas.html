@@ -14,7 +14,7 @@
       <div class="dropdown__options">
 
         <div class="list-item" ng-repeat="i in vm.ideas | limitTo: vm.ideasDisplayLimit"
-          ng-click="">
+          ng-click="vm.selectedIdea = i">
           <nn-image class="list-item__image" image-url="{{}}">
           </nn-image>
           <div class="list-item__detail">
@@ -104,8 +104,22 @@
           </textarea>
           <div class="add-me">Adding photos coming soon</div>
         </div>
-        <input class="button button--masthead" value="submit" type="submit"></input>
+        <input class="button button--masthead" value="submit" type="submit" />
       </form>
+    </div>
+
+    <div ng-if="vm.selectedIdea">
+        <div class="list-item" >
+          <div class="list-item__detail">
+            <nn-comment class="comment list-item__comment"
+              name="{{$root.users[vm.selectedIdea.submitter].display_name}}"
+              date="{{vm.formatDate(vm.selectedIdea.updated_at)}}"
+              avatar-url="{{$root.users[vm.selectedIdea.submitter].avatar}}"
+              comment="{{vm.selectedIdea.content}}">
+            </nn-comment>
+            <nn-social-totals class="totals" data="vm.selectedIdea"></nn-social-totals>
+          </div>
+        </div>
     </div>
   </section>
 

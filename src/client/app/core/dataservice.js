@@ -62,7 +62,7 @@
         .catch(fail);
 
       function success(response) {
-        return $filter('orderBy')(response, 'updated_at', true);
+        return $filter('orderBy')($filter('notDeleted')(response), 'updated_at', true);
       }
 
       function fail(e) {
@@ -177,9 +177,12 @@
       // Create the data we want to update
       var updatedUserData = {};
       updatedUserData['users-private/' + uid] = {
+        id: uid,
         consent: {
           required: true,
         },
+        created_at: Firebase.ServerValue.TIMESTAMP,
+        updated_at: Firebase.ServerValue.TIMESTAMP,
       };
       updatedUserData['users/' + uid] = {
         id: uid,
@@ -301,7 +304,7 @@
         .catch(fail);
 
       function success(response) {
-        return $filter('orderBy')(response, 'updated_at', true);
+        return $filter('orderBy')($filter('notDeleted')(response), 'updated_at', true);
       }
 
       function fail(e) {
@@ -338,7 +341,7 @@
       return d.promise;
 
       function success(response) {
-        return response;
+        return $filter('notDeleted')(response);
       }
 
       function fail(e) {

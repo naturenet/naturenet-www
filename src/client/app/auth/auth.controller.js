@@ -67,6 +67,7 @@
             $rootScope.$broadcast('auth:success', vm.userUid);
             return vm.userUid;
           } else {
+            $rootScope.$broadcast('signout');
             logger.success('You are now logged out.');
             return;
           }
@@ -74,6 +75,7 @@
     }
 
     function createUser(email, password) {
+      var name = vm.name;
       return dataservice.createUser({
         email: email,
         password: password,
@@ -81,7 +83,7 @@
         vm.userUid = data.uid;
         authWithPassword(vm.email, vm.password)
           .then(function () {
-            return addUser(vm.userUid, vm.email, vm.name);
+            return addUser(vm.userUid, vm.email, name);
           });
       });
     }

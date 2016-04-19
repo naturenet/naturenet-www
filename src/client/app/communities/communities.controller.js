@@ -11,6 +11,7 @@
   CommunitiesController.$inject = [
     '$q',
     '$rootScope',
+    '$filter',
     'logger',
     'utility',
     'dataservice',
@@ -20,6 +21,7 @@
   function CommunitiesController(
     $q,
     $rootScope,
+    $filter,
     logger,
     utility,
     dataservice
@@ -88,7 +90,7 @@
     function getUsersArray() {
       return dataservice.getArray('users')
         .then(function (data) {
-          vm.users = data;
+          vm.users = $filter('orderBy')(data, 'updated_at');
           return vm.users;
         });
     }

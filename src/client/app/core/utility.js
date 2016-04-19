@@ -3,7 +3,8 @@
 
   angular
     .module('app.core')
-    .factory('utility', utility);
+    .factory('utility', utility)
+    .filter('notDeleted', notDeleted);
 
   /* Utility
      ======================================================================== */
@@ -44,4 +45,17 @@
       }, 1000);
     }
   }
+
+  function notDeleted() {
+    return function (input) {
+      var out = [];
+      for (var i = 0; i < input.length; ++i) {
+        if (!(input[i].hasOwnProperty('status') && input[i].status.toLowerCase() === 'deleted')) {
+          out.push(input[i]);
+        }
+      }
+
+      return out;
+    };
+  };
 })();

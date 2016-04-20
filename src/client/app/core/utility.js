@@ -4,7 +4,23 @@
   angular
     .module('app.core')
     .factory('utility', utility)
-    .filter('notDeleted', notDeleted);
+    .filter('notDeleted', notDeleted)
+
+    //taken from http://stackoverflow.com/a/18604674
+    .filter('emptyToEnd', function () {
+      return function (array, key) {
+        if (!angular.isArray(array)) return;
+        var present = array.filter(function (item) {
+          return item[key];
+        });
+
+        var empty = array.filter(function (item) {
+          return !item[key];
+        });
+
+        return present.concat(empty);
+      };
+    });
 
   /* Utility
      ======================================================================== */

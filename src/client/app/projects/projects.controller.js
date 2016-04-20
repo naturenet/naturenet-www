@@ -10,6 +10,7 @@
 
   ProjectsController.$inject = [
     '$q',
+    '$filter',
     'logger',
     'utility',
     'dataservice',
@@ -18,6 +19,7 @@
   /* @ngInject */
   function ProjectsController(
     $q,
+    $filter,
     logger,
     utility,
     dataservice
@@ -77,7 +79,7 @@
     function getProjectsArray() {
       return dataservice.getArray('activities')
         .then(function (data) {
-          vm.projects = data;
+          vm.projects = $filter('orderBy')(data, 'latest_contribution', true);
           return vm.projects;
         });
     }

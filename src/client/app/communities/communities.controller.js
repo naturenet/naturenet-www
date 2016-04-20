@@ -90,7 +90,8 @@
     function getUsersArray() {
       return dataservice.getArray('users')
         .then(function (data) {
-          vm.users = $filter('orderBy')(data, 'updated_at');
+          vm.users = $filter('emptyToEnd')(
+            $filter('orderBy')(data, 'latest_contribution', true), 'latest_contribution');
           return vm.users;
         });
     }

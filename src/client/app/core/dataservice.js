@@ -170,23 +170,28 @@
       }
     }
 
-    function addUser(uid, email, name) {
+    function addUser(profile) {
       var d = $q.defer();
       var ref = new Firebase(url);
 
       // Create the data we want to update
+      var uid = profile.uid;
       var updatedUserData = {};
       updatedUserData['users-private/' + uid] = {
         id: uid,
         consent: {
           required: true,
         },
+
+        //name: profile.name,
         created_at: Firebase.ServerValue.TIMESTAMP,
         updated_at: Firebase.ServerValue.TIMESTAMP,
       };
       updatedUserData['users/' + uid] = {
         id: uid,
-        display_name: name,
+        display_name: profile.display_name,
+
+        //affiliation: profile.affiliation,
         created_at: Firebase.ServerValue.TIMESTAMP,
         updated_at: Firebase.ServerValue.TIMESTAMP,
 

@@ -24,25 +24,27 @@
       link: link,
       templateUrl: 'app/widgets/nn-social-totals.html',
       restrict: 'EA',
+      controller: ['$scope', 'dataservice', controller],
     };
     return directive;
 
     function link(scope, element, attrs) {
-      scope.$watch('data', findTotals);
+      scope.$watchCollection('data.likes', findTotals);
+      scope.$watchCollection('data.comments', findTotals);
 
       function findTotals() {
-        scope.likes = findTotal('likes');
-        scope.dislikes = findTotal('dislikes');
+        scope.likes = findTotal('likes', true);
+        scope.dislikes = findTotal('likes', false);
         scope.comments = findTotal('comments');
       }
 
-      function findTotal(key) {
+      function findTotal(key, val) {
         if (!!scope.data[key]) {
           var total = 0;
           var k = void 0;
 
           for (k in scope.data[key]) {
-            if (scope.data[key][k]) {
+            if (!((typeof val !== 'undefined') && (scope.data[key][k] !== val))) {
               total++;
             }
           }
@@ -52,6 +54,22 @@
           return 0;
         }
       }
+
+    }
+
+    function controller($scope, dataservice) {
+
+      $scope.doLike = function() {
+        dataservice.likeContent($scope.data, true);
+      };
+
+      $scope.doDislike = function() {
+        dataservice.likeContent($scope.data, false);
+      };
+
+      $scope.doComment = function() {
+        console.log($scope.data);
+      };
     }
   }
 })();

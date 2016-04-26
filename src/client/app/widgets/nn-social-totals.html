@@ -1,4 +1,4 @@
 <!-- <nn-social-totals class="totals"> -->
-<div class="totals__total totals__total--likes">{{likes}}</div>
-<div class="totals__total totals__total--dislikes" ng-if="false">{{dislikes}}</div>
-<div class="totals__total totals__total--comments">{{comments}}</div>
+<div class="totals__total totals__total--likes" ng-click="doLike()">{{likes}}</div>
+<div class="totals__total totals__total--dislikes" ng-if="showDislikes" ng-click="doDislike()">{{dislikes}}</div>
+<div class="totals__total totals__total--comments" ng-click="doComment()">{{comments}}</div>

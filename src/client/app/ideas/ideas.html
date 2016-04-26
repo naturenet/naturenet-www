@@ -24,7 +24,7 @@
               avatar-url="{{$root.users[i.submitter].avatar}}"
               comment="{{i.content}}">
             </nn-comment>
-            <nn-social-totals class="totals" data="i"></nn-social-totals>
+            <nn-social-totals class="totals" data="i" show-dislikes="true"></nn-social-totals>
           </div>
         </div>
 
@@ -59,7 +59,7 @@
               avatar-url="{{$root.users[c.submitter].avatar}}"
               comment="{{c.content}}">
             </nn-comment>
-            <nn-social-totals class="totals" data="c"></nn-social-totals>
+            <nn-social-totals class="totals" data="c" show-dislikes="true"></nn-social-totals>
           </div>
         </div>
 
@@ -117,7 +117,7 @@
               avatar-url="{{$root.users[vm.selectedIdea.submitter].avatar}}"
               comment="{{vm.selectedIdea.content}}">
             </nn-comment>
-            <nn-social-totals class="totals" data="vm.selectedIdea"></nn-social-totals>
+            <nn-social-totals class="totals" data="vm.selectedIdea" show-dislikes="true"></nn-social-totals>
           </div>
         </div>
     </div>

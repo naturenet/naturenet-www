@@ -11,7 +11,7 @@
   dataservice.$inject = ['$q', '$firebaseObject', '$firebaseArray', '$firebaseAuth', '$filter', 'exception', 'logger'];
   /* @ngInject */
   function dataservice($q, $firebaseObject, $firebaseArray, $firebaseAuth, $filter, exception, logger) {
-    var url = 'https://naturenet.firebaseio.com/';
+    var url = 'https://naturenet-testing.firebaseio.com/';
 
     var service = {
       // Utility functions
@@ -44,6 +44,9 @@
 
       // Idea functions
       addIdea: addIdea,
+
+      // Feedback functions
+      likeContent: likeContent,
     };
 
     return service;
@@ -98,19 +101,7 @@
       var ref = new Firebase(url);
       var data = $firebaseAuth(ref);
 
-      data.$getAuth(function (snapshot) {
-        success(snapshot);
-      });
-
-      return d.promise;
-
-      function success(response) {
-        d.resolve(response);
-      }
-
-      function fail(e) {
-        d.reject(exception.catcher('Failed for dataservice.getAuth')(e));
-      }
+      return data.$getAuth();
     }
 
     function authWithPassword(cred) {
@@ -431,6 +422,7 @@
         submitter: uid,
         content: content,
         created_at: Firebase.ServerValue.TIMESTAMP,
+        updated_at: Firebase.ServerValue.TIMESTAMP,
 
         // TODO: update object to include other fields
       };
@@ -446,6 +438,26 @@
       function fail(e) {
         return exception.catcher('Failed for dataservice.getProjectsRecent')(e);
       }
+    }
+
+
+    /* Feedback functions
+       ================================================== */
+
+    function likeContent(content, isPositive) {
+      var auth = getAuth();
+      var uid = auth.uid;
+      if(!content.hasOwnProperty('likes')) {
+        content.likes = {};
+      }
+      if(content.likes.hasOwnProperty(uid) && content.likes[uid] === isPositive) {
+        delete content.likes[uid];
+      } else {
+        content.likes[uid] = isPositive;
+      }
+
+      //TODO: write content
+      console.log(content);
     }
 
   }

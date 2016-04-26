@@ -12,24 +12,32 @@
   <input class="auth__field"
     placeholder="Username"
     type="text"
-    ng-model="vm.name">
-  </input>
+    ng-model="vm.name" />
 
   <input class="auth__field"
     placeholder="password"
     type="password"
-    ng-model="vm.password">
-  </input>
+    ng-model="vm.password" />
+
+  <input class="auth__field"
+    placeholder="Name"
+    type="text"
+    ng-model="vm.realname" />
 
   <input class="auth__field"
     placeholder="email"
     type="text"
-    ng-model="vm.email">
-  </input>
+    ng-model="vm.email" />
+
+  <!--<select class="auth__field"
+    placeholder="Affiliation"
+    type="text"
+    ng-model="vm.affiliation"
+    ng-options="s.name for s in vm.sites" />
+    -->
 
   <input class="button button--auth"
     value="join"
-    type="submit">
-  </input>
+    type="submit" />
 
 </form>

@@ -11,6 +11,7 @@
   AuthController.$inject = [
     '$q',
     '$rootScope',
+    '$filter',
     'logger',
     'dataservice',
   ];
@@ -19,6 +20,7 @@
   function AuthController(
     $q,
     $rootScope,
+    $filter,
     logger,
     dataservice
   ) {
@@ -33,6 +35,8 @@
     vm.email = '';
     vm.password = '';
     vm.name = '';
+    vm.realname = '';
+    vm.affiliation = '';
 
     // States
     vm.isRegister = false;
@@ -49,7 +53,7 @@
        ================================================== */
 
     function activate() {
-      var promises = [onAuth()];
+      var promises = [onAuth(), getSites()];
       return $q.all(promises)
         .then(function () {
           logger.info('Authentication Ready');
@@ -75,15 +79,21 @@
     }
 
     function createUser(email, password) {
-      var name = vm.name;
+      var profile = {
+        display_name: vm.name,
+        name: vm.realname,
+        email: vm.email,
+        affiliation: vm.affiliation,
+      };
       return dataservice.createUser({
         email: email,
         password: password,
       }).then(function (data) {
         vm.userUid = data.uid;
+        profile.uid = data.uid;
         authWithPassword(vm.email, vm.password)
           .then(function () {
-            return addUser(vm.userUid, vm.email, name);
+            return addUser(profile);
           });
       });
     }
@@ -107,11 +117,18 @@
       return dataservice.unAuth();
     }
 
-    function addUser(uid, email, name) {
-      return dataservice.addUser(uid, email, name)
+    function addUser(profile) {
+      return dataservice.addUser(profile)
         .then(function (data) {
           logger.success('Welcome to NatureNet!');
           return data;
+        });
+    }
+
+    function getSites() {
+      return dataservice.getArray('sites')
+        .then(function (data) {
+          vm.sites = $filter('orderBy')(data, 'name');
         });
     }
 
@@ -167,7 +184,15 @@
       } else if (vm.name.length === 0 && type === 'join') {
         logger.error('No username was entered.');
         return false;
-      } else return true;
+      } else if (vm.realname.length === 0 && type === 'join') {
+        logger.error('No name was entered.');
+        return false;
+      } else if (vm.affiliation.length === 0 && type === 'join') {
+        logger.error('No affiliation was entered.');
+        return false;
+      } else {
+        return true;
+      }
     }
 
     function resetForm() {
@@ -177,6 +202,8 @@
       vm.email = '';
       vm.password = '';
       vm.name = '';
+      vm.realname = '';
+      vm.affiliation = '';
     }
 
   }

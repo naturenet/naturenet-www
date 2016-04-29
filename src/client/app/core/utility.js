@@ -20,7 +20,28 @@
 
         return present.concat(empty);
       };
-    });
+    })
+    .filter('thumb', [
+      function() {
+        return function(text) {
+          return String(text).replace('upload/', 'upload/t_media_lib_thumb/');
+        };
+      }
+    ])
+    .filter('medium', [
+      function() {
+        return function(text) {
+          return String(text).replace('upload/', 'upload/c_fit,w_400,h_200/');
+        };
+      }
+    ])
+    .filter('large', [
+      function() {
+        return function(text) {
+          return String(text).replace('upload/', 'upload/w_1000,h_1000,c_fit/');
+        };
+      }
+    ]);
 
   /* Utility
      ======================================================================== */

@@ -86,12 +86,12 @@
 
   <section class="main__section recent-contributions">
     <div class="main__subtitle">Recent Contributions by {{$root.users[vm.userId].display_name}}</div>
-    <nn-observations-list observations="vm.userObservations" limit="{{vm.mainDisplayLimit}}">
+    <nn-observations-list observations="vm.userObservations" limit="{{vm.mainDisplayLimit}}"></nn-observations-list>
   </section>
 
 
 
-  <section class="main__section main__section--groups">
+  <section class="main__section main__section--groups" ng-if="false">
     <div class="main__subtitle">Groups</div>
     <div class="main__groups">
       <nn-badge class="badge badge--large"
@@ -101,7 +101,7 @@
         avatar-url="{{g.avatar}}">
         <!-- TODO: once roles are sorted out add subtitle="{{g.role}}" -->
       </nn-badge>
-      <div ng-if="vm.userGroups.length === 0">No groups.</ndiv>
+      <div ng-if="vm.userGroups.length === 0">No groups.</div>
     </div>
 
     <div class="" ng-if="vm.userGroups.length > vm.groupsDisplayLimit">

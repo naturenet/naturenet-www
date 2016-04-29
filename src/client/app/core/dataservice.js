@@ -47,6 +47,7 @@
 
       // Feedback functions
       likeContent: likeContent,
+      addComment: addComment,
     };
 
     return service;
@@ -65,12 +66,24 @@
         .catch(fail);
 
       function success(response) {
+        console.log('got data array');
+        console.log(response);
         return $filter('orderBy')($filter('notDeleted')(response), 'updated_at', true);
       }
 
       function fail(e) {
         return exception.catcher('Failed for dataservice.getArray')(e);
       }
+    }
+
+    function timestamp(data) {
+        data.updated_at = Firebase.ServerValue.TIMESTAMP;
+
+        if(!data.hasOwnProperty('created_at')) {
+            data.created_at = Firebase.ServerValue.TIMESTAMP;
+        }
+
+        return data;
     }
 
     /* Authentication functions
@@ -440,17 +453,24 @@
       }
     }
 
-
     /* Feedback functions
        ================================================== */
 
     function likeContent(content, isPositive) {
       var auth = getAuth();
-      var uid = auth.uid;
-      if(!content.hasOwnProperty('likes')) {
+
+      if (auth === null || !auth.uid) {
+        console.log("You must be signed in to do that!");
+        return;
+      }
+
+      if (!content.hasOwnProperty('likes')) {
         content.likes = {};
       }
-      if(content.likes.hasOwnProperty(uid) && content.likes[uid] === isPositive) {
+
+      var uid = auth.uid;
+
+      if (content.likes.hasOwnProperty(uid) && content.likes[uid] === isPositive) {
         delete content.likes[uid];
       } else {
         content.likes[uid] = isPositive;
@@ -460,5 +480,27 @@
       console.log(content);
     }
 
+    function addComment(content, text) {
+      var auth = getAuth();
+
+      if (auth === null || !auth.uid) {
+        console.log("You must be signed in to do that!");
+        return;
+      }
+
+      if (!content.hasOwnProperty('comments')) {
+        content.comments = {};
+      }
+
+      //TODO: push new comment
+      var newComment = {
+        comment: text,
+        commenter: auth.uid,
+        created_at: Firebase.ServerValue.TIMESTAMP,
+        updated_at: Firebase.ServerValue.TIMESTAMP,
+      };
+      content.comments['testkey'] = newComment;
+      console.log(content);
+    }
   }
 })();

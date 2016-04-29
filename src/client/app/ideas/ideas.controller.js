@@ -71,6 +71,7 @@
     function getIdeas() {
       return dataservice.getArray('ideas')
         .then(function (data) {
+          console.log(data);
           var i = 0;
           var dlength = data.length;
           for (i; i < dlength; i++) {
@@ -85,7 +86,8 @@
             }
           }
 
-          console.log('updated');
+          console.log('updated ideas list');
+          console.log(vm.ideas);
           return true;
         });
     }

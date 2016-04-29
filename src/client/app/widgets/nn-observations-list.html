@@ -5,7 +5,7 @@
     ng-if="observations.length > 0"
     ng-repeat="o in observations | limitTo: limit"
     ng-click="showObservation(o)">
-    <nn-image class="list-item__image" image-url="{{o.data.image}}">
+    <nn-image class="list-item__image" image-url="{{o.data.image | thumb}}">
     </nn-image>
     <div class="list-item__detail">
       <nn-badge class="badge item__user"

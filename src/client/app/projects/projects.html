@@ -40,7 +40,7 @@
   <section class="main__section masthead">
     <header class="masthead__header">
       <div class="masthead__avatar"
-        style="background-image: url('{{$root.projects[vm.projectId].icon_url}}')">
+        style="background-image: url('{{$root.projects[vm.projectId].icon_url | thumb}')">
       </div>
       <div class="masthead__title">{{$root.projects[vm.projectId].name}}</div>
     </header>
@@ -51,7 +51,7 @@
 
   <section class="main__section recent-contributions">
     <div class="main__subtitle">Recent Contributions</div>
-    <nn-observations-list observations="vm.projectObservations" limit="{{vm.displayLimit}}">
+    <nn-observations-list observations="vm.projectObservations" limit="{{vm.displayLimit}}"></nn-observations-list>
   </section>
 
   <!-- <section class="main__section main__section--featured">

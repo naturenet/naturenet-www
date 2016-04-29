@@ -59,15 +59,15 @@
 
     function controller($scope, dataservice) {
 
-      $scope.doLike = function() {
+      $scope.doLike = function () {
         dataservice.likeContent($scope.data, true);
       };
 
-      $scope.doDislike = function() {
+      $scope.doDislike = function () {
         dataservice.likeContent($scope.data, false);
       };
 
-      $scope.doComment = function() {
+      $scope.doComment = function () {
         console.log($scope.data);
       };
     }

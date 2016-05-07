@@ -2,10 +2,9 @@
   'use strict';
 
   angular
-    .module('app.explore', [
+    .module('app.comments', [
       'app.core',
       'app.widgets',
-      'app.comments',
     ]);
 
 })();

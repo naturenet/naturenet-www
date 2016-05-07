@@ -26,7 +26,7 @@
         <div class="dropdown__options">
 
           <div class="list-item" ng-repeat="o in vm.observations" ng-click="vm.showSidebar(o)">
-            <nn-image class="list-item__image" image-url="{{o.data.image | thumb}}">
+            <nn-image class="list-item__image" image-url="{{o.data.image | img_preview}}">
             </nn-image>
             <div class="list-item__detail">
               <nn-comment class="comment list-item__comment"
@@ -63,10 +63,10 @@
     
     <section class="sidebar__content">
       <div ng-if="vm.currentObservation.data.image" nn-image class="sidebar__image"
-           image-url="{{vm.currentObservation.data.image | medium}}">
+           image-url="{{vm.currentObservation.data.image | img_sidebar}}">
       </div>
       <p ng-if="vm.currentObservation.data.text" class="sidebar__description">{{vm.currentObservation.data.text}}</p>
-      <nn-social-totals class="totals" data="vm.currentObservation"></nn-social-totals>
+      <nn-social-totals class="totals" data="vm.currentObservation" context="observations"></nn-social-totals>
     </section>
 
     <section class="sidebar__comments">
@@ -76,10 +76,12 @@
         avatar-url="{{$root.users[c.commenter].avatar}}"
         comment="{{c.comment}}">
       </nn-comment>
+      <!-- commenting disabled
       <nn-comment-form class="badge comment list-item__comment"
         avatar-url=""
         data="vm.currentObservation">
       </nn-comment-form>
+      -->
     </section>
 
   </div>

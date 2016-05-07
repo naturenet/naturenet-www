@@ -4,7 +4,8 @@
   angular
     .module('app.core')
     .factory('utility', utility)
-    .filter('notDeleted', notDeleted)
+    .factory('FilteredArray', filteredArray)
+    .service('notDeleted', notDeleted)
 
     //taken from http://stackoverflow.com/a/18604674
     .filter('emptyToEnd', function () {
@@ -21,26 +22,40 @@
         return present.concat(empty);
       };
     })
-    .filter('thumb', [
-      function() {
-        return function(text) {
-          return String(text).replace('upload/', 'upload/t_media_lib_thumb/');
+    .filter('img_thumb', [
+      function () {
+        return function (text) {
+          return String(text).replace('upload/', 'upload/t_web-thumbnail/');
         };
-      }
+      },
     ])
-    .filter('medium', [
-      function() {
-        return function(text) {
-          return String(text).replace('upload/', 'upload/c_fit,w_400,h_200/');
+    .filter('img_preview', [
+      function () {
+        return function (text) {
+          return String(text).replace('upload/', 'upload/t_web-preview/');
         };
-      }
+      },
     ])
-    .filter('large', [
-      function() {
-        return function(text) {
-          return String(text).replace('upload/', 'upload/w_1000,h_1000,c_fit/');
+    .filter('img_sidebar', [
+      function () {
+        return function (text) {
+          return String(text).replace('upload/', 'upload/t_web-sidebar/');
         };
-      }
+      },
+    ])
+    .filter('img_large', [
+      function () {
+        return function (text) {
+          return String(text).replace('upload/', 'upload/t_web-large/');
+        };
+      },
+    ])
+    .filter('img_fullscreen', [
+      function () {
+        return function (text) {
+          return String(text).replace('upload/', 'upload/t_web-fullscreen');
+        };
+      },
     ]);
 
   /* Utility
@@ -83,16 +98,30 @@
     }
   }
 
+  /* Filter functions
+   ================================================== */
+
   function notDeleted() {
     return function (input) {
-      var out = [];
-      for (var i = 0; i < input.length; ++i) {
-        if (!(input[i].hasOwnProperty('status') && input[i].status.toLowerCase() === 'deleted')) {
-          out.push(input[i]);
-        }
-      }
-
-      return out;
+      return !(input[i].hasOwnProperty('status') && input[i].status.toLowerCase() === 'deleted');
     };
   };
+
+  // taken from https://gist.github.com/katowulf/bee266e31aa60cb0eed6
+  function filteredArray($firebaseArray) {
+    function FilteredArray(ref, filterFn) {
+      this.filterFn = filterFn;
+      return $firebaseArray.call(this, ref);
+    }
+
+    FilteredArray.prototype.$$added = function (snap) {
+      var rec = $firebaseArray.prototype.$$added.call(this, snap);
+      if (!this.filterFn || this.filterFn(rec)) {
+        return rec;
+      }
+    };
+
+    return $firebaseArray.$extend(FilteredArray);
+  }
+
 })();

@@ -49,7 +49,7 @@
       <div class="dropdown__options">
 
         <div class="list-item" ng-repeat="c in vm.challenges | limitTo: vm.challengesDisplayLimit"
-          ng-click="">
+          ng-click="vm.selectedIdea = c">
           <nn-image class="list-item__image" image-url="{{}}">
           </nn-image>
           <div class="list-item__detail">
@@ -117,7 +117,7 @@
               avatar-url="{{$root.users[vm.selectedIdea.submitter].avatar}}"
               comment="{{vm.selectedIdea.content}}">
             </nn-comment>
-            <nn-social-totals class="totals" data="vm.selectedIdea" show-dislikes="true"></nn-social-totals>
+            <nn-social-totals class="totals" data="vm.selectedIdea" context="ideas" show-dislikes="true"></nn-social-totals>
           </div>
         </div>
 
@@ -128,10 +128,12 @@
             avatar-url="{{$root.users[c.commenter].avatar}}"
             comment="{{c.comment}}">
           </nn-comment>
+          <!-- commenting disabled
           <nn-comment-form class="badge comment list-item__comment"
             avatar-url=""
             data="vm.selectedIdea">
           </nn-comment-form>
+          -->
         </section>
     </div>
   </section>

@@ -20,6 +20,7 @@
       scope: {
         data: '=',
         showDislikes: '@',
+        context: '@',
       },
       link: link,
       templateUrl: 'app/widgets/nn-social-totals.html',
@@ -60,16 +61,17 @@
     function controller($scope, dataservice) {
 
       $scope.doLike = function () {
-        dataservice.likeContent($scope.data, true);
+        if (!!$scope.context) {
+          dataservice.likeContent($scope.context, $scope.data, true);
+        }
       };
 
       $scope.doDislike = function () {
-        dataservice.likeContent($scope.data, false);
+        if (!!$scope.context) {
+          dataservice.likeContent($scope.context, $scope.data, false);
+        }
       };
 
-      $scope.doComment = function () {
-        console.log($scope.data);
-      };
     }
   }
 })();

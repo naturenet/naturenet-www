@@ -11,7 +11,7 @@
   dataservice.$inject = ['$q', '$firebaseObject', '$firebaseArray', '$firebaseAuth', '$filter', 'exception', 'logger'];
   /* @ngInject */
   function dataservice($q, $firebaseObject, $firebaseArray, $firebaseAuth, $filter, exception, logger) {
-    var url = 'https://naturenet-testing.firebaseio.com/';
+    var url = 'https://naturenet-staging.firebaseio.com/';
 
     var service = {
       // Utility functions
@@ -48,6 +48,11 @@
       // Feedback functions
       likeContent: likeContent,
       addComment: addComment,
+
+      //getCommentsRecent: getCommentsRecent,
+      //getCommentsForObservation: getCommentsForObservation,
+      //getCommentsForIdea: getCommentsForIdea,
+      //getCommentsByUser: getCommentsByUser,
     };
 
     return service;
@@ -66,9 +71,7 @@
         .catch(fail);
 
       function success(response) {
-        console.log('got data array');
-        console.log(response);
-        return $filter('orderBy')($filter('notDeleted')(response), 'updated_at', true);
+        return response; //$filter('orderBy')($filter('notDeleted')(response), 'updated_at', true);
       }
 
       function fail(e) {
@@ -77,13 +80,13 @@
     }
 
     function timestamp(data) {
-        data.updated_at = Firebase.ServerValue.TIMESTAMP;
+      data.updated_at = Firebase.ServerValue.TIMESTAMP;
 
-        if(!data.hasOwnProperty('created_at')) {
-            data.created_at = Firebase.ServerValue.TIMESTAMP;
-        }
+      if (!data.hasOwnProperty('created_at')) {
+        data.created_at = Firebase.ServerValue.TIMESTAMP;
+      }
 
-        return data;
+      return data;
     }
 
     /* Authentication functions
@@ -181,26 +184,21 @@
       // Create the data we want to update
       var uid = profile.uid;
       var updatedUserData = {};
-      updatedUserData['users-private/' + uid] = {
+      updatedUserData['users-private/' + uid] = timestamp({
         id: uid,
         consent: {
           required: true,
         },
 
         //name: profile.name,
-        created_at: Firebase.ServerValue.TIMESTAMP,
-        updated_at: Firebase.ServerValue.TIMESTAMP,
-      };
-      updatedUserData['users/' + uid] = {
+      });
+      updatedUserData['users/' + uid] = timestamp({
         id: uid,
         display_name: profile.display_name,
 
         //affiliation: profile.affiliation,
-        created_at: Firebase.ServerValue.TIMESTAMP,
-        updated_at: Firebase.ServerValue.TIMESTAMP,
-
         // TODO: update object to include other fields
-      };
+      });
 
       ref.update(updatedUserData, function (error) {
         if (error) {
@@ -252,7 +250,7 @@
         .catch(fail);
 
       function success(response) {
-        return $filter('orderBy')(response, 'updated_at', true);
+        return response;//$filter('orderBy')(response, 'updated_at', true);
       }
 
       function fail(e) {
@@ -291,7 +289,7 @@
         .catch(fail);
 
       function success(response) {
-        return $filter('orderBy')(response, 'updated_at', true);
+        return response;//$filter('orderBy')(response, 'updated_at', true);
       }
 
       function fail(e) {
@@ -313,7 +311,7 @@
         .catch(fail);
 
       function success(response) {
-        return $filter('orderBy')($filter('notDeleted')(response), 'updated_at', true);
+        return response;//$filter('orderBy')($filter('notDeleted')(response), 'updated_at', true);
       }
 
       function fail(e) {
@@ -389,7 +387,7 @@
         .catch(fail);
 
       function success(response) {
-        return $filter('orderBy')(response, 'updated_at', true);
+        return response;//$filter('orderBy')(response, 'updated_at', true);
       }
 
       function fail(e) {
@@ -427,80 +425,146 @@
 
     function addIdea(uid, content) {
       var ref = new Firebase(url + 'ideas');
-      var data = $firebaseArray(ref);
 
-      // Create the data we want to update
-      var updatedIdeaData = {
+      var id = ref.push().key();
+
+      var idea = timestamp({
+        id: id,
         group: 'idea',
         submitter: uid,
         content: content,
-        created_at: Firebase.ServerValue.TIMESTAMP,
-        updated_at: Firebase.ServerValue.TIMESTAMP,
+        status: 'doing',
+      });
 
-        // TODO: update object to include other fields
-      };
-
-      return data.$add(updatedIdeaData)
-        .then(success)
-        .catch(fail);
+      return ref.child(id).set(idea).then(success).catch(fail);
 
       function success(response) {
         return response;
       }
 
       function fail(e) {
-        return exception.catcher('Failed for dataservice.getProjectsRecent')(e);
+        return exception.catcher('Failed for dataservice.addIdea')(e);
       }
     }
 
     /* Feedback functions
        ================================================== */
 
-    function likeContent(content, isPositive) {
+    function getCommentsAsArray(ref) {
+      var data = $firebaseArray(ref.orderByChild('updated_at'));
+
+      return data.$loaded()
+        .then(success)
+        .catch(fail);
+
+      function success(response) {
+        return response;//$filter('orderBy')($filter('notDeleted')(response), 'updated_at', true);
+      }
+
+      function fail(e) {
+        return exception.catcher('Failed for dataservice.getCommentsAsArray')(e);
+      }
+    }
+
+    function likeContent(type, record, isPositive) {
       var auth = getAuth();
 
       if (auth === null || !auth.uid) {
-        console.log("You must be signed in to do that!");
+        console.log('You must be signed in to do that!');
         return;
-      }
-
-      if (!content.hasOwnProperty('likes')) {
-        content.likes = {};
       }
 
       var uid = auth.uid;
 
-      if (content.likes.hasOwnProperty(uid) && content.likes[uid] === isPositive) {
-        delete content.likes[uid];
-      } else {
-        content.likes[uid] = isPositive;
-      }
+      $firebaseObject(new Firebase(url + type + '/' + record.$id + '/likes')).$loaded().then(function (likes) {
+        if (likes[uid] === isPositive) {
+          delete likes[uid];
+        } else {
+          likes[uid] = isPositive;
+        }
 
-      //TODO: write content
-      console.log(content);
+        likes.$save();
+      });
+
+    }
+
+    function commentOnObservation(id, comment) {
+      var ref = new Firebase(url + 'observations/' + id);
+      var data = $firebaseObject(ref);
+      data.$loaded().then(function (data) {
+
+        //TODO
+        console.log(data);
+      });
     }
 
     function addComment(content, text) {
       var auth = getAuth();
 
       if (auth === null || !auth.uid) {
-        console.log("You must be signed in to do that!");
+        console.log('You must be signed in to do that!');
         return;
       }
+
+      var ref = new Firebase(url + 'comments');
 
       if (!content.hasOwnProperty('comments')) {
         content.comments = {};
       }
 
-      //TODO: push new comment
-      var newComment = {
+      var id = ref.push().key();
+      content.comments[id] = true;
+
+      var newComment = timestamp({
+        id: id,
+        parent: content.id,
         comment: text,
         commenter: auth.uid,
-        created_at: Firebase.ServerValue.TIMESTAMP,
-        updated_at: Firebase.ServerValue.TIMESTAMP,
-      };
-      content.comments['testkey'] = newComment;
-      console.log(content);
+      });
+
+      console.log(newComment);
+      var newData = {};
+      newData['/comments/' + id] = newComment;
+
+      ref.update(newData);
+    }
+
+    function getCommentsRecent(limit) {
+      var ref = new Firebase(url + 'comments')
+        .orderByChild('updated_at')
+        .limitToLast(limit);
+      var data = $firebaseArray(ref);
+
+      return data.$loaded()
+        .then(success)
+        .catch(fail);
+
+      function success(response) {
+        return response;//$filter('orderBy')(response, 'updated_at', true);
+      }
+
+      function fail(e) {
+        return exception.catcher('Failed for dataservice.getCommentsRecent')(e);
+      }
+    }
+
+    function getCommentsByUserId(id) {
+      var ref = new Firebase(url + 'comments')
+        .orderByChild('commenter')
+        .equalTo(id);
+      var data = $firebaseArray(ref);
+
+      return data.$loaded()
+        .then(success)
+        .catch(fail);
+
+      function success(response) {
+        return response;//$filter('orderBy')($filter('notDeleted')(response), 'updated_at', true);
+      }
+
+      function fail(e) {
+        return exception.catcher('Failed for dataservice.getCommentsByUserId')(e);
+      }
     }
   }
 })();

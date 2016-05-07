@@ -8,10 +8,19 @@
   /* Dataservice
      ======================================================================== */
 
-  dataservice.$inject = ['$q', '$firebaseObject', '$firebaseArray', '$firebaseAuth', '$filter', 'exception', 'logger'];
+  dataservice.$inject = [
+    '$q',
+    '$firebaseObject',
+    '$firebaseArray',
+    '$firebaseAuth',
+    '$filter',
+    'FilteredArray',
+    'exception',
+    'logger',
+  ];
   /* @ngInject */
-  function dataservice($q, $firebaseObject, $firebaseArray, $firebaseAuth, $filter, exception, logger) {
-    var url = 'https://naturenet-staging.firebaseio.com/';
+  function dataservice($q, $firebaseObject, $firebaseArray, $firebaseAuth, $filter, FilteredArray, exception, logger) {
+    var url = 'https://naturenet.firebaseio.com/';
 
     var service = {
       // Utility functions
@@ -64,19 +73,25 @@
       var ref = new Firebase(url + s)
         .orderByChild('updated_at')
         .limitToLast(50);
-      var data = $firebaseArray(ref);
+      var data = notDeletedArray(ref);
 
       return data.$loaded()
         .then(success)
         .catch(fail);
 
       function success(response) {
-        return response; //$filter('orderBy')($filter('notDeleted')(response), 'updated_at', true);
+        return response;
       }
 
       function fail(e) {
         return exception.catcher('Failed for dataservice.getArray')(e);
       }
+    }
+
+    function notDeletedArray(ref) {
+      return new FilteredArray(ref, function (item) {
+        return !(item.hasOwnProperty('status') && item.status.toLowerCase() === 'deleted');
+      });
     }
 
     function timestamp(data) {
@@ -243,14 +258,14 @@
       var ref = new Firebase(url + 'users')
         .orderByChild('public/updated_at')
         .limitToLast(limit);
-      var data = $firebaseArray(ref);
+      var data = notDeletedArray(ref);
 
       return data.$loaded()
         .then(success)
         .catch(fail);
 
       function success(response) {
-        return response;//$filter('orderBy')(response, 'updated_at', true);
+        return response;
       }
 
       function fail(e) {
@@ -282,14 +297,14 @@
       var ref = new Firebase(url + 'groups')
         .orderByChild('members/' + id)
         .equalTo(true);
-      var data = $firebaseArray(ref);
+      var data = notDeletedArray(ref);
 
       return data.$loaded()
         .then(success)
         .catch(fail);
 
       function success(response) {
-        return response;//$filter('orderBy')(response, 'updated_at', true);
+        return response;
       }
 
       function fail(e) {
@@ -304,14 +319,14 @@
       var ref = new Firebase(url + 'observations')
         .orderByChild('observer')
         .equalTo(id);
-      var data = $firebaseArray(ref);
+      var data = notDeletedArray(ref);
 
       return data.$loaded()
         .then(success)
         .catch(fail);
 
       function success(response) {
-        return response;//$filter('orderBy')($filter('notDeleted')(response), 'updated_at', true);
+        return response;
       }
 
       function fail(e) {
@@ -380,14 +395,14 @@
       var ref = new Firebase(url + 'activities')
         .orderByChild('updated_at')
         .limitToLast(limit);
-      var data = $firebaseArray(ref);
+      var data = notDeletedArray(ref);
 
       return data.$loaded()
         .then(success)
         .catch(fail);
 
       function success(response) {
-        return response;//$filter('orderBy')(response, 'updated_at', true);
+        return response;
       }
 
       function fail(e) {
@@ -451,14 +466,15 @@
        ================================================== */
 
     function getCommentsAsArray(ref) {
-      var data = $firebaseArray(ref.orderByChild('updated_at'));
+      var query = ref.orderByChild('updated_at');
+      var data = notDeletedArray(query);
 
       return data.$loaded()
         .then(success)
         .catch(fail);
 
       function success(response) {
-        return response;//$filter('orderBy')($filter('notDeleted')(response), 'updated_at', true);
+        return response;
       }
 
       function fail(e) {
@@ -533,14 +549,14 @@
       var ref = new Firebase(url + 'comments')
         .orderByChild('updated_at')
         .limitToLast(limit);
-      var data = $firebaseArray(ref);
+      var data = notDeletedArray(ref);
 
       return data.$loaded()
         .then(success)
         .catch(fail);
 
       function success(response) {
-        return response;//$filter('orderBy')(response, 'updated_at', true);
+        return response;
       }
 
       function fail(e) {
@@ -552,14 +568,14 @@
       var ref = new Firebase(url + 'comments')
         .orderByChild('commenter')
         .equalTo(id);
-      var data = $firebaseArray(ref);
+      var data = notDeletedArray(ref);
 
       return data.$loaded()
         .then(success)
         .catch(fail);
 
       function success(response) {
-        return response;//$filter('orderBy')($filter('notDeleted')(response), 'updated_at', true);
+        return response;
       }
 
       function fail(e) {

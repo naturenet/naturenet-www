@@ -15,7 +15,7 @@
       <div class="dropdown__options">
 
         <div class="dropdown__option"
-          ng-repeat="p in vm.projects"
+          ng-repeat="p in vm.projects | orderBy: '-latest_contribution'"
           ng-click="vm.updateProjectId(p.id)">
           <nn-badge class="badge"
             title="{{p.name}}"

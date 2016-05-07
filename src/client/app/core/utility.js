@@ -4,7 +4,23 @@
   angular
     .module('app.core')
     .factory('utility', utility)
-    .factory('FilteredArray', filteredArray)
+
+    // taken from https://gist.github.com/katowulf/bee266e31aa60cb0eed6
+    .factory('FilteredArray', function filteredArray($firebaseArray) {
+      function FilteredArray(ref, filterFn) {
+        this.filterFn = filterFn;
+        return $firebaseArray.call(this, ref);
+      }
+
+      FilteredArray.prototype.$$added = function (snap) {
+        var rec = $firebaseArray.prototype.$$added.call(this, snap);
+        if (!this.filterFn || this.filterFn(rec)) {
+          return rec;
+        }
+      };
+
+      return $firebaseArray.$extend(FilteredArray);
+    })
     .service('notDeleted', notDeleted)
 
     //taken from http://stackoverflow.com/a/18604674
@@ -106,22 +122,4 @@
       return !(input[i].hasOwnProperty('status') && input[i].status.toLowerCase() === 'deleted');
     };
   };
-
-  // taken from https://gist.github.com/katowulf/bee266e31aa60cb0eed6
-  function filteredArray($firebaseArray) {
-    function FilteredArray(ref, filterFn) {
-      this.filterFn = filterFn;
-      return $firebaseArray.call(this, ref);
-    }
-
-    FilteredArray.prototype.$$added = function (snap) {
-      var rec = $firebaseArray.prototype.$$added.call(this, snap);
-      if (!this.filterFn || this.filterFn(rec)) {
-        return rec;
-      }
-    };
-
-    return $firebaseArray.$extend(FilteredArray);
-  }
-
 })();

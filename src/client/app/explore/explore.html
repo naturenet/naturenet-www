@@ -25,7 +25,7 @@
 
         <div class="dropdown__options">
 
-          <div class="list-item" ng-repeat="o in vm.observations" ng-click="vm.showSidebar(o)">
+          <div class="list-item" ng-repeat="o in vm.observations | orderBy: '-updated_at'" ng-click="vm.showSidebar(o)">
             <nn-image class="list-item__image" image-url="{{o.data.image | img_preview}}">
             </nn-image>
             <div class="list-item__detail">
@@ -70,7 +70,7 @@
     </section>
 
     <section class="sidebar__comments">
-      <nn-comment class="comment list-item__comment" ng-repeat="c in vm.currentObservation.comments"
+      <nn-comment class="comment list-item__comment" ng-repeat="c in vm.currentObservation.comments | orderBy: '-updated_at'"
         name="{{$root.users[c.commenter].display_name}}"
         date="{{vm.formatDate(c.updated_at)}}"
         avatar-url="{{$root.users[c.commenter].avatar}}"

@@ -14,7 +14,7 @@
       <div class="dropdown__options">
 
         <div class="dropdown__option"
-          ng-repeat="u in vm.users | limitTo: vm.peopleDisplayLimit"
+          ng-repeat="u in vm.users | orderBy: '-updated_at' | limitTo: vm.peopleDisplayLimit"
           ng-click="vm.updateUserId(u.id)">
           <nn-badge class="badge"
             title="{{u.display_name}}"
@@ -47,7 +47,7 @@
 
         <!-- TODO: add ng-click to above markup for displaying groups -->
         <div class="dropdown__option"
-          ng-repeat="g in vm.groups | limitTo: vm.groupsDisplayLimit">
+          ng-repeat="g in vm.groups | orderBy: '-updated_at' | limitTo: vm.groupsDisplayLimit">
           <nn-badge class="badge"
             title="{{g.name}}"
             subtitle=""
@@ -96,7 +96,7 @@
     <div class="main__groups">
       <nn-badge class="badge badge--large"
         ng-if="vm.userGroups.length > 0"
-        ng-repeat="g in vm.userGroups | limitTo: vm.groupsDisplayLimit"
+        ng-repeat="g in vm.userGroups | orderBy: '-updated_at' | limitTo: vm.groupsDisplayLimit"
         title="{{g.name}}"
         avatar-url="{{g.avatar}}">
         <!-- TODO: once roles are sorted out add subtitle="{{g.role}}" -->

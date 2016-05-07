@@ -13,7 +13,7 @@
 
       <div class="dropdown__options">
 
-        <div class="list-item" ng-repeat="i in vm.ideas | limitTo: vm.ideasDisplayLimit"
+        <div class="list-item" ng-repeat="i in vm.ideas | orderBy: '-updated_at' | limitTo: vm.ideasDisplayLimit"
           ng-click="vm.selectedIdea = i">
           <nn-image class="list-item__image" image-url="{{}}">
           </nn-image>
@@ -48,7 +48,7 @@
 
       <div class="dropdown__options">
 
-        <div class="list-item" ng-repeat="c in vm.challenges | limitTo: vm.challengesDisplayLimit"
+        <div class="list-item" ng-repeat="c in vm.challenges | orderBy: '-updated_at' | limitTo: vm.challengesDisplayLimit"
           ng-click="vm.selectedIdea = c">
           <nn-image class="list-item__image" image-url="{{}}">
           </nn-image>
@@ -122,7 +122,7 @@
         </div>
 
         <section class="overlay__comments">
-          <nn-comment class="comment list-item__comment" ng-repeat="c in vm.selectedIdea.comments"
+          <nn-comment class="comment list-item__comment" ng-repeat="c in vm.selectedIdea.comments | orderBy: '-updated_at'"
             name="{{$root.users[c.commenter].display_name}}"
             date="{{vm.formatDate(c.updated_at)}}"
             avatar-url="{{$root.users[c.commenter].avatar}}"

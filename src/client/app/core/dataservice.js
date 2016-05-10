@@ -20,7 +20,7 @@
   ];
   /* @ngInject */
   function dataservice($q, $firebaseObject, $firebaseArray, $firebaseAuth, $filter, FilteredArray, exception, logger) {
-    var url = 'https://naturenet.firebaseio.com/';
+    var url = 'https://naturenet-staging.firebaseio.com/';
 
     var service = {
       // Utility functions
@@ -202,18 +202,15 @@
       var updatedUserData = {};
       updatedUserData['users-private/' + uid] = timestamp({
         id: uid,
+        name: profile.name,
         consent: {
           required: true,
         },
-
-        //name: profile.name,
       });
       updatedUserData['users/' + uid] = timestamp({
         id: uid,
         display_name: profile.display_name,
-
-        //affiliation: profile.affiliation,
-        // TODO: update object to include other fields
+        affiliation: profile.affiliation,
       });
 
       ref.update(updatedUserData, function (error) {

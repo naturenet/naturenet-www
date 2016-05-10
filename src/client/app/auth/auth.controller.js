@@ -84,7 +84,7 @@
         display_name: vm.name,
         name: vm.realname,
         email: vm.email,
-        affiliation: vm.affiliation,
+        affiliation: vm.affiliation.$id,
       };
       return dataservice.createUser({
         email: email,

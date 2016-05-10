@@ -25,6 +25,7 @@
     var directive = {
       scope: {
         data: '=',
+        context: '@',
         avatarUrl: '@',
         comment: '@',
       },
@@ -38,17 +39,25 @@
     function link(scope, element, attrs) {
       scope.comment = '';
       scope.showDefault = false;
-
-      if (!scope.avatarUrl || scope.avatarUrl === '') {
-        scope.showDefault = true;
-      }
+      scope.getUser();
     }
 
     function controller($scope, dataservice) {
 
       $scope.doComment = function () {
-        dataservice.addComment($scope.data, $scope.comment);
+        dataservice.addComment($scope.context, $scope.data, $scope.comment);
         $scope.comment = '';
+      };
+
+      $scope.getUser = function () {
+        dataservice.getActiveUser().then(function (user) {
+          $scope.avatarUrl = user.avatar;
+          if (!$scope.avatarUrl || $scope.avatarUrl === '') {
+            $scope.showDefault = true;
+          }
+
+          return user;
+        });
       };
 
     }

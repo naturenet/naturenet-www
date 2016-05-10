@@ -70,18 +70,16 @@
     </section>
 
     <section class="sidebar__comments">
-      <nn-comment class="comment list-item__comment" ng-repeat="c in vm.currentObservation.comments | orderBy: '-updated_at'"
+      <nn-comment class="comment list-item__comment" ng-repeat="c in vm.comments | orderBy: 'updated_at'"
         name="{{$root.users[c.commenter].display_name}}"
         date="{{vm.formatDate(c.updated_at)}}"
         avatar-url="{{$root.users[c.commenter].avatar}}"
         comment="{{c.comment}}">
       </nn-comment>
-      <!-- commenting disabled
       <nn-comment-form class="badge comment list-item__comment"
-        avatar-url=""
-        data="vm.currentObservation">
+        data="vm.currentObservation"
+        context="observations">
       </nn-comment-form>
-      -->
     </section>
 
   </div>

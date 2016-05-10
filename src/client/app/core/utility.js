@@ -86,6 +86,8 @@
       hideSplash: hideSplash,
     };
 
+    var splashCounter = 0;
+
     return service;
 
     /* Date functions
@@ -104,13 +106,14 @@
 
     function showSplash() {
       $rootScope.showSplash = true;
+      splashCounter += 1;
     }
 
     function hideSplash() {
-      //Force a 1 second delay so we can see the splash.
-      $timeout(function () {
+      splashCounter -= 1;
+      if (splashCounter < 1) {
         $rootScope.showSplash = false;
-      }, 1000);
+      }
     }
   }
 

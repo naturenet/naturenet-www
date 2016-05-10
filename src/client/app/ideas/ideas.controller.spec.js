@@ -5,11 +5,14 @@ describe('IdeasController', function () {
 
   beforeEach(function () {
     bard.appModule('app.ideas');
-    bard.inject('$controller', '$q');
+    bard.inject('$controller', '$q', '$rootScope');
   });
 
   beforeEach(function () {
-    controller = $controller('IdeasController');
+    scope = $rootScope.$new();
+    controller = $controller('IdeasController', {
+      $scope: scope,
+    });
   });
 
   describe('Ideas controller', function () {

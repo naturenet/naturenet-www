@@ -10,6 +10,8 @@
 
   IdeasController.$inject = [
     '$q',
+    '$rootScope',
+    '$scope',
     'logger',
     'utility',
     'dataservice',
@@ -17,6 +19,8 @@
   /* @ngInject */
   function IdeasController(
     $q,
+    $rootScope,
+    $scope,
     logger,
     utility,
     dataservice
@@ -37,6 +41,7 @@
     vm.challenges = [];
     vm.currentIdeaId = void 0;
     vm.currentChallengeId = void 0;
+    vm.comments = void 0;
 
     vm.ideasDisplayLimit = vm.sidebarDisplayLimit;
     vm.challengesDisplayLimit = vm.sidebarDisplayLimit;
@@ -63,6 +68,22 @@
           utility.hideSplash();
           logger.info('Activated Design Ideas View');
         });
+    }
+
+    /* Listener Functions
+       ================================================== */
+
+    $scope.$watch('vm.selectedIdea', loadComments);
+
+    function loadComments() {
+      vm.comments = void 0;
+      if (!!vm.selectedIdea) {
+        return dataservice.getCommentsForRecord(vm.selectedIdea)
+          .then(function (data) {
+            vm.comments = data;
+            return vm.comments;
+          });
+      }
     }
 
     /* Data functions

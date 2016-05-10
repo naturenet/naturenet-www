@@ -38,6 +38,7 @@
       // User functions
       getUsers: getUsers,
       getUsersRecent: getUsersRecent,
+      getActiveUser: getActiveUser,
 
       // Group functions
       getGroups: getGroups,
@@ -58,10 +59,9 @@
       likeContent: likeContent,
       addComment: addComment,
 
-      //getCommentsRecent: getCommentsRecent,
-      //getCommentsForObservation: getCommentsForObservation,
-      //getCommentsForIdea: getCommentsForIdea,
-      //getCommentsByUser: getCommentsByUser,
+      getCommentsRecent: getCommentsRecent,
+      getCommentsForRecord: getCommentsForRecord,
+      getCommentsByUserId: getCommentsByUserId,
     };
 
     return service;
@@ -273,6 +273,30 @@
       }
     }
 
+    function getActiveUser() {
+      var auth = getAuth();
+
+      if (auth === null || !auth.uid) {
+        console.log('User is not signed in.');
+        return;
+      }
+
+      var ref = new Firebase(url + 'users/' + auth.uid);
+      var data = $firebaseObject(ref);
+
+      return data.$loaded()
+        .then(success)
+        .catch(fail);
+
+      function success(response) {
+        return response;
+      }
+
+      function fail(e) {
+        return exception.catcher('Failed for dataservice.getCurrentUser')(e);
+      }
+    }
+
     /* Group functions
        ================================================== */
 
@@ -465,23 +489,6 @@
     /* Feedback functions
        ================================================== */
 
-    function getCommentsAsArray(ref) {
-      var query = ref.orderByChild('updated_at');
-      var data = notDeletedArray(query);
-
-      return data.$loaded()
-        .then(success)
-        .catch(fail);
-
-      function success(response) {
-        return response;
-      }
-
-      function fail(e) {
-        return exception.catcher('Failed for dataservice.getCommentsAsArray')(e);
-      }
-    }
-
     function likeContent(type, record, isPositive) {
       var auth = getAuth();
 
@@ -504,17 +511,7 @@
 
     }
 
-    function commentOnObservation(id, comment) {
-      var ref = new Firebase(url + 'observations/' + id);
-      var data = $firebaseObject(ref);
-      data.$loaded().then(function (data) {
-
-        //TODO
-        console.log(data);
-      });
-    }
-
-    function addComment(content, text) {
+    function addComment(context, record, text) {
       var auth = getAuth();
 
       if (auth === null || !auth.uid) {
@@ -522,25 +519,20 @@
         return;
       }
 
-      var ref = new Firebase(url + 'comments');
-
-      if (!content.hasOwnProperty('comments')) {
-        content.comments = {};
-      }
-
-      var id = ref.push().key();
-      content.comments[id] = true;
+      var ref = new Firebase(url);
+      var id = ref.child('comments').push().key();
 
       var newComment = timestamp({
         id: id,
-        parent: content.id,
+        parent: record.$id,
+        context: context,
         comment: text,
         commenter: auth.uid,
       });
 
-      console.log(newComment);
       var newData = {};
-      newData['/comments/' + id] = newComment;
+      newData['comments/' + id] = newComment;
+      newData[context + '/' + record.$id + '/comments/' + id] = true;
 
       ref.update(newData);
     }
@@ -580,6 +572,25 @@
 
       function fail(e) {
         return exception.catcher('Failed for dataservice.getCommentsByUserId')(e);
+      }
+    }
+
+    function getCommentsForRecord(record) {
+      var ref = new Firebase(url + 'comments')
+        .orderByChild('parent')
+        .equalTo(record.$id);
+      var data = notDeletedArray(ref);
+
+      return data.$loaded()
+        .then(success)
+        .catch(fail);
+
+      function success(response) {
+        return response;
+      }
+
+      function fail(e) {
+        return exception.catcher('Failed for dataservice.getCommentsForRecord')(e);
       }
     }
   }

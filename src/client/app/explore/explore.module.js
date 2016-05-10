@@ -5,7 +5,6 @@
     .module('app.explore', [
       'app.core',
       'app.widgets',
-      'app.comments',
     ]);
 
 })();

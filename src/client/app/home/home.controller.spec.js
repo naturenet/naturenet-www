@@ -24,10 +24,6 @@ describe('HomeController', function () {
       expect(controller).to.be.defined;
     });
 
-    it('should show splash screen', function () {
-      expect($rootScope.showSplash).to.be.true;
-    });
-
     describe('after activate', function () {
       it('should have title of Home', function () {
         expect(controller.title).to.equal('Home');

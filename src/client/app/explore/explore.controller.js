@@ -43,6 +43,7 @@
     vm.map = void 0;
     vm.observations = void 0;
     vm.currentObservation = void 0;
+    vm.comments = void 0;
 
     // States
     $scope.$parent.hasMap = false;
@@ -97,6 +98,7 @@
     function currentObservationUpdated() {
       showSidebar(vm.currentObservation);
       updateMap(vm.currentObservation);
+      loadComments(vm.currentObservation);
     }
 
     /* Map functions
@@ -157,6 +159,17 @@
 
     function hideSidebar() {
       vm.hasSidebar = false;
+    }
+
+    function loadComments() {
+      vm.comments = void 0;
+      if (!!vm.currentObservation) {
+        return dataservice.getCommentsForRecord(vm.currentObservation)
+          .then(function (data) {
+            vm.comments = data;
+            return vm.comments;
+          });
+      }
     }
 
   }

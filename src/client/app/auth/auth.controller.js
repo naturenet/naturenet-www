@@ -46,6 +46,7 @@
     vm.login = login;
     vm.join = join;
     vm.close = close;
+    vm.reset = reset;
 
     activate();
 
@@ -169,6 +170,18 @@
       if (checkValidity('join')) {
         createUser(email, password);
       }
+    }
+
+    function reset() {
+      if (vm.email.length === 0) {
+        logger.error('No email address was entered.');
+        return false;
+      }
+
+      return dataservice.resetPassword(vm.email)
+        .then(function (data) {
+          logger.success('Please check the provided email address for instructions.');
+        });
     }
 
     /* Utility functions

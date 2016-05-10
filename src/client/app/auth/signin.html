@@ -9,18 +9,17 @@
   <input class="auth__field"
     placeholder="email"
     type="text"
-    ng-model="vm.email">
-  </input>
+    ng-model="vm.email" />
 
   <input class="auth__field"
     placeholder="password"
     type="password"
-    ng-model="vm.password">
-  </input>
+    ng-model="vm.password" />
+
+  <p class="auth__reset" ng-click="vm.reset()">Reset my password</p>
 
   <input class="button button--auth"
     value="sign in"
-    type="submit">
-  </input>
+    type="submit" />
 
 </form>

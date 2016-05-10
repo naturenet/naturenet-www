@@ -34,6 +34,7 @@
       createUser: createUser,
       removeUser: removeUser,
       addUser: addUser,
+      resetPassword: resetPassword,
 
       // User functions
       getUsers: getUsers,
@@ -231,6 +232,22 @@
 
       function fail(e) {
         d.reject(exception.catcher('Failed for dataservice.addUser')(e));
+      }
+    }
+
+    function resetPassword(email) {
+      var ref = new Firebase(url);
+      var data = $firebaseAuth(ref);
+      return data.$resetPassword({ email: email })
+        .then(success)
+        .catch(fail);
+
+      function success(response) {
+        return response;
+      }
+
+      function fail(e) {
+        return exception.catcher('Failed for dataservice.resetPassword')(e);
       }
     }
 

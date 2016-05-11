@@ -1,14 +1,45 @@
-<form class="auth__form auth__form--register"
+<form novalidate class="auth__form auth__form--register"
   ng-submit="vm.join(vm.email, vm.password)">
 
   <div class="auth__text">
-    Join NatureNet today!
+    You are invited to participate in NatureNet, a research project being conducted by the researchers listed at <a href="http://research.nature-net.org/people.html">http://research.nature-net.org/people.html</a>. In order for us to collect and study the way people are using technology like NatureNet, we must have your consent.
   </div>
 
-  <div style="margin-bottom: 30px; line-height: 1.4;">
-      <!-- TODO: determine approach for consent. this is placeholder text. -->
-  </div>
+  <p><label>
+    <input class="auth__field"
+      required="true"
+      type="checkbox"
+      name="consent_"
+      ng-model="vm.consent.upload" />
+    (Required) I agree that any observations (photos) or comments I contribute to NatureNet may be publicly
+displayed on the web, mobile phone, or tabletop platforms that comprise NatureNet.
+  </label>
+  <p><label>
+    <input class="auth__field"
+      required="true"
+      type="checkbox"
+      name="consent_"
+      ng-model="vm.consent.share" />
+    (Required) I agree to allow any comments, observations, and profile information that I choose to share with
+others via the online application to be visible to others who use the application at the same time or after me.
+  </label>
+  <p><label>
+    <input class="auth__field"
+      type="checkbox"
+      name="consent_"
+      ng-model="vm.consent.recording" />
+    (Optional) I agree to be videotaped/audiotaped during my participation in this study.
+  </label>
+  <p><label>
+    <input class="auth__field"
+      placeholder="Username"
+      type="checkbox"
+      name="consent_"
+      ng-model="vm.consent.survey" />
+    (Optional) I agree to complete a short questionnaire during or after my participation in this study.
+  </label>
 
+  <div class="auth__form">
   <input class="auth__field"
     placeholder="Username"
     type="text"
@@ -38,5 +69,5 @@
   <input class="button button--auth"
     value="join"
     type="submit" />
-
+  </div>
 </form>

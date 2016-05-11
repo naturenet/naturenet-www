@@ -20,7 +20,7 @@
   ];
   /* @ngInject */
   function dataservice($q, $firebaseObject, $firebaseArray, $firebaseAuth, $filter, FilteredArray, exception, logger) {
-    var url = 'https://naturenet-staging.firebaseio.com/';
+    var url = 'https://naturenet.firebaseio.com/';
 
     var service = {
       // Utility functions
@@ -203,9 +203,7 @@
       updatedUserData['users-private/' + uid] = timestamp({
         id: uid,
         name: profile.name,
-        consent: {
-          required: true,
-        },
+        consent: profile.consent,
       });
       updatedUserData['users/' + uid] = timestamp({
         id: uid,

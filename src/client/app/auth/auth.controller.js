@@ -37,6 +37,7 @@
     vm.name = '';
     vm.realname = '';
     vm.affiliation = '';
+    vm.consent = {};
 
     // States
     vm.isRegister = false;
@@ -85,6 +86,7 @@
         name: vm.realname,
         email: vm.email,
         affiliation: vm.affiliation.$id,
+        consent: vm.consent,
       };
       return dataservice.createUser({
         email: email,
@@ -188,7 +190,13 @@
        ================================================== */
 
     function checkValidity(type) {
-      if (vm.email.length === 0) {
+      if (vm.consent.upload !== true && type === 'join') {
+        logger.error('You must consent to participate.');
+        return false;
+      } else if (vm.consent.share !== true && type === 'join') {
+        logger.error('You must consent to participate.');
+        return false;
+      } else if (vm.email.length === 0) {
         logger.error('No email address was entered.');
         return false;
       } else if (vm.password.length === 0) {
@@ -217,6 +225,7 @@
       vm.name = '';
       vm.realname = '';
       vm.affiliation = '';
+      vm.consent = {};
     }
 
   }

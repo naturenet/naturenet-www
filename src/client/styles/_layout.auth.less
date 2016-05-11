@@ -62,12 +62,14 @@
     .auth__form {
       display: inline-block;
       width: 420px;
-      padding: 100px 35px 25px;
-      
+
       &.auth__form--register {
-        // 800px in comps, but keeping 420px for consistency
-        width: 420px; }
-      
+        width: 800px;
+        padding: 100px 35px 25px; }
+
+      &.auth__form--signin {
+        padding: 100px 35px 25px; }
+
       > * {
         display: block;
         margin: 0 auto;

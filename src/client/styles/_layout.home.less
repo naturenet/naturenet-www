@@ -142,3 +142,26 @@
         position: absolute;
         right: 0; }
     }
+
+    .home-footer {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      padding: 1rem;
+      background-color: @dark-blue;
+      color: white;
+      text-align: center;
+    }
+
+    .footer-items {
+      > li {
+        display: inline;
+        list-style-type: none;
+      }
+
+      > li + li:before {
+        content: '|';
+        padding: 0 20px;
+      }
+    }

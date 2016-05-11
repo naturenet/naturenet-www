@@ -70,9 +70,7 @@
         subtitle="{{vm.formatDate(i.updated_at)}}"
         avatar-url="{{$root.users[i.submitter].avatar}}">
       </nn-badge>
-      
-      <!-- TODO: Add dislikes to data model -->
-      <nn-social-totals class="item__totals totals -centerv" data="i">
+      <nn-social-totals class="item__totals totals -centerv" data="i" show-dislikes="true">
       </nn-social-totals>
     </li>
 
@@ -81,4 +79,12 @@
     </li>
   </ul>
 
+</div>
+
+<div class="home-footer">
+    <ul class="footer-items">
+      <li class="footer-item">University of North Carolina Charlotte</li>
+      <li class="footer-item">University of Colorado Boulder</li>
+      <li class="footer-item">University of Maryland College Park</li>
+    </ul>
 </div>

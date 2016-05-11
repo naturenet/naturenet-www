@@ -5,6 +5,7 @@ var del = require('del');
 var glob = require('glob');
 var gulp = require('gulp');
 var path = require('path');
+var Server = require('karma').Server;
 var _ = require('lodash');
 var $ = require('gulp-load-plugins')({ lazy: true });
 
@@ -589,11 +590,12 @@ function startTests(singleRun, done) {
     }
   }
 
-  karma.start({
+  server = new Server({
     configFile: __dirname + '/karma.conf.js',
     exclude: excludeFiles,
     singleRun: !!singleRun,
   }, karmaCompleted);
+  server.start();
   // .on('error', function(err) {
   //  this.emit('end');
   // });

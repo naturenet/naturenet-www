@@ -14,9 +14,10 @@
     "npm": "3.5.3"
   },
   "dependencies": {
-    "bower": "^1.7.7",
     "body-parser": "^1.8.2",
+    "bower": "^1.7.7",
     "express": "^4.9.3",
+    "karma-cli": "^1.0.0",
     "morgan": "^1.1.1",
     "serve-favicon": "^2.0.1"
   },

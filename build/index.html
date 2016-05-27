@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html ng-app="app">
+
+<head>
+  <style>
+    /* This helps the ng-show/ng-hide animations start at the right place. */
+    /* Since Angular has this but needs to load, this gives us the class early. */
+    
+    .ng-hide {
+      display: none!important;
+    }
+  </style>
+  <title ng-bind="title">NatureNet</title>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
+  <base href="/">
+
+  <link href="images/favicon.ico" rel="shortcut icon">
+
+  <link rel="stylesheet" href="styles/lib-1392290de7.css">
+
+  <link rel="stylesheet" href="styles/app-24b0c0980f.css">
+</head>
+
+<body>
+
+  <div style="width:100%; height: 100%;">
+    <div id="app" class="outer"
+      ng-include="'app/layout/shell.html'"
+      ng-controller="ShellController as vm">
+    </div>
+    <div id="app" class="overlay overlay--splash" ng-show="showSplash">
+    </div>
+  </div>
+
+  <div id="scripts" style="display: none">
+    <!-- google maps js -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuJZTqYkJcMuhF48c9KjSB87QFCQa-oV0"></script>
+
+    <script src="js/lib-e8f7bb9f40.js"></script>
+
+    <script src="js/app-ad6ee7d4cb.js"></script>
+  </div>
+</body>
+
+</html>

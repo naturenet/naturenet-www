@@ -20,7 +20,7 @@
   ];
   /* @ngInject */
   function dataservice($q, $firebaseObject, $firebaseArray, $firebaseAuth, $filter, FilteredArray, exception, logger) {
-    var url = 'https://naturenet.firebaseio.com/';
+    var dataUrl = 'https://naturenet.firebaseio.com/';
 
     var service = {
       // Utility functions
@@ -71,7 +71,7 @@
        ================================================== */
 
     function getArray(s) {
-      var ref = new Firebase(url + s)
+      var ref = new Firebase(dataUrl + s)
         .orderByChild('updated_at')
         .limitToLast(50);
       var data = notDeletedArray(ref);
@@ -110,7 +110,7 @@
 
     function onAuth() {
       var d = $q.defer();
-      var ref = new Firebase(url);
+      var ref = new Firebase(dataUrl);
       var data = $firebaseAuth(ref);
 
       data.$onAuth(function (snapshot) {
@@ -130,14 +130,14 @@
 
     function getAuth() {
       var d = $q.defer();
-      var ref = new Firebase(url);
+      var ref = new Firebase(dataUrl);
       var data = $firebaseAuth(ref);
 
       return data.$getAuth();
     }
 
     function authWithPassword(cred) {
-      var ref = new Firebase(url);
+      var ref = new Firebase(dataUrl);
       var data = $firebaseAuth(ref);
 
       return data.$authWithPassword(cred)
@@ -154,14 +154,14 @@
     }
 
     function unAuth() {
-      var ref = new Firebase(url);
+      var ref = new Firebase(dataUrl);
       var data = $firebaseAuth(ref);
 
       return data.$unauth();
     }
 
     function createUser(cred) {
-      var ref = new Firebase(url);
+      var ref = new Firebase(dataUrl);
       var data = $firebaseAuth(ref);
       return data.$createUser(cred)
         .then(success)
@@ -177,7 +177,7 @@
     }
 
     function removeUser(cred) {
-      var ref = new Firebase(url);
+      var ref = new Firebase(dataUrl);
       var data = $firebaseAuth(ref);
 
       return data.$removeUser()
@@ -195,7 +195,7 @@
 
     function addUser(profile) {
       var d = $q.defer();
-      var ref = new Firebase(url);
+      var ref = new Firebase(dataUrl);
 
       // Create the data we want to update
       var uid = profile.uid;
@@ -231,7 +231,7 @@
     }
 
     function resetPassword(email) {
-      var ref = new Firebase(url);
+      var ref = new Firebase(dataUrl);
       var data = $firebaseAuth(ref);
       return data.$resetPassword({ email: email })
         .then(success)
@@ -250,7 +250,7 @@
        ================================================== */
 
     function getUsers() {
-      var ref = new Firebase(url + 'users');
+      var ref = new Firebase(dataUrl + 'users');
       var data = $firebaseObject(ref);
 
       return data.$loaded()
@@ -267,7 +267,7 @@
     }
 
     function getUsersRecent(limit) {
-      var ref = new Firebase(url + 'users')
+      var ref = new Firebase(dataUrl + 'users')
         .orderByChild('public/updated_at')
         .limitToLast(limit);
       var data = notDeletedArray(ref);
@@ -293,7 +293,7 @@
         return;
       }
 
-      var ref = new Firebase(url + 'users/' + auth.uid);
+      var ref = new Firebase(dataUrl + 'users/' + auth.uid);
       var data = $firebaseObject(ref);
 
       return data.$loaded()
@@ -313,7 +313,7 @@
        ================================================== */
 
     function getGroups() {
-      var ref = new Firebase(url + 'groups');
+      var ref = new Firebase(dataUrl + 'groups');
       var data = $firebaseObject(ref);
 
       return data.$loaded()
@@ -330,7 +330,7 @@
     }
 
     function getGroupsByUserId(id) {
-      var ref = new Firebase(url + 'groups')
+      var ref = new Firebase(dataUrl + 'groups')
         .orderByChild('members/' + id)
         .equalTo(true);
       var data = notDeletedArray(ref);
@@ -352,7 +352,7 @@
        ================================================== */
 
     function getObservationsArrayByUserId(id) {
-      var ref = new Firebase(url + 'observations')
+      var ref = new Firebase(dataUrl + 'observations')
         .orderByChild('observer')
         .equalTo(id);
       var data = notDeletedArray(ref);
@@ -382,7 +382,7 @@
           var data = [];
 
           for (i; i < alength; i++) {
-            ref = new Firebase(url + 'observations')
+            ref = new Firebase(dataUrl + 'observations')
               .orderByChild('activity_location')
               .equalTo(idArray[i]);
 
@@ -411,7 +411,7 @@
        ================================================== */
 
     function getProjects() {
-      var ref = new Firebase(url + 'activities');
+      var ref = new Firebase(dataUrl + 'activities');
       var data = $firebaseObject(ref);
 
       return data.$loaded()
@@ -428,7 +428,7 @@
     }
 
     function getProjectsRecent(limit) {
-      var ref = new Firebase(url + 'activities')
+      var ref = new Firebase(dataUrl + 'activities')
         .orderByChild('updated_at')
         .limitToLast(limit);
       var data = notDeletedArray(ref);
@@ -448,7 +448,7 @@
 
     function getProjectLocationIds(id) {
       var d = $q.defer();
-      var ref = new Firebase(url + 'geo/activities')
+      var ref = new Firebase(dataUrl + 'geo/activities')
         .orderByChild('activity')
         .equalTo(id);
 
@@ -474,14 +474,14 @@
     /* Idea functions
        ================================================== */
 
-    function addIdea(uid, content) {
-      var ref = new Firebase(url + 'ideas');
+    function addIdea(uid, content, group) {
+      var ref = new Firebase(dataUrl + 'ideas');
 
       var id = ref.push().key();
 
       var idea = timestamp({
         id: id,
-        group: 'idea',
+        group: group,
         submitter: uid,
         content: content,
         status: 'doing',
@@ -511,7 +511,7 @@
 
       var uid = auth.uid;
 
-      $firebaseObject(new Firebase(url + type + '/' + record.$id + '/likes')).$loaded().then(function (likes) {
+      $firebaseObject(new Firebase(dataUrl + type + '/' + record.$id + '/likes')).$loaded().then(function (likes) {
         if (likes[uid] === isPositive) {
           delete likes[uid];
         } else {
@@ -531,7 +531,7 @@
         return;
       }
 
-      var ref = new Firebase(url);
+      var ref = new Firebase(dataUrl);
       var id = ref.child('comments').push().key();
 
       var newComment = timestamp({
@@ -550,7 +550,7 @@
     }
 
     function getCommentsRecent(limit) {
-      var ref = new Firebase(url + 'comments')
+      var ref = new Firebase(dataUrl + 'comments')
         .orderByChild('updated_at')
         .limitToLast(limit);
       var data = notDeletedArray(ref);
@@ -569,7 +569,7 @@
     }
 
     function getCommentsByUserId(id) {
-      var ref = new Firebase(url + 'comments')
+      var ref = new Firebase(dataUrl + 'comments')
         .orderByChild('commenter')
         .equalTo(id);
       var data = notDeletedArray(ref);
@@ -588,7 +588,7 @@
     }
 
     function getCommentsForRecord(record) {
-      var ref = new Firebase(url + 'comments')
+      var ref = new Firebase(dataUrl + 'comments')
         .orderByChild('parent')
         .equalTo(record.$id);
       var data = notDeletedArray(ref);

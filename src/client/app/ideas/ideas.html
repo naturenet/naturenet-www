@@ -98,8 +98,11 @@
         else's idea, or vote for your favorite idea.
       </p>
       <form class="masthead__form clearfix" ng-submit="vm.addIdea()">
+        <label class="masthead__input"><input type="radio" ng-model="vm.group" value="idea" /> Design Idea</label>
+        <label class="masthead__input"><input type="radio" ng-model="vm.group" value="challenge" /> Design Challenge</label>
         <div>
-          <textarea class="masthead__textarea" placeholder="Write a design challenge..."
+          <textarea class="masthead__textarea"
+            placeholder="{{ vm.group === 'idea' ? 'Write a design idea...' : 'Write a design challenge...' }}"
             ng-model="vm.content">
           </textarea>
           <div class="add-me">Adding photos coming soon</div>

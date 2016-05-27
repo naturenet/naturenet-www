@@ -37,6 +37,7 @@
     // Data
     vm.uid = void 0;
     vm.content = '';
+    vm.group = 'idea';
     vm.ideas = [];
     vm.challenges = [];
     vm.currentIdeaId = void 0;
@@ -92,6 +93,8 @@
     function getIdeas() {
       return dataservice.getArray('ideas')
         .then(function (data) {
+          vm.ideas = [];
+          vm.challenges = [];
           var i = 0;
           var dlength = data.length;
           for (i; i < dlength; i++) {
@@ -110,8 +113,8 @@
         });
     }
 
-    function addIdeaObject(uid, content) {
-      return dataservice.addIdea(uid, content)
+    function addIdeaObject(uid, content, group) {
+      return dataservice.addIdea(uid, content, group)
         .then(function (data) {
           getIdeas()
             .then(function () {
@@ -135,7 +138,7 @@
     function addIdea() {
       if (vm.content.length !== 0) {
         onAuth().then(function () {
-          addIdeaObject(vm.uid, vm.content);
+          addIdeaObject(vm.uid, vm.content, vm.group);
         });
       }
     }

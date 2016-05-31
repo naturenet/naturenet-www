@@ -474,7 +474,7 @@
     /* Idea functions
        ================================================== */
 
-    function addIdea(uid, content, group) {
+    function addIdea(uid, content, group, type) {
       var ref = new Firebase(dataUrl + 'ideas');
 
       var id = ref.push().key();
@@ -482,6 +482,7 @@
       var idea = timestamp({
         id: id,
         group: group,
+        type: type,
         submitter: uid,
         content: content,
         status: 'doing',

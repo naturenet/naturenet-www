@@ -38,6 +38,8 @@
     vm.uid = void 0;
     vm.content = '';
     vm.group = 'idea';
+    vm.ideaTypes = ['New Features', 'Project Ideas', 'Community Ideas', 'Improvement Ideas'];
+    vm.type = vm.ideaTypes[0];
     vm.ideas = [];
     vm.challenges = [];
     vm.currentIdeaId = void 0;
@@ -113,8 +115,8 @@
         });
     }
 
-    function addIdeaObject(uid, content, group) {
-      return dataservice.addIdea(uid, content, group)
+    function addIdeaObject(uid, content, group, type) {
+      return dataservice.addIdea(uid, content, group, type)
         .then(function (data) {
           getIdeas()
             .then(function () {
@@ -138,7 +140,7 @@
     function addIdea() {
       if (vm.content.length !== 0) {
         onAuth().then(function () {
-          addIdeaObject(vm.uid, vm.content, vm.group);
+          addIdeaObject(vm.uid, vm.content, vm.group, vm.type);
         });
       }
     }

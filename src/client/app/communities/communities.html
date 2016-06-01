@@ -72,13 +72,14 @@
 
 <div class="main main--with-sidebar main--communities">
 
-  <section class="main__section masthead">
+  <section class="main__section masthead" ng-if="vm.userId">
     <header class="masthead__header">
       <div class="masthead__avatar"
-        style="background-image: url('{{$root.users[vm.userId].avatar}}')">
+        ng-style="{ 'background-image' : 'url(' + vm.userAvatar + ')' }">
       </div>
       <div class="masthead__title">{{$root.users[vm.userId].display_name}}</div>
     </header>
+    <div class="masthead__text">{{vm.userSite}}</div>
     <div class="masthead__text">{{$root.users[vm.userId].bio}}</div>
   </section>
 

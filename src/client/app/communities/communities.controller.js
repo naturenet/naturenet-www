@@ -38,6 +38,9 @@
 
     // Data
     vm.userId = void 0;
+    vm.userSite = '';
+    vm.userAvatar = '';
+    vm.isSelf = false;
     vm.users = [];
     vm.groups = [];
     vm.userObservations = [];
@@ -67,12 +70,8 @@
       var promises = [getUserRecentId(), getUsersArray(), getGroupsArray()];
       return $q.all(promises)
         .then(function () {
-          var promises = [getObservationsByUserId(vm.userId), getGroupsByUserId(vm.userId)];
-          $q.all(promises)
-            .then(function () {
-              utility.hideSplash();
-              logger.info('Activated Communities View');
-            });
+          utility.hideSplash();
+          logger.info('Activated Communities View');
         });
     }
 
@@ -82,7 +81,7 @@
     function getUserRecentId() {
       return dataservice.getUsersRecent(1)
         .then(function (data) {
-          vm.userId = data[0].id;
+          updateUserId(data[0].id);
           return vm.userId;
         });
     }
@@ -121,16 +120,44 @@
         });
     }
 
+    function getAvatarByUserId(id) {
+      if ($rootScope.users[id] && $rootScope.users[id].avatar) {
+        vm.userAvatar = $rootScope.users[id].avatar;
+      } else {
+        vm.userAvatar = 'images/default-avatar.png';
+      }
+    }
+
+    function getSiteNameByUserId(id) {
+      if ($rootScope.users[id].affiliation) {
+        return dataservice.getSiteById($rootScope.users[id].affiliation)
+          .then(function (data) {
+            vm.userSite = data.name;
+            return vm.userSite;
+          });
+      } else {
+        vm.userSite = '';
+        return vm.userSite;
+      }
+    }
+
+    function checkForSelf() {
+      var auth = dataservice.getAuth();
+      vm.isSelf = (auth && auth.uid === vm.userId);
+    }
+
     /* Click functions
        ================================================== */
 
     function updateUserId(id) {
-      var promises = [getObservationsByUserId(id), getGroupsByUserId(id)];
+      var promises = [getObservationsByUserId(id), getGroupsByUserId(id), getSiteNameByUserId(id)];
       return $q.all(promises)
         .then(function () {
           vm.userId = id;
           vm.observationsDisplayLimit = vm.displayLimit;
           vm.groupsDisplayLimit = vm.displayLimit;
+          getAvatarByUserId(id);
+          checkForSelf();
           logger.info('Updated Communities View based on new userId');
         });
     }

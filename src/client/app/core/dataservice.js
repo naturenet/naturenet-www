@@ -20,6 +20,7 @@
   ];
   /* @ngInject */
   function dataservice($q, $firebaseObject, $firebaseArray, $firebaseAuth, $filter, FilteredArray, exception, logger) {
+    /* PRODUCTION var dataUrl = 'https://naturenet.firebaseio.com/'; */
     var dataUrl = 'https://naturenet.firebaseio.com/';
 
     var service = {
@@ -44,6 +45,9 @@
       // Group functions
       getGroups: getGroups,
       getGroupsByUserId: getGroupsByUserId,
+
+      // Site functions
+      getSiteById: getSiteById,
 
       // Observation functions
       getObservationsArrayByUserId: getObservationsArrayByUserId,
@@ -268,7 +272,7 @@
 
     function getUsersRecent(limit) {
       var ref = new Firebase(dataUrl + 'users')
-        .orderByChild('public/updated_at')
+        .orderByChild('created_at')
         .limitToLast(limit);
       var data = notDeletedArray(ref);
 
@@ -345,6 +349,26 @@
 
       function fail(e) {
         return exception.catcher('Failed for dataservice.getGroupsByUserId')(e);
+      }
+    }
+
+    /* Site functions
+       ================================================== */
+
+    function getSiteById(id) {
+      var ref = new Firebase(dataUrl + 'sites').child(id);
+      var data = $firebaseObject(ref);
+
+      return data.$loaded()
+        .then(success)
+        .catch(fail);
+
+      function success(response) {
+        return response;
+      }
+
+      function fail(e) {
+        return exception.catcher('Failed for dataservice.getSiteById')(e);
       }
     }
 

@@ -24,10 +24,16 @@
     .totals__total {
       &.totals__total--likes {
         color: @light-green;
+        background-image: url('/images/like-grey.png'); }
+        
+      &.totals__liked {
         background-image: url('/images/like.png'); }
 
       &.totals__total--dislikes {
         color: red;
+        background-image: url('/images/dislike-grey.png'); }
+
+      &.totals__disliked {
         background-image: url('/images/dislike.png'); }
 
       &.totals__total--comments {

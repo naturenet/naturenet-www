@@ -37,6 +37,12 @@
         scope.likes = findTotal('likes', true);
         scope.dislikes = findTotal('likes', false);
         scope.comments = findTotal('comments');
+
+        if (scope.data.likes) {
+          scope.liked = (scope.data.likes[scope.uid] === true);
+          scope.disliked = (scope.data.likes[scope.uid] === false);
+          console.log(scope.data.likes[scope.uid]);
+        }
       }
 
       function findTotal(key, val) {
@@ -59,6 +65,9 @@
     }
 
     function controller($scope, dataservice) {
+
+      var auth = dataservice.getAuth();
+      $scope.uid = auth ? auth.uid : null;
 
       $scope.doLike = function () {
         if (!!$scope.context) {

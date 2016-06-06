@@ -51,9 +51,8 @@
 
       $scope.getUser = function () {
         dataservice.getActiveUser().then(function (user) {
-          $scope.avatarUrl = user.avatar;
-          if (!$scope.avatarUrl || $scope.avatarUrl === '') {
-            $scope.showDefault = true;
+          if (!!user) {
+            $scope.avatarUrl = user.avatar;
           }
 
           return user;

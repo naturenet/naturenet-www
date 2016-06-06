@@ -294,9 +294,8 @@
       var auth = getAuth();
 
       if (auth === null || !auth.uid) {
-        //TODO must return a promise
         console.log('User is not signed in.');
-        return;
+        return $q.when(null);
       }
 
       var ref = new Firebase(dataUrl + 'users/' + auth.uid);

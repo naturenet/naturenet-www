@@ -68,7 +68,7 @@
     function unAuth() {
       vm.isAuthenticated = false;
       vm.userUid = void 0;
-      
+
       logger.success('You are now logged out.');
     }
 

@@ -12,6 +12,7 @@
       scope: {
         observations: '=',
         limit: '@',
+        expandable: '@',
       },
       link: link,
       templateUrl: 'app/widgets/nn-observations-list.html',

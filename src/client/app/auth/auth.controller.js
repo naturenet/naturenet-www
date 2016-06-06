@@ -72,10 +72,6 @@
             vm.userUid = data.uid;
             $rootScope.$broadcast('auth:success', vm.userUid);
             return vm.userUid;
-          } else {
-            $rootScope.$broadcast('signout');
-            logger.success('You are now logged out.');
-            return;
           }
         });
     }

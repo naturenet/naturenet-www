@@ -68,6 +68,8 @@
     function unAuth() {
       vm.isAuthenticated = false;
       vm.userUid = void 0;
+      
+      logger.success('You are now logged out.');
     }
 
     /* Route function
@@ -132,6 +134,7 @@
 
     function signOut() {
       $rootScope.$broadcast('signout');
+      unAuth();
     }
 
     /* Listener Functions
@@ -139,7 +142,6 @@
 
     $rootScope.$on('auth:success', showUserInfo);
     $rootScope.$on('map:show', showMap);
-    $rootScope.$on('signout', unAuth);
 
     function showUserInfo() {
       onAuth();

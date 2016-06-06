@@ -1,9 +1,6 @@
 <!-- <nn-badge class="badge"> -->
-<div class="badge__avatar" ng-if="showDefault"
-  style="background-image: url('/images/default-avatar.png')">
-</div>
-<div class="badge__avatar" ng-if="!showDefault"
-  style="background-image: url('{{avatarUrl}}')">
+<div class="badge__avatar"
+  style="background-image: url('{{avatarUrl || '/images/default-avatar.png' }}')">
 </div>
 <div class="badge__text">
   <p class="badge__title">{{title}}</p>

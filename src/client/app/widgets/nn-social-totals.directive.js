@@ -41,7 +41,6 @@
         if (scope.data.likes) {
           scope.liked = (scope.data.likes[scope.uid] === true);
           scope.disliked = (scope.data.likes[scope.uid] === false);
-          console.log(scope.data.likes[scope.uid]);
         }
       }
 

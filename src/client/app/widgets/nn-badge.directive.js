@@ -36,11 +36,6 @@
     return directive;
 
     function link(scope, element, attrs) {
-      scope.showDefault = false;
-
-      if (!scope.avatarUrl || scope.avatarUrl === '') {
-        scope.showDefault = true;
-      }
     }
   }
 })();

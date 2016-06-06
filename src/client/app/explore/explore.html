@@ -62,6 +62,11 @@
     </header>
     
     <section class="sidebar__content">
+      <nn-badge class="sidebar__title badge"
+        title="{{vm.currentProject.name}}"
+        subtitle=""
+        avatar-url="{{vm.currentProject.icon_url}}">
+      </nn-badge>
       <div ng-if="vm.currentObservation.data.image" nn-image class="sidebar__image"
            image-url="{{vm.currentObservation.data.image | img_sidebar}}">
       </div>

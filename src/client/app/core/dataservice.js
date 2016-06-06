@@ -56,6 +56,7 @@
       // Project functions
       getProjects: getProjects,
       getProjectsRecent: getProjectsRecent,
+      getProjectForObservation: getProjectForObservation,
 
       // Idea functions
       addIdea: addIdea,
@@ -293,6 +294,7 @@
       var auth = getAuth();
 
       if (auth === null || !auth.uid) {
+        //TODO must return a promise
         console.log('User is not signed in.');
         return;
       }
@@ -493,6 +495,36 @@
       function fail(e) {
         d.reject(exception.catcher('Failed for dataservice.getProjectLocationIds')(e));
       }
+    }
+
+    function getProjectForObservation(obs) {
+      var d = $q.defer();
+
+      var geoId = obs.activity_location;
+      var geo = new Firebase(dataUrl + 'geo/activities').child(geoId);
+
+      geo.once('value', function (geoData) {
+
+        if (geoData.exists()) {
+          var activityId = geoData.child('activity').val();
+          var activity = new Firebase(dataUrl + 'activities').child(activityId);
+
+          activity.once('value', function (activityData) {
+
+            if (activityData.exists()) {
+              d.resolve(activityData.val());
+            } else {
+              d.reject();
+            }
+
+          });
+
+        } else {
+          d.reject();
+        }
+      });
+
+      return d.promise;
     }
 
     /* Idea functions

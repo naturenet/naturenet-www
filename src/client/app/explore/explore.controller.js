@@ -43,6 +43,7 @@
     vm.map = void 0;
     vm.observations = void 0;
     vm.currentObservation = void 0;
+    vm.currentProject = void 0;
     vm.comments = void 0;
 
     // States
@@ -155,6 +156,13 @@
     function showSidebar(o) {
       vm.currentObservation = o;
       vm.hasSidebar = true;
+
+      vm.currentProject = void 0;
+      if (!!o) {
+        dataservice.getProjectForObservation(o).then(function (data) {
+          vm.currentProject = data;
+        });
+      }
     }
 
     function hideSidebar() {

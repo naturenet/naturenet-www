@@ -45,6 +45,7 @@
     vm.currentIdeaId = void 0;
     vm.currentChallengeId = void 0;
     vm.comments = void 0;
+    vm.showDetail = false;
 
     vm.ideasDisplayLimit = vm.sidebarDisplayLimit;
     vm.challengesDisplayLimit = vm.sidebarDisplayLimit;
@@ -56,6 +57,7 @@
     // Function assignments
     vm.addIdea = addIdea;
     vm.formatDate = utility.formatDate;
+    vm.selectIdea = selectIdea;
 
     activate();
 
@@ -143,6 +145,11 @@
           addIdeaObject(vm.uid, vm.content, vm.group, vm.type);
         });
       }
+    }
+
+    function selectIdea(idea) {
+      vm.selectedIdea = idea;
+      vm.showDetail = true;
     }
 
     function resetForm() {

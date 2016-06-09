@@ -7,8 +7,9 @@
   center="United States of America"
   ng-class="{'has-sidebar': !!vm.hasSidebar}">
 
-
-
+  <div class="main main--with-sidebar main--explore" ng-if="!!vm.currentObservation && vm.showDetail">
+    <nn-detail item="vm.currentObservation" comments="vm.comments" context="observations" show="vm.showDetail"></nn-detail>
+  </div>
 
 
   <div class="sidebar sidebar--map-list">
@@ -68,7 +69,7 @@
         avatar-url="{{vm.currentProject.icon_url}}">
       </nn-badge>
       <div ng-if="vm.currentObservation.data.image" nn-image class="sidebar__image"
-           image-url="{{vm.currentObservation.data.image | img_sidebar}}">
+           image-url="{{vm.currentObservation.data.image | img_sidebar}}" ng-click="vm.showDetail = true">
       </div>
       <p ng-if="vm.currentObservation.data.text" class="sidebar__description">{{vm.currentObservation.data.text}}</p>
       <nn-social-totals class="totals" data="vm.currentObservation" context="observations"></nn-social-totals>

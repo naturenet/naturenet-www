@@ -1,0 +1,22 @@
+<!-- <nn-status class="status"> -->
+<div ng-switch on="status">
+  <div class="status status__discussing" ng-switch-when="doing">
+    <div class="status__text">
+      <p class="status__title">Discussing</p>
+    </div>
+    <div class="status__icon"
+      style="background-image: url('images/discussing.png')">
+    </div>
+  </div>
+  <div class="status status__completed" ng-switch-when="done">
+    <div class="status__text">
+      <p class="status__title">Completed</p>
+    </div>
+    <div class="status__icon"
+      style="background-image: url('images/completed.png')">
+    </div>
+  </div>
+  <div ng-switch-default>
+    <div />
+  </div>
+</div>

@@ -50,6 +50,7 @@
     $scope.$parent.hasMap = false;
     vm.hasSidebar = false;
     vm.isObservationsListVisible = true;
+    vm.showDetail = false;
 
     // Function assignments
     vm.toggleMap = toggleMap;
@@ -156,6 +157,7 @@
     function showSidebar(o) {
       vm.currentObservation = o;
       vm.hasSidebar = true;
+      vm.showDetail = false;
 
       vm.currentProject = void 0;
       if (!!o) {

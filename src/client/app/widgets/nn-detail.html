@@ -1,0 +1,49 @@
+<div class="overlay-partial">
+  
+  <div class="modal__header">
+    <div class="modal__close" ng-click="hide()" />
+  </div>
+
+  <div class="modal -center" ng-click="$event.stopPropagation()">
+
+    <div class="detail">
+      <nn-badge ng-if="item.submitter"
+        class="badge detail__user"
+        title="{{$root.users[item.submitter].display_name}}" subtitle="{{formatDate(item.updated_at)}}"
+        avatar-url="{{avatarUrl}}">
+      </nn-badge>
+      <nn-badge ng-if="item.observer"
+        class="badge detail__user"
+        title="{{$root.users[item.observer].display_name}}" subtitle="{{formatDate(item.updated_at)}}"
+        avatar-url="{{avatarUrl}}">
+      </nn-badge>
+
+      <nn-status class="detail__status" status="item.status"></nn-status>
+
+      <div class="detail__description" ng-if="item.content">{{item.content}}</div>
+      <div class="detail__description" ng-if="item.data.text">{{item.data.text}}</div>
+
+      <img class="detail__image" src="{{item.icon_url | img_large }}" ng-if="item.icon_url"></img>
+      <img class="detail__image" src="{{item.data.image | img_large }}" ng-if="item.data.image"></img>
+
+      <nn-social-totals class="totals detail__totals" data="item" context="{{context}}" show-dislikes="{{context === 'ideas'}}"></nn-social-totals>
+
+      <section class="detail__comments">
+
+        <nn-comment class="comment detail__comment" ng-repeat="c in comments | orderBy: 'updated_at'"
+          name="{{$root.users[c.commenter].display_name}}"
+          date="{{formatDate(c.updated_at)}}"
+          avatar-url="{{$root.users[c.commenter].avatar}}"
+          comment="{{c.comment}}">
+        </nn-comment>
+
+        <nn-comment-form class="badge comment list-item__comment"
+          data="item"
+          context="{{context}}">
+        </nn-comment-form>
+
+      </section>
+    </div>
+
+  </div>
+</div>

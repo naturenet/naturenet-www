@@ -7,30 +7,37 @@
 
   <div class="auth__form">
   <input class="auth__field"
+    required
     placeholder="Username"
     type="text"
     ng-model="vm.name" />
 
   <input class="auth__field"
+    required
     placeholder="password"
     type="password"
     ng-model="vm.password" />
 
   <input class="auth__field"
+    required
     placeholder="Name"
     type="text"
     ng-model="vm.realname" />
 
   <input class="auth__field"
+    required
     placeholder="email"
     type="text"
     ng-model="vm.email" />
 
   <select class="auth__field"
+    required
     placeholder="Affiliation"
     type="text"
     ng-model="vm.affiliation"
-    ng-options="s.name for s in vm.sites" />
+    ng-options="s.name for s in vm.sites" >
+    <option disabled selected hidden value="">Site Affiliation</option>
+  </select>
 
   <input class="button button--auth"
     value="join"

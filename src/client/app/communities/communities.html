@@ -14,7 +14,7 @@
       <div class="dropdown__options">
 
         <div class="dropdown__option"
-          ng-repeat="u in vm.users | orderBy: '-updated_at' | limitTo: vm.peopleDisplayLimit"
+          ng-repeat="u in vm.users | orderBy: '-created_at' | orderBy: '-latest_contribution' | emptyToEnd: 'latest_contribution' | limitTo: vm.peopleDisplayLimit"
           ng-click="vm.updateUserId(u.id)">
           <nn-badge class="badge"
             title="{{u.display_name}}"

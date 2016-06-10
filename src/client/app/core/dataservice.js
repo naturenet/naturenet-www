@@ -529,9 +529,9 @@
        ================================================== */
 
     function addIdea(uid, content, group, type) {
-      var ref = new Firebase(dataUrl + 'ideas');
+      var ref = new Firebase(dataUrl);
 
-      var id = ref.push().key();
+      var id = ref.child('ideas').push().key();
 
       var idea = timestamp({
         id: id,
@@ -542,7 +542,11 @@
         status: 'doing',
       });
 
-      return ref.child(id).set(idea).then(success).catch(fail);
+      var newData = {};
+      newData['ideas/' + id] = idea;
+      newData['users/' + uid + '/latest_contribution'] = Firebase.ServerValue.TIMESTAMP;
+
+      return ref.update(newData).then(success).catch(fail);
 
       function success(response) {
         return response;

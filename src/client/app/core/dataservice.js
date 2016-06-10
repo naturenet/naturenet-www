@@ -208,7 +208,6 @@
       updatedUserData['users-private/' + uid] = timestamp({
         id: uid,
         name: profile.name,
-        consent: profile.consent,
       });
       updatedUserData['users/' + uid] = timestamp({
         id: uid,

@@ -100,7 +100,6 @@
     function currentObservationUpdated() {
       showSidebar(vm.currentObservation);
       updateMap(vm.currentObservation);
-      loadComments(vm.currentObservation);
     }
 
     /* Map functions
@@ -165,6 +164,8 @@
           vm.currentProject = data;
         });
       }
+
+      loadComments(vm.currentObservation);
     }
 
     function hideSidebar() {

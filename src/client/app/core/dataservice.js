@@ -645,7 +645,7 @@
     function getCommentsForRecord(record) {
       var ref = new Firebase(dataUrl + 'comments')
         .orderByChild('parent')
-        .equalTo(record.$id);
+        .equalTo(record.$id || record.id);
       var data = notDeletedArray(ref);
 
       return data.$loaded()

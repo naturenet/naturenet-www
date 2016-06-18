@@ -3,10 +3,10 @@
 <div class="sidebar sidebar--ideas">
   
   <header class="sidebar__header">
-    <div class="dropdown dropdown--ideas" ng-class="{ 'dropdown--show-list': !!vm.isIdeasListVisible }">
+    <div class="dropdown dropdown--ideas" ng-class="{ 'dropdown--show-list': vm.group === 'idea' }">
 
       <div class="dropdown__display"
-        ng-click="vm.isIdeasListVisible = !vm.isIdeasListVisible">
+        ng-click="vm.group = 'idea'">
         <span>Design Ideas</span>
         <div class="dropdown__action"></div>
       </div>
@@ -38,10 +38,10 @@
   </header>
 
   <header class="sidebar__header">
-    <div class="dropdown dropdown--challenges" ng-class="{ 'dropdown--show-list': !!vm.isChallengesListVisible }">
+    <div class="dropdown dropdown--challenges" ng-class="{ 'dropdown--show-list': vm.group === 'challenge' }">
 
       <div class="dropdown__display"
-        ng-click="vm.isChallengesListVisible = !vm.isChallengesListVisible">
+        ng-click="vm.group = 'challenge'">
         <span>Design Challenges</span>
         <div class="dropdown__action"></div>
       </div>
@@ -83,7 +83,8 @@
   <section class="main__section masthead">
     <header class="masthead__header">
       <div class="masthead__avatar" style="background-size: cover; background-image: url('/images/design-ideas.png')"></div>
-      <div class="masthead__title">Design Ideas</div>
+      <div class="masthead__title" ng-if="vm.group === 'idea'">Design Ideas</div>
+      <div class="masthead__title" ng-if="vm.group === 'challenge'">Design Challenges</div>
     </header>
     <div class="masthead__text">
       <p class="masthead__description">
@@ -93,9 +94,14 @@
         technology for learning about sustainability or changes in the environment, or a new feature
         on the web site.
       </p>
-      <p class="masthead__directions">
+      <p class="masthead__directions" ng-if="vm.group === 'idea'">
         Join the discussion below with an idea or challenge of your own, comment on someone
         else's idea, or vote for your favorite idea.
+      </p>
+      
+      <p class="masthead__directions" ng-if="vm.group === 'challenge'">
+      Do you have a design challenge for the NatureNet communities? A design challenge is a question – for example:
+      How can NatureNet be more useful for people with their own cameras?
       </p>
       <form class="masthead__form clearfix" ng-submit="vm.addIdea()">
         <label class="masthead__input"><input type="radio" ng-model="vm.group" value="idea" /> Design Idea</label>

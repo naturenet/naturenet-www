@@ -34,7 +34,7 @@
 
 
 
-  <header class="sidebar__header sidebar__header--groups" ng-if="false">
+  <header class="sidebar__header sidebar__header--groups">
     <div class="dropdown dropdown--groups" ng-class="{ 'dropdown--show-list': !!vm.isGroupsListVisible }">
 
       <div class="dropdown__display"
@@ -81,6 +81,7 @@
     </header>
     <div class="masthead__text">{{vm.userSite}}</div>
     <div class="masthead__text">{{$root.users[vm.userId].bio}}</div>
+    <a class="masthead__text" href="#" ng-if="vm.isSelf" ng-click="vm.showUpdate()">Edit your profile</a>
   </section>
 
 

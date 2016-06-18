@@ -1,0 +1,88 @@
+<form novalidate class="auth__form auth__form--register"
+  ng-submit="vm.apply()">
+
+  <div class="auth__form" style="max-height: 420px; width: 100%; overflow-y: scroll;">
+    <div class="auth__text">
+      You may update your user profile by making changes to any of this information.
+    </div>
+
+    <div class="auth__form">
+      <input class="auth__field"
+        required
+        placeholder="Username"
+        type="text"
+        ng-model="vm.name" />
+
+      <input class="auth__field"
+        required
+        placeholder="Name"
+        type="text"
+        ng-model="vm.realname" />
+
+      <input class="auth__field"
+        placeholder="Bio"
+        type="text"
+        ng-model="vm.bio" />
+
+      <select class="auth__field"
+        required
+        placeholder="Site Affiliation"
+        ng-model="vm.affiliation"
+        ng-options="s.name for s in vm.sites" >
+        <option disabled selected hidden value="">Site Affiliation</option>
+      </select>
+
+      <select class="auth__field"
+        required
+        placeholder="Group"
+        type="text"
+        ng-model="vm.group"
+        ng-options="g.name for g in vm.groups" >
+        <option disabled selected hidden value="">Group</option>
+      </select>
+    </div>
+
+    <div class="auth__text">
+      We are interested in learning more about who uses NatureNet.
+      The following questions are optional AND ANY RESPONSES YOU CHOOSE TO PROVIDE WILL BE VISIBLE ONLY TO RESEARCHERS.
+    </div>
+
+    <div class="auth__form">
+      <div class="auth__form">
+        <p>What is your age range?</p>
+        <select class="auth__field"
+          required
+          placeholder="Age"
+          ng-model="vm.age"
+          ng-options="a for a in vm.ageOptions" >
+          <option disabled selected hidden value="">Age</option>
+        </select>
+
+        <p>What is your gender?</p>
+        <select class="auth__field"
+          required
+          placeholder="Gender"
+          ng-model="vm.gender"
+          ng-options="g for g in vm.genderOptions" >
+          <option disabled selected hidden value="">Gender</option>
+        </select>
+      </div>
+
+      <div class="auth__form">
+        <p>What is your primary racial identity?</p>
+        <label ng-repeat="r in vm.raceOptions">
+          <input class="auth__field"
+            placeholder="Race"
+            type="checkbox"
+            ng-model="vm.race[r]">
+          </input>
+        {{r}}</label>
+      </div>
+    </div>
+  </div>
+
+  <input class="button button--auth"
+    value="apply"
+    type="submit" />
+
+</form>

@@ -35,7 +35,9 @@
       createUser: createUser,
       removeUser: removeUser,
       addUser: addUser,
+      updateUser: updateUser,
       resetPassword: resetPassword,
+      getActiveUserDetails: getActiveUserDetails,
 
       // User functions
       getUsers: getUsers,
@@ -44,6 +46,7 @@
 
       // Group functions
       getGroups: getGroups,
+      getGroupById: getGroupById,
       getGroupsByUserId: getGroupsByUserId,
 
       // Site functions
@@ -134,7 +137,6 @@
     }
 
     function getAuth() {
-      var d = $q.defer();
       var ref = new Firebase(dataUrl);
       var data = $firebaseAuth(ref);
 
@@ -204,16 +206,62 @@
 
       // Create the data we want to update
       var uid = profile.uid;
-      var updatedUserData = {};
-      updatedUserData['users-private/' + uid] = timestamp({
+      var newUserData = {};
+      newUserData['users-private/' + uid] = timestamp({
         id: uid,
         name: profile.name,
       });
-      updatedUserData['users/' + uid] = timestamp({
+      newUserData['users/' + uid] = timestamp({
         id: uid,
         display_name: profile.display_name,
         affiliation: profile.affiliation,
+        bio: profile.bio,
       });
+
+      ref.update(newUserData, function (error) {
+        if (error) {
+          fail(error);
+        } else {
+          success();
+        }
+      });
+
+      return d.promise;
+
+      function success(response) {
+        d.resolve('success');
+      }
+
+      function fail(e) {
+        d.reject(exception.catcher('Failed for dataservice.addUser')(e));
+      }
+    }
+
+    function updateUser(profile) {
+      var d = $q.defer();
+      var ref = new Firebase(dataUrl);
+
+      // Create the data we want to update
+      var uid = profile.uid;
+      var updatedUserData = {};
+
+      updatedUserData['users-private/' + uid + '/id'] = uid;
+      updatedUserData['users-private/' + uid + '/name'] = profile.name;
+      updatedUserData['users-private/' + uid + '/updated_at'] = Firebase.ServerValue.TIMESTAMP;
+
+      updatedUserData['users/' + uid + '/id'] = uid;
+      updatedUserData['users/' + uid + '/display_name'] = profile.display_name;
+      updatedUserData['users/' + uid + '/affiliation'] = profile.affiliation;
+      updatedUserData['users/' + uid + '/bio'] = profile.bio;
+      updatedUserData['users/' + uid + '/groups'] = {};
+
+      if (!!profile.group) {
+        updatedUserData['users/' + uid + '/groups'][profile.group] = true;
+      }
+
+      updatedUserData['users/' + uid + '/updated_at'] = Firebase.ServerValue.TIMESTAMP;
+
+      //updatedUserData['groups' + profile.group + '/members/' + uid] = true;
 
       ref.update(updatedUserData, function (error) {
         if (error) {
@@ -230,7 +278,7 @@
       }
 
       function fail(e) {
-        d.reject(exception.catcher('Failed for dataservice.addUser')(e));
+        d.reject(exception.catcher('Failed for dataservice.updateUser')(e));
       }
     }
 
@@ -313,6 +361,33 @@
       }
     }
 
+    function getActiveUserDetails() {
+      var auth = getAuth();
+
+      if (auth === null || !auth.uid) {
+        console.log('User is not signed in.');
+        return $q.when(null);
+      }
+
+      var ref = new Firebase(dataUrl + 'users/' + auth.uid);
+      var publicData = $firebaseObject(ref);
+
+      ref = new Firebase(dataUrl + 'users-private/' + auth.uid);
+      var privateData = $firebaseObject(ref);
+
+      return Promise.all([publicData.$loaded(), privateData.$loaded()])
+        .then(success)
+        .catch(fail);
+
+      function success(response) {
+        return response;
+      }
+
+      function fail(e) {
+        return exception.catcher('Failed for dataservice.getActiveUserDetails')(e);
+      }
+    }
+
     /* Group functions
        ================================================== */
 
@@ -330,6 +405,23 @@
 
       function fail(e) {
         return exception.catcher('Failed for dataservice.getGroups')(e);
+      }
+    }
+
+    function getGroupById(id) {
+      var ref = new Firebase(dataUrl + 'groups').child(id);
+      var data = $firebaseObject(ref);
+
+      return data.$loaded()
+        .then(success)
+        .catch(fail);
+
+      function success(response) {
+        return response;
+      }
+
+      function fail(e) {
+        return exception.catcher('Failed for dataservice.getGroupById')(e);
       }
     }
 

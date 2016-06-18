@@ -15,12 +15,16 @@
   <!-- I would rather bind a value to ng-include
     but that causes an app breaking bug -->
 
-  <div ng-if="vm.isRegister && !vm.isSignin"
+  <div ng-if="vm.mode === 'register'"
     ng-include="'app/auth/register.html'">
   </div>
 
-  <div ng-if="!vm.isRegister && vm.isSignin"
+  <div ng-if="vm.mode === 'signin'"
     ng-include="'app/auth/signin.html'">
+  </div>
+  
+  <div ng-if="vm.mode === 'update'"
+    ng-include="'app/auth/edit.html'">
   </div>
 
 </div>

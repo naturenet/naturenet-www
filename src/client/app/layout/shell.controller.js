@@ -91,6 +91,7 @@
     /* Listener Functions
        ================================================== */
 
+    $rootScope.$on('account:edit', showAuth);
     $rootScope.$on('register:show', showAuth);
     $rootScope.$on('signin:show', showAuth);
     $rootScope.$on('auth:hide', hideAuth);

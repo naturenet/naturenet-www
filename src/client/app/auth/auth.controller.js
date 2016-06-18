@@ -36,15 +36,44 @@
     vm.password = '';
     vm.name = '';
     vm.realname = '';
+    vm.bio = '',
     vm.affiliation = '';
+    vm.group = '';
+
+    // Demographics
+    vm.ageOptions = [
+      '8-14',
+      '15-17',
+      '18-24',
+      '25-44',
+      '45-64',
+      '65+',
+      'Prefer not to disclose',
+    ];
+    vm.genderOptions = [
+      'Male',
+      'Female',
+      'Other',
+      'Prefer not to disclose',
+    ];
+    vm.raceOptions = [
+      'Black or African American',
+      'American Indian or Alaskan Native',
+      'Asian',
+      'Native Hawaiian or Other Pacific Islander',
+      'White',
+      'Some other race',
+    ];
+    vm.age = '';
+    vm.gender = '';
+    vm.race = '';
 
     // States
-    vm.isRegister = false;
-    vm.isSignin = false;
+    vm.mode = null;
 
     // Function assignments
     vm.login = login;
-    vm.join = join;
+    vm.apply = apply;
     vm.close = close;
     vm.reset = reset;
 
@@ -54,7 +83,7 @@
        ================================================== */
 
     function activate() {
-      var promises = [onAuth(), getSites()];
+      var promises = [onAuth(), getSites(), getGroups()];
       return $q.all(promises)
         .then(function () {
           logger.info('Authentication Ready');
@@ -75,16 +104,17 @@
         });
     }
 
-    function createUser(email, password) {
+    function createUser() {
       var profile = {
         display_name: vm.name,
         name: vm.realname,
+        bio: vm.bio,
         email: vm.email,
         affiliation: vm.affiliation.$id,
       };
       return dataservice.createUser({
-        email: email,
-        password: password,
+        email: vm.email,
+        password: vm.password,
       }).then(function (data) {
         vm.userUid = data.uid;
         profile.uid = data.uid;
@@ -93,6 +123,23 @@
             return addUser(profile);
           });
       });
+    }
+
+    function updateUser() {
+      var profile = {
+        display_name: vm.name,
+        name: vm.realname,
+        bio: vm.bio,
+        affiliation: vm.affiliation.$id,
+        group: vm.group.$id,
+        uid: vm.userUid,
+      };
+      return dataservice.updateUser(profile)
+        .then(function (data) {
+          logger.success('Your profile has been updated!');
+          close();
+          return vm.userUid;
+        });
     }
 
     function authWithPassword(email, password) {
@@ -125,26 +172,57 @@
     function getSites() {
       return dataservice.getArray('sites')
         .then(function (data) {
-          vm.sites = $filter('orderBy')(data, 'name');
+          vm.sites = data;
         });
+    }
+
+    function getGroups() {
+      return dataservice.getArray('groups')
+        .then(function (data) {
+          vm.groups = data;
+        });
+    }
+
+    function loadUserData() {
+      var auth = dataservice.getAuth();
+      if (!!auth) {
+        dataservice.getActiveUserDetails()
+          .then(function (data) {
+            var publicData = data[0];
+            var privateData = data[1];
+            vm.name = publicData.display_name;
+            vm.realname = privateData.name;
+            vm.affiliation = vm.sites.$getRecord(publicData.affiliation);
+            vm.bio = publicData.bio;
+            console.log(publicData.groups);
+            vm.group = publicData.groups ? vm.groups.$getRecord(Object.keys(publicData.groups)[0]) : null;
+            console.log(vm.group);
+          });
+      } else {
+        logger.warning('User is not logged in! Nothing to update.');
+      }
     }
 
     /* Listener Functions
        ================================================== */
 
+    $rootScope.$on('account:edit', showAccountUpdate);
     $rootScope.$on('register:show', showRegister);
     $rootScope.$on('signin:show', showSignin);
     $rootScope.$on('auth:hide', resetForm);
     $rootScope.$on('signout', unAuth);
 
+    function showAccountUpdate() {
+      vm.mode = 'update';
+      loadUserData();
+    }
+
     function showRegister() {
-      vm.isRegister = true;
-      vm.isSignin = false;
+      vm.mode = 'register';
     }
 
     function showSignin() {
-      vm.isRegister = false;
-      vm.isSignin = true;
+      vm.mode = 'signin';
     }
 
     /* Click functions
@@ -157,14 +235,18 @@
     }
 
     function login(email, password) {
-      if (checkValidity('login')) {
+      if (checkValidity()) {
         authWithPassword(email, password);
       }
     }
 
-    function join(email, password) {
-      if (checkValidity('join')) {
-        createUser(email, password);
+    function apply() {
+      if (checkValidity()) {
+        if (vm.mode === 'update') {
+          updateUser();
+        } else {
+          createUser();
+        }
       }
     }
 
@@ -183,20 +265,20 @@
     /* Utility functions
        ================================================== */
 
-    function checkValidity(type) {
-      if (vm.email.length === 0) {
+    function checkValidity() {
+      if (vm.email.length === 0 && vm.mode !== 'update') {
         logger.error('No email address was entered.');
         return false;
-      } else if (vm.password.length === 0) {
+      } else if (vm.password.length === 0 && vm.mode !== 'update') {
         logger.error('No password was entered.');
         return false;
-      } else if (vm.name.length === 0 && type === 'join') {
+      } else if (vm.name.length === 0 && vm.mode !== 'signin') {
         logger.error('No username was entered.');
         return false;
-      } else if (vm.realname.length === 0 && type === 'join') {
+      } else if (vm.realname.length === 0 && vm.mode !== 'signin') {
         logger.error('No name was entered.');
         return false;
-      } else if (vm.affiliation.length === 0 && type === 'join') {
+      } else if (vm.affiliation.length === 0 && vm.mode !== 'signin') {
         logger.error('No affiliation was entered.');
         return false;
       } else {
@@ -205,14 +287,15 @@
     }
 
     function resetForm() {
-      vm.isRegister = false;
-      vm.isSignin = false;
+      vm.mode = null;
 
       vm.email = '';
       vm.password = '';
       vm.name = '';
       vm.realname = '';
+      vm.bio = '';
       vm.affiliation = '';
+      vm.group = '';
     }
 
   }

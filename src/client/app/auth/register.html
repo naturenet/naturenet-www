@@ -1,5 +1,5 @@
 <form novalidate class="auth__form auth__form--register"
-  ng-submit="vm.join(vm.email, vm.password)">
+  ng-submit="vm.apply()">
 
   <div class="auth__text">
     You are invited to participate in NatureNet, a research project being conducted by the researchers listed at <a href="http://research.nature-net.org/people.html">http://research.nature-net.org/people.html</a>.
@@ -32,7 +32,7 @@
 
   <select class="auth__field"
     required
-    placeholder="Affiliation"
+    placeholder="Site Affiliation"
     type="text"
     ng-model="vm.affiliation"
     ng-options="s.name for s in vm.sites" >

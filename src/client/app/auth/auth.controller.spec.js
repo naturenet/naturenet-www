@@ -32,12 +32,8 @@ describe('AuthController', function () {
       expect(controller.name).to.exist;
     });
 
-    it('should start with register hidden', function () {
-      expect(controller.isRegister).to.be.false;
-    });
-
-    it('should start with signin hidden', function () {
-      expect(controller.isSignin).to.be.false;
+    it('should start with dialogs hidden', function () {
+      expect(controller.mode).to.be.null;
     });
 
     it('should broadcast to hide authentication form', function () {

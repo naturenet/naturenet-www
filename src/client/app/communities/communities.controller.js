@@ -57,6 +57,7 @@
 
     // Function assignments
     vm.updateUserId = updateUserId;
+    vm.showUpdate = showUpdate;
     vm.formatDate = utility.formatDate;
 
     activate();
@@ -159,6 +160,10 @@
           checkForSelf();
           logger.info('Updated Communities View based on new userId');
         });
+    }
+
+    function showUpdate() {
+      $rootScope.$broadcast('account:edit');
     }
 
   }

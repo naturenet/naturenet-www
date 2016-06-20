@@ -66,7 +66,7 @@
     ];
     vm.age = '';
     vm.gender = '';
-    vm.race = '';
+    vm.race = {};
 
     // States
     vm.mode = null;
@@ -133,6 +133,11 @@
         affiliation: vm.affiliation.$id,
         group: vm.group.$id,
         uid: vm.userUid,
+        demographics: {
+          age: vm.age,
+          gender: vm.gender,
+          race: vm.race,
+        },
       };
       return dataservice.updateUser(profile)
         .then(function (data) {
@@ -194,9 +199,10 @@
             vm.realname = privateData.name;
             vm.affiliation = vm.sites.$getRecord(publicData.affiliation);
             vm.bio = publicData.bio;
-            console.log(publicData.groups);
             vm.group = publicData.groups ? vm.groups.$getRecord(Object.keys(publicData.groups)[0]) : null;
-            console.log(vm.group);
+            vm.age = privateData.demographics.age;
+            vm.gender = privateData.demographics.gender;
+            vm.race = privateData.demographics.race;
           });
       } else {
         logger.warning('User is not logged in! Nothing to update.');
@@ -296,6 +302,9 @@
       vm.bio = '';
       vm.affiliation = '';
       vm.group = '';
+      vm.age = '';
+      vm.gender = '';
+      vm.race = {};
     }
 
   }

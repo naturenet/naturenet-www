@@ -247,6 +247,7 @@
 
       updatedUserData['users-private/' + uid + '/id'] = uid;
       updatedUserData['users-private/' + uid + '/name'] = profile.name;
+      updatedUserData['users-private/' + uid + '/demographics'] = profile.demographics;
       updatedUserData['users-private/' + uid + '/updated_at'] = Firebase.ServerValue.TIMESTAMP;
 
       updatedUserData['users/' + uid + '/id'] = uid;

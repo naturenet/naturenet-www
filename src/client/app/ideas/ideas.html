@@ -20,7 +20,7 @@
           <div class="list-item__detail">
             <nn-comment class="comment list-item__comment"
               name="{{$root.users[i.submitter].display_name}}"
-              date="{{vm.formatDate(i.updated_at)}}"
+              date="{{i.updated_at}}"
               avatar-url="{{$root.users[i.submitter].avatar}}"
               comment="{{i.content}}">
             </nn-comment>
@@ -55,7 +55,7 @@
           <div class="list-item__detail">
             <nn-comment class="comment list-item__comment"
               name="{{$root.users[c.submitter].display_name}}"
-              date="{{vm.formatDate(c.updated_at)}}"
+              date="{{c.updated_at}}"
               avatar-url="{{$root.users[c.submitter].avatar}}"
               comment="{{c.content}}">
             </nn-comment>

@@ -93,8 +93,8 @@
     /* Date functions
        ================================================== */
 
-    function formatDate(date) {
-      var formatedDate = moment(date).format('MMM DD YYYY').toString();
+    function formatDate(timestamp) {
+      var formatedDate = moment(+timestamp).format('MMM DD YYYY').toString();
 
       //MMMM Do YYYY, h:mm:ss a
 

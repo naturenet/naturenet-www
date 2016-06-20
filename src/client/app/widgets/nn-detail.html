@@ -32,7 +32,7 @@
 
         <nn-comment class="comment detail__comment" ng-repeat="c in comments | orderBy: 'updated_at'"
           name="{{$root.users[c.commenter].display_name}}"
-          date="{{formatDate(c.updated_at)}}"
+          date="{{c.updated_at}}"
           avatar-url="{{$root.users[c.commenter].avatar}}"
           comment="{{c.comment}}">
         </nn-comment>

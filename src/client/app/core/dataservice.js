@@ -492,31 +492,33 @@
 
       getProjectLocationIds(id)
         .then(function (idArray) {
-          var i = 0;
-          var alength = idArray.length;
+          var promises = [];
 
-          var ref = void 0;
-          var data = [];
-
-          for (i; i < alength; i++) {
-            ref = new Firebase(dataUrl + 'observations')
+          for (var i in idArray) {
+            var ref = new Firebase(dataUrl + 'observations')
               .orderByChild('activity_location')
               .equalTo(idArray[i]);
 
-            ref.on('value', function (snapshot) {
-              for (var key in snapshot.val()) {
-                data.push(snapshot.val()[key]);
-              }
-            });
+            var data = $firebaseArray(ref);
+            promises.push(data.$loaded());
           }
 
-          d.resolve(data);
+          d.resolve($q.all(promises)
+            .then(success)
+            .catch(fail));
         });
 
       return d.promise;
 
       function success(response) {
-        return $filter('notDeleted')(response);
+        var observations = [];
+        for (var p = 0; p < response.length; ++p) {
+          for (var o = 0; o < response[p].length; ++o) {
+            observations.push(response[p][o]);
+          }
+        }
+
+        return observations;
       }
 
       function fail(e) {

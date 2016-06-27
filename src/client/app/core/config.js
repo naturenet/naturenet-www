@@ -41,4 +41,32 @@
     routerHelperProvider.configure({ docTitle: ' | ' + config.appTitle, });
   }
 
+  core.constant('FirebaseName', 'naturenet');
+
+  core.config(function (FirebaseName) {
+    //TODO: set value of database and logging in build
+    firebase.initializeApp({
+      apiKey: 'AIzaSyAm--uHylcDf4J5wGroMzPeKmw6uIDnVr8',
+      authDomain: FirebaseName + '.firebaseapp.com',
+      databaseURL: 'https://' + FirebaseName + '.firebaseio.com',
+      storageBucket: FirebaseName + '.appspot.com',
+    });
+    firebase.database.enableLogging(false);
+  });
+
+  core.config(function (FirebaseName, $firebaseRefProvider) {
+    $firebaseRefProvider.registerUrl({
+      default: 'https://' + FirebaseName + '.firebaseio.com',
+      projects: 'https://' + FirebaseName + '.firebaseio.com/activities',
+      comments: 'https://' + FirebaseName + '.firebaseio.com/comments',
+      projectSites: 'https://' + FirebaseName + '.firebaseio.com/geo/activities',
+      groups: 'https://' + FirebaseName + '.firebaseio.com/users',
+      ideas: 'https://' + FirebaseName + '.firebaseio.com/ideas',
+      observations: 'https://' + FirebaseName + '.firebaseio.com/observations',
+      sites: 'https://' + FirebaseName + '.firebaseio.com/sites',
+      users: 'https://' + FirebaseName + '.firebaseio.com/users',
+      usersPrivate: 'https://' + FirebaseName + '.firebaseio.com/users-private',
+    });
+  });
+
 })();

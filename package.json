@@ -1,6 +1,6 @@
 {
-  "name": "NatureNet",
-  "description": "",
+  "name": "naturenet",
+  "description": "nature-net.org website",
   "version": "0.0.1",
   "main": "src/server/app.js",
   "scripts": {
@@ -17,9 +17,12 @@
     "body-parser": "^1.8.2",
     "bower": "^1.7.7",
     "express": "^4.9.3",
+    "firebase": "^3.0.5",
     "karma-cli": "^1.0.0",
     "morgan": "^1.1.1",
-    "serve-favicon": "^2.0.1"
+    "rxjs": "^5.0.0-beta.6",
+    "serve-favicon": "^2.0.1",
+    "zone.js": "^0.6.12"
   },
   "devDependencies": {
     "browser-sync": "^2.7.13",

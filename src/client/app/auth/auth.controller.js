@@ -112,17 +112,15 @@
         email: vm.email,
         affiliation: vm.affiliation.$id,
       };
-      return dataservice.createUser({
-        email: vm.email,
-        password: vm.password,
-      }).then(function (data) {
-        vm.userUid = data.uid;
-        profile.uid = data.uid;
-        authWithPassword(vm.email, vm.password)
-          .then(function () {
-            return addUser(profile);
-          });
-      });
+      return dataservice.createUser(vm.email, vm.password)
+        .then(function (data) {
+          vm.userUid = data.uid;
+          profile.uid = data.uid;
+          authWithPassword(vm.email, vm.password)
+            .then(function () {
+              return addUser(profile);
+            });
+        });
     }
 
     function updateUser() {
@@ -131,7 +129,7 @@
         name: vm.realname,
         bio: vm.bio,
         affiliation: vm.affiliation.$id,
-        group: vm.group.$id,
+        group: vm.group ? vm.group.$id : null,
         uid: vm.userUid,
         demographics: {
           age: vm.age,
@@ -148,18 +146,16 @@
     }
 
     function authWithPassword(email, password) {
-      return dataservice.authWithPassword({
-        email: email,
-        password: password,
-      }).then(function (data) {
-        vm.userUid = data.uid;
+      return dataservice.authWithPassword(email, password)
+        .then(function (data) {
+          vm.userUid = data.uid;
 
-        $rootScope.$broadcast('auth:success', vm.userUid);
-        close();
+          $rootScope.$broadcast('auth:success', vm.userUid);
+          close();
 
-        logger.success('You are now logged in!');
-        return vm.userUid;
-      });
+          logger.success('You are now logged in!');
+          return vm.userUid;
+        });
     }
 
     function unAuth() {

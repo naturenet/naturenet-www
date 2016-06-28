@@ -226,15 +226,12 @@
       updatedUserData['users/' + uid + '/display_name'] = profile.display_name;
       updatedUserData['users/' + uid + '/affiliation'] = profile.affiliation;
       updatedUserData['users/' + uid + '/bio'] = profile.bio;
-      updatedUserData['users/' + uid + '/groups'] = {};
-
-      if (!!profile.group) {
-        updatedUserData['users/' + uid + '/groups'][profile.group] = true;
-      }
-
+      updatedUserData['users/' + uid + '/groups'] = profile.groups || null;
       updatedUserData['users/' + uid + '/updated_at'] = firebase.database.ServerValue.TIMESTAMP;
 
-      //updatedUserData['groups' + profile.group + '/members/' + uid] = true;
+      for (var g in profile.groups) {
+        updatedUserData['groups/' + g + '/members/' + uid] = profile.groups[g];
+      }
 
       $firebaseRef.default.update(updatedUserData, function (error) {
         if (error) {

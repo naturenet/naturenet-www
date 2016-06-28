@@ -38,7 +38,7 @@
     vm.realname = '';
     vm.bio = '',
     vm.affiliation = '';
-    vm.group = '';
+    vm.membership = {};
 
     // Demographics
     vm.ageOptions = [
@@ -129,7 +129,7 @@
         name: vm.realname,
         bio: vm.bio,
         affiliation: vm.affiliation.$id,
-        group: vm.group ? vm.group.$id : null,
+        groups: vm.membership,
         uid: vm.userUid,
         demographics: {
           age: vm.age,
@@ -195,7 +195,7 @@
             vm.realname = privateData.name;
             vm.affiliation = vm.sites.$getRecord(publicData.affiliation);
             vm.bio = publicData.bio;
-            vm.group = publicData.groups ? vm.groups.$getRecord(Object.keys(publicData.groups)[0]) : null;
+            vm.membership = publicData.groups;
             vm.age = privateData.demographics.age;
             vm.gender = privateData.demographics.gender;
             vm.race = privateData.demographics.race;
@@ -297,7 +297,7 @@
       vm.realname = '';
       vm.bio = '';
       vm.affiliation = '';
-      vm.group = '';
+      vm.membership = {};
       vm.age = '';
       vm.gender = '';
       vm.race = {};

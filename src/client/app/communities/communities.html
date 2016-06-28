@@ -18,7 +18,7 @@
           ng-click="vm.updateUserId(u.id)">
           <nn-badge class="badge"
             title="{{u.display_name}}"
-            subtitle=""
+            subtitle="{{vm.sites[u.affiliation].name}}"
             avatar-url="{{u.avatar}}">
           </nn-badge>
         </div>
@@ -50,7 +50,7 @@
           ng-repeat="g in vm.groups | orderBy: '-updated_at' | limitTo: vm.groupsDisplayLimit">
           <nn-badge class="badge"
             title="{{g.name}}"
-            subtitle=""
+            subtitle="{{vm.sites[g.affiliation].name}}"
             avatar-url="{{g.avatar}}">
           </nn-badge>
         </div>
@@ -74,14 +74,32 @@
 
   <section class="main__section masthead" ng-if="vm.userId">
     <header class="masthead__header">
+
+      <!--<nn-badge class="badge badge--large"
+        title="{{$root.users[vm.userId].display_name}}"
+        subtitle="{{vm.userSite}}"
+        avatar-url="{{vm.userAvatar}}">
+      </nn-badge>-->
+
       <div class="masthead__avatar"
         ng-style="{ 'background-image' : 'url(' + vm.userAvatar + ')' }">
       </div>
       <div class="masthead__title">{{$root.users[vm.userId].display_name}}</div>
     </header>
+
     <div class="masthead__text">{{vm.userSite}}</div>
+
+    <!--<div class="masthead__text">Groups
+      <p ng-if="!vm.userGroups">No Groups</p>
+      <ul>
+        <li ng-repeat="g in vm.userGroups">{{vm.groups[g].name}}</li>
+      </ul>
+    </div>-->
+
     <div class="masthead__text">{{$root.users[vm.userId].bio}}</div>
-    <a class="masthead__text" href="#" ng-if="vm.isSelf" ng-click="vm.showUpdate()">Edit your profile</a>
+    <div class="masthead__text">
+      <a class="masthead__text" href="#" ng-if="vm.isSelf" ng-click="vm.showUpdate()">Edit your profile</a>
+    </div>
   </section>
 
 

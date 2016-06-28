@@ -43,6 +43,7 @@
     vm.isSelf = false;
     vm.users = [];
     vm.groups = [];
+    vm.sites = [];
     vm.userObservations = [];
     vm.userGroups = [];
 
@@ -68,7 +69,7 @@
     function activate() {
       utility.showSplash();
 
-      var promises = [getUserRecentId(), getUsersArray(), getGroupsArray()];
+      var promises = [getUserRecentId(), getUsersArray(), getGroupsArray(), getSitesArray()];
       return $q.all(promises)
         .then(function () {
           utility.hideSplash();
@@ -101,6 +102,14 @@
           vm.groups = data;
           return vm.groups;
         });
+    }
+
+    function getSitesArray() {
+      return dataservice.getArray('sites')
+        .then(function (data) {
+          vm.sites = data;
+          return vm.sites;
+        })
     }
 
     function getObservationsByUserId(id) {

@@ -109,7 +109,7 @@
         .then(function (data) {
           vm.sites = data;
           return vm.sites;
-        })
+        });
     }
 
     function getObservationsByUserId(id) {

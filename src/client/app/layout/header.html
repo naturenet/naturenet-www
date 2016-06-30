@@ -29,11 +29,12 @@
     <a class="button head-user__item button--signin" href="#" ng-click="vm.showSignin()">Sign In</a>
   </div>
   <div ng-show="vm.isAuthenticated">
+    <a class="button head-user__item button--join" href="#" ng-click="vm.showEdit()">Edit Profile</a>
     <nn-badge class="badge head-user__item badge--header"  ng-click="vm.signOut()"
+      style="cursor: pointer;"
       avatar-url="{{$root.users[vm.userUid].avatar}}"
       title="Welcome, {{$root.users[vm.userUid].display_name}}"
       subtitle="Click to Sign Out">
     </nn-badge>
-    <a class="button head-user__item button--signout" href="#" ng-click="vm.signOut()">Sign Out</a>
   </div>
 </div>

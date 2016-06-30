@@ -43,6 +43,7 @@
     vm.showRegister = showRegister;
     vm.showSignin = showSignin;
     vm.signOut = signOut;
+    vm.showEdit = showEdit;
 
     activate();
 
@@ -126,6 +127,10 @@
 
     function showRegister() {
       $rootScope.$broadcast('register:show');
+    }
+
+    function showEdit() {
+      $rootScope.$broadcast('account:edit');
     }
 
     function showSignin() {

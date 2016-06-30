@@ -59,6 +59,7 @@
     // Function assignments
     vm.updateUserId = updateUserId;
     vm.showUpdate = showUpdate;
+    vm.showMore = showMore;
     vm.formatDate = utility.formatDate;
 
     activate();
@@ -173,6 +174,11 @@
 
     function showUpdate() {
       $rootScope.$broadcast('account:edit');
+    }
+
+    function showMore() {
+      vm.query = '';
+      vm.peopleDisplayLimit = vm.peopleDisplayLimit + vm.sidebarDisplayLimit;
     }
 
   }

@@ -13,8 +13,14 @@
 
       <div class="dropdown__options">
 
+        <div class="dropdown__option">
+          <form>
+            <input class="dropdown__input" type="text" placeholder="search" ng-model="vm.query">
+          </form>
+        </div>
+
         <div class="dropdown__option"
-          ng-repeat="u in vm.users | orderBy: '-created_at' | orderBy: '-latest_contribution' | emptyToEnd: 'latest_contribution' | limitTo: vm.peopleDisplayLimit"
+          ng-repeat="u in vm.users | filter:{ display_name:vm.query } | orderBy: '-created_at' | orderBy: '-latest_contribution' | emptyToEnd: 'latest_contribution' | limitTo: vm.peopleDisplayLimit"
           ng-click="vm.updateUserId(u.id)">
           <nn-badge class="badge"
             title="{{u.display_name}}"
@@ -24,7 +30,7 @@
         </div>
 
         <div class="sidebar__see-more" ng-if="vm.users.length > vm.peopleDisplayLimit">
-          <a href="#" ng-click="vm.peopleDisplayLimit = vm.peopleDisplayLimit + vm.sidebarDisplayLimit">Show More</a>
+          <a href="#" ng-click="vm.showMore()">Show More</a>
         </div>
 
       </div>

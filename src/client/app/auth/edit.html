@@ -2,28 +2,32 @@
   ng-submit="vm.apply()">
 
   <div class="auth__form" style="max-height: 420px; width: 100%; overflow-y: scroll;">
-    <div class="auth__text">
-      You may update your user profile by making changes to any of this information.
-    </div>
 
     <div class="auth__form">
+
+      <div class="add-me">Avatars coming soon</div>
+
+      <label>Username</label>
       <input class="auth__field"
         required
         placeholder="Username"
         type="text"
         ng-model="vm.name" />
 
+      <label>Real Name (private)</label>
       <input class="auth__field"
         required
         placeholder="Name"
         type="text"
         ng-model="vm.realname" />
 
+      <label>Bio</label>
       <input class="auth__field"
         placeholder="Bio"
         type="text"
         ng-model="vm.bio" />
 
+      <label>Site Affiliation</label>
       <select class="auth__field"
         required
         placeholder="Site Affiliation"
@@ -33,7 +37,7 @@
       </select>
 
       <div class="auth__form">
-        <p>Groups</p>
+        <label>Groups</label>
         <label ng-repeat="g in vm.groups">
           <input class="auth__field"
             type="checkbox"
@@ -43,9 +47,8 @@
       </div>
     </div>
 
-    <div class="auth__text">
-      We are interested in learning more about who uses NatureNet.
-      The following questions are optional AND ANY RESPONSES YOU CHOOSE TO PROVIDE WILL BE VISIBLE ONLY TO RESEARCHERS.
+    <div class="auth__text" style="text-align: center;">
+      Optional. This data will be visible to researchers only.
     </div>
 
     <div class="auth__form">

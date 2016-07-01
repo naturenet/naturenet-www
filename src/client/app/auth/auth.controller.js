@@ -132,11 +132,12 @@
         groups: vm.membership,
         uid: vm.userUid,
         demographics: {
-          age: vm.age,
-          gender: vm.gender,
-          race: vm.race,
+          age: vm.age || null,
+          gender: vm.gender || null,
+          race: vm.race || null,
         },
       };
+      console.log(profile);
       return dataservice.updateUser(profile)
         .then(function (data) {
           logger.success('Your profile has been updated!');
@@ -196,9 +197,10 @@
             vm.affiliation = vm.sites.$getRecord(publicData.affiliation);
             vm.bio = publicData.bio;
             vm.membership = publicData.groups;
-            vm.age = privateData.demographics.age;
-            vm.gender = privateData.demographics.gender;
-            vm.race = privateData.demographics.race;
+            var demos = privateData.demographics || {};
+            vm.age = demos.age;
+            vm.gender = demos.gender;
+            vm.race = demos.race;
           });
       } else {
         logger.warning('User is not logged in! Nothing to update.');

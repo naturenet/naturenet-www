@@ -254,7 +254,7 @@
 
     function resetPassword(email) {
       var auth = $firebaseAuth(firebase.auth());
-      return auth.$sendPasswordResetEmail({ email: email })
+      return auth.$sendPasswordResetEmail(email)
         .then(success)
         .catch(fail);
 

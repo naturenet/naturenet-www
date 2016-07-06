@@ -33,6 +33,7 @@
     // Data
     vm.observations = [];
     vm.ideas = [];
+    vm.contactEmail = 'naturenetapp at gmail dot com';
 
     vm.observationsDisplayLimit = 5;
     vm.ideasDisplayLimit = 5;

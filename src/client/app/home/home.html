@@ -27,15 +27,20 @@
       </p>
     </div>
   </div>
-    <div ng-controller="HeaderController as vm">
-    <center>
-      <div style="margin: 50px" ng-hide="vm.isAuthenticated">
-        <a class="button button--joinnow" href="#" ng-click="vm.showRegister()">Join NatureNet Today</a>
-      </div>
-    </center>
+    <div ng-controller="HeaderController as vm" ng-show="!vm.isAuthenticated">
+      <a class="button button--joinnow" href="#" ng-click="vm.showRegister()"></a>
   </div>
   <div class="content__gallery">
     <nn-observations-list observations="vm.observations" limit="5"></nn-observations-list>
+  </div>
+  <div class="content__footer">
+    <p>
+      <a class="button button--inline" href="mailto:{{vm.contactEmail | deobfuscate}}">Contact Us</a>
+      NatureNet is a platform for sharing place-based nature observations and contributing design ideas. Please do NOT contribute photos of humans or pets. NatureNet is a moderated site. Postings that are inappropriate or irrelevant will be deleted.
+    </p>
+    <p>
+      If you want one of your observations to be removed, please send an email to <a href="mailto:{{vm.contactEmail | deobfuscate}}"><span>{{vm.contactEmail | deobfuscate}}</span></a> with a description of the content you would like to be removed.
+    </p>
   </div>
 </div>
 

@@ -38,6 +38,13 @@
         return present.concat(empty);
       };
     })
+    .filter('deobfuscate', [
+      function () {
+        return function (text) {
+          return String(text).replace(' at ', '@').replace(' dot ', '.');
+        };
+      },
+    ])
     .filter('img_thumb', [
       function () {
         return function (text) {

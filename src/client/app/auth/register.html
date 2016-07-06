@@ -2,45 +2,45 @@
   ng-submit="vm.apply()">
 
   <div class="auth__text">
-    You are invited to participate in NatureNet, a research project being conducted by the researchers listed at <a href="http://research.nature-net.org/people.html" target="_blank">http://research.nature-net.org/people.html</a>.
+    You are invited to participate in NatureNet, a research project being conducted by the researchers listed at <a href="http://research.nature-net.org/people.html" target="_blank">http://research.nature-net.org/people.html</a>. Researchers are interested in seeing what kind of information is posted to NatureNet and how it is used and shared. Your name and email will not be visible to any other participants unless you so choose, and we will not provide it to any third party.
   </div>
 
   <div class="auth__form">
-  <input class="auth__field"
-    required
-    placeholder="Username"
-    type="text"
-    ng-model="vm.name" />
+    <input class="auth__field field-private"
+      required
+      placeholder="email"
+      type="text"
+      ng-model="vm.email" />
 
-  <input class="auth__field"
-    required
-    placeholder="password"
-    type="password"
-    ng-model="vm.password" />
+    <input class="auth__field field-private"
+      required
+      placeholder="password"
+      type="password"
+      ng-model="vm.password" />
 
-  <input class="auth__field"
-    required
-    placeholder="Name"
-    type="text"
-    ng-model="vm.realname" />
+    <input class="auth__field field-private"
+      required
+      placeholder="Name"
+      type="text"
+      ng-model="vm.realname" />
 
-  <input class="auth__field"
-    required
-    placeholder="email"
-    type="text"
-    ng-model="vm.email" />
+    <input class="auth__field field-public"
+      required
+      placeholder="Username"
+      type="text"
+      ng-model="vm.name" />
 
-  <select class="auth__field"
-    required
-    placeholder="Site Affiliation"
-    type="text"
-    ng-model="vm.affiliation"
-    ng-options="s.name for s in vm.sites" >
-    <option disabled selected hidden value="">Site Affiliation</option>
-  </select>
+    <select class="auth__field field-public"
+      required
+      placeholder="Site Affiliation"
+      type="text"
+      ng-model="vm.affiliation"
+      ng-options="s.name for s in vm.sites" >
+      <option disabled selected hidden value="">Site Affiliation</option>
+    </select>
 
-  <input class="button button--auth"
-    value="join"
-    type="submit" />
+    <input class="button button--auth"
+      value="join"
+      type="submit" />
   </div>
 </form>

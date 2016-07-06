@@ -8,27 +8,27 @@
       <div class="add-me">Avatars coming soon</div>
 
       <label>Username</label>
-      <input class="auth__field"
+      <input class="auth__field field-public"
         required
         placeholder="Username"
         type="text"
         ng-model="vm.name" />
 
       <label>Real Name (private)</label>
-      <input class="auth__field"
+      <input class="auth__field field-private"
         required
         placeholder="Name"
         type="text"
         ng-model="vm.realname" />
 
       <label>Bio</label>
-      <input class="auth__field"
+      <input class="auth__field field-public"
         placeholder="Bio"
         type="text"
         ng-model="vm.bio" />
 
       <label>Site Affiliation</label>
-      <select class="auth__field"
+      <select class="auth__field field-public"
         required
         placeholder="Site Affiliation"
         ng-model="vm.affiliation"
@@ -39,7 +39,7 @@
       <div class="auth__form">
         <label>Groups</label>
         <label ng-repeat="g in vm.groups">
-          <input class="auth__field"
+          <input class="auth__field field-public"
             type="checkbox"
             ng-model="vm.membership[g.id]">
           </input>
@@ -54,7 +54,7 @@
     <div class="auth__form">
       <div class="auth__form">
         <p>What is your age range?</p>
-        <select class="auth__field"
+        <select class="auth__field field-private"
           required
           placeholder="Age"
           ng-model="vm.age"
@@ -63,7 +63,7 @@
         </select>
 
         <p>What is your gender?</p>
-        <select class="auth__field"
+        <select class="auth__field field-private"
           required
           placeholder="Gender"
           ng-model="vm.gender"
@@ -75,7 +75,7 @@
       <div class="auth__form">
         <p>What is your primary racial identity?</p>
         <label ng-repeat="r in vm.raceOptions">
-          <input class="auth__field"
+          <input class="auth__field field-private"
             placeholder="Race"
             type="checkbox"
             ng-model="vm.race[r]">

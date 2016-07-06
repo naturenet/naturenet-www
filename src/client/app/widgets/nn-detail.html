@@ -20,6 +20,11 @@
 
       <nn-status class="detail__status" status="item.status"></nn-status>
 
+      <div class="detail__header" ng-if="item.group" ng-switch="item.group">
+        <div ng-switch-when="challenge">Design Challenge</div>
+        <div ng-switch-default>Design Idea</div>
+      </div>
+
       <div class="detail__description" ng-if="item.content">{{item.content}}</div>
       <div class="detail__description" ng-if="item.data.text">{{item.data.text}}</div>
 

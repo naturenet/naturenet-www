@@ -35,6 +35,8 @@
 
     // Data
     vm.projectId = void 0;
+    vm.localSite = void 0;
+    vm.localProjects = [];
     vm.projects = [];
     vm.projectObservations = [];
 
@@ -53,7 +55,7 @@
     function activate() {
       utility.showSplash();
 
-      var promises = [getProjectRecentId(), getProjectsArray()];
+      var promises = [getProjectRecentId(), getProjectsArray(), getLocalProjectsArray()];
       return $q.all(promises)
         .then(function () {
           var promises = [getObservationsByProjectId(vm.projectId)];
@@ -81,6 +83,14 @@
         .then(function (data) {
           vm.projects = $filter('orderBy')(data, 'latest_contribution', true);
           return vm.projects;
+        });
+    }
+
+    function getLocalProjectsArray() {
+      return dataservice.getProjectsAtSite('rcnc')
+        .then(function (data) {
+          vm.localProjects = data;
+          return vm.localProjects;
         });
     }
 

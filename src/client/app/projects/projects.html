@@ -13,7 +13,18 @@
       </div>
 
       <div class="dropdown__options">
+        <div class="sidebar__see-more">Reedy Creek Projects</div>
+        <div class="dropdown__option"
+          ng-repeat="p in vm.localProjects | orderBy: '-latest_contribution'"
+          ng-click="vm.updateProjectId(p.id)">
+          <nn-badge class="badge"
+            title="{{p.name}}"
+            subtitle=""
+            avatar-url="{{p.icon_url}}">
+          </nn-badge>
+        </div>
 
+        <div class="sidebar__see-more">All Projects</div>
         <div class="dropdown__option"
           ng-repeat="p in vm.projects | orderBy: '-latest_contribution'"
           ng-click="vm.updateProjectId(p.id)">

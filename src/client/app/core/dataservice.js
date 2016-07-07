@@ -67,6 +67,7 @@
       getProjects: getProjects,
       getProjectsRecent: getProjectsRecent,
       getProjectForObservation: getProjectForObservation,
+      getProjectsAtSite: getProjectsAtSite,
 
       // Idea functions
       addIdea: addIdea,
@@ -572,6 +573,25 @@
       });
 
       return d.promise;
+    }
+
+    function getProjectsAtSite(siteId) {
+      var ref = $firebaseRef.projects
+        .orderByChild('sites/' + siteId)
+        .equalTo(true);
+      var data = $firebaseArray(ref);
+
+      return data.$loaded()
+        .then(success)
+        .catch(fail);
+
+      function success(response) {
+        return response;
+      }
+
+      function fail(e) {
+        return exception.catcher('Failed for dataservice.getProjectsAtSite')(e);
+      }
     }
 
     /* Idea functions

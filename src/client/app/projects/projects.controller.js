@@ -9,6 +9,7 @@
      ======================================================================== */
 
   ProjectsController.$inject = [
+    '$rootScope',
     '$q',
     '$filter',
     'logger',
@@ -18,6 +19,7 @@
 
   /* @ngInject */
   function ProjectsController(
+    $rootScope,
     $q,
     $filter,
     logger,
@@ -36,7 +38,7 @@
     // Data
     vm.projectId = void 0;
     vm.localSite = void 0;
-    vm.localProjects = [];
+    vm.localProjects = void 0;
     vm.projects = [];
     vm.projectObservations = [];
 
@@ -55,7 +57,7 @@
     function activate() {
       utility.showSplash();
 
-      var promises = [getProjectRecentId(), getProjectsArray(), getLocalProjectsArray()];
+      var promises = [getProjectRecentId(), getProjectsArray(), getLocalProjects()];
       return $q.all(promises)
         .then(function () {
           var promises = [getObservationsByProjectId(vm.projectId)];
@@ -86,12 +88,24 @@
         });
     }
 
-    function getLocalProjectsArray() {
-      return dataservice.getProjectsAtSite('rcnc')
-        .then(function (data) {
-          vm.localProjects = data;
-          return vm.localProjects;
+    function getLocalProjects() {
+      var auth = dataservice.getAuth();
+      if (!!auth && !!$rootScope.users[auth.uid]) {
+        var affiliation = $rootScope.users[auth.uid].affiliation;
+        dataservice.getSiteById(affiliation).then(function (data) {
+          vm.localSite = data.name;
         });
+
+        return dataservice.getProjectsAtSite(affiliation)
+          .then(function (data) {
+            vm.localProjects = data;
+            return vm.localProjects;
+          });
+      } else {
+        vm.localSite = '';
+        vm.localProjects = void 0;
+        return $q.when(null);
+      }
     }
 
     function getObservationsByProjectId(id) {

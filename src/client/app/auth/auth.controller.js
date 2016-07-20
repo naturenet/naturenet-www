@@ -32,6 +32,7 @@
     // Data
     vm.userUid = void 0;
     vm.newUserObject = void 0;
+    vm.avatar = '';
     vm.email = '';
     vm.password = '';
     vm.name = '';
@@ -125,6 +126,7 @@
 
     function updateUser() {
       var profile = {
+        avatar: vm.avatar,
         display_name: vm.name,
         name: vm.realname,
         bio: vm.bio,
@@ -192,15 +194,16 @@
           .then(function (data) {
             var publicData = data[0];
             var privateData = data[1];
+            vm.avatar = publicData.avatar || '';
             vm.name = publicData.display_name;
             vm.realname = privateData.name;
             vm.affiliation = vm.sites.$getRecord(publicData.affiliation);
-            vm.bio = publicData.bio;
-            vm.membership = publicData.groups;
+            vm.bio = publicData.bio || '';
+            vm.membership = publicData.groups || {};
             var demos = privateData.demographics || {};
-            vm.age = demos.age;
-            vm.gender = demos.gender;
-            vm.race = demos.race;
+            vm.age = demos.age || '';
+            vm.gender = demos.gender || '';
+            vm.race = demos.race || {};
           });
       } else {
         logger.warning('User is not logged in! Nothing to update.');
@@ -292,7 +295,7 @@
 
     function resetForm() {
       vm.mode = null;
-
+      vm.avatar = '';
       vm.email = '';
       vm.password = '';
       vm.name = '';

@@ -183,13 +183,14 @@
       var newUserData = {};
       newUserData['users-private/' + uid] = timestamp({
         id: uid,
-        name: profile.name,
+        name: profile.name || '',
       });
       newUserData['users/' + uid] = timestamp({
         id: uid,
-        display_name: profile.display_name,
-        affiliation: profile.affiliation,
-        bio: profile.bio,
+        avatar: profile.avatar || '',
+        display_name: profile.display_name || '',
+        affiliation: profile.affiliation || '',
+        bio: profile.bio || '',
       });
 
       $firebaseRef.default.update(newUserData, function (error) {
@@ -219,14 +220,15 @@
       var updatedUserData = {};
 
       updatedUserData['users-private/' + uid + '/id'] = uid;
-      updatedUserData['users-private/' + uid + '/name'] = profile.name;
-      updatedUserData['users-private/' + uid + '/demographics'] = profile.demographics;
+      updatedUserData['users-private/' + uid + '/name'] = profile.name || '';
+      updatedUserData['users-private/' + uid + '/demographics'] = profile.demographics || null;
       updatedUserData['users-private/' + uid + '/updated_at'] = firebase.database.ServerValue.TIMESTAMP;
 
       updatedUserData['users/' + uid + '/id'] = uid;
-      updatedUserData['users/' + uid + '/display_name'] = profile.display_name;
-      updatedUserData['users/' + uid + '/affiliation'] = profile.affiliation;
-      updatedUserData['users/' + uid + '/bio'] = profile.bio;
+      updatedUserData['users/' + uid + '/avatar'] = profile.avatar || '';
+      updatedUserData['users/' + uid + '/display_name'] = profile.display_name || '';
+      updatedUserData['users/' + uid + '/affiliation'] = profile.affiliation || '';
+      updatedUserData['users/' + uid + '/bio'] = profile.bio || '';
       updatedUserData['users/' + uid + '/groups'] = profile.groups || null;
       updatedUserData['users/' + uid + '/updated_at'] = firebase.database.ServerValue.TIMESTAMP;
 

@@ -29,12 +29,18 @@
     <a class="button head-user__item button--signin" href="#" ng-click="vm.showSignin()">Sign In</a>
   </div>
   <div ng-show="vm.isAuthenticated">
-    <a class="button head-user__item button--signin" href="#" ng-click="vm.showEdit()">Edit Profile</a>
-    <nn-badge class="badge head-user__item badge--header"  ng-click="vm.signOut()"
-      style="cursor: pointer;"
+    <nn-badge class="badge head-user__item badge--header"
       avatar-url="{{$root.users[vm.userUid].avatar}}"
       title="Welcome, {{$root.users[vm.userUid].display_name}}"
-      subtitle="Click to Sign Out">
+      ng-click="vm.showPopup = !vm.showPopup">
     </nn-badge>
+    <div class="head-dropdown" ng-show="vm.showPopup">
+      <div class="head-dropdown__contents">
+        <div class="head-dropdown__avatar" ng-style="{ 'background-image' : 'url(' + $root.users[vm.userUid].avatar + ')' }"></div>
+        <div class="head-dropdown__text">{{$root.users[vm.userUid].display_name}}</div>
+        <div class="head-dropdown__button button button--edit" ng-click="vm.showEdit()">Edit Profile</div>
+        <div class="head-dropdown__button button button--signout" ng-click="vm.signOut()">Sign Out</div>
+      </div>
+    </div>
   </div>
 </div>

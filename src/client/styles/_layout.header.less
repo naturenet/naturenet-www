@@ -68,7 +68,9 @@
 
     .head-menu__item {
       display: inline-block;
-      width: @head-menu__item-width;
+      min-width: 85px;
+      width: 12%;
+      max-width: @head-menu__item-width;
       height: 100%;
       padding-top: 76px;
 
@@ -109,5 +111,62 @@
       .head-user__item {
         display: inline-block;
         margin: 30px 0; }
-   
-   
+
+    /**
+      * Dropdown box
+      * Adapted from http://fiddle.jshell.net/pausP/3/
+      */
+
+    .head-dropdown {
+      top: @page-head-height;
+      right: 18px;
+      position: absolute;
+      background: #ffffff;
+      border: 1px solid #719ECE;
+      min-width: 200px;
+      border-radius: 1px;
+    }
+
+    .head-dropdown:after, 
+    .head-dropdown:before {
+      bottom: 100%;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+    }
+
+    .head-dropdown:after {
+      border-bottom-color: #ffffff;
+      border-width: 19px;
+      left: 70%;
+      margin-left: -19px;
+    }
+
+    .head-dropdown__contents {
+      padding: 1em;
+      background-color: white;
+
+      .head-dropdown__avatar {
+        float: left;
+        width: 48px;
+        height: 48px;
+        margin-right: 8px;
+        background-position: 50%;
+        background-repeat: no-repeat;
+        background-size: cover;
+        border-radius: 50%;
+      }
+
+      .head-dropdown__text {
+        font-size: 16px;
+        margin: 8px 0;
+      }
+
+      .head-dropdown__button {
+        font-size: 14px;
+        cursor: pointer;
+      }
+    }

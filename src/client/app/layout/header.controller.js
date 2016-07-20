@@ -36,6 +36,7 @@
     // States
     vm.isMapActive = false;
     vm.isAuthenticated = false;
+    vm.showPopup = false;
 
     // Function assignments
     vm.getClasses = getClasses;
@@ -110,6 +111,7 @@
        ================================================== */
 
     function toggleMap(isActive) {
+      vm.showPopup = false;
       if (typeof (isActive) === 'boolean' && isActive) {
         $rootScope.$broadcast('map:show');
         vm.isMapActive = isActive;
@@ -127,18 +129,22 @@
 
     function showRegister() {
       $rootScope.$broadcast('register:show');
+      vm.showPopup = false;
     }
 
     function showEdit() {
       $rootScope.$broadcast('account:edit');
+      vm.showPopup = false;
     }
 
     function showSignin() {
       $rootScope.$broadcast('signin:show');
+      vm.showPopup = false;
     }
 
     function signOut() {
       $rootScope.$broadcast('signout');
+      vm.showPopup = false;
       unAuth();
     }
 
@@ -150,10 +156,12 @@
 
     function showUserInfo() {
       onAuth();
+      vm.showPopup = false;
     }
 
     function showMap() {
       vm.isMapActive = true;
+      vm.showPopup = false;
     }
   }
 })();

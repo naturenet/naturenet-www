@@ -14,9 +14,21 @@
 
     .auth {
       position: absolute;
-      
+      height: 70%;
+      max-height: 550px;
+      width: 70%;
+      max-width: 800px;
       background-color: #E9EAEE;
-    
+
+    &.auth--wrap {
+      height: auto;
+      width: auto;
+    }
+
+    &.auth--tall {
+      max-height: 1000px;
+    }
+
       > .auth__header {
         width: 100%; }
     }
@@ -55,6 +67,16 @@
         background-size: 28px; }
     }
 
+    .auth__wrapper {
+      height: 100%;
+      padding-top: 80px;
+
+      > .auth__content {
+        height: 100%;
+        overflow-y: auto;
+      }
+    }
+
   /**
     * Form
     */
@@ -64,11 +86,13 @@
       width: 420px;
 
       &.auth__form--register {
-        width: 800px;
-        padding: 100px 35px 25px; }
+        height: 100%;
+        width: 100%;
+        padding: 0 35px 25px; }
 
       &.auth__form--signin {
-        padding: 100px 35px 25px; }
+        height: 100%;
+        padding: 0 35px 25px; }
 
       > * {
         display: block;
@@ -121,6 +145,10 @@
         padding: 14px;
         color: white;
         background: @dark-blue;
+        background-image: url("/images/add-photo.png");
+        background-size: 50% 50%;
+        background-repeat: no-repeat;
+        background-position: 75% 75%;
         cursor: pointer; }
     }
 

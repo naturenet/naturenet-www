@@ -1,4 +1,5 @@
 <div class="auth -center" 
+  ng-class="{ 'auth--wrap': vm.mode === 'signin', 'auth--tall': vm.mode === 'update' }"
   ng-click="$event.stopPropagation()">
 
   <div class="auth__header">
@@ -14,17 +15,18 @@
 
   <!-- I would rather bind a value to ng-include
     but that causes an app breaking bug -->
+  <div class="auth__wrapper">
+    <div ng-if="vm.mode === 'register'" class="auth__content"
+      ng-include="'app/auth/register.html'">
+    </div>
 
-  <div ng-if="vm.mode === 'register'"
-    ng-include="'app/auth/register.html'">
-  </div>
-
-  <div ng-if="vm.mode === 'signin'"
-    ng-include="'app/auth/signin.html'">
-  </div>
-  
-  <div ng-if="vm.mode === 'update'"
-    ng-include="'app/auth/edit.html'">
+    <div ng-if="vm.mode === 'signin'" class="auth__content"
+      ng-include="'app/auth/signin.html'">
+    </div>
+    
+    <div ng-if="vm.mode === 'update'" class="auth__content"
+      ng-include="'app/auth/edit.html'">
+    </div>
   </div>
 
 </div>

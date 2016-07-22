@@ -1,87 +1,84 @@
 <form novalidate class="auth__form auth__form--register"
   ng-submit="vm.apply()">
 
-  <div class="auth__form" style="max-height: 420px; width: 100%; overflow-y: scroll;">
+  <div class="auth__form">
+
+    <div class="add-me">Avatars coming soon</div>
+
+    <label>Username</label>
+    <input class="auth__field field-public"
+      required
+      placeholder="Username"
+      type="text"
+      ng-model="vm.name" />
+
+    <label>Real Name (private)</label>
+    <input class="auth__field field-private"
+      required
+      placeholder="Name"
+      type="text"
+      ng-model="vm.realname" />
+
+    <label>Bio</label>
+    <input class="auth__field field-public"
+      placeholder="Bio"
+      type="text"
+      ng-model="vm.bio" />
+
+    <label>Site Affiliation</label>
+    <select class="auth__field field-public"
+      required
+      placeholder="Site Affiliation"
+      ng-model="vm.affiliation"
+      ng-options="s.name for s in vm.sites" >
+      <option disabled selected hidden value="">Site Affiliation</option>
+    </select>
 
     <div class="auth__form">
+      <label>Groups</label>
+      <label ng-repeat="g in vm.groups">
+        <input class="auth__field field-public"
+          type="checkbox"
+          ng-model="vm.membership[g.id]">
+        </input>
+      {{g.name}}</label>
+    </div>
+  </div>
 
-      <div class="add-me">Avatars coming soon</div>
+  <div class="auth__text" style="text-align: center;">
+    Optional. This data will be visible to researchers only.
+  </div>
 
-      <label>Username</label>
-      <input class="auth__field field-public"
+  <div class="auth__form">
+    <div class="auth__form">
+      <p>What is your age range?</p>
+      <select class="auth__field field-private"
         required
-        placeholder="Username"
-        type="text"
-        ng-model="vm.name" />
-
-      <label>Real Name (private)</label>
-      <input class="auth__field field-private"
-        required
-        placeholder="Name"
-        type="text"
-        ng-model="vm.realname" />
-
-      <label>Bio</label>
-      <input class="auth__field field-public"
-        placeholder="Bio"
-        type="text"
-        ng-model="vm.bio" />
-
-      <label>Site Affiliation</label>
-      <select class="auth__field field-public"
-        required
-        placeholder="Site Affiliation"
-        ng-model="vm.affiliation"
-        ng-options="s.name for s in vm.sites" >
-        <option disabled selected hidden value="">Site Affiliation</option>
+        placeholder="Age"
+        ng-model="vm.age"
+        ng-options="a for a in vm.ageOptions" >
+        <option disabled selected hidden value="">Age</option>
       </select>
 
-      <div class="auth__form">
-        <label>Groups</label>
-        <label ng-repeat="g in vm.groups">
-          <input class="auth__field field-public"
-            type="checkbox"
-            ng-model="vm.membership[g.id]">
-          </input>
-        {{g.name}}</label>
-      </div>
-    </div>
-
-    <div class="auth__text" style="text-align: center;">
-      Optional. This data will be visible to researchers only.
+      <p>What is your gender?</p>
+      <select class="auth__field field-private"
+        required
+        placeholder="Gender"
+        ng-model="vm.gender"
+        ng-options="g for g in vm.genderOptions" >
+        <option disabled selected hidden value="">Gender</option>
+      </select>
     </div>
 
     <div class="auth__form">
-      <div class="auth__form">
-        <p>What is your age range?</p>
-        <select class="auth__field field-private"
-          required
-          placeholder="Age"
-          ng-model="vm.age"
-          ng-options="a for a in vm.ageOptions" >
-          <option disabled selected hidden value="">Age</option>
-        </select>
-
-        <p>What is your gender?</p>
-        <select class="auth__field field-private"
-          required
-          placeholder="Gender"
-          ng-model="vm.gender"
-          ng-options="g for g in vm.genderOptions" >
-          <option disabled selected hidden value="">Gender</option>
-        </select>
-      </div>
-
-      <div class="auth__form">
-        <p>What is your primary racial identity?</p>
-        <label ng-repeat="r in vm.raceOptions">
-          <input class="auth__field field-private"
-            placeholder="Race"
-            type="checkbox"
-            ng-model="vm.race[r]">
-          </input>
-        {{r}}</label>
-      </div>
+      <p>What is your primary racial identity?</p>
+      <label ng-repeat="r in vm.raceOptions">
+        <input class="auth__field field-private"
+          placeholder="Race"
+          type="checkbox"
+          ng-model="vm.race[r]">
+        </input>
+      {{r}}</label>
     </div>
   </div>
 

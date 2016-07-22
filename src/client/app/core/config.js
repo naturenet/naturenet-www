@@ -23,6 +23,7 @@
       scaleControl: false,
       streetViewControl: false,
       keyboardShortcuts: false,
+      clickableIcons: false,
     },
   };
 

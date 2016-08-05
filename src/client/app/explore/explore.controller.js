@@ -160,7 +160,7 @@
 
       vm.currentProject = void 0;
       if (!!o) {
-        dataservice.getProjectForObservation(o).then(function (data) {
+        dataservice.getProjectById(o.activity).then(function (data) {
           vm.currentProject = data;
         });
       }

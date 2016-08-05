@@ -60,13 +60,13 @@
       getSiteById: getSiteById,
 
       // Observation functions
-      getObservationsArrayByUserId: getObservationsArrayByUserId,
-      getObservationsArrayByProjectId: getObservationsArrayByProjectId,
+      getObservationsByUserId: getObservationsByUserId,
+      getObservationsByProjectId: getObservationsByProjectId,
 
       // Project functions
       getProjects: getProjects,
       getProjectsRecent: getProjectsRecent,
-      getProjectForObservation: getProjectForObservation,
+      getProjectById: getProjectById,
       getProjectsAtSite: getProjectsAtSite,
 
       // Idea functions
@@ -233,7 +233,7 @@
       updatedUserData['users/' + uid + '/updated_at'] = firebase.database.ServerValue.TIMESTAMP;
 
       for (var g in profile.groups) {
-        updatedUserData['groups/' + g + '/members/' + uid] = profile.groups[g];
+        updatedUserData['groups/' + g + '/members/' + uid] = profile.groups[g] || null;
       }
 
       $firebaseRef.default.update(updatedUserData, function (error) {
@@ -374,7 +374,7 @@
 
     function getGroupById(id) {
 
-      return $firebaseObject($firebaseRef.groups.child(id)).$loaded()
+      return $firebaseObject($firebaseRef.groups.child(id || '')).$loaded()
         .then(success)
         .catch(fail);
 
@@ -389,9 +389,9 @@
 
     function getGroupsByUserId(id) {
       var ref = $firebaseRef.groups
-        .orderByChild('members/' + id)
+        .orderByChild('members/' + id || '')
         .equalTo(true);
-      var data = notDeletedArray(ref);
+      var data = $firebaseArray(ref);
 
       return data.$loaded()
         .then(success)
@@ -411,7 +411,7 @@
 
     function getSiteById(id) {
 
-      return $firebaseObject($firebaseRef.sites.child(id)).$loaded()
+      return $firebaseObject($firebaseRef.sites.child(id || '')).$loaded()
         .then(success)
         .catch(fail);
 
@@ -427,10 +427,10 @@
     /* Observation functions
        ================================================== */
 
-    function getObservationsArrayByUserId(id) {
+    function getObservationsByUserId(id) {
       var ref = $firebaseRef.observations
         .orderByChild('observer')
-        .equalTo(id);
+        .equalTo(id || '');
       var data = notDeletedArray(ref);
 
       return data.$loaded()
@@ -442,46 +442,47 @@
       }
 
       function fail(e) {
-        return exception.catcher('Failed for dataservice.getObservationsArrayByUserId')(e);
+        return exception.catcher('Failed for dataservice.getObservationsByUserId')(e);
       }
     }
 
-    function getObservationsArrayByProjectId(id) {
-      var d = $q.defer();
+    function getObservationsByProjectId(id) {
 
-      getProjectLocationIds(id)
-        .then(function (idArray) {
-          var promises = [];
+      var ref = $firebaseRef.observations
+        .orderByChild('activity')
+        .equalTo(id || '');
+      var data = notDeletedArray(ref);
 
-          for (var i in idArray) {
-            var ref = $firebaseRef.observations
-              .orderByChild('activity_location')
-              .equalTo(idArray[i]);
-
-            var data = $firebaseArray(ref);
-            promises.push(data.$loaded());
-          }
-
-          d.resolve($q.all(promises)
-            .then(success)
-            .catch(fail));
-        });
-
-      return d.promise;
+      return data.$loaded()
+        .then(success)
+        .catch(fail);
 
       function success(response) {
-        var observations = [];
-        for (var p = 0; p < response.length; ++p) {
-          for (var o = 0; o < response[p].length; ++o) {
-            observations.push(response[p][o]);
-          }
-        }
-
-        return observations;
+        return response;
       }
 
       function fail(e) {
-        return exception.catcher('Failed for dataservice.getObservationsArrayByProjectId')(e);
+        return exception.catcher('Failed for dataservice.getObservationsByProjectId')(e);
+      }
+    }
+
+    function getObservationsBySiteId(id) {
+
+      var ref = $firebaseRef.observations
+        .orderByChild('site')
+        .equalTo(id || '');
+      var data = notDeletedArray(ref);
+
+      return data.$loaded()
+        .then(success)
+        .catch(fail);
+
+      function success(response) {
+        return response;
+      }
+
+      function fail(e) {
+        return exception.catcher('Failed for dataservice.getObservationsBySiteId')(e);
       }
     }
 
@@ -503,6 +504,21 @@
       }
     }
 
+    function getProjectById(id) {
+
+      return $firebaseObject($firebaseRef.projects.child(id || '')).$loaded()
+        .then(success)
+        .catch(fail);
+
+      function success(response) {
+        return response;
+      }
+
+      function fail(e) {
+        return exception.catcher('Failed for dataservice.getProjectById')(e);
+      }
+    }
+
     function getProjectsRecent(limit) {
       var ref = $firebaseRef.projects
         .orderByChild('updated_at')
@@ -520,61 +536,6 @@
       function fail(e) {
         return exception.catcher('Failed for dataservice.getProjectsRecent')(e);
       }
-    }
-
-    function getProjectLocationIds(id) {
-      var d = $q.defer();
-      var ref = $firebaseRef.projectSites
-        .orderByChild('activity')
-        .equalTo(id);
-
-      ref.on('value', success, fail);
-
-      return d.promise;
-
-      function success(response) {
-        var a = [];
-
-        for (var key in response.val()) {
-          a.push(key);
-        }
-
-        d.resolve(a);
-      }
-
-      function fail(e) {
-        d.reject(exception.catcher('Failed for dataservice.getProjectLocationIds')(e));
-      }
-    }
-
-    function getProjectForObservation(obs) {
-      var d = $q.defer();
-
-      var geoId = obs.activity_location;
-      var geo = $firebaseRef.projectSites.child(geoId);
-
-      geo.once('value', function (geoData) {
-
-        if (geoData.exists()) {
-          var activityId = geoData.child('activity').val();
-          var activity = $firebaseRef.projects.child(activityId);
-
-          activity.once('value', function (activityData) {
-
-            if (activityData.exists()) {
-              d.resolve(activityData.val());
-            } else {
-              d.reject();
-            }
-
-          });
-
-        } else {
-          d.reject();
-        }
-      });
-
-      return d.promise;
     }
 
     function getProjectsAtSite(siteId) {
@@ -698,7 +659,7 @@
     function getCommentsByUserId(id) {
       var ref = $firebaseRef.comments
         .orderByChild('commenter')
-        .equalTo(id);
+        .equalTo(id || '');
       var data = notDeletedArray(ref);
 
       return data.$loaded()

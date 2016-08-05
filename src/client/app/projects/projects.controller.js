@@ -109,7 +109,7 @@
     }
 
     function getObservationsByProjectId(id) {
-      return dataservice.getObservationsArrayByProjectId(id)
+      return dataservice.getObservationsByProjectId(id)
         .then(function (data) {
           vm.projectObservations = data;
           return vm.projectObservations;

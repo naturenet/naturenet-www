@@ -139,7 +139,6 @@
           race: vm.race || null,
         },
       };
-      console.log(profile);
       return dataservice.updateUser(profile)
         .then(function (data) {
           logger.success('Your profile has been updated!');

@@ -1,0 +1,27 @@
+<section class="main__section masthead">
+  <header class="masthead__header">
+
+    <div class="masthead__avatar"
+      ng-style="{ 'background-image' : 'url(' + vm.group.avatar + ')' }">
+    </div>
+    <div class="masthead__title">{{vm.group.name}}</div>
+  </header>
+
+  <div class="masthead__text">{{vm.userSite}}</div>
+
+  <div class="masthead__text">{{vm.group.bio}}</div>
+</section>
+
+
+
+<section class="main__section recent-contributions">
+  <div class="main__subtitle">Contributions by {{vm.group.name}}</div>
+  <div class="main__subtitle" ng-repeat-start="uid in vm.groupMembers">
+    <nn-badge class="badge clickable"
+      title="{{$root.users[uid].display_name}}"
+      avatar-url="{{$root.users[uid].avatar}}"
+      ng-click="vm.updateUserId(uid)">
+    </nn-badge>
+  </div>
+  <nn-observations-list ng-repeat-end observations="vm.observations[uid]" limit="5"></nn-observations-list>
+</section>

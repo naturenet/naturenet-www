@@ -46,6 +46,9 @@
     vm.sites = [];
     vm.userObservations = [];
     vm.userGroups = [];
+    vm.groupId = void 0;
+    vm.group = {};
+    vm.observations = {};
 
     vm.peopleDisplayLimit = vm.sidebarDisplayLimit;
     vm.groupsDisplayLimit = vm.sidebarDisplayLimit;
@@ -58,6 +61,7 @@
 
     // Function assignments
     vm.updateUserId = updateUserId;
+    vm.updateGroupId = updateGroupId;
     vm.showUpdate = showUpdate;
     vm.showMore = showMore;
     vm.formatDate = utility.formatDate;
@@ -82,11 +86,16 @@
        ================================================== */
 
     function getUserRecentId() {
-      return dataservice.getUsersRecent(1)
-        .then(function (data) {
-          updateUserId(data[0].id);
-          return vm.userId;
-        });
+      var auth = dataservice.getAuth();
+      if (auth && auth.uid) {
+        updateUserId(auth.uid);
+      } else {
+        return dataservice.getUsersRecent(1)
+          .then(function (data) {
+            updateUserId(data[0].id);
+            return vm.userId;
+          });
+      }
     }
 
     function getUsersArray() {
@@ -114,9 +123,9 @@
     }
 
     function getObservationsByUserId(id) {
-      return dataservice.getObservationsArrayByUserId(id)
+      return dataservice.getObservationsByUserId(id)
         .then(function (data) {
-          vm.userObservations = data;
+          vm.observations[id] = data;
           vm.numberOfObservations = 0;
           return vm.userObservations;
         });
@@ -160,6 +169,7 @@
        ================================================== */
 
     function updateUserId(id) {
+      vm.groupId = void 0;
       var promises = [getObservationsByUserId(id), getGroupsByUserId(id), getSiteNameByUserId(id)];
       return $q.all(promises)
         .then(function () {
@@ -169,6 +179,19 @@
           getAvatarByUserId(id);
           checkForSelf();
           logger.info('Updated Communities View based on new userId');
+        });
+    }
+
+    function updateGroupId(id) {
+      vm.userId = void 0;
+      return dataservice.getGroupById(id)
+        .then(function (data) {
+          vm.groupId = id;
+          vm.group = data;
+          vm.groupMembers = Object.keys(data.members || {});
+          for (var m in data.members) {
+            getObservationsByUserId(m);
+          }
         });
     }
 

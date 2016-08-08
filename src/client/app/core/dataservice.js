@@ -374,7 +374,12 @@
 
     function getGroupById(id) {
 
-      return $firebaseObject($firebaseRef.groups.child(id || '')).$loaded()
+      if (!id) {
+        console.log('ID does not exist');
+        return $q.when(null);
+      }
+
+      return $firebaseObject($firebaseRef.groups.child(id)).$loaded()
         .then(success)
         .catch(fail);
 
@@ -388,8 +393,14 @@
     }
 
     function getGroupsByUserId(id) {
+
+      if (!id) {
+        console.log('ID does not exist');
+        return $q.when(null);
+      }
+
       var ref = $firebaseRef.groups
-        .orderByChild('members/' + id || '')
+        .orderByChild('members/' + id)
         .equalTo(true);
       var data = $firebaseArray(ref);
 
@@ -411,7 +422,12 @@
 
     function getSiteById(id) {
 
-      return $firebaseObject($firebaseRef.sites.child(id || '')).$loaded()
+      if (!id) {
+        console.log('ID does not exist');
+        return $q.when(null);
+      }
+
+      return $firebaseObject($firebaseRef.sites.child(id)).$loaded()
         .then(success)
         .catch(fail);
 
@@ -428,9 +444,15 @@
        ================================================== */
 
     function getObservationsByUserId(id) {
+
+      if (!id) {
+        console.log('ID does not exist');
+        return $q.when(null);
+      }
+
       var ref = $firebaseRef.observations
         .orderByChild('observer')
-        .equalTo(id || '');
+        .equalTo(id);
       var data = notDeletedArray(ref);
 
       return data.$loaded()
@@ -448,9 +470,14 @@
 
     function getObservationsByProjectId(id) {
 
+      if (!id) {
+        console.log('ID does not exist');
+        return $q.when(null);
+      }
+
       var ref = $firebaseRef.observations
         .orderByChild('activity')
-        .equalTo(id || '');
+        .equalTo(id);
       var data = notDeletedArray(ref);
 
       return data.$loaded()
@@ -468,9 +495,14 @@
 
     function getObservationsBySiteId(id) {
 
+      if (!id) {
+        console.log('ID does not exist');
+        return $q.when(null);
+      }
+
       var ref = $firebaseRef.observations
         .orderByChild('site')
-        .equalTo(id || '');
+        .equalTo(id);
       var data = notDeletedArray(ref);
 
       return data.$loaded()
@@ -506,7 +538,12 @@
 
     function getProjectById(id) {
 
-      return $firebaseObject($firebaseRef.projects.child(id || '')).$loaded()
+      if (!id) {
+        console.log('ID does not exist');
+        return $q.when(null);
+      }
+
+      return $firebaseObject($firebaseRef.projects.child(id)).$loaded()
         .then(success)
         .catch(fail);
 
@@ -657,9 +694,15 @@
     }
 
     function getCommentsByUserId(id) {
+
+      if (!id) {
+        console.log('ID does not exist');
+        return $q.when(null);
+      }
+
       var ref = $firebaseRef.comments
         .orderByChild('commenter')
-        .equalTo(id || '');
+        .equalTo(id);
       var data = notDeletedArray(ref);
 
       return data.$loaded()

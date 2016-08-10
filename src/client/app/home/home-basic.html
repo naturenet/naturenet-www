@@ -1,0 +1,137 @@
+<!-- HomeController as vm -->
+
+<div class="home-content">
+
+  <div class="home-intro">
+
+    <div class="home-boxes">
+      <div class="boxes box--upper-left">
+        <nn-image class="box__image" image-url=""></nn-image>
+        <div class="box__label inline-icon icon--large icon--learn">Learn</div>
+      </div>
+      <div class="boxes box--upper-right">
+        <nn-image class="box__image" image-url=""></nn-image>
+        <div class="box__label inline-icon icon--large icon--share">Share</div>
+      </div>
+      <div class="boxes box--lower-left">
+        <nn-image class="box__image" image-url=""></nn-image>
+        <div class="box__label inline-icon icon--large icon--shape">Shape</div>
+      </div>
+      <div class="boxes box--lower-right">
+        <nn-image class="box__image" image-url=""></nn-image>
+        <div class="box__label inline-icon icon--large icon--design">Design</div>
+      </div>
+    </div>
+
+    <div class="home-description">
+
+      <div class="content content--what">
+        <div class="content__text">
+          <h1 class="content__title">What is NatureNet?</h1>
+          <div class="content__description">
+            <p class="content__lineitem">
+              <span class="inline-icon icon--learn" >Learn</span> about nature in your community
+            </p>
+            <p class="content__lineitem">
+              <span class="inline-icon icon--share" >Share</span> your observations and ideas
+            </p>
+            <p class="content__lineitem">
+              <span class="inline-icon icon--shape" >Shape</span> nature projects in your local community
+            </p>
+            <p class="content__lineitem">
+              <span class="inline-icon icon--design" >Design</span> this nature technology
+            </p>
+          </div>
+        </div>
+      </div>
+
+    <div class="content content--where">
+      <div class="content__text">
+        <h1 class="content__title">Where is NatureNet?</h1>
+        <div class="content__description">
+          <p class="content__lineitem"><a href="#">Anacostia Watershed Society</a></p>
+          <p class="content__lineitem"><a href="#">Reedy Creek Nature Center</a></p>
+          <p class="content__lineitem"><a href="#">Aspen Center for Environmental Studies</a></p>
+          <p class="content__lineitem" style="text-align: center; margin: 1em 0;"><a href="#">Your Backyard!</a></p>
+        </div>
+      </div>
+    </div>
+
+    </div>
+
+  </div>
+
+  <hr/>
+
+  <div class="content content--featured">
+    <div class="content__text">
+      <div class="content__title">Featured on NatureNet</div>
+      <div class="featured">Observation</div>
+      <div class="featured">Community</div>
+      <div class="featured">Project</div>
+      <div class="featured">Design Idea</div>
+    </div>
+  </div>
+
+  <div class="content__footer">
+    <p>
+      <a class="button button--inline" href="mailto:{{vm.contactEmail | deobfuscate}}">Contact Us</a>
+      NatureNet is a platform for sharing place-based nature observations and contributing design ideas. Please do NOT contribute photos of humans or pets. NatureNet is a moderated site. Postings that are inappropriate or irrelevant will be deleted.
+      If you want one of your observations to be removed, please send an email to <a href="mailto:{{vm.contactEmail | deobfuscate}}"><span>{{vm.contactEmail | deobfuscate}}</span></a> with a description of the content you would like to be removed.
+    </p>
+  </div>
+
+</div>
+
+
+<div class="home-items">
+
+  <ul class="items items--observations">
+    <li class="items__group">Recent Observations</li>
+
+    <li class="item"
+      ng-repeat="o in vm.observations | orderBy: '-updated_at' | limitTo: vm.observationsDisplayLimit"
+      ng-click="vm.showObservation(o)">
+      <nn-badge class="badge item__user"
+        title="{{$root.users[o.observer].display_name}}"
+        subtitle="{{vm.formatDate(o.updated_at)}}"
+        avatar-url="{{$root.users[o.observer].avatar}}">
+      </nn-badge>
+      <nn-social-totals class="item__totals totals -centerv" data="o">
+      </nn-social-totals>
+    </li>
+
+    <li class="items__action" ng-if="vm.observations.length > vm.observationsDisplayLimit">
+      <a href="#" ng-click="vm.observationsDisplayLimit = vm.observationsDisplayLimit + 5">Show More</a>
+    </li>
+  </ul>
+
+
+
+  <ul class="items items--ideas">
+    <li class="items__group">Recent Design Ideas</li>
+
+    <li class="item" ng-repeat="i in vm.ideas | orderBy: '-updated_at' | limitTo: vm.ideasDisplayLimit">
+      <nn-badge class="badge item__user"
+        title="{{$root.users[i.submitter].display_name}}"
+        subtitle="{{vm.formatDate(i.updated_at)}}"
+        avatar-url="{{$root.users[i.submitter].avatar}}">
+      </nn-badge>
+      <nn-social-totals class="item__totals totals -centerv" data="i" show-dislikes="true">
+      </nn-social-totals>
+    </li>
+
+    <li class="items__action" ng-if="vm.ideas.length > vm.ideasDisplayLimit">
+      <a href="#" ng-click="vm.ideasDisplayLimit = vm.ideasDisplayLimit + 5">Show More</a>
+    </li>
+  </ul>
+
+</div>
+
+<div class="home-footer">
+    <ul class="footer-items">
+      <li><a href="http://www.uncc.edu" target="_blank">University of North Carolina Charlotte</a></li>
+      <li><a href="http://www.colorado.edu" target="_blank">University of Colorado Boulder</a></li>
+      <li><a href="http://www.umd.edu" target="_blank">University of Maryland College Park</a></li>
+    </ul>
+</div>

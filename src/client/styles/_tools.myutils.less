@@ -74,3 +74,34 @@
     .clickable {
       cursor: pointer;
     }
+
+    .inline-icon {
+      display: inline;
+      font-weight: bold;
+      color: @dark-green;
+      padding-left: 1.5em;
+
+      background-position: 0.25em 50%;
+      background-repeat: no-repeat;
+      background-size: 1em;
+
+      &.icon--large {
+        font-size: 32px;
+      }
+
+      &.icon--learn {
+        background-image: url('/images/sidebar-observations.png');
+      }
+
+      &.icon--share {
+        background-image: url('/images/sidebar-people.png');
+      }
+
+      &.icon--shape {
+        background-image: url('/images/sidebar-projects.png');
+      }
+
+      &.icon--design {
+        background-image: url('/images/sidebar-ideas.png');
+      }
+    }

@@ -31,7 +31,7 @@
       <img class="detail__image" src="{{item.icon_url | img_large }}" ng-if="item.icon_url"></img>
       <img class="detail__image" src="{{item.data.image | img_large }}" ng-if="item.data.image"></img>
 
-      <nn-social-totals class="totals detail__totals" data="item" context="{{context}}" show-dislikes="{{context === 'ideas'}}"></nn-social-totals>
+      <nn-social-totals class="totals detail__totals" data="item" context="{{context}}" show-dislikes="context === 'ideas'"></nn-social-totals>
 
       <section class="detail__comments">
 

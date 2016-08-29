@@ -19,7 +19,7 @@
     var directive = {
       scope: {
         data: '=',
-        showDislikes: '@',
+        showDislikes: '=',
         context: '@',
       },
       link: link,

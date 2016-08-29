@@ -52,25 +52,33 @@
        ================================================== */
 
     function activate() {
+      getAuth();
       getNavRoutes();
     }
 
     /* Data functions
        ================================================== */
 
-    function onAuth() {
-      return dataservice.onAuth()
-        .then(function (data) {
+    function getAuth() {
+      return dataservice.onAuthStateChanged(onAuthChanged);
+    }
+
+    function onAuthChanged(user) {
+      $rootScope.$apply(function() {
+        console.log(vm.isAuthenticated);
+        if(user) {
           vm.isAuthenticated = true;
-          vm.userUid = data.uid;
-          return vm.userUid;
-        });
+          vm.userUid = user.uid;
+        } else {
+          vm.isAuthenticated = false;
+          vm.userUid = void 0;
+        }
+        console.log(vm.isAuthenticated);
+        return vm.userUid;
+      });
     }
 
     function unAuth() {
-      vm.isAuthenticated = false;
-      vm.userUid = void 0;
-
       logger.success('You are now logged out.');
     }
 
@@ -155,7 +163,6 @@
     $rootScope.$on('map:show', showMap);
 
     function showUserInfo() {
-      onAuth();
       vm.showPopup = false;
     }
 

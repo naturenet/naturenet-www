@@ -84,9 +84,10 @@
        ================================================== */
 
     function activate() {
-      var promises = [onAuth(), getSites(), getGroups()];
+      var promises = [getSites(), getGroups()];
       return $q.all(promises)
         .then(function () {
+          onAuth();
           logger.info('Authentication Ready');
         });
     }
@@ -95,10 +96,9 @@
        ================================================== */
 
     function onAuth() {
-      return dataservice.onAuth()
-        .then(function (data) {
-          if (!!data) {
-            vm.userUid = data.uid;
+      return dataservice.onAuthStateChanged(function (user) {
+          if (!!user) {
+            vm.userUid = user.uid;
             $rootScope.$broadcast('auth:success', vm.userUid);
             return vm.userUid;
           }

@@ -36,7 +36,7 @@
       getArray: getArray,
 
       // Authentication functions
-      onAuth: onAuth,
+      onAuthStateChanged: onAuthStateChanged,
       getAuth: getAuth,
       authWithPassword: authWithPassword,
       unAuth: unAuth,
@@ -124,15 +124,8 @@
     /* Authentication functions
        ================================================== */
 
-    function onAuth() {
-      var d = $q.defer();
-      var auth = firebase.auth();
-
-      auth.onAuthStateChanged(function (user) {
-        d.resolve(user);
-      });
-
-      return d.promise;
+    function onAuthStateChanged(callback) {
+      return firebase.auth().onAuthStateChanged(callback);
     }
 
     function getAuth() {
@@ -597,21 +590,28 @@
     /* Idea functions
        ================================================== */
 
-    function addIdea(uid, content, group, type) {
+    function addIdea(content, group, type) {
+      var auth = getAuth();
+
+      if (auth === null || !auth.uid) {
+        console.log('You must be signed in to do that!');
+        return $q.reject(null);
+      }
+
       var id = $firebaseRef.ideas.push().key;
 
       var idea = timestamp({
         id: id,
         group: group,
         type: type,
-        submitter: uid,
+        submitter: auth.uid,
         content: content,
         status: 'doing',
       });
 
       var newData = {};
       newData['ideas/' + id] = idea;
-      newData['users/' + uid + '/latest_contribution'] = firebase.database.ServerValue.TIMESTAMP;
+      newData['users/' + auth.uid + '/latest_contribution'] = firebase.database.ServerValue.TIMESTAMP;
 
       return $firebaseRef.default.update(newData).then(success).catch(fail);
 

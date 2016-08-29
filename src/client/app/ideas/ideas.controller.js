@@ -117,8 +117,8 @@
         });
     }
 
-    function addIdeaObject(uid, content, group, type) {
-      return dataservice.addIdea(uid, content, group, type)
+    function addIdeaObject(content, group, type) {
+      return dataservice.addIdea(content, group, type)
         .then(function (data) {
           getIdeas()
             .then(function () {
@@ -128,22 +128,12 @@
         });
     }
 
-    function onAuth() {
-      return dataservice.onAuth()
-        .then(function (data) {
-          vm.uid = data.uid;
-          return vm.uid;
-        });
-    }
-
     /* Click functions
        ================================================== */
 
     function addIdea() {
       if (vm.content.length !== 0) {
-        onAuth().then(function () {
-          addIdeaObject(vm.uid, vm.content, vm.group, vm.type);
-        });
+        addIdeaObject(vm.content, vm.group, vm.type);
       }
     }
 

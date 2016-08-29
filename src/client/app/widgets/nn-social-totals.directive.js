@@ -38,10 +38,8 @@
         scope.dislikes = findTotal('likes', false);
         scope.comments = findTotal('comments');
 
-        if (scope.data.likes) {
-          scope.liked = (scope.data.likes[scope.uid] === true);
-          scope.disliked = (scope.data.likes[scope.uid] === false);
-        }
+        scope.liked = (!!scope.data.likes && scope.data.likes[scope.uid] === true);
+        scope.disliked = (!!scope.data.likes && scope.data.likes[scope.uid] === false);
       }
 
       function findTotal(key, val) {

@@ -101,7 +101,7 @@
       }
 
       function fail(e) {
-        return exception.catcher('Failed for dataservice.getArray')(e);
+        return exception.catcher('Unable to load data for ' + s)(e);
       }
     }
 
@@ -143,8 +143,21 @@
         return response;
       }
 
-      function fail(e) {
-        return exception.catcher('Failed for dataservice.authWithPassword')(e);
+      function fail(error) {
+        switch (error.code) {
+          case 'auth/invalid-email':
+            return exception.catcher('The email address is not valid.')(error);
+          case 'auth/user-disabled':
+            return exception.catcher('This account has been disabled.')(error);
+          case 'auth/user-not-found':
+            return exception.catcher('There is no user account for this email address.\n' +
+              'Join NatureNet to get started.')(error);
+          case 'auth/wrong-password':
+            return exception.catcher('The email address or password is incorrect.\n' +
+              'If you forgot your password, click "Reset my password."')(error);
+          default:
+            return exception.catcher('Unable to sign in.')(error);
+        }
       }
     }
 
@@ -163,8 +176,18 @@
         return response;
       }
 
-      function fail(e) {
-        return exception.catcher('Failed for dataservice.createUser')(e);
+      function fail(error) {
+        switch (error.code) {
+          case 'auth/invalid-email':
+            return exception.catcher('The email address is not valid.')(error);
+          case 'auth/email-already-in-use':
+            return exception.catcher('This email address is already in use.\n' +
+              'Sign in to access your account.')(error);
+          case 'auth/weak-password':
+            return exception.catcher('Please choose a password that is at least 6 characters long.')(error);
+          default:
+            return exception.catcher('Unable to join with email and password.')(error);
+        }
       }
     }
 
@@ -201,7 +224,7 @@
       }
 
       function fail(e) {
-        d.reject(exception.catcher('Failed for dataservice.addUser')(e));
+        d.reject(exception.catcher('Unable to create user profile!')(e));
       }
     }
 
@@ -244,7 +267,7 @@
       }
 
       function fail(e) {
-        d.reject(exception.catcher('Failed for dataservice.updateUser')(e));
+        d.reject(exception.catcher('Unable to update user profile!')(e));
       }
     }
 
@@ -259,7 +282,15 @@
       }
 
       function fail(e) {
-        return exception.catcher('Failed for dataservice.resetPassword')(e);
+        switch (error.code) {
+          case 'auth/invalid-email':
+            return exception.catcher('The email address is not valid.')(error);
+          case 'auth/user-not-found':
+            return exception.catcher('There is no user account for this email address.\n' +
+              'Join NatureNet to get started.')(error);
+          default:
+            return exception.catcher('Unable to reset password.')(error);
+        }
       }
     }
 
@@ -277,7 +308,7 @@
       }
 
       function fail(e) {
-        return exception.catcher('Failed for dataservice.getUsers')(e);
+        return exception.catcher('Unable to load users')(e);
       }
     }
 
@@ -296,7 +327,7 @@
       }
 
       function fail(e) {
-        return exception.catcher('Failed for dataservice.getUsersRecent')(e);
+        return exception.catcher('Unable to load recent users')(e);
       }
     }
 
@@ -319,7 +350,7 @@
       }
 
       function fail(e) {
-        return exception.catcher('Failed for dataservice.getCurrentUser')(e);
+        return exception.catcher('Unable to load your profile')(e);
       }
     }
 
@@ -343,7 +374,7 @@
       }
 
       function fail(e) {
-        return exception.catcher('Failed for dataservice.getActiveUserDetails')(e);
+        return exception.catcher('Unable to load your account data')(e);
       }
     }
 
@@ -361,7 +392,7 @@
       }
 
       function fail(e) {
-        return exception.catcher('Failed for dataservice.getGroups')(e);
+        return exception.catcher('Unable to load groups')(e);
       }
     }
 
@@ -381,7 +412,7 @@
       }
 
       function fail(e) {
-        return exception.catcher('Failed for dataservice.getGroupById')(e);
+        return exception.catcher('Unable to load group')(e);
       }
     }
 
@@ -406,7 +437,7 @@
       }
 
       function fail(e) {
-        return exception.catcher('Failed for dataservice.getGroupsByUserId')(e);
+        return exception.catcher('Unable to load groups for user')(e);
       }
     }
 
@@ -429,7 +460,7 @@
       }
 
       function fail(e) {
-        return exception.catcher('Failed for dataservice.getSiteById')(e);
+        return exception.catcher('Unable to load site')(e);
       }
     }
 
@@ -457,7 +488,7 @@
       }
 
       function fail(e) {
-        return exception.catcher('Failed for dataservice.getObservationsByUserId')(e);
+        return exception.catcher('Unable to load obsevations for user')(e);
       }
     }
 
@@ -482,7 +513,7 @@
       }
 
       function fail(e) {
-        return exception.catcher('Failed for dataservice.getObservationsByProjectId')(e);
+        return exception.catcher('Unable to load observations for project')(e);
       }
     }
 
@@ -507,7 +538,7 @@
       }
 
       function fail(e) {
-        return exception.catcher('Failed for dataservice.getObservationsBySiteId')(e);
+        return exception.catcher('Unable to load observations for site')(e);
       }
     }
 
@@ -525,7 +556,7 @@
       }
 
       function fail(e) {
-        return exception.catcher('Failed for dataservice.getProjects')(e);
+        return exception.catcher('Unable to load projects')(e);
       }
     }
 
@@ -545,7 +576,7 @@
       }
 
       function fail(e) {
-        return exception.catcher('Failed for dataservice.getProjectById')(e);
+        return exception.catcher('Unable to load project')(e);
       }
     }
 
@@ -564,7 +595,7 @@
       }
 
       function fail(e) {
-        return exception.catcher('Failed for dataservice.getProjectsRecent')(e);
+        return exception.catcher('Unable to load recent projects')(e);
       }
     }
 
@@ -583,7 +614,7 @@
       }
 
       function fail(e) {
-        return exception.catcher('Failed for dataservice.getProjectsAtSite')(e);
+        return exception.catcher('Unable to load projects for site')(e);
       }
     }
 
@@ -620,7 +651,7 @@
       }
 
       function fail(e) {
-        return exception.catcher('Failed for dataservice.addIdea')(e);
+        return exception.catcher('Unable to submit design idea')(e);
       }
     }
 
@@ -689,7 +720,7 @@
       }
 
       function fail(e) {
-        return exception.catcher('Failed for dataservice.getCommentsRecent')(e);
+        return exception.catcher('Unable to load recent comments')(e);
       }
     }
 
@@ -714,7 +745,7 @@
       }
 
       function fail(e) {
-        return exception.catcher('Failed for dataservice.getCommentsByUserId')(e);
+        return exception.catcher('Unable to load comments for user')(e);
       }
     }
 
@@ -733,7 +764,7 @@
       }
 
       function fail(e) {
-        return exception.catcher('Failed for dataservice.getCommentsForRecord')(e);
+        return exception.catcher('Unable to load comments for this contribution')(e);
       }
     }
   }

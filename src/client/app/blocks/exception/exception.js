@@ -22,7 +22,8 @@
         }
 
         e.message = newMessage;
-        logger.error(newMessage);
+        console.log(e.message);
+        logger.error(message);
         return $q.reject(e);
       };
     }

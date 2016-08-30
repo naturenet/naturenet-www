@@ -64,16 +64,15 @@
     }
 
     function onAuthChanged(user) {
-      $rootScope.$apply(function() {
-        console.log(vm.isAuthenticated);
-        if(user) {
+      $rootScope.$apply(function () {
+        if (user) {
           vm.isAuthenticated = true;
           vm.userUid = user.uid;
         } else {
           vm.isAuthenticated = false;
           vm.userUid = void 0;
         }
-        console.log(vm.isAuthenticated);
+
         return vm.userUid;
       });
     }

@@ -73,6 +73,10 @@
     </div>
   </div>
 
+  <div ng-controller="HeaderController as vm" ng-show="!vm.isAuthenticated">
+      <a class="button button--joinnow" href="#" ng-click="vm.showRegister()"></a>
+  </div>
+
   <div class="content__footer">
     <p>
       <a class="button button--inline" href="mailto:{{vm.contactEmail | deobfuscate}}">Contact Us</a>
@@ -130,8 +134,8 @@
 
 <div class="home-footer">
     <ul class="footer-items">
-      <li><a href="http://www.uncc.edu" target="_blank">University of North Carolina Charlotte</a></li>
+      <li><a href="http://www.uncc.edu" target="_blank">The University of North Carolina at Charlotte</a></li>
       <li><a href="http://www.colorado.edu" target="_blank">University of Colorado Boulder</a></li>
-      <li><a href="http://www.umd.edu" target="_blank">University of Maryland College Park</a></li>
+      <li><a href="http://www.umd.edu" target="_blank">University of Maryland, College Park</a></li>
     </ul>
 </div>

@@ -36,14 +36,44 @@
 
     .home-boxes {
       display: inline-block;
-      width: 50%;
-      max-width: 540px;
+      width: 100%;
       text-align: center;
+      margin: 8px;
+      font-size: 18px;
     }
 
-    .boxes {
+    .boxes--upper {
+      display: block;
+      width: 100%;
+    }
+
+    .boxes--lower {
+      display: block;
+      width: 100%;
+    }
+
+    .box--upper-left {
       display: inline-block;
-      margin: 8px;
+      width: 336px;
+      vertical-align: top;
+    }
+
+    .box--upper-right {
+      display: inline-block;
+      width: 336px;
+      vertical-align: top;
+    }
+
+    .box--lower-left {
+      display: inline-block;
+      width: 336px;
+      vertical-align: top;
+    }
+
+    .box--lower-right {
+      display: inline-block;
+      width: 336px;
+      vertical-align: top;
     }
 
     .box__label {
@@ -53,9 +83,9 @@
 
     .box__image {
       > div {
-        width: 250px;
-        height: 250px;
-        margin-bottom: 8px;
+        width: 300px;
+        height: 300px;
+        margin: 16px;
         border: 2px solid;
         background-repeat: no-repeat;
         background-size: 100%;

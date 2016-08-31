@@ -5,63 +5,35 @@
   <div class="home-intro">
 
     <div class="home-boxes">
-      <div class="boxes box--upper-left">
-        <nn-image class="box__image" image-url="https://res.cloudinary.com/university-of-colorado/image/upload/t_web-feature/v1471987089/static/learn.jpg"></nn-image>
-        <div class="box__label inline-icon icon--large icon--learn">Learn</div>
-      </div>
-      <div class="boxes box--upper-right">
-        <nn-image class="box__image" image-url="https://res.cloudinary.com/university-of-colorado/image/upload/t_web-feature/v1471986856/static/share.jpg"></nn-image>
-        <div class="box__label inline-icon icon--large icon--share">Share</div>
-      </div>
-      <div class="boxes box--lower-left">
-        <nn-image class="box__image" image-url="https://res.cloudinary.com/university-of-colorado/image/upload/t_web-feature/v1460772115/xkmtpemilwmse1gvxkgk.jpg"></nn-image>
-        <div class="box__label inline-icon icon--large icon--shape">Shape</div>
-      </div>
-      <div class="boxes box--lower-right">
-        <nn-image class="box__image" image-url="https://res.cloudinary.com/university-of-colorado/image/upload/t_web-feature/v1469724921/irhlvtis18ibmmr1vhzi.jpg"></nn-image>
-        <div class="box__label inline-icon icon--large icon--design">Design</div>
-      </div>
-    </div>
-
-    <div class="home-description">
-
-      <div class="content content--what">
-        <div class="content__text">
-          <h1 class="content__title">What is NatureNet?</h1>
-          <div class="content__description">
-            <p class="content__lineitem">
-              <span class="inline-icon icon--learn" >Learn</span> about nature in your community
-            </p>
-            <p class="content__lineitem">
-              <span class="inline-icon icon--share" >Share</span> your observations and ideas
-            </p>
-            <p class="content__lineitem">
-              <span class="inline-icon icon--shape" >Shape</span> nature projects in your local community
-            </p>
-            <p class="content__lineitem">
-              <span class="inline-icon icon--design" >Design</span> this nature technology
-            </p>
-          </div>
+      <div class="boxes--upper">
+        <div class="box--upper-left">
+          <nn-image class="box__image" image-url="https://res.cloudinary.com/university-of-colorado/image/upload/t_web-feature/v1471987089/static/learn.jpg"></nn-image>
+          <span class="box__label inline-icon icon--large icon--learn">Learn</span> about nature in your community
+        </div>
+        <div class="box--upper-right">
+          <nn-image class="box__image" image-url="https://res.cloudinary.com/university-of-colorado/image/upload/t_web-feature/v1471986856/static/share.jpg"></nn-image>
+          <span class="box__label inline-icon icon--large icon--share">Share</span> your observations and ideas
         </div>
       </div>
-
-    <div class="content content--where">
-      <div class="content__text">
-        <h1 class="content__title">Where is NatureNet?</h1>
-        <div class="content__description">
-          <p class="content__lineitem"><a href="" target="_blank">Anacostia Watershed Society</a></p>
-          <p class="content__lineitem"><a href="" target="_blank">Reedy Creek Nature Center</a></p>
-          <p class="content__lineitem"><a href="" target="_blank">Aspen Center for Environmental Studies</a></p>
-          <p class="content__lineitem" style="text-align: center; margin: 1em 0;"><a href="" target="_blank">Your Backyard!</a></p>
+      <div class="boxes--lower">
+        <div class="box--lower-left">
+          <nn-image class="box__image" image-url="https://res.cloudinary.com/university-of-colorado/image/upload/t_web-feature/v1460772115/xkmtpemilwmse1gvxkgk.jpg"></nn-image>
+          <span class="box__label inline-icon icon--large icon--shape">Shape</span> nature projects in your local community
+        </div>
+        <div class="box--lower-right">
+          <nn-image class="box__image" image-url="https://res.cloudinary.com/university-of-colorado/image/upload/t_web-feature/v1469724921/irhlvtis18ibmmr1vhzi.jpg"></nn-image>
+          <span class="box__label inline-icon icon--large icon--design">Design</span> this nature technology
         </div>
       </div>
-    </div>
-
     </div>
 
   </div>
 
   <hr/>
+
+  <div ng-controller="HeaderController as vm" ng-show="!vm.isAuthenticated" style="width: 100%; text-align: center;">
+      <a class="button button--joinnow" href="#" ng-click="vm.showRegister()"></a>
+  </div>
 
   <div class="content content--featured" ng-hide="true">
     <div class="content__text">
@@ -71,10 +43,6 @@
       <div class="featured">Project</div>
       <div class="featured">Design Idea</div>
     </div>
-  </div>
-
-  <div ng-controller="HeaderController as vm" ng-show="!vm.isAuthenticated">
-      <a class="button button--joinnow" href="#" ng-click="vm.showRegister()"></a>
   </div>
 
   <div class="content__footer">

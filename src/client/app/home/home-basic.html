@@ -67,7 +67,7 @@
       <nn-badge class="badge item__user"
         title="{{$root.users[o.observer].display_name}}"
         subtitle="{{vm.formatDate(o.updated_at)}}"
-        avatar-url="{{$root.users[o.observer].avatar}}">
+        avatar-url="{{o.data.image | img_thumb}}">
       </nn-badge>
       <nn-social-totals class="item__totals totals -centerv" data="o">
       </nn-social-totals>

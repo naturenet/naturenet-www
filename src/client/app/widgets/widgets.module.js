@@ -2,6 +2,6 @@
   'use strict';
 
   angular
-    .module('app.widgets', ['app.core']);
+    .module('app.widgets', ['app.core', 'ngMaterial']);
 
 })();

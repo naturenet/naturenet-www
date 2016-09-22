@@ -34,6 +34,7 @@
     var service = {
       // Utility functions
       getArray: getArray,
+      deleteContent: deleteContent,
 
       // Authentication functions
       onAuthStateChanged: onAuthStateChanged,
@@ -119,6 +120,30 @@
       }
 
       return data;
+    }
+
+    function deleteContent(context, id) {
+      var d = $q.defer();
+
+      return $firebaseRef.default
+        .child(context).child(id).child('status')
+        .setValue('deleted', function (error) {
+          if (error) {
+            fail(error);
+          } else {
+            success();
+          }
+        });
+
+      return d.promise;
+
+      function success(response) {
+        d.resolve('success');
+      }
+
+      function fail(e) {
+        d.reject(exception.catcher('Unable to delete this item')(e));
+      }
     }
 
     /* Authentication functions

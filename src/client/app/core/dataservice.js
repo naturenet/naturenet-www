@@ -34,6 +34,7 @@
     var service = {
       // Utility functions
       getArray: getArray,
+      deleteContent: deleteContent,
 
       // Authentication functions
       onAuthStateChanged: onAuthStateChanged,
@@ -62,6 +63,7 @@
       // Observation functions
       getObservationsByUserId: getObservationsByUserId,
       getObservationsByProjectId: getObservationsByProjectId,
+      updateObservation: updateObservation,
 
       // Project functions
       getProjects: getProjects,
@@ -119,6 +121,33 @@
       }
 
       return data;
+    }
+
+    function deleteContent(context, id) {
+      var d = $q.defer();
+
+      if (!context || !id) {
+        console.log('Invalid data');
+        return $q.reject();
+      }
+
+      $firebaseRef.default.child(context).child(id).child('status').set('deleted', function (error) {
+        if (error) {
+          fail(error);
+        } else {
+          success();
+        }
+      });
+
+      return d.promise;
+
+      function success(response) {
+        d.resolve('success');
+      }
+
+      function fail(e) {
+        d.reject(exception.catcher('Unable to delete this content.')(e));
+      }
     }
 
     /* Authentication functions
@@ -539,6 +568,38 @@
 
       function fail(e) {
         return exception.catcher('Unable to load observations for site')(e);
+      }
+    }
+
+    function updateObservation(id, project, caption) {
+      var d = $q.defer();
+      var newData = {};
+
+      if (!id) {
+        console.log('Observation has no ID');
+        return $q.when(null);
+      }
+
+      newData['observations/' + id + '/activity'] = project;
+      newData['observations/' + id + '/data/text'] = caption;
+      newData['observations/' + id + '/updated_at'] = firebase.database.ServerValue.TIMESTAMP;
+
+      $firebaseRef.default.update(newData, function (error) {
+        if (error) {
+          fail(error);
+        } else {
+          success();
+        }
+      });
+
+      return d.promise;
+
+      function success(response) {
+        d.resolve('success');
+      }
+
+      function fail(e) {
+        d.reject(exception.catcher('Unable to update observation!')(e));
       }
     }
 

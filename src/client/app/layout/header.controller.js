@@ -68,9 +68,11 @@
         if (user) {
           vm.isAuthenticated = true;
           vm.userUid = user.uid;
+          $rootScope.currentUser = user.uid;
         } else {
           vm.isAuthenticated = false;
           vm.userUid = void 0;
+          $rootScope.currentUser = void 0;
         }
 
         return vm.userUid;

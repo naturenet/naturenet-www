@@ -1,0 +1,43 @@
+<!-- Read-only -->
+<section ng-if="!editable || !isEditMode" class="sidebar__content">
+  <nn-badge class="sidebar__title badge"
+    title="{{allProjects.$getRecord(observation.activity).name}}"
+    subtitle=""
+    avatar-url="{{allProjects.$getRecord(observation.activity).icon_url}}">
+  </nn-badge>
+  <div ng-if="observation.data.image" nn-image class="sidebar__image"
+        image-url="{{observation.data.image | img_sidebar}}" ng-click="vm.showDetail = true">
+  </div>
+  <p ng-if="observation.data.text" class="sidebar__description">{{observation.data.text}}</p>
+  <nn-social-totals class="totals" data="observation" context="observations"></nn-social-totals>
+  <input ng-if="editable"
+    class="button button--edit"
+    ng-click="edit()"
+    value="edit"
+    type="submit" />
+  <input ng-if="editable"
+    class="button button--delete"
+    ng-click="delete()"
+    value="delete"
+    type="submit" />
+</section>
+
+<!-- Edit Mode -->
+<section ng-if="isEditMode" class="sidebar__content">
+  <select
+    ng-model="observation.activity"
+    ng-options="a.id as a.name for a in allProjects" >
+  </select>
+  <div ng-if="observation.data.image" nn-image class="sidebar__image"
+        image-url="{{observation.data.image | img_sidebar}}" ng-click="vm.showDetail = true">
+  </div>
+  <input type="text" ng-model="observation.data.text" class="sidebar__description"></input>
+  <input class="button button--cancel"
+    ng-click="cancel()"
+    value="cancel"
+    type="submit" />
+  <input class="button button--save"
+    ng-click="saveChanges()"
+    value="save"
+    type="submit" />
+</section>

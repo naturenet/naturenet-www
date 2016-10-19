@@ -26,7 +26,7 @@
 
         <div class="dropdown__options">
 
-          <div class="list-item" ng-repeat="o in vm.observations | orderBy: '-updated_at'" ng-click="vm.showSidebar(o)">
+          <div class="list-item" ng-repeat="o in vm.observations | orderBy: '-updated_at' | filter:{ status : '!deleted' }" ng-click="vm.showSidebar(o)">
             <nn-image class="list-item__image" image-url="{{o.data.image | img_preview}}">
             </nn-image>
             <div class="list-item__detail">
@@ -61,18 +61,12 @@
       </nn-badge>
       <a class="sidebar__close" href="#" ng-click="vm.hideSidebar()"></a>
     </header>
-    
+
     <section class="sidebar__content">
-      <nn-badge class="sidebar__title badge"
-        title="{{vm.currentProject.name}}"
-        subtitle=""
-        avatar-url="{{vm.currentProject.icon_url}}">
-      </nn-badge>
-      <div ng-if="vm.currentObservation.data.image" nn-image class="sidebar__image"
-           image-url="{{vm.currentObservation.data.image | img_sidebar}}" ng-click="vm.showDetail = true">
-      </div>
-      <p ng-if="vm.currentObservation.data.text" class="sidebar__description">{{vm.currentObservation.data.text}}</p>
-      <nn-social-totals class="totals" data="vm.currentObservation" context="observations"></nn-social-totals>
+      <nn-observation
+        observation="vm.currentObservation"
+        editable="vm.currentObservation.observer == $root.currentUser">
+      </nn-observation>
     </section>
 
     <section class="sidebar__comments">
@@ -89,10 +83,6 @@
     </section>
 
   </div>
-
-
-
-
 
   <custom-marker ng-repeat="o in vm.observations" position="{{o.l}}">
     <div class="map-marker" ng-click="vm.showSidebar(o)"></div>

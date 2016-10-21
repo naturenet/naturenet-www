@@ -28,6 +28,7 @@
     "ngmap": "^1.16.7",
     "firebase": "^3.0.5",
     "angularfire": "^2.0.1",
-    "bardjs": "~0.1.8"
+    "bardjs": "~0.1.8",
+    "cloudinary_ng": "^1.0.0"
   }
 }

@@ -10,16 +10,18 @@
   </div>
   <p ng-if="observation.data.text" class="sidebar__description">{{observation.data.text}}</p>
   <nn-social-totals class="totals" data="observation" context="observations"></nn-social-totals>
-  <input ng-if="editable"
-    class="button button--edit"
-    ng-click="edit()"
-    value="edit"
-    type="submit" />
-  <input ng-if="editable"
-    class="button button--delete"
-    ng-click="delete()"
-    value="delete"
-    type="submit" />
+  <div style="margin-left:2em; display:inline;">
+    <input ng-if="editable"
+      class="button"
+      ng-click="edit()"
+      value="edit"
+      type="submit" />
+    <input ng-if="editable"
+      class="button button--delete"
+      ng-click="delete()"
+      value="delete"
+      type="submit" />
+  </div>
 </section>
 
 <!-- Edit Mode -->
@@ -31,13 +33,15 @@
   <div ng-if="observation.data.image" nn-image class="sidebar__image"
         image-url="{{observation.data.image | img_sidebar}}" ng-click="vm.showDetail = true">
   </div>
-  <input type="text" ng-model="observation.data.text" class="sidebar__description"></input>
-  <input class="button button--cancel"
-    ng-click="cancel()"
-    value="cancel"
-    type="submit" />
-  <input class="button button--save"
-    ng-click="saveChanges()"
-    value="save"
-    type="submit" />
+  <textarea ng-model="observation.data.text" class="sidebar__description"></textarea>
+  <div style="display:inline;">
+    <input class="button button--cancel"
+      ng-click="cancel()"
+      value="cancel"
+      type="submit" />
+    <input class="button button--save"
+      ng-click="saveChanges()"
+      value="save"
+      type="submit" />
+  </div>
 </section>

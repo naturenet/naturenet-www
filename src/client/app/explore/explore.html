@@ -62,12 +62,10 @@
       <a class="sidebar__close" href="#" ng-click="vm.hideSidebar()"></a>
     </header>
 
-    <section class="sidebar__content">
-      <nn-observation
-        observation="vm.currentObservation"
-        editable="vm.currentObservation.observer == $root.currentUser">
-      </nn-observation>
-    </section>
+    <nn-observation
+      observation="vm.currentObservation"
+      editable="vm.currentObservation.observer == $root.currentUser">
+    </nn-observation>
 
     <section class="sidebar__comments">
       <nn-comment class="comment list-item__comment" ng-repeat="c in vm.comments | orderBy: 'updated_at'"

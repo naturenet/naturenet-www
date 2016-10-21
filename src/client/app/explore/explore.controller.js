@@ -102,6 +102,12 @@
       updateMap(vm.currentObservation);
     }
 
+    $scope.$on('delete', function (event, id) {
+      if (id === vm.currentObservation.id) {
+        vm.currentObservation = void 0;
+      }
+    });
+
     /* Map functions
        ================================================== */
 

@@ -25,37 +25,38 @@
       scope.isEditMode = false;
       scope.getProjects();
 
-      scope.edit = function() {
+      scope.edit = function () {
         scope.isEditMode = true;
         scope.cache = angular.copy(scope.observation);
-      }
+      };
 
-      scope.cancel = function() {
+      scope.cancel = function () {
         scope.isEditMode = false;
         scope.observation = scope.cache;
-      }
+      };
     }
 
     function controller($scope, dataservice) {
 
       $scope.saveChanges = function () {
         $scope.isEditMode = false;
-        dataservice.updateObservation($scope.observation.id, $scope.observation.activity, $scope.observation.data.text).then(function(result) {
-          console.log(result);
-          logger.success('Your observation has been updated.');
-        });
+        dataservice.updateObservation($scope.observation.id, $scope.observation.activity, $scope.observation.data.text)
+          .then(function (result) {
+            logger.success('Your observation has been updated.');
+          });
       };
 
-      $scope.delete = function() {
-        dataservice.deleteContent('observations', $scope.observation.id).then(function(result) {
-          console.log(result);
-          logger.success('The observation has been deleted.');
-        });
-      }
+      $scope.delete = function () {
+        if (confirm('Are you sure you want to delete your observation?')) {
+          dataservice.deleteContent('observations', $scope.observation.id).then(function (result) {
+            $scope.$emit('delete', $scope.observation.id);
+            logger.success('The observation has been deleted.');
+          });
+        }
+      };
 
       $scope.getProjects = function () {
         dataservice.getArray('activities').then(function (data) {
-          console.log(data);
           $scope.allProjects = data;
           return data;
         });

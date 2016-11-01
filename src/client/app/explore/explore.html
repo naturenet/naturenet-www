@@ -64,7 +64,7 @@
 
     <nn-observation
       observation="vm.currentObservation"
-      editable="vm.currentObservation.observer == $root.currentUser">
+      editable="vm.currentObservation.observer === $root.currentUser || $root.userRank === 'admin'">
     </nn-observation>
 
     <section class="sidebar__comments">

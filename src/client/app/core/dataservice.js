@@ -46,6 +46,7 @@
       updateUser: updateUser,
       resetPassword: resetPassword,
       getActiveUserDetails: getActiveUserDetails,
+      getActiveUserRank: getActiveUserRank,
 
       // User functions
       getUsers: getUsers,
@@ -404,6 +405,29 @@
 
       function fail(e) {
         return exception.catcher('Unable to load your account data')(e);
+      }
+    }
+
+    function getActiveUserRank() {
+      var auth = getAuth();
+
+      if (auth === null || !auth.uid) {
+        console.log('User is not signed in.');
+        return $q.when(null);
+      }
+
+      var data = $firebaseObject($firebaseRef.usersRanks.child(auth.uid));
+
+      return data.$loaded()
+        .then(success)
+        .catch(fail);
+
+      function success(response) {
+        return response;
+      }
+
+      function fail(e) {
+        return exception.catcher('Unable to load your permissions. Some features may be unavailable.')(e);
       }
     }
 

@@ -69,10 +69,16 @@
           vm.isAuthenticated = true;
           vm.userUid = user.uid;
           $rootScope.currentUser = user.uid;
+          $rootScope.userRank = void 0;
+          dataservice.getActiveUserRank().then(function(data) {
+            $rootScope.userRank = data;
+            console.log(data);
+          });
         } else {
           vm.isAuthenticated = false;
           vm.userUid = void 0;
           $rootScope.currentUser = void 0;
+          $rootScope.userRank = void 0;
         }
 
         return vm.userUid;

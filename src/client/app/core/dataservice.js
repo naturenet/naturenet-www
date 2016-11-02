@@ -64,6 +64,7 @@
       // Observation functions
       getObservationsByUserId: getObservationsByUserId,
       getObservationsByProjectId: getObservationsByProjectId,
+      getObservationsBySiteId: getObservationsBySiteId,
       updateObservation: updateObservation,
 
       // Project functions
@@ -423,7 +424,7 @@
         .catch(fail);
 
       function success(response) {
-        return response;
+        return response.$value;
       }
 
       function fail(e) {

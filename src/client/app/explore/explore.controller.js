@@ -108,6 +108,12 @@
       }
     });
 
+    $scope.$on('view', function (event, id) {
+      if (!!id) {
+        vm.showDetail = true;
+      }
+    });
+
     /* Map functions
        ================================================== */
 

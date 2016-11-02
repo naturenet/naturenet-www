@@ -6,7 +6,7 @@
     avatar-url="{{allProjects.$getRecord(observation.activity).icon_url}}">
   </nn-badge>
   <div ng-if="observation.data.image" nn-image class="sidebar__image"
-        image-url="{{observation.data.image | img_sidebar}}" ng-click="vm.showDetail = true">
+        image-url="{{observation.data.image | img_sidebar}}" ng-click="view()">
   </div>
   <p ng-if="observation.data.text" class="sidebar__description">{{observation.data.text}}</p>
   <nn-social-totals class="totals" data="observation" context="observations"></nn-social-totals>
@@ -31,7 +31,7 @@
     ng-options="a.id as a.name for a in allProjects" >
   </select>
   <div ng-if="observation.data.image" nn-image class="sidebar__image"
-        image-url="{{observation.data.image | img_sidebar}}" ng-click="vm.showDetail = true">
+        image-url="{{observation.data.image | img_sidebar}}" ng-click="view()">
   </div>
   <textarea ng-model="observation.data.text" class="sidebar__description"></textarea>
   <div style="display:inline;">

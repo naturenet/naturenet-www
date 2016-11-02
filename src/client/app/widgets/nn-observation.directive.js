@@ -34,6 +34,10 @@
         scope.isEditMode = false;
         scope.observation = scope.cache;
       };
+
+      scope.view = function () {
+        scope.$emit('view', scope.observation.id);
+      }
     }
 
     function controller($scope, dataservice) {

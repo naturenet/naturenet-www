@@ -37,7 +37,7 @@
 
       scope.view = function () {
         scope.$emit('view', scope.observation.id);
-      }
+      };
     }
 
     function controller($scope, dataservice) {

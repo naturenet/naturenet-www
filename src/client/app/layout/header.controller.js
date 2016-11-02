@@ -70,7 +70,7 @@
           vm.userUid = user.uid;
           $rootScope.currentUser = user.uid;
           $rootScope.userRank = void 0;
-          dataservice.getActiveUserRank().then(function(data) {
+          dataservice.getActiveUserRank().then(function (data) {
             $rootScope.userRank = data;
             console.log(data);
           });

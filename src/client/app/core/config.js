@@ -71,11 +71,4 @@
     });
   });
 
-  core.config(['cloudinaryProvider', function (cloudinaryProvider) {
-    cloudinaryProvider
-      .set('cloud_name', 'university-of-colorado')
-      .set('upload_preset', 'avatar-preset');
-  },
-  ]);
-
 })();

@@ -14,7 +14,6 @@
       'firebase',
       'ngMap',
       'ngplus',
-      'cloudinary',
     ]);
 
 })();

@@ -11,7 +11,6 @@
       'blocks.router',
 
       'ui.router',
-      'ui.bootstrap',
       'firebase',
       'ngMap',
       'ngplus',

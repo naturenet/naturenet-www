@@ -94,6 +94,6 @@
     "escape": true,
     "ignoreJSX": true
   },
-  "validateIndentation": 2,
-  "maximumLineLength": 120 // 100
+  "validateIndentation": 2
+  //"maximumLineLength": 120 // 100
 }

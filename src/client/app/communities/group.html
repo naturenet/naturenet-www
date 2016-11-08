@@ -17,7 +17,7 @@
 <section class="main__section recent-contributions">
   <div class="main__subtitle">Contributions by {{vm.group.name}}</div>
   <div class="main__subtitle" ng-repeat-start="uid in vm.groupMembers">
-    <nn-badge class="badge clickable"
+    <nn-badge class="nn-badge clickable"
       title="{{$root.users[uid].display_name}}"
       avatar-url="{{$root.users[uid].avatar}}"
       ng-click="vm.updateUserId(uid)">

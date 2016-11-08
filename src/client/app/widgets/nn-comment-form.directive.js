@@ -12,10 +12,10 @@
     //     avatar-url="avatarUrl">
     //   </nn-comment-form>
     // Creates:
-    // <div class="badge__avatar" ng-if="showDefault"
+    // <div class="nn-badge__avatar" ng-if="showDefault"
     //   style="background-image: url('/images/default-avatar.png')">
     // </div>
-    // <div class="badge__avatar" ng-if="!showDefault"
+    // <div class="nn-badge__avatar" ng-if="!showDefault"
     //   style="background-image: url('{{avatarUrl | thumb}}')">
     // </div>
     // <form class="comment__text clearfix" ng-submit="addComment()">

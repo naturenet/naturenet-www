@@ -1,7 +1,7 @@
 <section class="main__section masthead">
   <header class="masthead__header">
 
-    <!--<nn-badge class="badge badge--large"
+    <!--<nn-badge class="nn-badge nn-badge--large"
       title="{{$root.users[vm.userId].display_name}}"
       subtitle="{{vm.userSite}}"
       avatar-url="{{vm.userAvatar}}">
@@ -37,7 +37,7 @@
 <section class="main__section main__section--groups">
   <div class="main__subtitle">Groups</div>
   <div class="main__groups">
-    <nn-badge class="badge badge--large clickable"
+    <nn-badge class="nn-badge nn-badge--large clickable"
       ng-if="vm.userGroups.length > 0"
       ng-repeat="g in vm.userGroups | orderBy: '-updated_at' | limitTo: vm.groupsDisplayLimit"
       title="{{g.name}}"

@@ -2,13 +2,13 @@
 
    Example HTML:
 
-   <div class="badge">
-     <div class="badge__avatar"
+   <div class="nn-badge">
+     <div class="nn-badge__avatar"
        style="background-image: url('')">
       </div>
-     <div class="badge__text">
-       <p class="badge__title">John Demo</p>
-       <p class="badge__subtitle">Jan 28 2016</p>
+     <div class="nn-badge__text">
+       <p class="nn-badge__title">John Demo</p>
+       <p class="nn-badge__subtitle">Jan 28 2016</p>
      </div>
    </div>
    ========================================================================== */
@@ -20,13 +20,13 @@
     *  display user related information.
     */
 
-    .badge {
+    .nn-badge {
       > div {
         display: inline-block;
 
         vertical-align: middle; }
 
-      > .badge__avatar {
+      > .nn-badge__avatar {
         width: @badge-avatar-size;
         height: @badge-avatar-size;
 
@@ -36,16 +36,16 @@
         background-size: cover;
         border-radius: 50%; }
 
-      > .badge__text {
+      > .nn-badge__text {
         margin-left: 10px; }
     }
     
-    .badge__text {
-      > .badge__title {
+    .nn-badge__text {
+      > .nn-badge__title {
         color: @light-green;
         font-size: 20px; }
 
-      > .badge__subtitle {
+      > .nn-badge__subtitle {
         margin-top: 6px;
 
         color: #7F7F7F; }
@@ -58,7 +58,7 @@
     *  group information on the communities page.
     */
 
-    .badge--large {
+    .nn-badge--large {
       display: inline-block;
       width: 150px;
       margin-right: 10px;
@@ -67,13 +67,13 @@
       > div {
         display: block; }
 
-      > .badge__avatar {
+      > .nn-badge__avatar {
         width: 100px;
         height: 100px;
         margin: 0 auto;
         margin-bottom: 12px; }
 
-      > .badge__text {
+      > .nn-badge__text {
         margin-left: 0px;
 
         text-align: center;
@@ -82,12 +82,12 @@
           color: @dark-blue; }
       }
 
-      .badge__title {
+      .nn-badge__title {
         margin-bottom: 5px;
 
         font-size: 16px; }
 
-      .badge__subtitle {
+      .nn-badge__subtitle {
         font-size: 12px; }
     }
 
@@ -98,21 +98,21 @@
     */
 
     .list-item--square {
-      .badge {
-        > .badge__avatar {
+      .nn-badge {
+        > .nn-badge__avatar {
           width: 25px;
           height: 25px; }
 
-        > .badge__text {
+        > .nn-badge__text {
           margin-left: 6px; }
       }
       
-      .badge__text {
-        > .badge__title {
+      .nn-badge__text {
+        > .nn-badge__title {
           margin-bottom: 3px;
           font-size: 11px; }
 
-        > .badge__subtitle {
+        > .nn-badge__subtitle {
           font-size: 8px; }
       }
     }
@@ -124,7 +124,7 @@
     */
 
     .items {
-      .badge__title {
+      .nn-badge__title {
         color: @dark-blue; }
     }
 
@@ -135,8 +135,8 @@
     */
 
     .dropdown {
-      .badge__title,
-      .bade__subtitle {
+      .nn-badge__title,
+      .nn-bade__subtitle {
         color: white; }
     }
 
@@ -147,10 +147,10 @@
     */
 
     .list-item {
-      .badge__title {
+      .nn-badge__title {
         color: @light-green; }
 
-      .bade__subtitle {
+      .nn-badge__subtitle {
         color: #7F7F7F; }
     }
 
@@ -160,9 +160,9 @@
     *  Color of title changed to @dark-blue.
     */
 
-    .badge--header {
+    .nn-badge--header {
       margin-right: 18px;
       
-      .badge__title {
+      .nn-badge__title {
         color: white; }
       }

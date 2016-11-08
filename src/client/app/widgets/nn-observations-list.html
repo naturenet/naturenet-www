@@ -8,7 +8,7 @@
     <nn-image class="list-item__image" image-url="{{o.data.image | img_thumb}}">
     </nn-image>
     <div class="list-item__detail">
-      <nn-badge class="badge item__user"
+      <nn-badge class="nn-badge item__user"
         title="{{$root.users[o.observer].display_name}}"
         subtitle="{{formatDate(o.updated_at)}}"
         avatar-url="{{$root.users[o.observer].avatar}}">

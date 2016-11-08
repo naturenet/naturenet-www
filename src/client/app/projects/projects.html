@@ -18,7 +18,7 @@
           ng-if="!!vm.localProjects"
           ng-repeat="p in vm.localProjects | orderBy: '-latest_contribution'"
           ng-click="vm.updateProjectId(p.id)">
-          <nn-badge class="badge"
+          <nn-badge class="nn-badge"
             title="{{p.name}}"
             subtitle=""
             avatar-url="{{p.icon_url}}">
@@ -29,7 +29,7 @@
         <div class="dropdown__option"
           ng-repeat="p in vm.projects | orderBy: '-latest_contribution'"
           ng-click="vm.updateProjectId(p.id)">
-          <nn-badge class="badge"
+          <nn-badge class="nn-badge"
             title="{{p.name}}"
             subtitle=""
             avatar-url="{{p.icon_url}}">

@@ -724,6 +724,7 @@
         submitter: auth.uid,
         content: content,
         status: 'doing',
+        source: 'web',
       });
 
       var newData = {};
@@ -782,6 +783,7 @@
         context: context,
         comment: text,
         commenter: auth.uid,
+        source: 'web',
       });
 
       var newData = {};

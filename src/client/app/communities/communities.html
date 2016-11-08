@@ -22,7 +22,7 @@
         <div class="dropdown__option"
           ng-repeat="u in vm.users | filter:{ display_name:vm.query } | orderBy: '-created_at' | orderBy: '-latest_contribution' | emptyToEnd: 'latest_contribution' | limitTo: vm.peopleDisplayLimit"
           ng-click="vm.updateUserId(u.id)">
-          <nn-badge class="badge"
+          <nn-badge class="nn-badge"
             title="{{u.display_name}}"
             subtitle="{{vm.sites[u.affiliation].name}}"
             avatar-url="{{u.avatar}}">
@@ -55,7 +55,7 @@
         <div class="dropdown__option"
           ng-repeat="g in vm.groups | orderBy: '-updated_at' | limitTo: vm.groupsDisplayLimit"
           ng-click="vm.updateGroupId(g.id)">
-          <nn-badge class="badge"
+          <nn-badge class="nn-badge"
             title="{{g.name}}"
             subtitle="{{vm.sites[g.affiliation].name}}"
             avatar-url="{{g.avatar}}">

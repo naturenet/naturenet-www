@@ -76,7 +76,7 @@
     <li class="item"
       ng-repeat="o in vm.observations | orderBy: '-updated_at' | limitTo: vm.observationsDisplayLimit"
       ng-click="vm.showObservation(o)">
-      <nn-badge class="badge item__user"
+      <nn-badge class="nn-badge item__user"
         title="{{$root.users[o.observer].display_name}}"
         subtitle="{{vm.formatDate(o.updated_at)}}"
         avatar-url="{{o.data.image | img_thumb}}">
@@ -96,7 +96,7 @@
     <li class="items__group">Recent Design Ideas</li>
 
     <li class="item" ng-repeat="i in vm.ideas | orderBy: '-updated_at' | limitTo: vm.ideasDisplayLimit">
-      <nn-badge class="badge item__user"
+      <nn-badge class="nn-badge item__user"
         title="{{$root.users[i.submitter].display_name}}"
         subtitle="{{vm.formatDate(i.updated_at)}}"
         avatar-url="{{$root.users[i.submitter].avatar}}">

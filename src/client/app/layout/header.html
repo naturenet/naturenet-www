@@ -29,7 +29,7 @@
     <a class="button head-user__item button--signin" href="#" ng-click="vm.showSignin()">Sign In</a>
   </div>
   <div ng-show="vm.isAuthenticated">
-    <nn-badge class="badge head-user__item badge--header"
+    <nn-badge class="nn-badge head-user__item nn-badge--header"
       avatar-url="{{$root.users[vm.userUid].avatar}}"
       title="Welcome, {{$root.users[vm.userUid].display_name}}"
       ng-click="vm.showPopup = !vm.showPopup">

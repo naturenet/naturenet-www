@@ -1,19 +1,19 @@
 <div class="overlay-partial">
   
-  <div class="modal__header">
-    <div class="modal__close" ng-click="hide()"></div>
+  <div class="nn-modal__header">
+    <div class="nn-modal__close" ng-click="hide()"></div>
   </div>
 
-  <div class="modal -center" ng-click="$event.stopPropagation()">
+  <div class="nn-modal -center" ng-click="$event.stopPropagation()">
 
     <div class="detail">
       <nn-badge ng-if="item.submitter"
-        class="badge detail__user"
+        class="nn-badge detail__user"
         title="{{$root.users[item.submitter].display_name}}" subtitle="{{formatDate(item.updated_at)}}"
         avatar-url="{{avatarUrl}}">
       </nn-badge>
       <nn-badge ng-if="item.observer"
-        class="badge detail__user"
+        class="nn-badge detail__user"
         title="{{$root.users[item.observer].display_name}}" subtitle="{{formatDate(item.updated_at)}}"
         avatar-url="{{avatarUrl}}">
       </nn-badge>
@@ -42,7 +42,7 @@
           comment="{{c.comment}}">
         </nn-comment>
 
-        <nn-comment-form class="badge comment list-item__comment"
+        <nn-comment-form class="nn-badge comment list-item__comment"
           data="item"
           context="{{context}}">
         </nn-comment-form>

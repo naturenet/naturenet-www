@@ -8,19 +8,19 @@
   /* @ngInject */
   function nnBadge() {
     // Usage:
-    //   <nn-badge class="badge"
+    //   <nn-badge class="nn-badge"
     //     title="John Doe"
     //     subtitle="Naturalist"
     //     avatar-url="avatarUrl">
     //   </nn-badge>
     // Creates:
-    //   <div class="badge">
-    //     <div class="badge__avatar"
+    //   <div class="nn-badge">
+    //     <div class="nn-badge__avatar"
     //       style="background-image: url('avatarUrl')">
     //     </div>
-    //     <div class="badge__text">
-    //       <p class="badge__title">John Doe</p>
-    //       <p class="badge__subtitle">Naturalist</p>
+    //     <div class="nn-badge__text">
+    //       <p class="nn-badge__title">John Doe</p>
+    //       <p class="nn-badge__subtitle">Naturalist</p>
     //     </div>
     //   </div>
     var directive = {

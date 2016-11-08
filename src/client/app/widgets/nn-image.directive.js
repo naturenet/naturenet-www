@@ -11,7 +11,7 @@
     //   <nn-image image-url="imageUrl">
     //   </nn-badge>
     // Creates:
-    //   <div class="badge">
+    //   <div class="nn-badge">
     //     <div style="background-image: url('imageUrl')"></div>
     //   </div>
     var directive = {

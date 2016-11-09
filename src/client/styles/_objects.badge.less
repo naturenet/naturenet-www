@@ -42,13 +42,14 @@
     
     .nn-badge__text {
       > .nn-badge__title {
-        color: @light-green;
-        font-size: 20px; }
+        font-size: @font-size-title;
+        font-weight: bold;
+        color: @light-green; }
 
       > .nn-badge__subtitle {
-        margin-top: 6px;
-
-        color: #7F7F7F; }
+        font-size: @font-size-content;
+        color: #7F7F7F;
+        margin-top: 0.25em; }
     }
 
   /**
@@ -84,11 +85,32 @@
 
       .nn-badge__title {
         margin-bottom: 5px;
-
-        font-size: 16px; }
+        font-size: @font-size-title; }
 
       .nn-badge__subtitle {
-        font-size: 12px; }
+        font-size: @font-size-title; }
+    }
+
+  /**
+    * Banner variant
+    *
+    *  Similar to Large, but laid out horizontally
+    */
+
+    .nn-badge--banner {
+
+      > .nn-badge__avatar {
+        width: 100px;
+        height: 100px;
+        margin: 0 auto;
+        margin-right: 12px; }
+
+
+      .nn-badge__title {
+        font-size: @font-size-header; }
+
+      .nn-badge__subtitle {
+        font-size: @font-size-title; }
     }
 
   /**
@@ -110,10 +132,10 @@
       .nn-badge__text {
         > .nn-badge__title {
           margin-bottom: 3px;
-          font-size: 11px; }
+          font-size: @font-size-title; }
 
         > .nn-badge__subtitle {
-          font-size: 8px; }
+          font-size: @font-size-content; }
       }
     }
 
@@ -154,15 +176,10 @@
         color: #7F7F7F; }
     }
 
-  /**
-    * Items Variant
-    *
-    *  Color of title changed to @dark-blue.
-    */
-
     .nn-badge--header {
       margin-right: 18px;
       
       .nn-badge__title {
+        font-size: @font-size-header;
         color: white; }
       }

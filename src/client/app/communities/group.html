@@ -1,13 +1,12 @@
 <section class="main__section masthead">
   <header class="masthead__header">
 
-    <div class="masthead__avatar"
-      ng-style="{ 'background-image' : 'url(' + vm.group.avatar + ')' }">
-    </div>
-    <div class="masthead__title">{{vm.group.name}}</div>
+    <nn-badge class="nn-badge nn-badge--banner"
+      title="{{vm.group.name}}"
+      subtitle="{{vm.userSite}}"
+      avatar-url="{{vm.group.avatar}}">
+    </nn-badge>
   </header>
-
-  <div class="masthead__text">{{vm.userSite}}</div>
 
   <div class="masthead__text">{{vm.group.bio}}</div>
 </section>

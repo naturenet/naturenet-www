@@ -1,26 +1,12 @@
 <section class="main__section masthead">
   <header class="masthead__header">
 
-    <!--<nn-badge class="nn-badge nn-badge--large"
+    <nn-badge class="nn-badge nn-badge--banner"
       title="{{$root.users[vm.userId].display_name}}"
       subtitle="{{vm.userSite}}"
       avatar-url="{{vm.userAvatar}}">
-    </nn-badge>-->
-
-    <div class="masthead__avatar"
-      ng-style="{ 'background-image' : 'url(' + vm.userAvatar + ')' }">
-    </div>
-    <div class="masthead__title">{{$root.users[vm.userId].display_name}}</div>
+    </nn-badge>
   </header>
-
-  <div class="masthead__text">{{vm.userSite}}</div>
-
-  <!--<div class="masthead__text">Groups
-    <p ng-if="!vm.userGroups">No Groups</p>
-    <ul>
-      <li ng-repeat="g in vm.userGroups">{{vm.groups[g].name}}</li>
-    </ul>
-  </div>-->
 
   <div class="masthead__text">{{$root.users[vm.userId].bio}}</div>
 </section>

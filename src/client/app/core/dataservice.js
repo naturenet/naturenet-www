@@ -59,6 +59,7 @@
       getGroupsByUserId: getGroupsByUserId,
 
       // Site functions
+      getSites: getSites,
       getSiteById: getSiteById,
 
       // Observation functions
@@ -497,6 +498,21 @@
 
     /* Site functions
        ================================================== */
+
+    function getSites() {
+
+      return $firebaseObject($firebaseRef.sites).$loaded()
+        .then(success)
+        .catch(fail);
+
+      function success(response) {
+        return response;
+      }
+
+      function fail(e) {
+        return exception.catcher('Unable to load sites')(e);
+      }
+    }
 
     function getSiteById(id) {
 

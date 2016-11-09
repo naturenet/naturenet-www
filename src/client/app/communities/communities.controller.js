@@ -115,7 +115,7 @@
     }
 
     function getSitesArray() {
-      return dataservice.getArray('sites')
+      return dataservice.getSites()
         .then(function (data) {
           vm.sites = data;
           return vm.sites;

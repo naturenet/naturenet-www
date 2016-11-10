@@ -15,9 +15,7 @@
 
         <div class="list-item" ng-repeat="i in vm.ideas | orderBy: '-updated_at' | limitTo: vm.ideasDisplayLimit"
           ng-click="vm.selectIdea(i)">
-          <nn-image class="list-item__image" image-url="{{}}">
-          </nn-image>
-          <div class="list-item__detail">
+          <div class="list-item__detail list-item__noimage">
             <nn-comment class="comment list-item__comment"
               name="{{$root.users[i.submitter].display_name}}"
               date="{{i.updated_at}}"
@@ -50,9 +48,7 @@
 
         <div class="list-item" ng-repeat="c in vm.challenges | orderBy: '-updated_at' | limitTo: vm.challengesDisplayLimit"
           ng-click="vm.selectIdea(c)">
-          <nn-image class="list-item__image" image-url="{{}}">
-          </nn-image>
-          <div class="list-item__detail">
+          <div class="list-item__detail list-item__noimage">
             <nn-comment class="comment list-item__comment"
               name="{{$root.users[c.submitter].display_name}}"
               date="{{c.updated_at}}"
@@ -112,7 +108,6 @@
             placeholder="{{ vm.group === 'idea' ? 'Write a design idea...' : 'Write a design challenge...' }}"
             ng-model="vm.content">
           </textarea>
-          <div class="add-me">Adding photos coming soon</div>
         </div>
         Choose Idea Type: <select ng-options="item for item in vm.ideaTypes" ng-model="vm.type" />
         <input class="button button--masthead" value="submit" type="submit" />

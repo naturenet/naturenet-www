@@ -1,12 +1,8 @@
 <div class="overlay-partial">
-  
-  <div class="nn-modal__header">
-    <div class="nn-modal__close" ng-click="hide()"></div>
-  </div>
 
   <div class="nn-modal -center" ng-click="$event.stopPropagation()">
 
-    <div class="detail">
+    <header class="nn-modal__header">
       <nn-badge ng-if="item.submitter"
         class="nn-badge detail__user"
         title="{{$root.users[item.submitter].display_name}}" subtitle="{{formatDate(item.updated_at)}}"
@@ -17,6 +13,10 @@
         title="{{$root.users[item.observer].display_name}}" subtitle="{{formatDate(item.updated_at)}}"
         avatar-url="{{avatarUrl}}">
       </nn-badge>
+      <a class="nn-modal__close" href="#" ng-click="hide()"></a>
+    </header>
+
+    <div class="detail">
 
       <nn-status class="detail__status" status="item.status"></nn-status>
 

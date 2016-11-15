@@ -3,23 +3,23 @@
 <div class="sidebar sidebar--communities">
 
   <header class="sidebar__header sidebar__header--people">
-    <div class="dropdown dropdown--people" ng-class="{ 'dropdown--show-list': !!vm.isPeopleListVisible }">
+    <div class="nn-dropdown nn-dropdown--people" ng-class="{ 'nn-dropdown--show-list': !!vm.isPeopleListVisible }">
 
-      <div class="dropdown__display"
+      <div class="nn-dropdown__display"
         ng-click="vm.isPeopleListVisible = !vm.isPeopleListVisible">
         <span>People</span>
-        <div class="dropdown__action"></div>
+        <div class="nn-dropdown__action"></div>
       </div>
 
-      <div class="dropdown__options">
+      <div class="nn-dropdown__options">
 
-        <div class="dropdown__option">
+        <div class="nn-dropdown__option">
           <form>
-            <input class="dropdown__input" type="text" placeholder="search" ng-model="vm.query">
+            <input class="nn-dropdown__input" type="text" placeholder="search" ng-model="vm.query">
           </form>
         </div>
 
-        <div class="dropdown__option"
+        <div class="nn-dropdown__option"
           ng-repeat="u in vm.users | filter:{ display_name:vm.query } | orderBy: '-created_at' | orderBy: '-latest_contribution' | emptyToEnd: 'latest_contribution' | limitTo: vm.peopleDisplayLimit"
           ng-click="vm.updateUserId(u.id)">
           <nn-badge class="nn-badge"
@@ -41,18 +41,18 @@
 
 
   <header class="sidebar__header sidebar__header--groups">
-    <div class="dropdown dropdown--groups" ng-class="{ 'dropdown--show-list': !!vm.isGroupsListVisible }">
+    <div class="nn-dropdown nn-dropdown--groups" ng-class="{ 'nn-dropdown--show-list': !!vm.isGroupsListVisible }">
 
-      <div class="dropdown__display"
+      <div class="nn-dropdown__display"
         ng-click="vm.isGroupsListVisible = !vm.isGroupsListVisible">
         <span>Groups</span>
-        <div class="dropdown__action"></div>
+        <div class="nn-dropdown__action"></div>
       </div>
 
-      <div class="dropdown__options">
+      <div class="nn-dropdown__options">
 
         <!-- TODO: add ng-click to above markup for displaying groups -->
-        <div class="dropdown__option"
+        <div class="nn-dropdown__option"
           ng-repeat="g in vm.groups | orderBy: '-updated_at' | limitTo: vm.groupsDisplayLimit"
           ng-click="vm.updateGroupId(g.id)">
           <nn-badge class="nn-badge"

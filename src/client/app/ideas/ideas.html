@@ -3,15 +3,15 @@
 <div class="sidebar sidebar--ideas">
   
   <header class="sidebar__header">
-    <div class="dropdown dropdown--ideas" ng-class="{ 'dropdown--show-list': vm.group === 'idea' }">
+    <div class="nn-dropdown nn-dropdown--ideas" ng-class="{ 'nn-dropdown--show-list': vm.group === 'idea' }">
 
-      <div class="dropdown__display"
+      <div class="nn-dropdown__display"
         ng-click="vm.group = 'idea'">
         <span>Design Ideas</span>
-        <div class="dropdown__action"></div>
+        <div class="nn-dropdown__action"></div>
       </div>
 
-      <div class="dropdown__options">
+      <div class="nn-dropdown__options">
 
         <div class="list-item" ng-repeat="i in vm.ideas | orderBy: '-updated_at' | limitTo: vm.ideasDisplayLimit"
           ng-click="vm.selectIdea(i)">
@@ -36,15 +36,15 @@
   </header>
 
   <header class="sidebar__header">
-    <div class="dropdown dropdown--challenges" ng-class="{ 'dropdown--show-list': vm.group === 'challenge' }">
+    <div class="nn-dropdown nn-dropdown--challenges" ng-class="{ 'nn-dropdown--show-list': vm.group === 'challenge' }">
 
-      <div class="dropdown__display"
+      <div class="nn-dropdown__display"
         ng-click="vm.group = 'challenge'">
         <span>Design Challenges</span>
-        <div class="dropdown__action"></div>
+        <div class="nn-dropdown__action"></div>
       </div>
 
-      <div class="dropdown__options">
+      <div class="nn-dropdown__options">
 
         <div class="list-item" ng-repeat="c in vm.challenges | orderBy: '-updated_at' | limitTo: vm.challengesDisplayLimit"
           ng-click="vm.selectIdea(c)">
@@ -104,10 +104,18 @@
         <label class="masthead__input"><input type="radio" ng-model="vm.group" value="idea" /> Design Idea</label>
         <label class="masthead__input"><input type="radio" ng-model="vm.group" value="challenge" /> Design Challenge</label>
         <div>
-          <textarea class="masthead__textarea"
+          <textarea class="masthead__textarea" style="width: calc(100% - 206px);"
             placeholder="{{ vm.group === 'idea' ? 'Write a design idea...' : 'Write a design challenge...' }}"
             ng-model="vm.content">
           </textarea>
+          <ui-select multiple ng-model="vm.tags" theme="bootstrap" sortable="true" class="nn-tag-select">
+            <ui-select-match placeholder="Add a tag...">
+              {{$item}}
+            </ui-select-match>
+            <ui-select-choices repeat="tag in vm.allTags | filter: $select.search">
+              {{tag}}
+            </ui-select-choices>
+          </ui-select>
         </div>
         Choose Idea Type: <select ng-options="item for item in vm.ideaTypes" ng-model="vm.type" />
         <input class="button button--masthead" value="submit" type="submit" />

@@ -39,6 +39,7 @@
     vm.content = '';
     vm.group = 'idea';
     vm.ideaTypes = ['New Features', 'Project Ideas', 'Community Ideas', 'Improvement Ideas'];
+    vm.allTags = ['Foo', 'Bar', 'Fizz', 'Buzz', 'Bang'];
     vm.type = vm.ideaTypes[0];
     vm.ideas = [];
     vm.challenges = [];

@@ -15,16 +15,16 @@
   <div class="sidebar sidebar--map-list">
     
     <header class="sidebar__header">
-      <div class="dropdown dropdown--explore"
-        ng-class="{ 'dropdown--show-list': !!vm.isObservationsListVisible }">
+      <div class="nn-dropdown nn-dropdown--explore"
+        ng-class="{ 'nn-dropdown--show-list': !!vm.isObservationsListVisible }">
 
-        <div class="dropdown__display"
+        <div class="nn-dropdown__display"
           ng-click="vm.isObservationsListVisible = !vm.isObservationsListVisible">
           <span>Observations</span>
-          <div class="dropdown__action"></div>
+          <div class="nn-dropdown__action"></div>
         </div>
 
-        <div class="dropdown__options">
+        <div class="nn-dropdown__options">
 
           <div class="list-item" ng-repeat="o in vm.observations | orderBy: '-updated_at' | filter:{ status : '!deleted' }" ng-click="vm.showSidebar(o)">
             <nn-image class="list-item__image" image-url="{{o.data.image | img_preview}}">

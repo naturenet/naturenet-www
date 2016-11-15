@@ -9,7 +9,7 @@
   /* @ngInject */
   function nnDropdown($rootScope, logger) {
     // Usage:
-    //   <div nn-dropdown class="dropdown"></div>
+    //   <div nn-dropdown class="nn-dropdown"></div>
     // Creates:
     //
     var directive = {

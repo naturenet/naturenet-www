@@ -1,7 +1,7 @@
 /* Dropdown
    ========================================================================== */
 
-    .dropdown {
+    .nn-dropdown {
       position: relative;
 
       display: block;
@@ -16,7 +16,7 @@
       > div {
         padding-left: 80px; }
 
-      > .dropdown__display {
+      > .nn-dropdown__display {
         width: 100%;
         height: 45px;
 
@@ -27,7 +27,7 @@
         background-repeat: no-repeat;
         background-size: contain; }
 
-      > .dropdown__options {
+      > .nn-dropdown__options {
         overflow: hidden;
         height: 0;
         width: 100%;
@@ -38,8 +38,8 @@
         /* transition: height 0.5s ease; */ }
     }
     
-    .dropdown__display {
-      > .dropdown__action {
+    .nn-dropdown__display {
+      > .nn-dropdown__action {
         position: relative;
         float: right;
 
@@ -47,7 +47,7 @@
         width: 45px;
         height: 45px; }
         
-      > .dropdown__action:before {
+      > .nn-dropdown__action:before {
           content: '';
           
           display: block;
@@ -69,17 +69,17 @@
     }
     
     // height animation does not work with 100%
-    .dropdown__options {
-      > .dropdown__option {
+    .nn-dropdown__options {
+      > .nn-dropdown__option {
         display: block;
         margin: 15px 0; }
     }
     
-    .dropdown--show-list {
-      > .dropdown__options {
+    .nn-dropdown--show-list {
+      > .nn-dropdown__options {
         height: 100%; }
 
-      .dropdown__action:before {
+      .nn-dropdown__action:before {
         -webkit-transform: rotate(90deg);
            -moz-transform: rotate(90deg);
             -ms-transform: rotate(90deg);
@@ -87,7 +87,7 @@
                 transform: rotate(90deg); }
     }
 
-    .dropdown__input {
+    .nn-dropdown__input {
         width: 80%;
         height: 40px;
         padding: 0 15px;
@@ -101,42 +101,42 @@
     * Display backgrounds
     */
 
-    .dropdown--explore {
-      > .dropdown__display {
+    .nn-dropdown--explore {
+      > .nn-dropdown__display {
         background-image: url('/images/sidebar-observations.png'); }
 
-      > .dropdown__options {
+      > .nn-dropdown__options {
         padding-left: 0; }
     }
 
-    .dropdown--projects {
-      > .dropdown__display {
+    .nn-dropdown--projects {
+      > .nn-dropdown__display {
         background-image: url('/images/sidebar-projects.png'); }
     }
 
-    .dropdown--ideas {
-      > .dropdown__display {
+    .nn-dropdown--ideas {
+      > .nn-dropdown__display {
         background-image: url('/images/sidebar-ideas.png'); }
 
-      > .dropdown__options {
+      > .nn-dropdown__options {
         padding-left: 0; }
     }
 
-    .dropdown--challenges {
-      > .dropdown__display {
+    .nn-dropdown--challenges {
+      > .nn-dropdown__display {
         background-image: url('/images/sidebar-challenges.png'); }
 
-      > .dropdown__options {
+      > .nn-dropdown__options {
         padding-left: 0; }
     }
 
-    .dropdown--people {
-      > .dropdown__display {
+    .nn-dropdown--people {
+      > .nn-dropdown__display {
         background-image: url('/images/sidebar-people.png'); }
     }
 
-    .dropdown--groups {
-      > .dropdown__display {
+    .nn-dropdown--groups {
+      > .nn-dropdown__display {
         background-image: url('/images/sidebar-groups.png'); }
     }
 

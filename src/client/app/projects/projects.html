@@ -3,18 +3,18 @@
 <div class="sidebar sidebar--projects">
 
   <header class="sidebar__header sidebar__header--projects">
-    <div class="dropdown dropdown--projects"
+    <div class="nn-dropdown nn-dropdown--projects"
       ng-class="{ 'dropdown--show-list': !!vm.isProjectsListVisible }">
 
-      <div class="dropdown__display"
+      <div class="nn-dropdown__display"
         ng-click="vm.isProjectsListVisible = !vm.isProjectsListVisible">
         <span>Projects</span>
-        <div class="dropdown__action"></div>
+        <div class="nn-dropdown__action"></div>
       </div>
 
-      <div class="dropdown__options">
+      <div class="nn-dropdown__options">
         <div class="sidebar__sub-header" ng-if="!!vm.localSite">Projects at {{vm.localSite}}</div>
-        <div class="dropdown__option"
+        <div class="nn-dropdown__option"
           ng-if="!!vm.localProjects"
           ng-repeat="p in vm.localProjects | orderBy: '-latest_contribution'"
           ng-click="vm.updateProjectId(p.id)">
@@ -26,7 +26,7 @@
         </div>
 
         <div class="sidebar__sub-header">All Projects</div>
-        <div class="dropdown__option"
+        <div class="nn-dropdown__option"
           ng-repeat="p in vm.projects | orderBy: '-latest_contribution'"
           ng-click="vm.updateProjectId(p.id)">
           <nn-badge class="nn-badge"

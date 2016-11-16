@@ -49,10 +49,12 @@
     vm.groupId = void 0;
     vm.group = {};
     vm.observations = {};
+    vm.ideas = {};
 
     vm.peopleDisplayLimit = vm.sidebarDisplayLimit;
     vm.groupsDisplayLimit = vm.sidebarDisplayLimit;
     vm.observationsDisplayLimit = vm.mainDisplayLimit;
+    vm.ideasDisplayLimit = vm.mainDisplayLimit;
     vm.groupsDisplayLimit = vm.mainDisplayLimit;
 
     // States
@@ -127,7 +129,16 @@
         .then(function (data) {
           vm.observations[id] = data;
           vm.numberOfObservations = 0;
-          return vm.userObservations;
+          return vm.observations[id];
+        });
+    }
+
+    function getIdeasByUserId(id) {
+      return dataservice.getIdeasByUserId(id)
+        .then(function (data) {
+          vm.ideas[id] = data;
+          vm.numberOfIdeas = 0;
+          return vm.ideas[id];
         });
     }
 
@@ -170,11 +181,12 @@
 
     function updateUserId(id) {
       vm.groupId = void 0;
-      var promises = [getObservationsByUserId(id), getGroupsByUserId(id), getSiteNameByUserId(id)];
+      var promises = [getObservationsByUserId(id), getIdeasByUserId(id), getGroupsByUserId(id), getSiteNameByUserId(id)];
       return $q.all(promises)
         .then(function () {
           vm.userId = id;
           vm.observationsDisplayLimit = vm.displayLimit;
+          vm.ideasDisplayLimit = vm.displayLimit;
           vm.groupsDisplayLimit = vm.displayLimit;
           getAvatarByUserId(id);
           checkForSelf();

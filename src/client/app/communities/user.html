@@ -16,6 +16,7 @@
 <section class="main__section recent-contributions">
   <div class="main__subtitle">Recent Contributions by {{$root.users[vm.userId].display_name}}</div>
   <nn-observations-list observations="vm.observations[vm.userId]" limit="{{vm.mainDisplayLimit}}" expandable="true"></nn-observations-list>
+  <nn-ideas-list ideas="vm.ideas[vm.userId]" limit="{{vm.mainDisplayLimit}}" expandable="true"></nn-ideas-list>
 </section>
 
 

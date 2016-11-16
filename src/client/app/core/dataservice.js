@@ -75,6 +75,7 @@
       getProjectsAtSite: getProjectsAtSite,
 
       // Idea functions
+      getIdeasByUserId: getIdeasByUserId,
       addIdea: addIdea,
 
       // Feedback functions
@@ -755,6 +756,31 @@
 
       function fail(e) {
         return exception.catcher('Unable to submit design idea')(e);
+      }
+    }
+
+    function getIdeasByUserId(id) {
+
+      if (!id) {
+        console.log('ID does not exist');
+        return $q.when(null);
+      }
+
+      var ref = $firebaseRef.ideas
+        .orderByChild('submitter')
+        .equalTo(id);
+      var data = notDeletedArray(ref);
+
+      return data.$loaded()
+        .then(success)
+        .catch(fail);
+
+      function success(response) {
+        return response;
+      }
+
+      function fail(e) {
+        return exception.catcher('Unable to load ideas for user')(e);
       }
     }
 

@@ -1,0 +1,22 @@
+<!-- <nn-ideas-list>" -->
+
+<div class="main__ideas">
+  <div class="list-item list-item--square"
+    ng-if="ideas.length > 0"
+    ng-repeat="i in ideas | filter:{ status:'!deleted' } | orderBy: '-updated_at' | limitTo: limit"
+    ng-click="showIdea(i)">
+    <div class="list-item__detail list-item__noimage">
+      <nn-comment class="comment list-item__comment"
+        name="{{$root.users[i.submitter].display_name}}"
+        date="{{i.updated_at}}"
+        avatar-url="{{$root.users[i.submitter].avatar}}"
+        comment="{{i.content}}">
+      </nn-comment>
+    </div>
+  </div>
+  <div ng-if="ideas.length === 0">No contributions.</div>
+</div>
+
+<div class="" ng-if="expandable && (ideas.length > limit)">
+  <a href="#" ng-click="incrementLimit()">Show More</a>
+</div>

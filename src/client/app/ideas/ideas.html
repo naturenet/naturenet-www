@@ -108,14 +108,6 @@
             placeholder="{{ vm.group === 'idea' ? 'Write a design idea...' : 'Write a design challenge...' }}"
             ng-model="vm.content">
           </textarea>
-          <ui-select multiple ng-if="false" ng-model="vm.tags" theme="bootstrap" sortable="true" class="nn-tag-select">
-            <ui-select-match placeholder="Add a tag...">
-              {{$item}}
-            </ui-select-match>
-            <ui-select-choices repeat="tag in vm.allTags | filter: $select.search">
-              {{tag}}
-            </ui-select-choices>
-          </ui-select>
         </div>
         Choose Idea Type: <select ng-options="item for item in vm.ideaTypes" ng-model="vm.type" />
         <input class="button button--masthead" value="submit" type="submit" />

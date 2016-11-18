@@ -132,11 +132,12 @@
     function getAllTags() {
       return dataservice.getTags()
         .then(function (data) {
-          angular.forEach(data, function(tag) {
+          angular.forEach(data, function (tag) {
             vm.allTags.push(tag.$id);
           });
+
           return vm.allTags;
-        })
+        });
     }
 
     /* Click functions

@@ -785,7 +785,6 @@
       }
     }
 
-
     function getTags() {
 
       return $firebaseArray($firebaseRef.tags).$loaded()

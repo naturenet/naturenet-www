@@ -29,7 +29,6 @@
       scope.incrementLimit = incrementLimit;
 
       function showIdea(i) {
-        
       }
 
       function incrementLimit() {

@@ -5,8 +5,6 @@
     .module('app.ideas', [
       'app.core',
       'app.widgets',
-
-      'ui.select',
     ]);
 
 })();

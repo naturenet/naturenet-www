@@ -104,11 +104,11 @@
         <label class="masthead__input"><input type="radio" ng-model="vm.group" value="idea" /> Design Idea</label>
         <label class="masthead__input"><input type="radio" ng-model="vm.group" value="challenge" /> Design Challenge</label>
         <div>
-          <textarea class="masthead__textarea" style="width: calc(100% - 206px);"
+          <textarea class="masthead__textarea"
             placeholder="{{ vm.group === 'idea' ? 'Write a design idea...' : 'Write a design challenge...' }}"
             ng-model="vm.content">
           </textarea>
-          <ui-select multiple ng-model="vm.tags" theme="bootstrap" sortable="true" class="nn-tag-select">
+          <ui-select multiple ng-if="false" ng-model="vm.tags" theme="bootstrap" sortable="true" class="nn-tag-select">
             <ui-select-match placeholder="Add a tag...">
               {{$item}}
             </ui-select-match>

@@ -39,7 +39,7 @@
     vm.content = '';
     vm.group = 'idea';
     vm.ideaTypes = ['New Features', 'Project Ideas', 'Community Ideas', 'Improvement Ideas'];
-    vm.allTags = ['Foo', 'Bar', 'Fizz', 'Buzz', 'Bang'];
+    vm.allTags = [];
     vm.type = vm.ideaTypes[0];
     vm.ideas = [];
     vm.challenges = [];
@@ -68,7 +68,7 @@
     function activate() {
       utility.showSplash();
 
-      var promises = [getIdeas()];
+      var promises = [getIdeas(), getAllTags()];
       return $q.all(promises)
         .then(function () {
           utility.hideSplash();
@@ -127,6 +127,16 @@
               logger.success('Idea successfully submitted!');
             });
         });
+    }
+
+    function getAllTags() {
+      return dataservice.getTags()
+        .then(function (data) {
+          angular.forEach(data, function(tag) {
+            vm.allTags.push(tag.$id);
+          });
+          return vm.allTags;
+        })
     }
 
     /* Click functions

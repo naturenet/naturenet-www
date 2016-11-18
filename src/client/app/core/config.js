@@ -63,6 +63,7 @@
       geo: 'https://' + FirebaseName + '.firebaseio.com/geo',
       groups: 'https://' + FirebaseName + '.firebaseio.com/groups',
       ideas: 'https://' + FirebaseName + '.firebaseio.com/ideas',
+      tags: 'https://' + FirebaseName + '.firebaseio.com/tags',
       observations: 'https://' + FirebaseName + '.firebaseio.com/observations',
       sites: 'https://' + FirebaseName + '.firebaseio.com/sites',
       users: 'https://' + FirebaseName + '.firebaseio.com/users',

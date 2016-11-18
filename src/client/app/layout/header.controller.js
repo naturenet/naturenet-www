@@ -72,7 +72,6 @@
           $rootScope.userRank = void 0;
           dataservice.getActiveUserRank().then(function (data) {
             $rootScope.userRank = data;
-            console.log(data);
           });
         } else {
           vm.isAuthenticated = false;

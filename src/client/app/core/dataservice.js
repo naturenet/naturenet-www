@@ -77,6 +77,7 @@
       // Idea functions
       getIdeasByUserId: getIdeasByUserId,
       addIdea: addIdea,
+      getTags: getTags,
 
       // Feedback functions
       likeContent: likeContent,
@@ -347,9 +348,9 @@
 
     function getUsersRecent(limit) {
       var ref = $firebaseRef.users
-        .orderByChild('created_at')
+        .orderByChild('latest_contribution')
         .limitToLast(limit);
-      var data = notDeletedArray(ref);
+      var data = $firebaseArray(ref);
 
       return data.$loaded()
         .then(success)
@@ -685,9 +686,9 @@
 
     function getProjectsRecent(limit) {
       var ref = $firebaseRef.projects
-        .orderByChild('updated_at')
+        .orderByChild('latest_contribution')
         .limitToLast(limit);
-      var data = notDeletedArray(ref);
+      var data = $firebaseArray(ref);
 
       return data.$loaded()
         .then(success)
@@ -781,6 +782,22 @@
 
       function fail(e) {
         return exception.catcher('Unable to load ideas for user')(e);
+      }
+    }
+
+
+    function getTags() {
+
+      return $firebaseArray($firebaseRef.tags).$loaded()
+        .then(success)
+        .catch(fail);
+
+      function success(response) {
+        return response;
+      }
+
+      function fail(e) {
+        return exception.catcher('Unable to load tags')(e);
       }
     }
 

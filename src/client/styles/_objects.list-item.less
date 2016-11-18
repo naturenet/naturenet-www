@@ -43,8 +43,9 @@
       .list-item__comment {
         > .comment__text {
           overflow: hidden;
+          overflow-wrap: break-word;
           width: 100%;
-          height: 100px;
+          height: 43px;
           margin-bottom: 0;
           
           color: #595959;
@@ -82,6 +83,12 @@
 
       > .list-item__noimage {
         height: 100%; }
+
+      .list-item__comment {
+        > .comment__text {
+          height: 100px;
+        }
+      }
     }
 
   /**
@@ -124,5 +131,3 @@
         }
       }
     }
-
-    

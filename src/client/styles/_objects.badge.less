@@ -41,6 +41,12 @@
     }
     
     .nn-badge__text {
+      > p {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
       > .nn-badge__title {
         font-size: @font-size-title;
         font-weight: bold;
@@ -126,6 +132,7 @@
           height: 25px; }
 
         > .nn-badge__text {
+          max-width: calc(~'100% -'35px);
           margin-left: 6px; }
       }
       
@@ -169,6 +176,11 @@
     */
 
     .list-item {
+
+      .nn-badge__text {
+        max-width: calc(~'100% -'60px);
+      }
+
       .nn-badge__title {
         color: @light-green; }
 

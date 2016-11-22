@@ -1,16 +1,25 @@
-<!-- Read-only -->
-<section ng-if="!editable || !isEditMode" class="sidebar__content">
-  <nn-badge class="sidebar__title nn-badge"
+<section class="sidebar__content">
+
+  <nn-badge ng-if="!isEditMode" class="sidebar__title nn-badge"
     title="{{allProjects.$getRecord(observation.activity).name}}"
     subtitle=""
     avatar-url="{{allProjects.$getRecord(observation.activity).icon_url}}">
   </nn-badge>
+  <select ng-if="isEditMode"
+    ng-model="observation.activity"
+    ng-options="a.id as a.name for a in allProjects" >
+  </select>
+
   <div ng-if="observation.data.image" nn-image class="sidebar__image"
         image-url="{{observation.data.image | img_sidebar}}" ng-click="view()">
   </div>
-  <p ng-if="observation.data.text" class="sidebar__description">{{observation.data.text}}</p>
+
+  <p ng-if="!isEditMode" class="sidebar__description">{{observation.data.text}}</p>
+  <textarea ng-if="isEditMode" ng-model="observation.data.text" class="sidebar__description"></textarea>
+
   <nn-social-totals class="totals" data="observation" context="observations"></nn-social-totals>
-  <div style="margin-left:2em; display:inline;">
+
+  <div ng-if="!isEditMode" style="margin-left:2em; display:inline;">
     <input ng-if="editable"
       class="button"
       ng-click="edit()"
@@ -22,19 +31,7 @@
       value="delete"
       type="submit" />
   </div>
-</section>
-
-<!-- Edit Mode -->
-<section ng-if="isEditMode" class="sidebar__content">
-  <select
-    ng-model="observation.activity"
-    ng-options="a.id as a.name for a in allProjects" >
-  </select>
-  <div ng-if="observation.data.image" nn-image class="sidebar__image"
-        image-url="{{observation.data.image | img_sidebar}}" ng-click="view()">
-  </div>
-  <textarea ng-model="observation.data.text" class="sidebar__description"></textarea>
-  <div style="display:inline;">
+  <div ng-if="isEditMode" style="display:inline;">
     <input class="button button--cancel"
       ng-click="cancel()"
       value="cancel"

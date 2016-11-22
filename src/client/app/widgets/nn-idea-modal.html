@@ -1,0 +1,75 @@
+<div class="overlay-partial">
+
+  <div class="nn-modal -center" ng-click="$event.stopPropagation()">
+
+    <header class="nn-modal__header">
+      <nn-badge
+        class="nn-badge detail__user"
+        title="{{$root.users[idea.submitter].display_name}}" subtitle="{{formatDate(idea.updated_at)}}"
+        avatar-url="{{avatarUrl}}">
+      </nn-badge>
+      <a class="nn-modal__close" href="#" ng-click="hide()"></a>
+    </header>
+
+    <div class="detail">
+
+      <nn-status class="detail__status" status="idea.status"></nn-status>
+
+      <div ng-if="!isEditMode" class="detail__header" ng-if="idea.group" ng-switch="idea.group">
+        <div ng-switch-when="challenge">Design Challenge</div>
+        <div ng-switch-default>Design Idea</div>
+      </div>
+      <select ng-if="isEditMode"
+        ng-model="cache.group"
+        ng-options="g.id as g.name for g in groups" >
+      </select>
+
+      <div ng-if="!isEditMode" class="detail__description" ng-if="idea.content">{{idea.content}}</div>
+      <textarea ng-if="isEditMode" class="detail__description" ng-model="cache.content"></textarea>
+
+      <img class="detail__image" src="{{idea.icon_url | img_large }}" ng-if="idea.icon_url"></img>
+
+      <nn-social-totals class="totals detail__totals" data="idea" context="ideas" show-dislikes="true"></nn-social-totals>
+
+      <div ng-if="!isEditMode" style="margin-left:2em; display:inline;">
+        <input ng-if="editable"
+          class="button"
+          ng-click="edit()"
+          value="edit"
+          type="submit" />
+        <input ng-if="editable"
+          class="button button--delete"
+          ng-click="delete()"
+          value="delete"
+          type="submit" />
+      </div>
+      <div ng-if="isEditMode" style="display:inline;">
+        <input class="button button--cancel"
+          ng-click="cancel()"
+          value="cancel"
+          type="submit" />
+        <input class="button button--save"
+          ng-click="saveChanges()"
+          value="save"
+          type="submit" />
+      </div>
+
+      <section class="detail__comments">
+
+        <nn-comment class="comment detail__comment" ng-repeat="c in comments | orderBy: 'updated_at'"
+          name="{{$root.users[c.commenter].display_name}}"
+          date="{{c.updated_at}}"
+          avatar-url="{{$root.users[c.commenter].avatar}}"
+          comment="{{c.comment}}">
+        </nn-comment>
+
+        <nn-comment-form class="nn-badge comment list-item__comment"
+          data="idea"
+          context="ideas">
+        </nn-comment-form>
+
+      </section>
+    </div>
+
+  </div>
+</div>

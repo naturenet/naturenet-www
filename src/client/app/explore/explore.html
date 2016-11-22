@@ -8,9 +8,8 @@
   ng-class="{'has-sidebar': !!vm.hasSidebar}">
 
   <div class="main main--with-sidebar main--explore" ng-if="!!vm.currentObservation && vm.showDetail">
-    <nn-detail item="vm.currentObservation" comments="vm.comments" context="observations" show="vm.showDetail"></nn-detail>
+    <nn-observation-modal observation="vm.currentObservation" comments="vm.comments" show="vm.showDetail"></nn-observation-modal>
   </div>
-
 
   <div class="sidebar sidebar--map-list">
     

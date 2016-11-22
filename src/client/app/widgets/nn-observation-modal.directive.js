@@ -3,22 +3,21 @@
 
   angular
     .module('app.widgets')
-    .directive('nnDetail', nnDetail);
+    .directive('nnObservationModal', nnObservationModal);
 
-  nnDetail.$inject = ['utility'];
+  nnObservationModal.$inject = ['utility'];
   /* @ngInject */
-  function nnDetail(utility) {
+  function nnObservationModal(utility) {
     // Usage:
     // Creates:
     var directive = {
       scope: {
-        item: '=',
+        observation: '=',
         comments: '=',
-        context: '@',
         show: '=',
       },
       link: link,
-      templateUrl: 'app/widgets/nn-detail.html',
+      templateUrl: 'app/widgets/nn-observation-modal.html',
       restrict: 'EA',
     };
     return directive;

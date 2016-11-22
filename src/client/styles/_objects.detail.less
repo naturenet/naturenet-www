@@ -9,25 +9,25 @@
       height: 100%; 
       overflow-y: auto;
 
-      > .detail__user {
-      }
-
-      > .detail__status {
+      .detail__status {
         float: right;
       }
 
-      > .detail__header {
+      .detail__header {
         display: block;
+        font-size: @font-size-title;
         font-weight: bold;
         margin: 1em 0;
       }
 
-      > .detail__description {
-        margin: 1em 0;
+      .detail__description {
+        display: block;
+        width: 100%;
+        margin: 2em 0;
         white-space: pre-wrap;
       }
 
-      > .detail__image {
+      .detail__image {
         display: block;
         padding: 1em 0;
         margin: 0 auto;
@@ -35,11 +35,11 @@
         max-height: 450px;
       }
 
-      > .detail__totals {
-        display: block;
+      .detail__totals {
+        display: inline-block;
       }
 
-      > .detail__comments {
+      .detail__comments {
         border-top: 1px solid;
         padding-top: 30px;
         margin-top: 30px;

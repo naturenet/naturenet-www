@@ -77,6 +77,7 @@
       // Idea functions
       getIdeasByUserId: getIdeasByUserId,
       addIdea: addIdea,
+      updateIdea: updateIdea,
       getTags: getTags,
 
       // Feedback functions
@@ -782,6 +783,38 @@
 
       function fail(e) {
         return exception.catcher('Unable to load ideas for user')(e);
+      }
+    }
+
+    function updateIdea(id, content, group) {
+      var d = $q.defer();
+      var newData = {};
+
+      if (!id) {
+        console.log('Idea has no ID');
+        return $q.when(null);
+      }
+
+      newData['ideas/' + id + '/content'] = content;
+      newData['ideas/' + id + '/group'] = group;
+      newData['ideas/' + id + '/updated_at'] = firebase.database.ServerValue.TIMESTAMP;
+
+      $firebaseRef.default.update(newData, function (error) {
+        if (error) {
+          fail(error);
+        } else {
+          success();
+        }
+      });
+
+      return d.promise;
+
+      function success(response) {
+        d.resolve('success');
+      }
+
+      function fail(e) {
+        d.reject(exception.catcher('Unable to update idea!')(e));
       }
     }
 

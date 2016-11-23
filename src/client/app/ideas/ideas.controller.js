@@ -42,9 +42,7 @@
     vm.allTags = [];
     vm.type = vm.ideaTypes[0];
     vm.ideas = [];
-    vm.challenges = [];
     vm.currentIdeaId = void 0;
-    vm.currentChallengeId = void 0;
     vm.comments = void 0;
     vm.showDetail = false;
 
@@ -81,6 +79,12 @@
 
     $scope.$watch('vm.selectedIdea', loadComments);
 
+    $scope.$on('delete', function (event, id) {
+      if (id === vm.selectedIdea.id) {
+        vm.selectedIdea = void 0;
+      }
+    });
+
     function loadComments() {
       vm.comments = void 0;
       if (!!vm.selectedIdea) {
@@ -98,23 +102,8 @@
     function getIdeas() {
       return dataservice.getArray('ideas')
         .then(function (data) {
-          vm.ideas = [];
-          vm.challenges = [];
-          var i = 0;
-          var dlength = data.length;
-          for (i; i < dlength; i++) {
-            if (!!data[i].group) {
-              if (data[i].group.toLowerCase() === 'challenge') {
-                vm.challenges.push(data[i]);
-              } else {
-                vm.ideas.push(data[i]);
-              }
-            } else {
-              vm.ideas.push(data[i]);
-            }
-          }
-
-          return true;
+          vm.ideas = data;
+          return vm.ideas;
         });
     }
 

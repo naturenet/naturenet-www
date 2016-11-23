@@ -24,6 +24,12 @@
         ng-options="g.id as g.name for g in groups" >
       </select>
 
+      <div ng-if="!isEditMode" class="detail__header" ng-if="idea.type">{{idea.type}}</div>
+      <select ng-if="isEditMode"
+        ng-model="cache.type"
+        ng-options="t for t in types" >
+      </select>
+
       <div ng-if="!isEditMode" class="detail__description" ng-if="idea.content">{{idea.content}}</div>
       <textarea ng-if="isEditMode" class="detail__description" ng-model="cache.content"></textarea>
 

@@ -13,7 +13,7 @@
 
       <div class="nn-dropdown__options">
 
-        <div class="list-item" ng-repeat="i in vm.ideas | orderBy: '-updated_at' | limitTo: vm.ideasDisplayLimit"
+        <div class="list-item" ng-repeat="i in vm.ideas | filter:{ group : '!challenge', status : '!deleted' } | orderBy: '-updated_at' | limitTo: vm.ideasDisplayLimit"
           ng-click="vm.selectIdea(i)">
           <div class="list-item__detail list-item__noimage">
             <nn-comment class="comment list-item__comment"
@@ -46,7 +46,7 @@
 
       <div class="nn-dropdown__options">
 
-        <div class="list-item" ng-repeat="c in vm.challenges | orderBy: '-updated_at' | limitTo: vm.challengesDisplayLimit"
+        <div class="list-item" ng-repeat="c in vm.ideas | filter:{ group : 'challenge', status : '!deleted' } | orderBy: '-updated_at' | limitTo: vm.challengesDisplayLimit"
           ng-click="vm.selectIdea(c)">
           <div class="list-item__detail list-item__noimage">
             <nn-comment class="comment list-item__comment"

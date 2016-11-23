@@ -786,7 +786,7 @@
       }
     }
 
-    function updateIdea(id, content, group) {
+    function updateIdea(id, content, group, type) {
       var d = $q.defer();
       var newData = {};
 
@@ -797,6 +797,7 @@
 
       newData['ideas/' + id + '/content'] = content;
       newData['ideas/' + id + '/group'] = group;
+      newData['ideas/' + id + '/type'] = type;
       newData['ideas/' + id + '/updated_at'] = firebase.database.ServerValue.TIMESTAMP;
 
       $firebaseRef.default.update(newData, function (error) {

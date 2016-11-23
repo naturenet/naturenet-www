@@ -32,6 +32,7 @@
         {id: 'idea', name: 'Design Idea'},
         {id: 'challenge', name: 'Design Challenge'}
       ];
+      scope.types = ['New Features', 'Project Ideas', 'Community Ideas', 'Improvement Ideas'];
 
       scope.edit = function () {
         scope.isEditMode = true;
@@ -51,7 +52,8 @@
 
       $scope.saveChanges = function () {
         $scope.isEditMode = false;
-        dataservice.updateIdea($scope.cache.id, $scope.cache.content, $scope.cache.group)
+        console.log($scope.cache);
+        dataservice.updateIdea($scope.cache.id, $scope.cache.content, $scope.cache.group, $scope.cache.type)
           .then(function (result) {
             logger.success('Your idea has been updated.');
           });

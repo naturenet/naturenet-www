@@ -29,8 +29,8 @@
       scope.hide = hide;
       scope.isEditMode = false;
       scope.groups = [
-        {id: 'idea', name: 'Design Idea'},
-        {id: 'challenge', name: 'Design Challenge'}
+        { id: 'idea', name: 'Design Idea' },
+        { id: 'challenge', name: 'Design Challenge' },
       ];
       scope.types = ['New Features', 'Project Ideas', 'Community Ideas', 'Improvement Ideas'];
 

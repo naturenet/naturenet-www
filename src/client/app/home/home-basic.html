@@ -8,28 +8,36 @@
       <div class="boxes--upper">
         <div class="box--upper-left">
           <div class="box__text" style="text-align: right;">
-            <span class="box__label inline-icon icon--large icon--learn">Explore:</span> Learn about nature in your area
+            <a class="box__label inline-icon icon--large icon--learn" href="#" ng-click="vm.showObservation()">Explore:</a> Learn about nature in your area
           </div>
-          <nn-image class="box__image" image-url="https://res.cloudinary.com/university-of-colorado/image/upload/t_web-feature/v1471987089/static/learn.jpg"></nn-image>
+          <a href="#" ng-click="vm.showObservation()">
+            <nn-image class="box__image" image-url="https://res.cloudinary.com/university-of-colorado/image/upload/t_web-feature/v1471987089/static/learn.jpg"></nn-image>
+          </a>
         </div>
         <div class="box--upper-right">
-          <nn-image class="box__image" image-url="https://res.cloudinary.com/university-of-colorado/image/upload/t_web-feature/v1471986856/static/share.jpg"></nn-image>
+          <a href="/communities">
+            <nn-image class="box__image" image-url="https://res.cloudinary.com/university-of-colorado/image/upload/t_web-feature/v1480440120/static/share.jpg"></nn-image>
+          </a>
           <div class="box__text">
-            <span class="box__label inline-icon icon--large icon--share">Communities:</span> Share your observations and ideas
+            <a class="box__label inline-icon icon--large icon--share" href="/communities">Communities:</a> Share your observations and ideas
           </div>
         </div>
       </div>
       <div class="boxes--lower">
         <div class="box--lower-left">
           <div class="box__text" style="text-align: right;">
-            <span class="box__label inline-icon icon--large icon--shape">Projects:</span> Improve and shape sustainability initatives
+            <a class="box__label inline-icon icon--large icon--shape" href="/projects">Projects:</a> Improve and shape sustainability initatives
           </div>
-          <nn-image class="box__image" image-url="https://res.cloudinary.com/university-of-colorado/image/upload/t_web-feature/v1460772115/xkmtpemilwmse1gvxkgk.jpg"></nn-image>
+          <a href="/projects">
+            <nn-image class="box__image" image-url="https://res.cloudinary.com/university-of-colorado/image/upload/t_web-feature/v1460772115/xkmtpemilwmse1gvxkgk.jpg"></nn-image>
+          </a>
         </div>
         <div class="box--lower-right">
-          <nn-image class="box__image" image-url="https://res.cloudinary.com/university-of-colorado/image/upload/t_web-feature/v1469724921/irhlvtis18ibmmr1vhzi.jpg"></nn-image>
+          <a href="/ideas">
+            <nn-image class="box__image" image-url="https://res.cloudinary.com/university-of-colorado/image/upload/t_web-feature/v1469724921/irhlvtis18ibmmr1vhzi.jpg"></nn-image>
+          </a>
           <div class="box__text">
-            <span class="box__label inline-icon icon--large icon--design">Design:</span> New ways to use NatureNet
+            <a class="box__label inline-icon icon--large icon--design" href="/ideas">Design:</a> New ways to use NatureNet
           </div>
         </div>
       </div>

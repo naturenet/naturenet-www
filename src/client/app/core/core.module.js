@@ -14,6 +14,8 @@
       'firebase',
       'ngMap',
       'ngplus',
+      'ngCookies',
+      'ngFileUpload',
     ]);
 
 })();

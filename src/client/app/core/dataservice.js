@@ -9,6 +9,7 @@
      ======================================================================== */
 
   dataservice.$inject = [
+    '$cookies',
     '$q',
     '$firebaseObject',
     '$firebaseArray',
@@ -21,6 +22,7 @@
   ];
   /* @ngInject */
   function dataservice(
+    $cookies,
     $q,
     $firebaseObject,
     $firebaseArray,
@@ -88,6 +90,18 @@
       getCommentsForRecord: getCommentsForRecord,
       getCommentsByUserId: getCommentsByUserId,
     };
+
+    // automatic status update
+    var statusCookie = $cookies.get('naturenet.status');
+    if (!!statusCookie) {
+      var online = $firebaseRef.default.child('.info/connected');
+      var status = $firebaseRef.default.child('status').child(statusCookie);
+
+      online.on('value', function (snapshot) {
+        status.onDisconnect().set(false);
+        status.set(true);
+      });
+    }
 
     return service;
 

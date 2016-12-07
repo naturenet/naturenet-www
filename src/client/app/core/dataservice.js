@@ -861,15 +861,16 @@
 
       var uid = auth.uid;
 
-      $firebaseObject($firebaseRef.default.child(type + '/' + record.$id + '/likes')).$loaded().then(function (likes) {
-        if (likes[uid] === isPositive) {
-          delete likes[uid];
-        } else {
-          likes[uid] = isPositive;
-        }
+      $firebaseObject($firebaseRef.default.child(type + '/' + record.$id + '/likes/' + uid))
+        .$loaded().then(function (like) {
+          if (like.$value === isPositive) {
+            like.$value = null;
+          } else {
+            like.$value = isPositive;
+          }
 
-        likes.$save();
-      });
+          like.$save();
+        });
 
     }
 

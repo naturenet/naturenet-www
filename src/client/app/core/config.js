@@ -52,7 +52,7 @@
       databaseURL: 'https://' + FirebaseName + '.firebaseio.com',
       storageBucket: FirebaseName + '.appspot.com',
     });
-    firebase.database.enableLogging(false);
+    firebase.database.enableLogging(true);
   });
 
   core.config(function (FirebaseName, $firebaseRefProvider) {

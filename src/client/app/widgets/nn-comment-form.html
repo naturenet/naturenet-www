@@ -4,5 +4,5 @@
     style="background-image: url('{{(avatarUrl || '/images/default-avatar.png') | img_thumb }}')">
   </div>
   <textarea class="comment__input" placeholder="Write a comment..." ng-model="comment"/>
-  <input type="submit" style="visibility: hidden;" />
+  <input type="submit" class="button button--edit" style="float:right;" value="Send" />
 </form>

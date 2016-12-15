@@ -16,6 +16,7 @@
     '$firebaseAuth',
     '$firebaseRef',
     '$filter',
+    '$geolocation',
     'FilteredArray',
     'exception',
     'logger',
@@ -29,6 +30,7 @@
     $firebaseAuth,
     $firebaseRef,
     $filter,
+    $geolocation,
     FilteredArray,
     exception,
     logger) {
@@ -69,6 +71,7 @@
       getObservationsByProjectId: getObservationsByProjectId,
       getObservationsBySiteId: getObservationsBySiteId,
       updateObservation: updateObservation,
+      addObservation: addObservation,
 
       // Project functions
       getProjects: getProjects,
@@ -102,6 +105,8 @@
         status.set(true);
       });
     }
+
+    $geolocation.getCurrentPosition();
 
     return service;
 
@@ -658,6 +663,47 @@
 
       function fail(e) {
         d.reject(exception.catcher('Unable to update observation!')(e));
+      }
+    }
+
+    function addObservation(newObservation) {
+      var d = $q.defer();
+      getActiveUser().then(function(user) {
+        var id = $firebaseRef.observations.push().key;
+        newObservation.id = id;
+        newObservation.observer = user.id;
+        newObservation.site = user.affiliation;
+        if ($geolocation.position) {
+          newObservation.l = {
+            0: $geolocation.position.coords.latitude,
+            1: $geolocation.position.coords.longitude,
+          };
+        } else {
+          
+        }
+
+        var newData = {};
+        newData['/observations/' + id] = timestamp(newObservation);
+        newData['/activities/' + newObservation.activity + '/latest_contribution'] = firebase.database.ServerValue.TIMESTAMP;
+        newData['/users/' + newObservation.observer + '/latest_contribution'] = firebase.database.ServerValue.TIMESTAMP;
+        console.log(newData);
+        $firebaseRef.default.update(newData, function (error) {
+          if (error) {
+            fail(error);
+          } else {
+            success();
+          }
+        });
+      }).catch(fail);
+
+      return d.promise;
+
+      function success(response) {
+        d.resolve('success');
+      }
+
+      function fail(e) {
+        d.reject(exception.catcher('Unable to submit observation!')(e));
       }
     }
 

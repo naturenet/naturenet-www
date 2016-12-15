@@ -22,7 +22,7 @@
           controllerAs: 'vm',
           title: 'Communities',
           settings: {
-            nav: 2,
+            nav: 4,
             content: 'Communities',
           },
         },

@@ -10,6 +10,7 @@
       'app.home',
       'app.explore',
       'app.communities',
+      'app.contributions',
       'app.projects',
       'app.ideas',
     ]);

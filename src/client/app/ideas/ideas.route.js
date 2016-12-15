@@ -22,7 +22,7 @@
           controllerAs: 'vm',
           title: 'Design Ideas',
           settings: {
-            nav: 4,
+            nav: 3,
             content: 'Design Ideas',
           },
         },

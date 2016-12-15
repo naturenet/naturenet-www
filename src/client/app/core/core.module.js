@@ -16,6 +16,8 @@
       'ngplus',
       'ngCookies',
       'ngFileUpload',
+      'ngGeolocation',
+      'angular-cloudinary',
     ]);
 
 })();

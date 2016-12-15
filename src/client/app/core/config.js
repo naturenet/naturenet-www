@@ -3,6 +3,30 @@
 
   var core = angular.module('app.core');
 
+  core.config(geoConfig);
+
+  geoConfig.$inject = ['$geolocationProvider'];
+
+  /* @ngInject */
+  function geoConfig($geolocationProvider) {
+    $geolocationProvider.$get().watchPosition({
+      timeout: 60000,
+      maximumAge: 250,
+      enableHighAccuracy: true,
+    });
+  }
+
+  core.config(cloudinaryConfig);
+
+  cloudinaryConfig.$inject = ['cloudinaryProvider'];
+
+  function cloudinaryConfig(cloudinaryProvider) {
+    cloudinaryProvider.config({
+      cloud_name: 'university-of-colorado',
+      upload_preset: 'web-preset',
+    });
+  }
+
   core.config(toastrConfig);
 
   toastrConfig.$inject = ['toastr'];

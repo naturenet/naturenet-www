@@ -1,0 +1,84 @@
+<!-- IdeasController as vm -->
+
+<div class="sidebar sidebar--ideas">
+
+  <header class="sidebar__header">
+    <div class="nn-dropdown nn-dropdown--contrib nn-dropdown--show-list">
+
+      <div class="nn-dropdown__display">
+        <span>Contributions</span>
+        <div class="nn-dropdown__action"></div>
+      </div>
+
+      <div class="nn-dropdown__options">
+
+        <div class="list-item" ng-repeat="o in vm.myObservations | orderBy: '-updated_at' | filter:{ status : '!deleted' }" ng-click="vm.showObservation(o)">
+          <nn-image class="list-item__image" image-url="{{o.data.image | img_preview}}">
+          </nn-image>
+          <div class="list-item__detail">
+            <nn-comment class="nn-badge list-item__comment"
+              name="{{$root.users[o.observer].display_name}}"
+              date="{{o.updated_at}}"
+              avatar-url="{{$root.users[o.observer].avatar}}"
+              comment="{{o.data.text}}">
+            </nn-comment>
+            <nn-social-totals class="totals" data="o"></nn-social-totals>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </header>
+
+</div>
+
+<div class="main main--with-sidebar main--ideas">
+
+  <section class="main__section masthead">
+    <header class="masthead__header">
+      <div class="masthead__avatar" style="background-size: cover; background-image: url('/images/add-observation.png')"></div>
+      <div class="masthead__title">Contributions</div>
+    </header>
+    <div class="masthead__text">
+      <form class="masthead__form clearfix" ng-submit="vm.submit()">
+        <p class="masthead__directions">Upload</p>
+        <p class="masthead__description">
+          Use one of the methods below to upload a file to use in your contributions.
+        </p>
+        <div style="width: 100%; height: 200px; border: 1px solid">
+
+        </div>
+        <div style="width: 100%;white-space:nowrap;">
+          <div style="display: inline-block;width: 50%; padding: 0.5em 0;white-space:normal">
+            <span class="masthead__directions">Description</span>
+            <textarea ng-model="vm.contribution.data.text" class="form-control" rows="3" style="resize:vertical;"></textarea>
+          </div>
+          <div style="display: inline-block;width: 50%; padding: 0.5em 0;white-space:normal;vertical-align:top;">
+            <span class="masthead__directions">Where is it?</span>
+            <input type="text" placeholder="(Optional)" ng-model="vm.contribution.where" class="form-control">
+            <span class="masthead__directions">Project</span>
+            <!--<div uib-dropdown class="btn-group">
+              <button type="button" class="btn btn-secondary" uib-dropdown-toggle>
+                {{vm.contribution.activity}}<span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" uib-dropdown-menu role="menu">
+                <li role="menuitem"><a href="#">Free Observation (Default)</a></li>
+                <li class="divider"></li>
+                <li ng-repeat="a in vm.allProjects" role="menuitem"><a href="#">{{a.name}}</a></li>
+              </ul>
+            </div>-->
+            <select
+              class="form-control"
+              ng-model="vm.contribution.activity"
+              ng-options="a.id as a.name for a in vm.allProjects" >
+              <option disabled selected hidden value="">Free Observation (Default)</option>
+            </select>
+          </div>
+        </div>
+        <input class="button button--masthead" value="submit" type="submit" />
+      </form>
+    </div>
+  </section>
+
+</div>

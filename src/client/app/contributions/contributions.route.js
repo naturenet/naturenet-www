@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('app.projects')
+    .module('app.contributions')
     .run(appRun);
 
   appRun.$inject = ['routerHelper'];
@@ -14,19 +14,20 @@
   function getStates() {
     return [
       {
-        state: 'projects',
+        state: 'contributions',
         config: {
-          url: '/projects',
-          templateUrl: 'app/projects/projects.html',
-          controller: 'ProjectsController',
+          url: '/contributions',
+          templateUrl: 'app/contributions/contributions.html',
+          controller: 'ContributionsController',
           controllerAs: 'vm',
-          title: 'Projects',
+          title: 'Contributions',
           settings: {
-            nav: 2,
-            content: 'Projects',
+            nav: 5,
+            content: 'Contributions',
           },
         },
       },
     ];
   }
+
 })();

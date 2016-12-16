@@ -668,7 +668,7 @@
 
     function addObservation(newObservation) {
       var d = $q.defer();
-      getActiveUser().then(function(user) {
+      getActiveUser().then(function (user) {
         var id = $firebaseRef.observations.push().key;
         newObservation.id = id;
         newObservation.observer = user.id;
@@ -678,15 +678,13 @@
             0: $geolocation.position.coords.latitude,
             1: $geolocation.position.coords.longitude,
           };
-        } else {
-          
-        }
+        } //else use home site location
 
         var newData = {};
         newData['/observations/' + id] = timestamp(newObservation);
         newData['/activities/' + newObservation.activity + '/latest_contribution'] = firebase.database.ServerValue.TIMESTAMP;
         newData['/users/' + newObservation.observer + '/latest_contribution'] = firebase.database.ServerValue.TIMESTAMP;
-        console.log(newData);
+
         $firebaseRef.default.update(newData, function (error) {
           if (error) {
             fail(error);

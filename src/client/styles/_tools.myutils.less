@@ -105,3 +105,21 @@
         background-image: url('/images/sidebar-ideas.png');
       }
     }
+
+    .drop-box {
+      border: 5px dashed lightgray;
+      display: table;
+      font-size: 20px;
+      text-align: center;
+      margin: 1em 0;
+
+      &.dragover {
+        border-color: @dark-blue;
+        color: gray;
+      }
+
+      * {
+        display: table-cell;
+        vertical-align: middle;
+      }
+    }

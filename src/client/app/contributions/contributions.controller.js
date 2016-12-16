@@ -36,11 +36,13 @@
     // Data
     vm.contribution = {};
     vm.myObservations = [];
+    vm.file = null;
 
     // States
 
     // Function assignments
     vm.submit = submit;
+    vm.reset = reset;
     activate();
 
     /* Activate function
@@ -88,16 +90,22 @@
     /* Click functions
        ================================================== */
     function submit() {
-      //upload photo
-      $q.when(null).then(function (file) {
-        //get upload url
-        vm.contribution.data.image = "";
-        if (!vm.contribution.activity) {
-          vm.contribution.activity = "-ACES_a38";
+      cloudinary.upload(vm.file, {}).then(function (resp) {
+        if (resp.status === 200) {
+          vm.contribution.data.image = resp.data.secure_url;
+          vm.contribution.activity = vm.contribution.activity || '-ACES_a38';
+          dataservice.addObservation(vm.contribution).then(function () {
+            reset();
+            logger.success('Your observation has been submitted!');
+          });
         }
-      }).then(dataservice.addObservation(vm.contribution))
-      .then().catch();
+      });
     }
-  }
 
+    function reset() {
+      vm.contribution = {};
+      vm.file = null;
+    }
+
+  }
 })();

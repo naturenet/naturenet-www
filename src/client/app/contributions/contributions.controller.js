@@ -34,7 +34,7 @@
        ================================================== */
 
     // Data
-    vm.contribution = {};
+    vm.contribution = { data: {} };
     vm.myObservations = [];
     vm.file = null;
 
@@ -90,20 +90,24 @@
     /* Click functions
        ================================================== */
     function submit() {
+      vm.uploading = true;
       cloudinary.upload(vm.file, {}).then(function (resp) {
-        if (resp.status === 200) {
-          vm.contribution.data.image = resp.data.secure_url;
-          vm.contribution.activity = vm.contribution.activity || '-ACES_a38';
-          dataservice.addObservation(vm.contribution).then(function () {
-            reset();
-            logger.success('Your observation has been submitted!');
-          });
-        }
+        vm.contribution.data.image = resp.data.secure_url;
+        vm.contribution.activity = vm.contribution.activity || '-ACES_a38';
+        dataservice.addObservation(vm.contribution).then(function () {
+          reset();
+          logger.success('Your observation has been submitted!');
+        });
+      }).catch(function (resp) {
+        logger.error('The image you selected could not be uploaded.');
+        vm.file = null;
+        vm.uploading = false;
       });
     }
 
     function reset() {
-      vm.contribution = {};
+      vm.uploading = false;
+      vm.contribution = { data: {} };
       vm.file = null;
     }
 

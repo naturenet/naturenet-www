@@ -673,6 +673,7 @@
         newObservation.id = id;
         newObservation.observer = user.id;
         newObservation.site = user.affiliation;
+        newObservation.source = 'web';
         if ($geolocation.position) {
           newObservation.l = {
             0: $geolocation.position.coords.latitude,

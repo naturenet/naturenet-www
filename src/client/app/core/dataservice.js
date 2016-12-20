@@ -674,12 +674,12 @@
         newObservation.observer = user.id;
         newObservation.site = user.affiliation;
         newObservation.source = 'web';
-        if ($geolocation.position) {
+        if ($geolocation.position.coords) {
           newObservation.l = {
             0: $geolocation.position.coords.latitude,
             1: $geolocation.position.coords.longitude,
           };
-        } //else use home site location
+        }
 
         var newData = {};
         newData['/observations/' + id] = timestamp(newObservation);

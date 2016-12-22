@@ -32,7 +32,7 @@
        ================================================== */
 
     // Constants
-    vm.sidebarDisplayLimit = 3;
+    vm.sidebarDisplayLimit = 6;
 
     // Data
     vm.uid = void 0;
@@ -53,6 +53,7 @@
     vm.addIdea = addIdea;
     vm.formatDate = utility.formatDate;
     vm.selectIdea = selectIdea;
+    vm.tag = tag;
 
     activate();
 
@@ -141,6 +142,10 @@
 
     function resetForm() {
       vm.content = '';
+    }
+
+    function tag(tag) {
+      vm.content += ' #' + tag;
     }
   }
 

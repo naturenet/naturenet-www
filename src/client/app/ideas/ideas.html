@@ -67,20 +67,30 @@
 
       <p class="masthead__subtext">NatureNet is a moderated site. Postings that are inappropriate or irrelevant will be deleted.</p>
       <form class="container-fluid clearfix" ng-submit="vm.addIdea()">
-        <div class="col-xs-12">
-          <textarea class="form-control" style="width:100%;"
-            placeholder="'Write a design idea...'"
-            ng-model="vm.content">
-          </textarea>
+        <div class="row form-group">
+          <div class="col-xs-12 col-lg-8">
+            <textarea class="form-control" rows="8" style="width:100%;resize:vertical;"
+              placeholder="Write a design idea..."
+              ng-model="vm.content">
+            </textarea>
+          </div>
+          <div class="col-xs-12 col-lg-4">
+            <label>Tag Your idea</label>
+            <div class="nn-tags form-control">
+              <a href="#" class="nn-tag-item" ng-repeat="tag in vm.allTags | orderBy: 'tag'" ng-click="vm.tag(tag)">#{{tag}}</a>
+            </div>
+            <!-- interactive tag widget
+            <ui-select multiple tagging ng-model="vm.tags" on-select="vm.tag($item, $model)" theme="bootstrap" style="width:100%;" title="Select tags">
+              <ui-select-match placeholder="Select tags...">{{$item}}</ui-select-match>
+              <ui-select-choices repeat="tag in vm.allTags">{{tag}}</ui-select-choices>
+            </ui-select>
+            -->
+            <label>Choose Idea Type:</label>
+            <select class="form-control" ng-options="item for item in vm.ideaTypes" ng-model="vm.type" />
+          </div>
         </div>
         <div class="row">
-          <div class="form-group">
-              <label class="col-xs-12 col-lg-3 control-label">Choose Idea Type:</label>
-              <div class="col-xs-12 col-lg-5">
-                <select class="form-control" ng-options="item for item in vm.ideaTypes" ng-model="vm.type" />
-              </div>
-          </div>
-          <div class="col-xs-12 col-lg-4 text-right">
+          <div class="col-xs-12 text-right">
             <button class="btn btn-success" value="submit">Submit</button>
           </div>
         </div>

@@ -1,19 +1,18 @@
 <!-- IdeasController as vm -->
 
 <div class="sidebar sidebar--ideas">
-  
-  <header class="sidebar__header">
-    <div class="nn-dropdown nn-dropdown--ideas" ng-class="{ 'nn-dropdown--show-list': vm.group === 'idea' }">
 
-      <div class="nn-dropdown__display"
-        ng-click="vm.group = 'idea'">
+  <header class="sidebar__header">
+    <div class="nn-dropdown nn-dropdown--ideas nn-dropdown--show-list">
+
+      <div class="nn-dropdown__display">
         <span>Design Ideas</span>
         <div class="nn-dropdown__action"></div>
       </div>
 
       <div class="nn-dropdown__options">
 
-        <div class="list-item" ng-repeat="i in vm.ideas | filter:{ group : '!challenge', status : '!deleted' } | orderBy: '-updated_at' | limitTo: vm.ideasDisplayLimit"
+        <div class="list-item" ng-repeat="i in vm.ideas | filter:{ status : '!deleted' } | orderBy: '-updated_at' | limitTo: vm.ideasDisplayLimit"
           ng-click="vm.selectIdea(i)">
           <div class="list-item__detail list-item__noimage">
             <nn-comment class="comment list-item__comment"
@@ -34,39 +33,6 @@
 
     </div>
   </header>
-
-  <header class="sidebar__header">
-    <div class="nn-dropdown nn-dropdown--challenges" ng-class="{ 'nn-dropdown--show-list': vm.group === 'challenge' }">
-
-      <div class="nn-dropdown__display"
-        ng-click="vm.group = 'challenge'">
-        <span>Design Challenges</span>
-        <div class="nn-dropdown__action"></div>
-      </div>
-
-      <div class="nn-dropdown__options">
-
-        <div class="list-item" ng-repeat="c in vm.ideas | filter:{ group : 'challenge', status : '!deleted' } | orderBy: '-updated_at' | limitTo: vm.challengesDisplayLimit"
-          ng-click="vm.selectIdea(c)">
-          <div class="list-item__detail list-item__noimage">
-            <nn-comment class="comment list-item__comment"
-              name="{{$root.users[c.submitter].display_name}}"
-              date="{{c.updated_at}}"
-              avatar-url="{{$root.users[c.submitter].avatar}}"
-              comment="{{c.content}}">
-            </nn-comment>
-            <nn-social-totals class="totals" data="c" show-dislikes="true"></nn-social-totals>
-          </div>
-        </div>
-
-        <div class="sidebar__see-more" ng-if="vm.challenges.length > vm.challengesDisplayLimit">
-          <a href="#" ng-click="vm.challengesDisplayLimit = vm.challengesDisplayLimit + vm.sidebarDisplayLimit">Show More</a>
-        </div>
-
-      </div>
-
-    </div>
-  </header>
   
 </div>
 
@@ -79,8 +45,7 @@
   <section class="main__section masthead">
     <header class="masthead__header">
       <div class="masthead__avatar" style="background-size: cover; background-image: url('/images/design-ideas.png')"></div>
-      <div class="masthead__title" ng-if="vm.group === 'idea'">Design Ideas</div>
-      <div class="masthead__title" ng-if="vm.group === 'challenge'">Design Challenges</div>
+      <div class="masthead__title">Design Ideas</div>
     </header>
     <div class="masthead__text">
       <p class="masthead__description">
@@ -95,27 +60,30 @@
         <a href="http://www.freepik.com" target="_blank">Designed by Dooder / Freepik</a>
       </div>
 
-      <p class="masthead__directions" ng-if="vm.group === 'idea'">
-        Join the discussion below with an idea or challenge of your own, comment on someone
+      <p class="masthead__directions">
+        Join the discussion below with an idea of your own, comment on someone
         else's idea, or vote for your favorite idea.
       </p>
-      
-      <p class="masthead__directions" ng-if="vm.group === 'challenge'">
-      Do you have a design challenge for the NatureNet communities? A design challenge is a question – for example:
-      How can NatureNet be more useful for people with their own cameras?
-      </p>
+
       <p class="masthead__subtext">NatureNet is a moderated site. Postings that are inappropriate or irrelevant will be deleted.</p>
-      <form class="masthead__form clearfix" ng-submit="vm.addIdea()">
-        <label class="masthead__input"><input type="radio" ng-model="vm.group" value="idea" /> Design Idea</label>
-        <label class="masthead__input"><input type="radio" ng-model="vm.group" value="challenge" /> Design Challenge</label>
-        <div>
-          <textarea class="masthead__textarea"
-            placeholder="{{ vm.group === 'idea' ? 'Write a design idea...' : 'Write a design challenge...' }}"
+      <form class="container-fluid clearfix" ng-submit="vm.addIdea()">
+        <div class="col-xs-12">
+          <textarea class="form-control" style="width:100%;"
+            placeholder="'Write a design idea...'"
             ng-model="vm.content">
           </textarea>
         </div>
-        Choose Idea Type: <select ng-options="item for item in vm.ideaTypes" ng-model="vm.type" />
-        <input class="button button--masthead" value="submit" type="submit" />
+        <div class="row">
+          <div class="form-group">
+              <label class="col-xs-12 col-lg-3 control-label">Choose Idea Type:</label>
+              <div class="col-xs-12 col-lg-5">
+                <select class="form-control" ng-options="item for item in vm.ideaTypes" ng-model="vm.type" />
+              </div>
+          </div>
+          <div class="col-xs-12 col-lg-4 text-right">
+            <button class="btn btn-success" value="submit">Submit</button>
+          </div>
+        </div>
       </form>
     </div>
 

@@ -785,7 +785,7 @@
     /* Idea functions
        ================================================== */
 
-    function addIdea(content, group, type) {
+    function addIdea(content, type) {
       var auth = getAuth();
 
       if (auth === null || !auth.uid) {
@@ -797,7 +797,7 @@
 
       var idea = timestamp({
         id: id,
-        group: group,
+        group: 'idea',
         type: type,
         submitter: auth.uid,
         content: content,
@@ -845,7 +845,7 @@
       }
     }
 
-    function updateIdea(id, content, group, type) {
+    function updateIdea(id, content, type) {
       var d = $q.defer();
       var newData = {};
 
@@ -855,7 +855,6 @@
       }
 
       newData['ideas/' + id + '/content'] = content;
-      newData['ideas/' + id + '/group'] = group;
       newData['ideas/' + id + '/type'] = type;
       newData['ideas/' + id + '/updated_at'] = firebase.database.ServerValue.TIMESTAMP;
 

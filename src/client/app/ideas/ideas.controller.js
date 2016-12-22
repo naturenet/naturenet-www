@@ -37,7 +37,6 @@
     // Data
     vm.uid = void 0;
     vm.content = '';
-    vm.group = 'idea';
     vm.ideaTypes = ['New Features', 'Project Ideas', 'Community Ideas', 'Improvement Ideas'];
     vm.allTags = [];
     vm.type = vm.ideaTypes[0];
@@ -47,11 +46,8 @@
     vm.showDetail = false;
 
     vm.ideasDisplayLimit = vm.sidebarDisplayLimit;
-    vm.challengesDisplayLimit = vm.sidebarDisplayLimit;
 
     // States
-    vm.isIdeasListVisible = true;
-    vm.isChallengesListVisible = true;
 
     // Function assignments
     vm.addIdea = addIdea;
@@ -107,8 +103,8 @@
         });
     }
 
-    function addIdeaObject(content, group, type) {
-      return dataservice.addIdea(content, group, type)
+    function addIdeaObject(content, type) {
+      return dataservice.addIdea(content, type)
         .then(function (data) {
           getIdeas()
             .then(function () {
@@ -134,7 +130,7 @@
 
     function addIdea() {
       if (vm.content.length !== 0) {
-        addIdeaObject(vm.content, vm.group, vm.type);
+        addIdeaObject(vm.content, vm.type);
       }
     }
 

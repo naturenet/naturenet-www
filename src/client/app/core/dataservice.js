@@ -679,6 +679,8 @@
             0: $geolocation.position.coords.latitude,
             1: $geolocation.position.coords.longitude,
           };
+        } else {
+          newObservation.l = { 0: 0.0, 1: 0.0 };
         }
 
         var newData = {};

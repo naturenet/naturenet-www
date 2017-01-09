@@ -90,6 +90,12 @@
     /* Click functions
        ================================================== */
     function submit() {
+
+      if (!vm.file) {
+        logger.info('No file was selected for upload.');
+        return;
+      }
+
       vm.uploading = true;
       cloudinary.upload(vm.file, {}).then(function (resp) {
         vm.contribution.data.image = resp.data.secure_url;

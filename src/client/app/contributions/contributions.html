@@ -41,7 +41,7 @@
       <div class="masthead__title">Contributions</div>
     </header>
     <div class="masthead__text">
-      <form class="masthead__form clearfix" ng-submit="vm.submit()">
+      <form class="masthead__form clearfix">
         <p class="masthead__directions">Upload</p>
         <p class="masthead__description">
           Use one of the methods below to upload a file to use in your contributions.
@@ -80,7 +80,7 @@
           </div>
           <div class="col-xs-12 text-right" style="margin-top: 1em">
             <button class="btn btn-link" type="button" ng-click="vm.reset()">Clear</button>
-            <button class="btn btn-success" type="button">Submit</button>
+            <button class="btn btn-success" type="button" ng-click="vm.submit()">Submit</button>
           </div>
         </div>
       </form>

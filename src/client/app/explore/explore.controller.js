@@ -41,10 +41,12 @@
 
     // Data
     vm.map = void 0;
+    vm.localObservationIds = void 0;
     vm.observations = void 0;
     vm.currentObservation = void 0;
     vm.currentProject = void 0;
     vm.comments = void 0;
+    vm.maxPoints = 100;
 
     // States
     $scope.$parent.hasMap = false;
@@ -57,6 +59,8 @@
     vm.showSidebar = showSidebar;
     vm.hideSidebar = hideSidebar;
     vm.formatDate = utility.formatDate;
+    vm.onMapMoved = onMapMoved;
+    vm.select = select;
 
     activate();
 
@@ -92,6 +96,18 @@
         });
     }
 
+    function select(id) {
+      if (!!id) {
+        dataservice.getObservationById(id).then(function (o) {
+          if (o.$value !== null) {
+            vm.currentObservation = o;
+          } else {
+            logger.warning('This observation cannot be displayed.');
+          }
+        });
+      }
+    }
+
     /* Listener Functions
        ================================================== */
 
@@ -118,7 +134,13 @@
        ================================================== */
 
     function initializeMap() {
-      config.mapOptions.center = new google.maps.LatLng(39.833333, -98.583333);
+      var coords = dataservice.getGeolocation();
+
+      if (!!coords) {
+        config.mapOptions.center = new google.maps.LatLng(coords.latitude, coords.longitude);
+        config.mapOptions.zoom = 12;
+      }
+
       config.mapOptions.mapTypeId = google.maps.MapTypeId.HYBRID;
 
       vm.map.setOptions(config.mapOptions);
@@ -128,6 +150,42 @@
       $rootScope.$on('map:toggle', toggleMap);
       $rootScope.$on('map:show', showMap);
       $rootScope.$on('map:hide', hideMap);
+      $rootScope.$on('auth:success', showSite);
+    }
+
+    function onMapMoved() {
+      if (!!vm.map) {
+        dataservice.getObservationsNear(vm.map.getCenter(), getMapRadiusKm(), vm.maxPoints)
+          .then(function (response) {
+            vm.localObservationIds = response;
+          });
+      }
+    }
+
+    function getMapRadiusKm() {
+      var radius = 1;
+      var bounds = vm.map.getBounds();
+      var center = vm.map.getCenter();
+      if (bounds && center) {
+        var ne = bounds.getNorthEast();
+        var radius = google.maps.geometry.spherical.computeDistanceBetween(center, ne);
+        radius = Math.floor(radius / 1000);
+      }
+
+      return radius;
+    }
+
+    function showSite(userId) {
+      dataservice.getActiveUser().then(function (user) {
+        dataservice.getSiteById(user.affiliation)
+          .then(function (site) {
+            if (!!site) {
+              var newCenter = new google.maps.LatLng({ lat: site.l[0], lng: site.l[1], });
+              vm.map.panTo(newCenter);
+              vm.map.setZoom(12);
+            }
+          });
+      });
     }
 
     function resetMap() {

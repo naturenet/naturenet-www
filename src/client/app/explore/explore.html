@@ -5,6 +5,7 @@
   class="map"
   default-style="false"
   center="United States of America"
+  on-idle="vm.onMapMoved()"
   ng-class="{'has-sidebar': !!vm.hasSidebar}">
 
   <div class="main main--with-sidebar main--explore" ng-if="!!vm.currentObservation && vm.showDetail">
@@ -81,8 +82,8 @@
 
   </div>
 
-  <custom-marker ng-repeat="o in vm.observations" position="{{o.l}}">
-    <div class="map-marker" ng-click="vm.showSidebar(o)"></div>
+  <custom-marker ng-repeat="(id, pos) in vm.localObservationIds | limitTo: vm.maxPoints" position="{{pos}}">
+    <div class="map-marker" ng-click="vm.select(id)"></div>
   </custom-marker>
 
 </ng-map>

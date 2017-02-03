@@ -128,7 +128,7 @@
     }
 
     function updateUser() {
-      setAvatar().then(function() {
+      setAvatar().then(function () {
         console.log('updating profile');
         var profile = {
           avatar: vm.avatar,
@@ -144,13 +144,15 @@
             race: vm.race || null,
           },
         };
+
         return dataservice.updateUser(profile)
           .then(function (data) {
             logger.success('Your profile has been updated!');
             close();
             return vm.userUid;
           });
-        });
+      });
+
     }
 
     function setAvatar() {
@@ -167,6 +169,7 @@
           vm.avatarFile = null;
         });
       }
+
       return p;
     }
 

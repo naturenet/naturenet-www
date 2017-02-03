@@ -32,6 +32,7 @@
     "bootstrap-css-only": "^3.3.7",
     "angular-ui-select": "^0.19.6",
     "angular-cloudinary": "^1.2.4",
-    "ngGeolocation": "^0.0.8"
+    "ngGeolocation": "^0.0.8",
+    "geofire": "^4.1.2"
   }
 }

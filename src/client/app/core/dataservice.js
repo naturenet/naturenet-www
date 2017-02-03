@@ -39,6 +39,7 @@
       // Utility functions
       getArray: getArray,
       deleteContent: deleteContent,
+      getGeolocation: getGeolocation,
 
       // Authentication functions
       onAuthStateChanged: onAuthStateChanged,
@@ -67,9 +68,11 @@
       getSiteById: getSiteById,
 
       // Observation functions
+      getObservationById: getObservationById,
       getObservationsByUserId: getObservationsByUserId,
       getObservationsByProjectId: getObservationsByProjectId,
       getObservationsBySiteId: getObservationsBySiteId,
+      getObservationsNear: getObservationsNear,
       updateObservation: updateObservation,
       addObservation: addObservation,
 
@@ -107,6 +110,10 @@
     }
 
     $geolocation.getCurrentPosition();
+    var geoQuery = new GeoFire($firebaseRef.geo).query({
+      center: [0, 0],
+      radius: 1.0,
+    });
 
     return service;
 
@@ -160,6 +167,7 @@
         if (error) {
           fail(error);
         } else {
+          $firebaseRef.geo.child(id).remove();
           success();
         }
       });
@@ -173,6 +181,10 @@
       function fail(e) {
         d.reject(exception.catcher('Unable to delete this content.')(e));
       }
+    }
+
+    function getGeolocation() {
+      return $geolocation.position.coords;
     }
 
     /* Authentication functions
@@ -559,6 +571,26 @@
     /* Observation functions
        ================================================== */
 
+    function getObservationById(id) {
+
+      if (!id) {
+        console.log('ID does not exist');
+        return $q.when(null);
+      }
+
+      return $firebaseObject($firebaseRef.observations.child(id)).$loaded()
+        .then(success)
+        .catch(fail);
+
+      function success(response) {
+        return response;
+      }
+
+      function fail(e) {
+        return exception.catcher('Unable to load observation')(e);
+      }
+    }
+
     function getObservationsByUserId(id) {
 
       if (!id) {
@@ -634,6 +666,33 @@
       }
     }
 
+    function getObservationsNear(latlng, radius, max) {
+      var d = $q.defer();
+      var results = {};
+      var count = 0;
+
+      geoQuery.updateCriteria({
+        center: [latlng.lat(), latlng.lng()],
+        radius: radius,
+      });
+
+      var onKeyEnteredRegistration = geoQuery.on('key_entered', function (key, location) {
+        results[key] = location;
+        if (max != undefined && ++count >= max) {
+          finish();
+        }
+      });
+
+      var onReadyRegistration = geoQuery.on('ready', finish);
+
+      return d.promise;
+
+      function finish() {
+        geoQuery.cancel();
+        d.resolve(results);
+      }
+    }
+
     function updateObservation(id, project, caption) {
       var d = $q.defer();
       var newData = {};
@@ -674,14 +733,16 @@
         newObservation.observer = user.id;
         newObservation.site = user.affiliation;
         newObservation.source = 'web';
+
+        var lat = 0.0;
+        var lon = 0.0;
+
         if ($geolocation.position.coords) {
-          newObservation.l = {
-            0: $geolocation.position.coords.latitude,
-            1: $geolocation.position.coords.longitude,
-          };
-        } else {
-          newObservation.l = { 0: 0.0, 1: 0.0 };
+          lat = $geolocation.position.coords.latitude;
+          lon = $geolocation.position.coords.longitude;
         }
+
+        newObservation.l = { 0: lat, 1: lon };
 
         var newData = {};
         newData['/observations/' + id] = timestamp(newObservation);
@@ -692,6 +753,7 @@
           if (error) {
             fail(error);
           } else {
+            new GeoFire($firebaseRef.geo).set(id, [lat, lon]);
             success();
           }
         });

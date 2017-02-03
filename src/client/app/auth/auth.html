@@ -3,15 +3,18 @@
   ng-click="$event.stopPropagation()">
 
   <div class="auth__header">
-    <div class="auth__avatar -centerh"></div>
+    <div class="auth__avatar -centerh">
+      <img ng-src="{{vm.avatar}}" ngf-src="!vm.avatarFile[0].$error && vm.avatarFile[0]"/>
+      <div ng-if="vm.mode === 'update'" ngf-drop ngf-select ng-drag-over-class="'dragover'"
+        ngf-multiple="false" ngf-pattern="'image/*'" accept="image/*"
+        ng-model="vm.avatarFile" style="width:100%;height:100%">
+        <div class="auth__upload" />
+      </div>
+    </div>
     <div class="auth__close" 
       ng-click="vm.close()">
     </div>
   </div>
-
-
-
-
 
   <!-- I would rather bind a value to ng-include
     but that causes an app breaking bug -->

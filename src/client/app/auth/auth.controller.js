@@ -12,6 +12,7 @@
     '$q',
     '$rootScope',
     '$filter',
+    'cloudinary',
     'logger',
     'dataservice',
   ];
@@ -21,6 +22,7 @@
     $q,
     $rootScope,
     $filter,
+    cloudinary,
     logger,
     dataservice
   ) {
@@ -32,6 +34,7 @@
     // Data
     vm.userUid = void 0;
     vm.newUserObject = void 0;
+    vm.avatarFile = void 0;
     vm.avatar = '';
     vm.email = '';
     vm.password = '';
@@ -125,26 +128,46 @@
     }
 
     function updateUser() {
-      var profile = {
-        avatar: vm.avatar,
-        display_name: vm.name,
-        name: vm.realname,
-        bio: vm.bio,
-        affiliation: vm.affiliation.$id,
-        groups: vm.membership,
-        uid: vm.userUid,
-        demographics: {
-          age: vm.age || null,
-          gender: vm.gender || null,
-          race: vm.race || null,
-        },
-      };
-      return dataservice.updateUser(profile)
-        .then(function (data) {
-          logger.success('Your profile has been updated!');
-          close();
-          return vm.userUid;
+      setAvatar().then(function() {
+        console.log('updating profile');
+        var profile = {
+          avatar: vm.avatar,
+          display_name: vm.name,
+          name: vm.realname,
+          bio: vm.bio,
+          affiliation: vm.affiliation.$id,
+          groups: vm.membership,
+          uid: vm.userUid,
+          demographics: {
+            age: vm.age || null,
+            gender: vm.gender || null,
+            race: vm.race || null,
+          },
+        };
+        return dataservice.updateUser(profile)
+          .then(function (data) {
+            logger.success('Your profile has been updated!');
+            close();
+            return vm.userUid;
+          });
         });
+    }
+
+    function setAvatar() {
+      var p = $q.when(null);
+      if (!!vm.avatarFile) {
+        console.log('uploading avatar');
+        p = cloudinary.upload(vm.avatarFile, {
+          upload_preset: 'avatar-preset',
+        }).then(function (resp) {
+          console.log('avatar uploaded');
+          vm.avatar = resp.data.secure_url;
+        }).catch(function (resp) {
+          logger.error('The image you selected could not be uploaded.');
+          vm.avatarFile = null;
+        });
+      }
+      return p;
     }
 
     function authWithPassword(email, password) {
@@ -294,6 +317,7 @@
 
     function resetForm() {
       vm.mode = null;
+      vm.avatarFile = null;
       vm.avatar = '';
       vm.email = '';
       vm.password = '';

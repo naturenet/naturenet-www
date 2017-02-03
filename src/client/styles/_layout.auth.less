@@ -42,7 +42,7 @@
 
       > .auth__avatar { 
         top: -75px;
-     
+
         display: block;
         width: 150px;
         height: 150px;
@@ -52,7 +52,34 @@
         background-position: 50%;
         background-repeat: no-repeat;
         background-size: 90px;
-        border-radius: 50%; }
+        border-radius: 50%; 
+
+          > img {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: 100%;
+          }
+        }
+
+      .auth__upload {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        padding: 1.5em;
+        color: white;
+        background: fade(#333, 80%);
+        background-image: url('/images/add-photo.png');
+        background-repeat: no-repeat;
+        background-position: 50%;
+        background-size: 2em;
+      }
 
       > .auth__close {
         float: right;

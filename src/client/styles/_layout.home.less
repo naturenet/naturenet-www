@@ -20,8 +20,130 @@
       overflow: auto; }
 
   /**
+    * Pagination structure
+    */
+  .scroller {
+    overflow-x: hidden;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    scroll-snap-points-y: repeat(100%);
+    scroll-snap-type: mandatory;
+    scroll-snap-destination: 100% 0%;
+  }
+
+  .home__page {
+    float: left;
+    width: 100%;
+    height: 100%;
+
+    &.dark {
+      color: white;
+      background-color: rgba(53,74,95,0.9);
+    }
+  }
+
+  .page__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding-right: 5%;
+  }
+
+  .page__title {
+    display: block;
+    width: 100%;
+
+    > h1 {
+      font-size: 4em;
+      font-weight: bold;
+      padding-bottom: 1em;
+      border-bottom: 2px solid;
+    }
+  }
+
+  .page__blurb {
+    margin: 1em 0.5em;
+  }
+
+  a.page__goto {
+    display: inline-block;
+    font-size: 2em;
+    text-transform: initial;
+    margin: 0.5em 0;
+    padding-left: 2em;
+  }
+
+  a.page__next {
+    display: block;
+    width: 51px;
+    height: 29px;
+    background-image: url("/images/down-arrow.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+
+    &.dark {
+      background-image: url("/images/down-arrow-dark.png");
+    }
+
+    &:hover {
+      background-image: url("/images/down-arrow-green.png");
+    }
+  }
+
+  .page__preview {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+  }
+
+  .phone__template {
+    display: inline-block;
+    width: 100%;
+    height: 600px;
+    align-self: center;
+    background-image: url("/images/iphone-template.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+  /**
     * Content
     */
+
+    .homepage-icon {
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+
+      color: transparent;
+      font-size: 0;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+      background-size: contain;
+
+      &:hover {
+        color: inherit;
+        font-size: inherit;
+      }
+
+      &.icon-explore {
+        background-image: url('/images/explore-dark.png'); }
+      &.icon-communities {
+        background-image: url('/images/communities-dark.png'); }
+      &.icon-projects {
+        background-image: url('/images/projects-dark.png'); }
+      &.icon-ideas {
+        background-image: url('/images/ideas-dark.png'); }
+      &.icon-contributions {
+        background-image: url('/images/add-photo-dark.png'); }
+    }
 
     .home-content {
       overflow: auto;

@@ -10,12 +10,72 @@
       text-transform: uppercase;
       text-align: center;
 
+      background-position: 0.5em 50%;
+      background-repeat: no-repeat;
+      background-size: 1em; 
       background-color: @light-green;
       border: 0px;
+
+      &.button--dark {
+        background-color: @dark-blue; }
 
       &.button--join {
         color: @light-green;
         background-color: transparent; }
+
+      &.button--explore {
+        color: white;
+        background-image: url('/images/explore.png');
+        background-color: @dark-blue; 
+
+        &:hover {
+          background-color: @light-green;
+        }
+      }
+
+      &.button--projects {
+        color: @dark-blue;
+        background-image: url('/images/projects-dark.png');
+        background-color: white; 
+
+        &:hover {
+          color: white;
+          background-image: url('/images/projects.png');
+          background-color: @light-green;
+        }
+      }
+
+      &.button--contributions {
+        color: white;
+        background-image:  url('/images/add-photo.png');
+        background-color: @dark-blue; 
+
+        &:hover {
+          background-color: @light-green;
+        }
+      }
+
+      &.button--communities {
+        color: @dark-blue;
+        background-image: url('/images/communities-dark.png');
+        background-color: white; 
+
+        &:hover {
+          color: white;
+          background-image:  url('/images/communities.png');
+          background-color: @light-green;
+        }
+      }
+
+      &.button--ideas {
+        color: white;
+        background-image: url('/images/ideas.png');
+        background-color: @dark-blue; 
+
+        &:hover {
+          background-color: @light-green;
+        }
+      }
 
       &.button--signin {
         padding-left: 54px;

@@ -23,19 +23,21 @@
     * Pagination structure
     */
   .scroller {
-    overflow-x: hidden;
     width: 100%;
     height: 100%;
+    white-space: nowrap;
+    overflow-x: hidden;
     overflow: auto;
-    scroll-snap-points-y: repeat(100%);
+    -webkit-overflow-scrolling: touch;
     scroll-snap-type: mandatory;
+    scroll-snap-points-y: repeat(100%);
     scroll-snap-destination: 100% 0%;
   }
 
   .home__page {
-    float: left;
     width: 100%;
     height: 100%;
+    display: inline-block;
 
     &.dark {
       color: white;
@@ -80,6 +82,7 @@
     display: block;
     width: 51px;
     height: 29px;
+    margin: 1em;
     background-image: url("/images/down-arrow.png");
     background-repeat: no-repeat;
     background-size: contain;
@@ -91,6 +94,23 @@
     &:hover {
       background-image: url("/images/down-arrow-green.png");
     }
+  }
+
+  .page--intro {
+    max-width: 1400px;
+    margin: auto;
+  }
+
+  .page--contributions {
+    background: linear-gradient(rgba(255,255,255,0.8),rgba(255,255,255,0.8)), url("/images/contributions-background.jpg");
+  }
+
+  .page--communities {
+    background: linear-gradient(rgba(53,74,95,0.9),rgba(53,74,95,0.9)), url("/images/communities-background.png");
+  }
+
+  .page--ideas {
+    background: linear-gradient(rgba(255,255,255,0.8),rgba(255,255,255,0.8)), url("/images/ideas-background.png");
   }
 
   .page__preview {
@@ -115,11 +135,10 @@
 
     .homepage-icon {
       display: inline-block;
-      width: 100%;
-      height: 100%;
+      width: 100px;
+      height: 100px;
+      margin-top: 50px;
 
-      color: transparent;
-      font-size: 0;
       text-align: center;
       text-decoration: none;
       cursor: pointer;
@@ -129,8 +148,6 @@
       background-size: contain;
 
       &:hover {
-        color: inherit;
-        font-size: inherit;
       }
 
       &.icon-explore {
@@ -143,6 +160,38 @@
         background-image: url('/images/ideas-dark.png'); }
       &.icon-contributions {
         background-image: url('/images/add-photo-dark.png'); }
+      &.icon-phone {
+        width: 200px;
+        height: 200px;
+        background-image: url('/images/phone.png'); }
+      &.icon-tree {
+        width: 200px;
+        height: 200px;
+        background-image: url('/images/tree-logo-dark.png'); }
+    }
+
+    .home-action-hover {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      > div {
+        color: transparent;
+        font-size: 0;
+      }
+
+      &:hover {
+        > div {
+          color: inherit;
+          font-size: inherit;
+        }
+
+        .homepage-icon {
+          width: 150px;
+          height: 150px;
+          margin-top: 0;
+        }
+      }
     }
 
     .home-content {

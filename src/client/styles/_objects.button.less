@@ -16,8 +16,21 @@
       background-color: @light-green;
       border: 0px;
 
+      &:hover {
+        color: initial;
+        text-decoration: none;
+      }
+
       &.button--dark {
-        background-color: @dark-blue; }
+        background-color: @dark-blue;
+        margin: 0.5em;
+        font-weight: bold;
+
+        &:hover {
+          color: initial;
+          background-color: @light-green;
+        }
+      }
 
       &.button--join {
         color: @light-green;

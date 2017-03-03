@@ -7,7 +7,7 @@
           <div class="col-xs-4">
             <div class="homepage-icon icon-phone"></div>
           </div>
-          <div class="col-xs-8" style="display:flex;flex-direction:column;align-items:center;">
+          <div class="col-xs-8 content-col">
             <div class="h1 center-block">Get NatureNet now!</div>
             <div style="display: block;">
               <a target="_blank" href="https://itunes.apple.com/us/app/naturenet/id1104382694?mt=8"
@@ -22,15 +22,17 @@
           <div class="col-xs-4">
             <div class="homepage-icon icon-tree"></div>
           </div>
-          <div class="col-xs-8" style="display:flex;flex-direction:column;align-items:center;">
+          <div class="col-xs-8 content-col">
             <div class="h1 center-block">Contribute to NatureNet</div>
             <a href="/explore" class="page__goto button button--explore">Explore</a>
             <a href="#projects" class="page__next dark"></a>
           </div>
         </div>
       </div>
-      <div class="page__preview hidden-xs hidden-sm col-md-3">
-        <div class="phone__template"></div>
+      <div class="page__preview hidden-xs hidden-sm col-md-4">
+        <div class="phone__template">
+          <div style="background:no-repeat 100%/100% url('/images/ss-obs-android.png')"></div>
+        </div>
       </div>
     </section>
     <section class="home__page dark page--projects container-fluid" id="projects">
@@ -46,8 +48,10 @@
           <a href="/projects" class="page__goto button button--projects">Projects</a>
           <a href="#contributions" class="page__next"></a>
         </div>
-        <div class="page__preview hidden-xs hidden-sm col-md-3">
-          <div class="phone__template"></div>
+        <div class="page__preview hidden-xs hidden-sm col-md-4">
+          <div class="phone__template">
+            <div style="background:no-repeat 100%/100% url('/images/ss-project-list-ios.png')"></div>
+          </div>
         </div>
     </section>
     <section class="home__page page--contributions container-fluid" id="contributions">
@@ -63,8 +67,10 @@
           <a href="/contributions" class="page__goto button button--contributions">Contributions</a>
           <a href="#communities" class="page__next dark"></a>
         </div>
-        <div class="page__preview hidden-xs hidden-sm col-md-3">
-          <div class="phone__template"></div>
+        <div class="page__preview hidden-xs hidden-sm col-md-4">
+          <div class="phone__template">
+            <div style="background:no-repeat 100%/100% url('/images/ss-obs-ios.png')"></div>
+          </div>
         </div>
     </section>
     <section class="home__page dark page--communities container-fluid" id="communities">
@@ -80,8 +86,10 @@
           <a href="/communities" class="page__goto button button--communities">Communities</a>
           <a href="#ideas" class="page__next"></a>
         </div>
-        <div class="page__preview hidden-xs hidden-sm col-md-3">
-          <div class="phone__template"></div>
+        <div class="page__preview hidden-xs hidden-sm col-md-4">
+          <div class="phone__template">
+            <div style="background:no-repeat 100%/100% url('/images/ss-user-list-ios.png')"></div>
+          </div>
         </div>
     </section>
     <section class="home__page page--ideas container-fluid" id="ideas">
@@ -97,41 +105,41 @@
           <a href="/ideas" class="page__goto button button--ideas">Design Ideas</a>
           <a href="#summary" class="page__next dark"></a>
         </div>
-        <div class="page__preview hidden-xs hidden-sm col-md-3">
-          <div class="phone__template"></div>
+        <div class="page__preview hidden-xs hidden-sm col-md-4">
+          <div class="phone__template">
+            <div style="background:no-repeat 100%/100% url('/images/ss-idea-list-ios.png')"></div>
+          </div>
         </div>
     </section>
     <section class="home__page page--summary container-fluid" id="summary">
-      <div class="row content-row" style="height: 100%;display:flex;flex-direction:column;align-items:center;justify-content:center;">
-        <div class="h1 center-block">
-          Explore NatureNet
+      <div class="h1 center-block">
+        Explore NatureNet
+      </div>
+      <div class="row content-row" style="text-align: center;align-items:flex-end;">
+        <div class="col-xs-6 col-md-2 col-md-offset-1 home-action-hover">
+          <div class="homepage-icon icon-explore"></div>
+          <div>Contribute to NatureNet</div>
+          <a href="/explore" class="button button--dark">Explore</a>
         </div>
-        <div class="row content-row" style="text-align: center;align-items:baseline;">
-          <div class="col-xs-6 col-md-2 col-md-offset-1 home-action-hover">
-            <div class="homepage-icon icon-explore"></div>
-            <div>Contribute to NatureNet</div>
-            <a href="/explore" class="button button--dark">Explore</a>
-          </div>
-          <div class="col-xs-6 col-md-2 home-action-hover">
-            <div class="homepage-icon icon-projects"></div>
-            <div>Join a citizen science project</div>
-            <a href="/projects" class="button button--dark">Projects</a>
-          </div>
-          <div class="col-xs-6 col-md-2 home-action-hover">
-            <div class="homepage-icon icon-ideas"></div>
-            <div>Be a part of the design</div>
-            <a href="/ideas" class="button button--dark">Design Ideas</a>
-          </div>
-          <div class="col-xs-6 col-md-2 home-action-hover">
-            <div class="homepage-icon icon-communities"></div>
-            <div>Find a friend</div>
-            <a href="/communities" class="button button--dark">Communities</a>
-          </div>
-          <div class="col-xs-6 col-md-2 home-action-hover">
-            <div class="homepage-icon icon-contributions"></div>
-            <div>Make your contribution</div>
-            <a href="/contributions" class="button button--dark">Contributions</a>
-          </div>
+        <div class="col-xs-6 col-md-2 home-action-hover">
+          <div class="homepage-icon icon-projects"></div>
+          <div>Join a citizen science project</div>
+          <a href="/projects" class="button button--dark">Projects</a>
+        </div>
+        <div class="col-xs-6 col-md-2 home-action-hover">
+          <div class="homepage-icon icon-ideas"></div>
+          <div>Be a part of the design</div>
+          <a href="/ideas" class="button button--dark">Design Ideas</a>
+        </div>
+        <div class="col-xs-6 col-md-2 home-action-hover">
+          <div class="homepage-icon icon-communities"></div>
+          <div>Find a friend</div>
+          <a href="/communities" class="button button--dark">Communities</a>
+        </div>
+        <div class="col-xs-6 col-md-2 home-action-hover">
+          <div class="homepage-icon icon-contributions"></div>
+          <div>Make your contribution</div>
+          <a href="/contributions" class="button button--dark">Contributions</a>
         </div>
       </div>
     </section>

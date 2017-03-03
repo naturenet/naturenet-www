@@ -42,6 +42,7 @@
 
     // Function assignments
     vm.showObservation = showObservation;
+    vm.showMap = showMap;
     vm.formatDate = utility.formatDate;
 
     activate();
@@ -98,6 +99,10 @@
 
     function showObservation(o) {
       $rootScope.$broadcast('map:show', o);
+    }
+
+    function showMap() {
+      $rootScope.$broadcast('map:show');
     }
 
   }

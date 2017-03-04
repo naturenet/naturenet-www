@@ -66,12 +66,12 @@
     routerHelperProvider.configure({ docTitle: ' | ' + config.appTitle, });
   }
 
-  core.constant('FirebaseName', 'naturenet-staging');
+  core.constant('FirebaseName', 'naturenet');
 
   core.config(function (FirebaseName) {
     //TODO: set value of database and logging in build
     firebase.initializeApp({
-      apiKey: 'AIzaSyAQFqNCV7kdLHzkiBhtFzMmYoQLdlivNFU',
+      apiKey: 'AIzaSyAm--uHylcDf4J5wGroMzPeKmw6uIDnVr8',
       authDomain: FirebaseName + '.firebaseapp.com',
       databaseURL: 'https://' + FirebaseName + '.firebaseio.com',
       storageBucket: FirebaseName + '.appspot.com',

@@ -4,10 +4,10 @@
     <section class="home__page page--intro container-fluid" id="intro">
       <div class="page__content col-xs-12 col-md-7 col-md-offset-1">
         <div class="row content-row">
-          <div class="col-xs-4">
+          <div class="col-sm-4 hidden-xs">
             <div class="homepage-icon icon-phone"></div>
           </div>
-          <div class="col-xs-8 content-col">
+          <div class="col-xs-12 col-sm-8 content-col">
             <div class="h1 center-block">Get NatureNet now!</div>
             <div style="display: block;">
               <a target="_blank" href="https://itunes.apple.com/us/app/naturenet/id1104382694?mt=8"
@@ -19,10 +19,10 @@
           </div>
         </div>
         <div class="row content-row">
-          <div class="col-xs-4">
+          <div class="col-sm-4 hidden-xs">
             <div class="homepage-icon icon-tree"></div>
           </div>
-          <div class="col-xs-8 content-col">
+          <div class="col-xs-12 col-sm-8 content-col">
             <div class="h1 center-block">Contribute to NatureNet</div>
             <a href="#intro" ng-click="vm.showMap()" class="page__goto button button--explore">Explore</a>
             <a href="#projects" class="page__next dark"></a>
@@ -31,7 +31,13 @@
       </div>
       <div class="page__preview hidden-xs hidden-sm col-md-4">
         <div class="phone__template">
-          <div style="background:no-repeat 100%/100% url('/images/ss-obs-android.png')"></div>
+          <div class="phone-screens">
+            <img class="phone-screen" src="/images/ss-splash.png">
+            <img class="phone-screen" src="/images/ss-map-preview-android.png">
+            <img class="phone-screen" src="/images/ss-map-zoom-android.png">
+            <img class="phone-screen" src="/images/ss-project-android.png">
+            <img class="phone-screen" src="/images/ss-obs-android.png">
+          </div>
         </div>
       </div>
     </section>
@@ -50,7 +56,10 @@
         </div>
         <div class="page__preview hidden-xs hidden-sm col-md-4">
           <div class="phone__template">
-            <div style="background:no-repeat 100%/100% url('/images/ss-project-list-ios.png')"></div>
+            <div class="phone-screens">
+              <img class="phone-screen" src="/images/ss-project-list-ios.png">
+              <img class="phone-screen" src="/images/ss-project-ios.png">
+            </div>
           </div>
         </div>
     </section>
@@ -69,7 +78,10 @@
         </div>
         <div class="page__preview hidden-xs hidden-sm col-md-4">
           <div class="phone__template">
-            <div style="background:no-repeat 100%/100% url('/images/ss-obs-ios.png')"></div>
+            <div class="phone-screens">
+              <img class="phone-screen" src="/images/ss-camera.png">
+              <img class="phone-screen" src="/images/ss-obs-ios.png">
+            </div>
           </div>
         </div>
     </section>
@@ -88,7 +100,9 @@
         </div>
         <div class="page__preview hidden-xs hidden-sm col-md-4">
           <div class="phone__template">
-            <div style="background:no-repeat 100%/100% url('/images/ss-user-list-ios.png')"></div>
+            <div class="phone-screens">
+              <img class="phone-screen" src="/images/ss-user-list-ios.png">
+            </div>
           </div>
         </div>
     </section>
@@ -107,7 +121,10 @@
         </div>
         <div class="page__preview hidden-xs hidden-sm col-md-4">
           <div class="phone__template">
-            <div style="background:no-repeat 100%/100% url('/images/ss-idea-list-ios.png')"></div>
+            <div class="phone-screens">
+              <img class="phone-screen" src="/images/ss-idea-list-ios.png">
+              <img class="phone-screen" src="/images/ss-idea-ios.png">
+            </div>
           </div>
         </div>
     </section>
@@ -144,4 +161,13 @@
       </div>
     </section>
   </div>
+</div>
+
+<div class="home-footer">
+    <ul class="footer-items">
+      <li><a href="http://www.uncc.edu" target="_blank">The University of North Carolina at Charlotte</a></li>
+      <li><a href="http://www.colorado.edu" target="_blank">University of Colorado Boulder</a></li>
+      <li><a href="http://www.umd.edu" target="_blank">University of Maryland, College Park</a></li>
+      <li><a href="http://research.nature-net.org" target="_blank">NatureNet Research</a></li>
+    </ul>
 </div>

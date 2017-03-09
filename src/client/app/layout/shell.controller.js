@@ -46,12 +46,29 @@
     function activate() {
       logger.info(config.appTitle + ' loaded!', null);
       utility.showSplash();
+      animateSplash();
 
       var promises = [getUsers(), getGroups(), getProjects()];
       return $q.all(promises)
         .then(function () {
           utility.hideSplash();
         });
+    }
+
+    function animateSplash() {
+      // Increment splash counter again so it stays visible until this animation completes
+      utility.showSplash();
+      var dX = $('#overlay__two').width() / 2;
+      $('#overlay__logo').animate({ left: '-=' + (dX + 140) }, function () {
+        $('#overlay__one').fadeToggle(1000).fadeToggle(1000, function () {
+          $('#overlay__two').fadeToggle(1000).delay(1000).fadeToggle(1000, function () {
+            $('#overlay__logo').animate({ left: '+=' + (dX + 140) }, function () {
+              utility.hideSplash();
+              $('.phone-screens').cycle();
+            });
+          });
+        });
+      });
     }
 
     /* Data functions

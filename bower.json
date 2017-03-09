@@ -33,6 +33,7 @@
     "angular-ui-select": "^0.19.6",
     "angular-cloudinary": "^1.2.4",
     "ngGeolocation": "^0.0.8",
-    "geofire": "^4.1.2"
+    "geofire": "^4.1.2",
+    "jquery-cycle2": "^2.1.6"
   }
 }

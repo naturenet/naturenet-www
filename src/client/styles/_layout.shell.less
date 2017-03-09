@@ -38,19 +38,47 @@
 
     .overlay {
       z-index: 999;
-      position: absolute;
+      position: fixed;
       top: 0;
 
       width: 100%;
       height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
       background: rgba(255,255,255,0.9);
-      
-      &.overlay--splash {
+
+      #overlay__logo {
+        position: absolute;
+        left: calc(~"50% - 100px");
+        top: calc(~"50% - 100px");
+        width: 200px;
+        min-width: 200px;
+        height: 200px;
+        margin: 10px;
         background-image: url("/images/app-icon.png");
         background-position: 50% 50%;
         background-repeat: no-repeat;
         background-size: 200px; }
+
+      .overlay--text {
+        width: auto;
+        font-size: 64px;
+        font-weight: 900;
+        font-family: sans-serif;
+        color: @dark-blue;
+        display: none;
+        text-align: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%)
+      }
+
+      .overlay--highlight {
+        color: @light-green;
+      }
     }
 
   /**

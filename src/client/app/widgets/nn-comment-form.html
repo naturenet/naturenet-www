@@ -1,7 +1,7 @@
 <!-- <nn-comment-form> -->
 <form class="nn-badge comment" ng-submit="doComment()">
   <div class="nn-badge__avatar"
-    style="background-image: url('{{(avatarUrl || '/images/default-avatar.png') | img_thumb }}')">
+    style="background-image: url('{{(avatarUrl || '/images/default-avatar.png') }}')">
   </div>
   <textarea class="comment__input" placeholder="Write a comment..." ng-model="comment"/>
   <input type="submit" class="button button--edit" style="float:right;" value="Send" />

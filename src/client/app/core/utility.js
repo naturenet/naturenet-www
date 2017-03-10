@@ -112,7 +112,7 @@
        ================================================== */
 
     function showSplash() {
-      $rootScope.$applyAsync(function() {
+      $rootScope.$applyAsync(function () {
         $rootScope.showSplash = true;
         splashCounter += 1;
         console.log('Splash counter: ' + splashCounter);
@@ -120,7 +120,7 @@
     }
 
     function hideSplash() {
-      $rootScope.$applyAsync(function() {
+      $rootScope.$applyAsync(function () {
         splashCounter -= 1;
         console.log('Splash counter: ' + splashCounter);
         if (splashCounter < 1) {

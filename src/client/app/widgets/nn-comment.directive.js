@@ -22,6 +22,7 @@
     //   </div>
     var directive = {
       scope: {
+        limit: '=',
         avatarUrl: '@',
         name: '@',
         date: '@',

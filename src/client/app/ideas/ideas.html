@@ -16,6 +16,7 @@
           ng-click="vm.selectIdea(i)">
           <div class="list-item__detail list-item__noimage">
             <nn-comment class="comment list-item__comment"
+              limit="140"
               name="{{$root.users[i.submitter].display_name}}"
               date="{{i.updated_at}}"
               avatar-url="{{$root.users[i.submitter].avatar}}"

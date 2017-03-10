@@ -31,6 +31,7 @@
             </nn-image>
             <div class="list-item__detail">
               <nn-comment class="nn-badge list-item__comment"
+                limit="80"
                 name="{{$root.users[o.observer].display_name}}"
                 date="{{o.updated_at}}"
                 avatar-url="{{$root.users[o.observer].avatar}}"

@@ -5,4 +5,4 @@
   avatar-url="{{avatarUrl}}">
 </nn-badge>
 
-<div class="comment__text" title="{{comment}}">{{comment | limitTo: 130}}{{comment.length > 130 ? '...' : ''}}</div>
+<div class="comment__text" title="{{comment}}">{{comment | limitTo: limit}}{{comment.length > limit ? '...' : ''}}</div>

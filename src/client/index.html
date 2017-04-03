@@ -43,7 +43,10 @@
       ng-include="'app/layout/shell.html'"
       ng-controller="ShellController as vm">
     </div>
-    <div id="app" class="overlay overlay--splash" ng-show="showSplash">
+    <div class="overlay" ng-show="showSplash">
+      <div id="overlay__logo"></div>
+      <div id="overlay__one" class="h1 overlay--text"><span class="overlay--highlight">Save</span> your environment!</div>
+      <div id="overlay__two" class="h1 overlay--text"><span class="overlay--highlight">NatureNet</span> is a social network for citizen science.</div>
     </div>
   </div>
 
@@ -80,6 +83,7 @@
     <script src="/bower_components/angular-cloudinary/angular-cloudinary.js"></script>
     <script src="/bower_components/ngGeolocation/ngGeolocation.js"></script>
     <script src="/bower_components/geofire/dist/geofire.js"></script>
+    <script src="/bower_components/jquery-cycle2/build/jquery.cycle2.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
     <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.2.0.js"></script>
@@ -143,6 +147,10 @@
     <!-- endinject -->
     <!-- endbuild -->
   </div>
+
+  <!-- TODO figure out packaging sitation and replace with modules -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://malsup.github.io/min/jquery.cycle2.min.js"></script>
 </body>
 
 </html>

@@ -189,20 +189,26 @@
     }
 
     function resetMap() {
+      config.mapOptions.center = new google.maps.LatLng({ lat: 37.2758365, lng: -104.6536539, });
+      config.mapOptions.zoom = 4;
       vm.map.setOptions(config.mapOptions);
     }
 
     function updateMap(o) {
-      if (!o) { return; }
+      if (!!vm.map) {
+        if (!o || !o.l || angular.equals(o.l, [0, 0])) {
+          return resetMap();
+        }
 
-      var newCenter = new google.maps
-        .LatLng({ lat: o.l[0], lng: o.l[1], });
-      var currentZoom = vm.map.getZoom();
+        var newCenter = new google.maps
+          .LatLng({ lat: o.l[0], lng: o.l[1], });
+        var currentZoom = vm.map.getZoom();
 
-      vm.map.panTo(newCenter);
+        vm.map.panTo(newCenter);
 
-      if (currentZoom < 18) {
-        vm.map.setZoom(18);
+        if (currentZoom < 18) {
+          vm.map.setZoom(18);
+        }
       }
     }
 

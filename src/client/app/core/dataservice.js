@@ -677,9 +677,11 @@
       });
 
       var onKeyEnteredRegistration = geoQuery.on('key_entered', function (key, location) {
-        results[key] = location;
-        if (max != undefined && ++count >= max) {
-          finish();
+        if (!angular.equals(location, [0, 0])) {
+          results[key] = location;
+          if (max != undefined && ++count >= max) {
+            finish();
+          }
         }
       });
 

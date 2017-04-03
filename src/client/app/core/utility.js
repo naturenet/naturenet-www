@@ -112,15 +112,23 @@
        ================================================== */
 
     function showSplash() {
-      $rootScope.showSplash = true;
-      splashCounter += 1;
+      $rootScope.$applyAsync(function () {
+        $rootScope.showSplash = true;
+        splashCounter += 1;
+        console.log('Splash counter: ' + splashCounter);
+      });
     }
 
     function hideSplash() {
-      splashCounter -= 1;
-      if (splashCounter < 1) {
-        $rootScope.showSplash = false;
-      }
+      $rootScope.$applyAsync(function () {
+        splashCounter -= 1;
+        console.log('Splash counter: ' + splashCounter);
+        if (splashCounter < 1) {
+          $rootScope.showSplash = false;
+          $('.phone-screens').cycle();
+          console.log('cleared splash');
+        }
+      });
     }
   }
 

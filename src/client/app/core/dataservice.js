@@ -727,7 +727,7 @@
       }
     }
 
-    function addObservation(newObservation) {
+    function addObservation(newObservation, useLocation = true) {
       var d = $q.defer();
       getActiveUser().then(function (user) {
         var id = $firebaseRef.observations.push().key;
@@ -736,15 +736,11 @@
         newObservation.site = user.affiliation;
         newObservation.source = 'web';
 
-        var lat = 0.0;
-        var lon = 0.0;
-
-        if ($geolocation.position.coords) {
-          lat = $geolocation.position.coords.latitude;
-          lon = $geolocation.position.coords.longitude;
+        if (useLocation && !!$geolocation.position.coords) {
+          var lat = $geolocation.position.coords.latitude;
+          var lon = $geolocation.position.coords.longitude;
+          newObservation.l = { 0: lat, 1: lon };
         }
-
-        newObservation.l = { 0: lat, 1: lon };
 
         var newData = {};
         newData['/observations/' + id] = timestamp(newObservation);

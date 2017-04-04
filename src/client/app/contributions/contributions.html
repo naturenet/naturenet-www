@@ -44,13 +44,14 @@
       <form class="masthead__form clearfix">
         <p class="masthead__directions">Upload</p>
         <p class="masthead__description">
-          Use one of the methods below to upload a file to use in your contributions.
+          Use one of the methods below to upload a photo or PDF document to use in your contributions.
         </p>
         <div class="container-fluid">
           <div ngf-drop ngf-select class="drop-box col-xs-12" style="height:200px" ng-drag-over-class="'dragover'" ngf-multiple="false" ngf-pattern="'image/*'" accept="image/*" ng-model="vm.file">
-            <span ng-if="!vm.uploading && !vm.file" >Drop a photo here<br/>or<br/>
+            <span ng-if="!vm.uploading && !vm.file" >Drop a file here<br/>or<br/>
             <button type="button" class="btn btn-primary" ng-click="vm.selectFile()">Select a file</button></span>
-            <img ng-if="!!vm.file[0] && !vm.uploading" ngf-src="!vm.file[0].$error && vm.file[0]" style="max-width:100%;" />
+            <img ng-if="!!vm.file[0] && vm.file[0].type.includes('image') && !vm.uploading" ngf-src="!vm.file[0].$error && vm.file[0]" style="display:block;margin:0 auto;max-width:100%;" />
+            {{vm.file[0].name}}
             <uib-progressbar style="padding: 0 2em;" ng-if="vm.uploading" value="vm.progress" type="info" max="100" animate="true" title="Upload progress">Uploading...</uib-progressbar>
           </div>
           <div class="col-xs-12 col-lg-6">

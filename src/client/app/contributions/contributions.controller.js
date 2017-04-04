@@ -91,12 +91,22 @@
        ================================================== */
     function submit() {
 
-      if (!vm.file) {
+      if (!(vm.file && vm.file[0])) {
         logger.info('No file was selected for upload.');
         return;
       }
 
       vm.uploading = true;
+
+      var preset = 'web-preset';
+      if (vm.file[0].type === 'application/pdf') {
+        submitPdf();
+      } else {
+        submitImage();
+      }
+    }
+
+    function submitImage() {
       cloudinary.upload(vm.file, {}).then(function (resp) {
         vm.contribution.data.image = resp.data.secure_url;
         vm.contribution.activity = vm.contribution.activity || '-ACES_a38';
@@ -105,7 +115,23 @@
           logger.success('Your observation has been submitted!');
         });
       }).catch(function (resp) {
-        logger.error('The image you selected could not be uploaded.');
+        logger.error('The file you selected could not be uploaded.');
+        vm.file = null;
+        vm.uploading = false;
+      });
+    }
+
+    function submitPdf() {
+      cloudinary.upload(vm.file, { upload_preset: 'pdf-preset' }).then(function (resp) {
+        vm.contribution.data.image = resp.data.secure_url.replace(/\.[^/.]+$/, '.jpg');
+        vm.contribution.data.doc = resp.data.secure_url;
+        vm.contribution.activity = vm.contribution.activity || '-ACES_a38';
+        dataservice.addObservation(vm.contribution, false).then(function () {
+          reset();
+          logger.success('Your observation has been submitted!');
+        });
+      }).catch(function (resp) {
+        logger.error('The file you selected could not be uploaded.');
         vm.file = null;
         vm.uploading = false;
       });

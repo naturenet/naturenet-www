@@ -18,6 +18,8 @@
       <img class="detail__image" src="{{observation.data.image | img_large }}" ng-if="observation.data.image"></img>
 
       <nn-social-totals class="totals detail__totals" data="observation" context="observations" show-dislikes="false"></nn-social-totals>
+      <a ng-if="!!observation.data.image" ng-href="{{observation.data.image}}" target="_new">Download Image</a>
+      <a ng-if="!!observation.data.doc" ng-href="{{observation.data.doc}}" target="_new">Download Document</a>
 
       <section class="detail__comments">
 

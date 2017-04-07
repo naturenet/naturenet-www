@@ -727,7 +727,7 @@
       }
     }
 
-    function addObservation(newObservation, useLocation = true) {
+    function addObservation(newObservation, useLocation) {
       var d = $q.defer();
       getActiveUser().then(function (user) {
         var id = $firebaseRef.observations.push().key;

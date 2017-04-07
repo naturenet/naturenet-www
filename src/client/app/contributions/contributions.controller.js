@@ -110,7 +110,7 @@
       cloudinary.upload(vm.file, {}).then(function (resp) {
         vm.contribution.data.image = resp.data.secure_url;
         vm.contribution.activity = vm.contribution.activity || '-ACES_a38';
-        dataservice.addObservation(vm.contribution).then(function () {
+        dataservice.addObservation(vm.contribution, true).then(function () {
           reset();
           logger.success('Your observation has been submitted!');
         });

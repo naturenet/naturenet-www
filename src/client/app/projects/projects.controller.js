@@ -49,6 +49,8 @@
     vm.updateProjectId = updateProjectId;
     vm.formatDate = utility.formatDate;
 
+    vm.show=true;
+
     activate();
 
     /* Activate function
@@ -124,6 +126,7 @@
       return $q.all(promises)
         .then(function () {
           vm.projectId = id;
+          vm.show=true;
           logger.info('Updated Projects View based on new projectId');
         });
     }

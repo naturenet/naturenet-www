@@ -44,32 +44,15 @@
 </div>
 
 
-
-
-
 <div class="main main--with-sidebar main--projects">
 
-  <section class="main__section masthead">
-    <header class="masthead__header">
-      <div class="masthead__avatar"
-        style="background-image: url('{{$root.projects[vm.projectId].icon_url}}')">
-      </div>
-      <div class="masthead__title">{{$root.projects[vm.projectId].name}}</div>
-    </header>
-    <div class="masthead__text">{{$root.projects[vm.projectId].description}}</div>
-  </section>
-
-
-
-  <section class="main__section recent-contributions">
-    <div class="main__subtitle">Recent Contributions</div>
-    <nn-observations-list observations="vm.projectObservations" limit="{{vm.displayLimit}}" expandable="true"></nn-observations-list>
-  </section>
-
-  <!-- <section class="main__section main__section--featured">
-    <div class="main__subtitle">Most Discussed</div>
-    <div class="main__featured">
-    </div>
-  </section> -->
+  <nn-project-modal
+    url="$root.projects[vm.projectId].icon_url"
+    title="$root.projects[vm.projectId].name"
+    description="$root.projects[vm.projectId].description"
+    observations="vm.projectObservations"
+    limit="vm.displayLimit"
+    show="vm.show">
+  </nn-project-modal>
 
 </div>

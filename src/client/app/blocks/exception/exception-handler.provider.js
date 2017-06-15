@@ -49,10 +49,13 @@
    */
   function extendExceptionHandler($delegate, exceptionHandler, logger) {
     return function (exception, cause) {
+      console.log(exception);
       var appErrorPrefix = exceptionHandler.config.appErrorPrefix || '';
       var errorData = { exception: exception, cause: cause };
-      exception.message = appErrorPrefix + exception.message;
-      $delegate(exception, cause);
+      var newException = {}
+      newException.message = appErrorPrefix + exception;
+
+      //$delegate(newException, cause);
       /**
        * Could add the error to a service's collection,
        * add errors to $rootScope, log errors to remote web server,
@@ -62,7 +65,7 @@
        * @example
        *     throw { message: 'error message we added' };
        */
-      logger.error(exception.message, errorData);
+      logger.error(newException.message, errorData);
     };
   }
 })();

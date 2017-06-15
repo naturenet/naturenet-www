@@ -22,7 +22,7 @@
         }
 
         e.message = newMessage;
-        console.log(e.message);
+        console.log(message);
         logger.error(message);
         return $q.reject(e);
       };

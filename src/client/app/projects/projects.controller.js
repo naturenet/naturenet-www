@@ -35,6 +35,10 @@
     // Constants
     vm.displayLimit = 6;
 
+    //Form
+    vm.name = "";
+    vm.description = "";
+
     // Data
     vm.projectId = void 0;
     vm.localSite = void 0;
@@ -48,8 +52,12 @@
     // Function assignments
     vm.updateProjectId = updateProjectId;
     vm.formatDate = utility.formatDate;
+    vm.createProject = createProject;
 
-    vm.show=true;
+    vm.show=false;
+
+    //Settings
+    var url = 'http://res.cloudinary.com/university-of-colorado/image/upload/v1464880363/static/Backyard_bd5me8.png';
 
     activate();
 
@@ -117,6 +125,35 @@
           return vm.projectObservations;
         });
     }
+
+    function createProject(title, description) {
+      return dataservice.createProject(title, description)
+        .then(function (data) {
+          vm.projectObservations = data;
+          return vm.projectObservations;
+        });
+    }
+
+    function createProject() {
+
+      var name = vm.name //bound value
+      var description = vm.description //bound value
+
+      return dataservice.createProject(name, description, url)
+        .then(function (data) {
+          getProjectsArray()
+        .then(function () {
+          resetForm();
+          logger.success('Idea successfully submitted!');
+        });
+      });
+    }
+
+    function resetForm() {
+      vm.name = '';
+      vm.description = '';
+    }
+
 
     /* Project function
        ================================================== */

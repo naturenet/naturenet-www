@@ -161,7 +161,7 @@
 
       if (!context || !id) {
         console.log('Invalid data');
-        return $q.reject();
+        return $q.reject(new Error("Invalid Data"));
       }
 
       $firebaseRef.default.child(context).child(id).child('status').set('deleted', function (error) {
@@ -772,47 +772,44 @@
     /* Project functions
        ================================================== */
 
-     function createProject(name, description, url) { //add sites - checkboxes
-       var auth = getAuth();
-       //return true;
-       if (auth === null || !auth.uid) {
-         console.log('You must be signed in to do that!');
-         return $q.reject(new Error('You must be signed in to do that!'));
-       }
+    function createProject(name, description, url) { //add sites - checkboxes
+      var auth = getAuth();
+      //return true;
+      if (auth === null || !auth.uid) {
+        console.log('You must be signed in to do that!');
+        return $q.reject(new Error('You must be signed in to do that!'));
+      }
+      console.log($firebaseRef.projects);
 
-       console.log($firebaseRef.projects);
+      var id = $firebaseRef.projects.push().key;
+      var project = timestamp({
+        id: id,
+        submitter: auth.uid,
+        name: name,
+        icon_url: url ? url : '',
+        ///sites: [ "aws": true, "rcns": true ],
+        description: description,
+        source: 'web',
+      });
+      console.log(project);
 
-       var id = $firebaseRef.projects.push().key;
-       var project = timestamp({
-         id: id,
-         submitter: auth.uid,
-         name: name,
-         icon_url: url ? url : "",
-         ///sites: [ "aws": true, "rcns": true ],
-         description: description,
-         source: 'web',
-       });
-       console.log(project);
+      var newData = {};
+      newData['activities/' + id] = project;
+      newData['users/' + auth.uid + '/latest_contribution'] = firebase.database.ServerValue.TIMESTAMP;
 
-       var newData = {};
-       newData['activities/' + id] = project;
-       newData['users/' + auth.uid + '/latest_contribution'] = firebase.database.ServerValue.TIMESTAMP;
+      return $firebaseRef.default.update(newData).then(success).catch(fail);
 
-       return $firebaseRef.default.update(newData).then(success).catch(fail);
+      //return $firebaseObject($firebaseRef.projects).$loaded().then(success).catch(fail);
 
-       //return $firebaseObject($firebaseRef.projects).$loaded().then(success).catch(fail);
+      function success(response) {
+        console.log('success');
+        return response;
+      }
 
-       function success(response) {
-         console.log("success");
-         return response;
-       }
-
-       function fail(e) {
-         console.log("failure");
-
-         return exception.catcher('Unable to create project')(e);
-       }
-     }
+      function fail(e) {
+        return exception.catcher('Unable to create project')(e);
+      }
+    }
 
     function getProjects() {
 
@@ -978,7 +975,7 @@
       }
 
       function fail(e) {
-        d.reject(exception.catcher('Unable to update idea!')(e));
+        d.reject(new Error('Unable to update idea!'));
       }
     }
 

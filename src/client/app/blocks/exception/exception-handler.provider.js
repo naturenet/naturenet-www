@@ -8,6 +8,9 @@
     .provider('exceptionHandler', exceptionHandlerProvider)
     .config(config);
 
+    config.$inject = ['$provide'];
+
+
   /**
    * Must configure the exception handling
    */
@@ -25,8 +28,6 @@
       return { config: this.config };
     };
   }
-
-  config.$inject = ['$provide'];
 
   /**
    * Configure by setting an optional string value for appErrorPrefix.
@@ -51,10 +52,15 @@
     return function (exception, cause) {
       console.log(exception);
       var appErrorPrefix = exceptionHandler.config.appErrorPrefix || '';
-      var errorData = { exception: exception, cause: cause };
-      var newException = {}
-      newException.message = appErrorPrefix + exception;
 
+      var errorData = {
+        message: exception.message ? exception.message : exception,
+        cause: cause ? cause : ''
+      };
+
+      errorData.message = appErrorPrefix + errorData.message;
+
+      return logger.error(errorData.message, errorData);
       //$delegate(newException, cause);
       /**
        * Could add the error to a service's collection,
@@ -65,7 +71,6 @@
        * @example
        *     throw { message: 'error message we added' };
        */
-      logger.error(newException.message, errorData);
     };
   }
 })();

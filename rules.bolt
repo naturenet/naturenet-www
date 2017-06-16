@@ -1,0 +1,268 @@
+// SHARED FUNCTIONS
+
+// Checks that the user is attributing data to themselves. Users should only ever be writing their own UID.
+function isSelf(user_id) {
+    auth != null && auth.uid == user_id;
+}
+
+// Checks if the current operation is being performed by any authenticated user.
+function isUser() {
+    auth != null && auth.uid != null;
+}
+
+// Checks if the current operation is being performed by a user with admin level permissions.
+function isAdmin() {
+    root['users-ranks'][auth.uid] == "admin"
+}
+
+type Timestamped {
+    created_at: Number
+    updated_at: Number
+}
+
+// ACTIVITIES
+
+// Activities cannot be written to without admin privileges but are publicly readable.
+//
+// NOTE: Activities do not have any validation rules since admin writes will bypass
+//       validation.
+path /activities {
+    read() { true }
+    write() { true }
+    index() {[ ".key", "status" ]}
+}
+
+// Exception: users can overwrite latest_contribution on existing activities to keep sorting by contribution in sync
+path /activities/{id}/latest_contribution is Number {
+    write() { isUser() && prior(this) != null }
+}
+
+// COMMENTS
+
+type Comment extends Timestamped {
+    id: String
+    parent: String
+    context: String
+    commenter: String
+    comment: String
+    status: String | Null
+    source: String | Null // require when ready
+
+    validate() {
+        this.id == c_id && root[this.context] != null //&& root[this.context][this.parent] != null
+    }
+}
+
+path /comments {
+    read() { true }
+    index() {[ ".key", "parent", "commenter", "updated_at" ]}
+}
+
+// Allow writes if the commenter is the current user and the parent record already exists
+path /comments/{c_id} is Comment {
+    write() { ( isSelf(this.commenter) ) || isAdmin() }
+}
+
+// GROUPS
+
+type Group {
+  id: String
+  name: String
+  affiliation: String
+  owner: String | Null
+  members: Object | Null
+
+  validate() {
+    this.id == group_id
+  }
+}
+
+path /groups {
+    read() { true }
+}
+
+path /groups/{group_id} is Group {
+    write() { false }
+}
+
+path /groups/{group_id}/members/{user_id} is Boolean {
+  write() { isSelf(user_id) }
+}
+
+// IDEAS
+
+type Idea extends Timestamped {
+    id: String
+    content: String
+    group: String
+    type: String | Null
+    icon_url: String | Null
+    status: String
+    submitter: String
+    likes: Object | Null
+    comments: Object | Null
+    source: String | Null // require when ready
+
+    validate() {
+        this.id == idea_id
+    }
+}
+
+path /ideas {
+    read() { true }
+    index() {[ ".key", "status", "group", "submitter", "updated_at" ]}
+}
+
+path /ideas-deleted {
+    read() { false }
+}
+
+path /ideas/{idea_id} is Idea {
+    write() { ( isSelf(this.submitter) ) || isAdmin() }
+}
+
+// Allow writes to comments if the comment already exists and belongs to the current user
+path /ideas/{idea_id}/comments/{c_id} is Boolean {
+    write() { root.comments[c_id] != null && isSelf(root.comments[c_id].commenter) }
+}
+
+// Allow user to append their own like
+path /ideas/{idea_id}/likes/{user_id} is Boolean {
+    write() { isSelf(user_id) }
+}
+
+// OBSERVATIONS
+
+type Observation extends Timestamped {
+    id: String
+    activity: String
+    data: Object
+    g: String | Null  // require when ready
+    l: Object | Null  // require when ready
+    observer: String
+    status: String | Null
+    site: String
+    where: String | Null
+    likes: Object | Null
+    comments: Object | Null
+    source: String | Null // require when ready
+
+    validate() {
+        this.id == obs_id && root.activities[this.activity] != null && root.sites[this.site] != null
+    }
+}
+
+path /observations {
+    read() { true }
+    index() {[ ".key", "g", "activity", "site", "observer", "updated_at" ]}
+}
+
+path /observations-deleted {
+    read() { false }
+}
+
+path /observations/{obs_id} is Observation {
+    write() { ( isSelf(this.observer) ) || isAdmin() } //&& root.activities[this.activity].sites[root.users[this.observer].affiliation] == true }
+}
+
+// Allow writes to comments if the comment already exists and belongs to the current user
+path /observations/{obs_id}/comments/{c_id} is Boolean {
+    write() { root.comments[c_id] != null && isSelf(root.comments[c_id].commenter) }
+}
+
+// Allow user to append their own like
+path /observations/{obs_id}/likes/{user_id} is Boolean {
+    write() { isSelf(user_id) }
+}
+
+// GEO
+
+type Geodata {
+    g: String
+    l: Object
+}
+
+path /geo {
+    read() { true }
+    index() {[ ".key", "g" ]}
+}
+
+path /geo/{geo_id} is Geodata {
+    write() { root.observations[geo_id] != null && isSelf(root.observations[geo_id].observer) }
+}
+
+// SITES
+
+// Sites cannot be written to without admin privileges but are publicly readable.
+//
+// NOTE: Sites do not have any validation rules since admin writes will bypass
+//       validation.
+path /sites {
+    read() { true }
+    write() { false }
+    index() {[ ".key", "g" ]}
+}
+
+// USERS
+
+type PublicUserData extends Timestamped {
+    id: String
+    avatar: String | Null
+    display_name: String
+    affiliation: String
+	  bio: String | Null
+    latest_contribution: Number | Null
+    groups: Object | Null
+
+    validate() {
+        this.id == user_id && root.sites[this.affiliation] != null
+    }
+}
+
+type PrivateUserData extends Timestamped {
+    id: String
+    name: String
+    consent: Object | Null
+    demographics: Object | Null
+
+    validate() {
+        this.id == user_id
+    }
+}
+
+path /users {
+    read() { true }
+    index() {[ ".key", "affiliation", "created_at", "updated_at", "latest_contribution" ]}
+}
+
+path /users/{user_id} is PublicUserData {
+    write() { isSelf(user_id) }
+}
+
+path /users/{user_id}/groups/{group_id} is Boolean {
+    validate() { root.groups[group_id] != null }
+}
+
+path /users-private {
+    read() { false }
+    write() { false }
+}
+
+path /users-private/{user_id} is PrivateUserData {
+    read() { isSelf(user_id) }
+    write() { isSelf(user_id) }
+}
+
+path /users-ranks {
+    read() { true }
+    write() { false }
+}
+
+path /status {
+    read() { true }
+    write() { true }
+}
+
+path /tags {
+    read() { true }
+}

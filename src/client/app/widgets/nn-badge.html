@@ -2,8 +2,10 @@
 <div ng-hide="!avatarUrl" class="nn-badge__avatar"
   style="background-image: url('{{avatarUrl}}')">
 </div>
-<div ng-hide="avatarUrl" class="glyph-circle glyphicon glyphicon-user">
-</div>
+<span ng-hide="avatarUrl" style="font-size:1.65em;" class="fa-stack fa-2x">
+  <i style="color:grey;" class="fa fa-circle fa-stack-2x"></i>
+  <i style="color:white;" class="fa fa-user fa-stack-1x"></i>
+</span>
 <div class="nn-badge__text">
   <p class="nn-badge__title">{{title}}</p>
   <p ng-if="!!subtitle" class="nn-badge__subtitle">{{subtitle}}</p>

@@ -784,13 +784,16 @@
       var id = $firebaseRef.projects.push().key;
       var project = timestamp({
         id: id,
-        submitter: auth.uid,
         name: name,
-        icon_url: url ? url : '',
-        ///sites: [ "aws": true, "rcns": true ],
         description: description,
+        submitter: auth.uid,
+        icon_url: url ? url : '',
+        latest_contribution: 0,
+        //sites: [ "aws": true, "rcns": true ],
         source: 'web',
+        status: ''
       });
+      
       console.log(project);
 
       var newData = {};

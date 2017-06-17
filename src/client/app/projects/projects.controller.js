@@ -36,8 +36,8 @@
     vm.displayLimit = 6;
 
     //Form
-    vm.name = "";
-    vm.description = "";
+    vm.name = '';
+    vm.description = '';
 
     // Data
     vm.projectId = void 0;
@@ -54,7 +54,7 @@
     vm.formatDate = utility.formatDate;
     vm.createProject = createProject;
 
-    vm.show=false;
+    vm.show = false;
 
     //Settings
     var url = 'http://res.cloudinary.com/university-of-colorado/image/upload/v1464880363/static/Backyard_bd5me8.png';
@@ -136,15 +136,15 @@
 
     function createProject() {
 
-      var name = vm.name //bound value
-      var description = vm.description //bound value
+      var name = vm.name; //bound value
+      var description = vm.description; //bound value
 
       return dataservice.createProject(name, description, url)
         .then(function (data) {
           getProjectsArray()
         .then(function () {
           resetForm();
-          logger.success('Idea successfully submitted!');
+          logger.success('Project successfully submitted!');
         });
       });
     }
@@ -163,10 +163,9 @@
       return $q.all(promises)
         .then(function () {
           vm.projectId = id;
-          vm.show=true;
+          vm.show = true;
           logger.info('Updated Projects View based on new projectId');
         });
     }
   }
-
 })();

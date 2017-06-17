@@ -20,6 +20,14 @@
     *  display user related information.
     */
 
+    .glyph-circle {
+       border-radius:100%;
+       padding:12px;
+       background:grey;
+       color:white;
+       font-size: 1.5em;
+    }
+
     .nn-badge {
       > div {
         display: inline-block;
@@ -41,7 +49,7 @@
         max-width: calc(~'100% -'55px);
       }
     }
-    
+
     .nn-badge__text {
       > p {
         overflow: hidden;
@@ -86,13 +94,13 @@
         margin-left: 0px;
 
         text-align: center;
-        
+
         > p {
           color: @dark-blue; }
       }
 
       .nn-badge__title {
-        margin-bottom: 5px;
+        padding-bottom: 5px;
         font-size: @font-size-title; }
 
       .nn-badge__subtitle {
@@ -137,7 +145,7 @@
           max-width: calc(~'100% -'35px);
           margin-left: 6px; }
       }
-      
+
       .nn-badge__text {
         > .nn-badge__title {
           margin-bottom: 3px;
@@ -192,7 +200,7 @@
 
     .nn-badge--header {
       margin-right: 18px;
-      
+
       .nn-badge__title {
         font-size: @font-size-header;
         color: white; }

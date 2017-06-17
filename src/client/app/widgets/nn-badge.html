@@ -1,6 +1,8 @@
 <!-- <nn-badge class="nn-badge"> -->
-<div class="nn-badge__avatar"
-  style="background-image: url('{{avatarUrl || '/images/default-avatar.png' }}')">
+<div ng-hide="!avatarUrl" class="nn-badge__avatar"
+  style="background-image: url('{{avatarUrl}}')">
+</div>
+<div ng-hide="avatarUrl" class="glyph-circle glyphicon glyphicon-user">
 </div>
 <div class="nn-badge__text">
   <p class="nn-badge__title">{{title}}</p>

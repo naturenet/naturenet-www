@@ -56,8 +56,8 @@
 
     vm.show = false;
 
-    //Settings
-    var url = 'http://res.cloudinary.com/university-of-colorado/image/upload/v1464880363/static/Backyard_bd5me8.png';
+    //Settings -- This should be moved to the constants.js file
+    var url = 'https://res.cloudinary.com/university-of-colorado/image/upload/v1464880363/static/Backyard_bd5me8.png';
 
     activate();
 

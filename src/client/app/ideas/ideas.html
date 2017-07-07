@@ -7,12 +7,17 @@
 
       <div class="nn-dropdown__display">
         <span>Design Ideas</span>
-        <div class="nn-dropdown__action"></div>
       </div>
 
       <div class="nn-dropdown__options">
 
-        <div class="list-item" ng-repeat="i in vm.ideas | filter:{ status : '!deleted' } | orderBy: '-updated_at' | limitTo: vm.ideasDisplayLimit"
+        <div class="nn-dropdown__option">
+          <form>
+            <input class="form-control" type="text" placeholder="search" ng-model="vm.query">
+          </form>
+        </div>
+
+        <div class="list-item" ng-repeat="i in vm.ideas | filter:{ status : '!deleted', content: vm.query } | orderBy: '-updated_at' | limitTo: vm.ideasDisplayLimit"
           ng-click="vm.selectIdea(i)">
           <div class="list-item__detail list-item__noimage">
             <nn-comment class="comment list-item__comment"
@@ -34,7 +39,7 @@
 
     </div>
   </header>
-  
+
 </div>
 
 

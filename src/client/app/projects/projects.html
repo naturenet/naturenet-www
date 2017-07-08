@@ -1,34 +1,37 @@
 <!-- ProjectsController as vm -->
 
-<div class="sidebar sidebar--projects">
-  <header class="sidebar__header sidebar__header--projects">
-    <div class="nn-dropdown nn-dropdown--projects"
-      ng-class="{ 'nn-dropdown--show-list': !!vm.isProjectsListVisible }">
+<div class="sidebar sidebar--ideas">
 
-      <div class="nn-dropdown__display"
-        ng-click="vm.isProjectsListVisible = !vm.isProjectsListVisible">
+  <header class="sidebar__header">
+    <div class="nn-dropdown nn-dropdown--ideas nn-dropdown--show-list">
+
+      <div class="nn-dropdown__display">
         <span>Projects</span>
       </div>
 
       <div class="nn-dropdown__options">
-        <div class="sidebar__sub-header" ng-if="!!vm.localSite">Projects at {{vm.localSite}}
-        <div class="nn-dropdown__action"></div>
+
+        <div class="nn-dropdown__option">
+          <form>
+            <input class="form-control" type="text" placeholder="search" ng-model="vm.query">
+          </form>
         </div>
-        <div class="nn-dropdown__option"
+
+        <div ng-if="!!vm.localSite">Projects at {{vm.localSite}}</div>
+        <div style="margin-left: 15px;" class="nn-dropdown__option"
           ng-if="!!vm.localProjects"
-          ng-repeat="p in vm.localProjects | orderBy: '-latest_contribution'"
+          ng-repeat="p in vm.localProjects | filter: {name:vm.query} | orderBy: '-latest_contribution'"
           ng-click="vm.updateProjectId(p.id)">
           <nn-badge class="nn-badge"
-            title="{{p.name}}"
+            title="{{(p.name | limitTo: 18) + (p.name > 18 ? '...' : '')}}"
             subtitle=""
             avatar-url="{{p.icon_url}}">
           </nn-badge>
         </div>
 
-        <div class="sidebar__sub-header">All Projects
-        </div>
-        <div class="nn-dropdown__option"
-          ng-repeat="p in vm.projects | orderBy: '-latest_contribution'"
+        <div>All Projects</div>
+        <div style="margin-left: 15px;" class="nn-dropdown__option"
+          ng-repeat="p in vm.projects | filter: {name:vm.query} | orderBy: '-latest_contribution'"
           ng-click="vm.updateProjectId(p.id)">
           <nn-badge class="nn-badge"
             title="{{p.name}}"

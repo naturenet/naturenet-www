@@ -36,6 +36,7 @@
 
     // Data
     vm.uid = void 0;
+    vm.query = '';
     vm.content = '';
     vm.ideaTypes = ['New Features', 'Project Ideas', 'Community Ideas', 'Improvement Ideas'];
     vm.allTags = [];

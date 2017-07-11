@@ -39,6 +39,9 @@
     vm.name = '';
     vm.description = '';
 
+    //Search
+    vm.query = '';
+
     // Data
     vm.projectId = void 0;
     vm.localSite = void 0;
@@ -100,7 +103,12 @@
 
     function getLocalProjects() {
       var auth = dataservice.getAuth();
-      if (!!auth && !!$rootScope.users[auth.uid]) {
+      console.log(auth);
+      if (!auth) {
+        console.log("NULL");
+        return null;
+      }
+      if (!auth && !$rootScope.users[auth.uid]) {
         var affiliation = $rootScope.users[auth.uid].affiliation;
         dataservice.getSiteById(affiliation).then(function (data) {
           vm.localSite = data.name;

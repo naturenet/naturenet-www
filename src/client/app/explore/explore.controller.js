@@ -48,6 +48,9 @@
     vm.comments = void 0;
     vm.maxPoints = 100;
 
+    //Search
+    vm.query = '';
+
     // States
     $scope.$parent.hasMap = false;
     vm.hasSidebar = false;

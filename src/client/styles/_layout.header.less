@@ -1,12 +1,12 @@
 /* Header Layout
 
    Header which contains a logo, a navigation menu, and user-related actions.
- 
+
    This will align three children elements inside a header horizontally across
     the page.
 
    Example HTML:
-  
+
    <header class="page-head clearfix">
      <div class="head-logo"></div>
      <nav class="head-menu">
@@ -30,7 +30,7 @@
 
     //   height: 100%;
     //   line-height: @page-header-height; }
-        
+
     // .head-user {
     //   float: right; }
 
@@ -101,7 +101,7 @@
         background-image: url('/images/ideas.png'); }
       &.item-contributions {
         background-image: url('/images/add-photo.png'); }
-      
+
     }
 
   /**
@@ -115,6 +115,7 @@
       bottom: 0; }
 
       .head-user__item {
+        width: 220px;
         display: inline-block;
         margin: 30px 0;
         cursor: pointer; }
@@ -134,7 +135,7 @@
       border-radius: 1px;
     }
 
-    .head-dropdown:after, 
+    .head-dropdown:after,
     .head-dropdown:before {
       bottom: 100%;
       border: solid transparent;

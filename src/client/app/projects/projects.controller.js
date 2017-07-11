@@ -103,9 +103,7 @@
 
     function getLocalProjects() {
       var auth = dataservice.getAuth();
-      console.log(auth);
       if (!auth) {
-        console.log("NULL");
         return null;
       }
       if (!auth && !$rootScope.users[auth.uid]) {

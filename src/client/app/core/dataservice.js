@@ -124,7 +124,7 @@
     function getArray(s) {
       var ref = $firebaseRef.default.child(s)
         .orderByChild('updated_at')
-        .limitToLast(50);
+        .limitToLast(600);
       var data = notDeletedArray(ref);
 
       return data.$loaded()
@@ -793,7 +793,7 @@
         source: 'web',
         status: ''
       });
-      
+
       console.log(project);
 
       var newData = {};

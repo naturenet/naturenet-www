@@ -4,29 +4,31 @@
       <button type="button" class="close" ng-click="hide()" aria-hidden="true">&times;</button>
 
       <div class="modal-title">
-        <nn-badge
+        <nn-badge style="inline"
           class="nn-badge detail__user"
           title="{{$root.users[idea.submitter].display_name}}" subtitle="{{formatDate(idea.updated_at)}}"
           avatar-url="{{$root.users[idea.submitter].avatar}}">
         </nn-badge>
-        <div ng-if="!isEditMode" class="detail__header" ng-if="idea.type">{{idea.type}}</div>
-        <nn-status style="float:right" class="detail__status" status="idea.status"></nn-status>
+        <nn-status class="detail__status" status="idea.status"></nn-status>
+
+        <div class="detail__header" ng-if="idea.type">{{idea.type}}</div>
       </div>
 
     </div>
 
     <div class="modal-body">
+
+      <textarea ng-if="isEditMode" class="detail__description" ng-model="cache.content"></textarea>
+
       <div ng-if="!isEditMode" class="detail__description" ng-if="idea.content">{{idea.content}}</div>
 
       <img class="detail__image" src="{{idea.icon_url | img_large }}" ng-if="idea.icon_url"></img>
 
-      <textarea ng-if="isEditMode" class="detail__description" ng-model="cache.content"></textarea>
-
       <nn-social-totals class="totals detail__totals" data="idea" context="ideas" show-dislikes="true"></nn-social-totals>
 
-      <div ng-if="!isEditMode" style="margin-left:2em; display:inline;">
+      <div ng-if="!isEditMode" style="display:inline; float:right;">
         <input ng-if="editable"
-          class="button"
+          class="button button--edit"
           ng-click="edit()"
           value="edit"
           type="submit" />
@@ -36,7 +38,7 @@
           value="delete"
           type="submit" />
       </div>
-      <div ng-if="isEditMode" style="display:inline;">
+      <div ng-if="isEditMode" style="display:inline; float:right;">
         <input class="button button--cancel"
           ng-click="cancel()"
           value="cancel"

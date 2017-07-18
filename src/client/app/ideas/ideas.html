@@ -104,12 +104,12 @@
     </div>
 
     <div ng-if="vm.selectedIdea && vm.showDetail">
-        <nn-idea-modal
-          editable="vm.selectedIdea.submitter === $root.currentUser || $root.userRank === 'admin'"
-          idea="vm.selectedIdea"
-          comments="vm.comments"
-          show="vm.showDetail">
-        </nn-idea-modal>
+      <nn-idea-modal
+        editable="vm.selectedIdea.submitter === $root.currentUser || $root.userRank === 'admin'"
+        idea="vm.selectedIdea"
+        comments="vm.comments"
+        show="vm.showDetail">
+      </nn-idea-modal>
     </div>
   </section>
 

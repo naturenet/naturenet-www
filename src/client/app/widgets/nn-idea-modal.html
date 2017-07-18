@@ -1,45 +1,34 @@
-<div class="overlay-partial">
+<div class="modal-dialog -center" ng-class="{show:show, hide:!show  }" data-backdrop="true">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" ng-click="hide()" aria-hidden="true">&times;</button>
 
-  <div class="nn-modal -center" ng-click="$event.stopPropagation()">
+      <div class="modal-title">
+        <nn-badge style="inline"
+          class="nn-badge detail__user"
+          title="{{$root.users[idea.submitter].display_name}}" subtitle="{{formatDate(idea.updated_at)}}"
+          avatar-url="{{$root.users[idea.submitter].avatar}}">
+        </nn-badge>
+        <nn-status class="detail__status" status="idea.status"></nn-status>
 
-    <header class="nn-modal__header">
-      <nn-badge
-        class="nn-badge detail__user"
-        title="{{$root.users[idea.submitter].display_name}}" subtitle="{{formatDate(idea.updated_at)}}"
-        avatar-url="{{avatarUrl}}">
-      </nn-badge>
-      <a class="nn-modal__close" href="#" ng-click="hide()"></a>
-    </header>
-
-    <div class="detail">
-
-      <nn-status class="detail__status" status="idea.status"></nn-status>
-
-      <div ng-if="!isEditMode" class="detail__header" ng-if="idea.group" ng-switch="idea.group">
-        <div ng-switch-when="challenge">Design Challenge</div>
-        <div ng-switch-default>Design Idea</div>
+        <div class="detail__header" ng-if="idea.type">{{idea.type}}</div>
       </div>
-      <select ng-if="isEditMode"
-        ng-model="cache.group"
-        ng-options="g.id as g.name for g in groups" >
-      </select>
 
-      <div ng-if="!isEditMode" class="detail__header" ng-if="idea.type">{{idea.type}}</div>
-      <select ng-if="isEditMode"
-        ng-model="cache.type"
-        ng-options="t for t in types" >
-      </select>
+    </div>
+
+    <div class="modal-body">
+
+      <textarea ng-if="isEditMode" class="detail__description" ng-model="cache.content"></textarea>
 
       <div ng-if="!isEditMode" class="detail__description" ng-if="idea.content">{{idea.content}}</div>
-      <textarea ng-if="isEditMode" class="detail__description" ng-model="cache.content"></textarea>
 
       <img class="detail__image" src="{{idea.icon_url | img_large }}" ng-if="idea.icon_url"></img>
 
       <nn-social-totals class="totals detail__totals" data="idea" context="ideas" show-dislikes="true"></nn-social-totals>
 
-      <div ng-if="!isEditMode" style="margin-left:2em; display:inline;">
+      <div ng-if="!isEditMode" style="display:inline; float:right;">
         <input ng-if="editable"
-          class="button"
+          class="button button--edit"
           ng-click="edit()"
           value="edit"
           type="submit" />
@@ -49,7 +38,7 @@
           value="delete"
           type="submit" />
       </div>
-      <div ng-if="isEditMode" style="display:inline;">
+      <div ng-if="isEditMode" style="display:inline; float:right;">
         <input class="button button--cancel"
           ng-click="cancel()"
           value="cancel"
@@ -59,8 +48,10 @@
           value="save"
           type="submit" />
       </div>
+    </div>
 
-      <section class="detail__comments">
+    <div class="modal-footer">
+      <section align = "left" class="detail__comments">
 
         <nn-comment class="comment detail__comment" ng-repeat="c in comments | orderBy: 'updated_at'"
           name="{{$root.users[c.commenter].display_name}}"
@@ -77,5 +68,5 @@
       </section>
     </div>
 
-  </div>
+  </div><!-- /.modal-content -->
 </div>

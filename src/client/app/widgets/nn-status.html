@@ -1,5 +1,6 @@
 <!-- <nn-status class="status"> -->
 <div ng-switch on="status">
+  <!-- Doing (Discussing) -->
   <div class="status status__discussing" ng-switch-when="doing">
     <div class="status__text">
       <p class="status__title">Discussing</p>
@@ -8,6 +9,25 @@
       style="background-image: url('images/discussing.png')">
     </div>
   </div>
+  <!-- Developing -->
+  <div class="status status__discussing" ng-switch-when="developing">
+    <div class="status__text">
+      <p class="status__title">Developing</p>
+    </div>
+    <div class="status__icon"
+      style="background-image: url('images/developing.png')">
+    </div>
+  </div>
+  <!-- Testing -->
+  <div class="status status__discussing" ng-switch-when="testing">
+    <div class="status__text">
+      <p class="status__title">Testing</p>
+    </div>
+    <div class="status__icon"
+      style="background-image: url('images/testing.png')">
+    </div>
+  </div>
+  <!-- Completed -->
   <div class="status status__completed" ng-switch-when="done">
     <div class="status__text">
       <p class="status__title">Completed</p>
@@ -16,7 +36,12 @@
       style="background-image: url('images/completed.png')">
     </div>
   </div>
-  <div ng-switch-default>
-    <div />
+  <div class="status status_discussing" ng-switch-default>
+    <div class="status__text">
+      <p class="status__title">Discussing</p>
+    </div>
+    <div class="status__icon"
+      style="background-image: url('images/discussing.png')">
+    </div>
   </div>
 </div>

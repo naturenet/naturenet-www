@@ -1,41 +1,51 @@
 <div class="overlay-partial">
 
-  <div class="nn-modal -center" ng-click="$event.stopPropagation()">
+  <div class="modal-dialog -center" ng-click="$event.stopPropagation()" data-backdrop="true">
 
-    <header class="nn-modal__header">
-      <nn-badge
-        class="nn-badge detail__user"
-        title="{{$root.users[observation.observer].display_name}}" subtitle="{{formatDate(observation.updated_at)}}"
-        avatar-url="{{avatarUrl}}">
-      </nn-badge>
-      <a class="nn-modal__close" href="#" ng-click="hide()"></a>
-    </header>
+    <div class = "modal-content">
 
-    <div class="detail">
+      <div class="modal-header">
+        <button type="button" class="close" ng-click="hide()" aria-hidden="true">&times;</button>
 
-      <div class="detail__description" ng-if="observation.data.text">{{observation.data.text}}</div>
+        <nn-badge
+          class="nn-badge detail__user"
+          title="{{$root.users[observation.observer].display_name}}" subtitle="{{formatDate(observation.updated_at)}}"
+          avatar-url="{{avatarUrl}}">
+        </nn-badge>
+      </div>
 
-      <img class="detail__image" src="{{observation.data.image | img_large }}" ng-if="observation.data.image"></img>
+      <div class="modal-body">
+        <div class="detail">
 
-      <nn-social-totals class="totals detail__totals" data="observation" context="observations" show-dislikes="false"></nn-social-totals>
-      <a ng-if="!!observation.data.image" ng-href="{{observation.data.image}}" target="_new">Download Image</a>
-      <a ng-if="!!observation.data.doc" ng-href="{{observation.data.doc}}" target="_new">Download Document</a>
+          <div class="detail__description" ng-if="observation.data.text">{{observation.data.text}}</div>
 
-      <section class="detail__comments">
+          <img class="detail__image img-responsive" src="{{observation.data.image | img_large }}" ng-if="observation.data.image"></img>
 
-        <nn-comment class="comment detail__comment" ng-repeat="c in comments | orderBy: 'updated_at'"
-          name="{{$root.users[c.commenter].display_name}}"
-          date="{{c.updated_at}}"
-          avatar-url="{{$root.users[c.commenter].avatar}}"
-          comment="{{c.comment}}">
-        </nn-comment>
+          <nn-social-totals class="totals detail__totals" data="observation" context="observations" show-dislikes="false"></nn-social-totals>
+          <a ng-if="!!observation.data.image" ng-href="{{observation.data.image}}" target="_new">Download Image</a>
+          <a ng-if="!!observation.data.doc" ng-href="{{observation.data.doc}}" target="_new">Download Document</a>
 
-        <nn-comment-form class="nn-badge comment list-item__comment"
-          data="observation"
-          context="observations">
-        </nn-comment-form>
+        </div>
+      </div>
 
-      </section>
+      <div class="modal-footer">
+        <section align = "left" class="detail__comments">
+
+          <nn-comment class="comment detail__comment" ng-repeat="c in comments | orderBy: 'updated_at'"
+            name="{{$root.users[c.commenter].display_name}}"
+            date="{{c.updated_at}}"
+            avatar-url="{{$root.users[c.commenter].avatar}}"
+            comment="{{c.comment}}">
+          </nn-comment>
+
+          <nn-comment-form class="nn-badge comment list-item__comment"
+            data="observation"
+            context="observations">
+          </nn-comment-form>
+
+        </section>
+      </div>
+
     </div>
 
   </div>

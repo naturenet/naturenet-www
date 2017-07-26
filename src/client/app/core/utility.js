@@ -113,7 +113,7 @@
 
     function showSplash() {
       $rootScope.$applyAsync(function () {
-        $rootScope.showSplash = true;
+        $rootScope.showSplash = false;
         splashCounter += 1;
         console.log('Splash counter: ' + splashCounter);
       });

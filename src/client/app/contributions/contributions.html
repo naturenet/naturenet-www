@@ -33,34 +33,54 @@
 
 </div>
 
+
+<style>
+
+.drop-box {
+  padding-top:45px;
+  padding-bottom:45px;
+  background-color: #E9EAEE;
+}
+
+.drop-box-item {
+  width: 100%;
+  display: block;
+  padding-top:10px;
+}
+
+</style>
+
+
 <div class="main main--with-sidebar main--ideas">
 
   <section class="main__section masthead">
-    <header class="masthead__header">
-      <div class="masthead__avatar" style="background-size: cover; background-image: url('/images/add-observation.png')"></div>
-      <div class="masthead__title">Contributions</div>
-    </header>
     <div class="masthead__text">
       <form class="masthead__form clearfix">
-        <p class="masthead__directions">Upload</p>
-        <p class="masthead__description">
-          Use one of the methods below to upload a photo or PDF document to use in your contributions.
-        </p>
         <div class="container-fluid">
+
           <div ngf-drop ngf-select class="drop-box col-xs-12" style="height:200px" ng-drag-over-class="'dragover'" ngf-multiple="false" ngf-pattern="'image/*'" accept="image/*" ng-model="vm.file">
-            <span ng-if="!vm.uploading && !vm.file" >Drop a file here<br/>or<br/>
-            <button type="button" class="btn btn-primary" ng-click="vm.selectFile()">Select a file</button></span>
+            <span style="width: 100%; text-align:center;" ng-if="!vm.uploading && !vm.file" >
+              <i style="font-size:100px; color:#99A6B1;" class="fa fa-large fa-upload"></i>
+              <h3 class="drop-box-item">
+                Drag and Drop, Or Click
+              </h3>
+              <span style="font-size:.8em; color: #99A6B1;"  class="drop-box-item">
+                TO UPLOAD (PNG, JPG, PDF)
+              </span>
+
             <img ng-if="!!vm.file[0] && vm.file[0].type.includes('image') && !vm.uploading" ngf-src="!vm.file[0].$error && vm.file[0]" style="display:block;margin:0 auto;max-width:100%;" />
             {{vm.file[0].name}}
             <uib-progressbar style="padding: 0 2em;" ng-if="vm.uploading" value="vm.progress" type="info" max="100" animate="true" title="Upload progress">Uploading...</uib-progressbar>
           </div>
-          <div class="col-xs-12 col-lg-6">
-            <span class="masthead__directions">Description</span>
-            <textarea ng-model="vm.contribution.data.text" class="form-control" rows="3" style="resize:vertical;"></textarea>
+
+          <div style="padding-bottom:15px;" class="col-xs-12 col-lg-6">
+            <textarea  ng-model="vm.contribution.data.text" placeholder="Write a caption" class="form-control" rows="4" style="resize:vertical;"></textarea>
           </div>
-          <div class="col-xs-12 col-lg-6">
-            <span class="masthead__directions">Where is it?</span>
-            <input class="form-control" placeholder="Location" type="text" g-places-autocomplete ng-model="vm.place" />
+          <div style="padding-bottom:15px;" class="col-xs-12 col-lg-6">
+            <div style="padding-bottom:15px;" class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
+                <input class="form-control" placeholder="Add a Location" type="text" g-places-autocomplete ng-model="vm.place" />
+            </div>
             <span class="masthead__directions">Project</span>
             <!--<div uib-dropdown class="btn-group">
               <button type="button" class="btn btn-secondary" uib-dropdown-toggle>

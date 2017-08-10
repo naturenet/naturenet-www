@@ -1,4 +1,50 @@
 <!-- <nn-social-totals class="totals"> -->
-<div class="totals__total totals__total--likes" ng-class="{ totals__liked: liked }" ng-click="doLike()">{{likes}}</div>
+
+<style>
+.green {
+  color: #4DB26A;
+}
+.grey {
+  color: grey;
+}
+.red {
+  color: #cd5c5c;
+}
+.dark {
+  color: #354A5F;
+}
+</style>
+
+<div style="display: inline;" ng-click="doLike()">
+  <span style="font-size: .8em;" class="fa-stack fa-2x">
+    <i ng-class="{ green: liked, grey: !liked }" class="fa fa-circle fa-stack-2x"></i>
+    <i style="color:white;" class="fa fa-thumbs-up fa-stack-1x"></i>
+  </span>
+  <span class="green" style="font-weight: bold;">
+    {{likes}}
+  </span>
+</div>
+
+<div style="display: inline;" ng-if="showDislikes" ng-click="doDislike()">
+  <span style="font-size: .8em;" class="fa-stack fa-2x">
+    <i ng-class="{ red: disliked, grey: !disliked }" class="fa fa-circle fa-stack-2x"></i>
+    <i style="color:white;" class="fa fa-thumbs-down fa-stack-1x"></i>
+  </span>
+  <span class="red" style="font-weight: bold;">
+    {{dislikes}}
+  </span>
+</div>
+
+<div style="display: inline;">
+  <span style="font-size: 1.1em;" class="dark fa fa-comments fa-2x">
+  </span>
+  <span class="dark" style="font-weight: bold;">
+    {{comments}}
+  </span>
+</div>
+
+
+
+<!--div class="totals__total totals__total--likes" ng-class="{ totals__liked: liked }" ng-click="doLike()">{{likes}}</div>
 <div class="totals__total totals__total--dislikes" ng-class="{ totals__disliked: disliked }" ng-if="showDislikes" ng-click="doDislike()">{{dislikes}}</div>
-<div class="totals__total totals__total--comments">{{comments}}</div>
+<div class="totals__total totals__total--comments">{{comments}}</div>-->

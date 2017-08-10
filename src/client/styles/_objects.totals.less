@@ -22,11 +22,25 @@
         padding-right: 0; }
     }
 
+    .thumb-liked {
+      color: #4DB26A;
+    }
+    .thumb-neutral {
+      color: grey;
+    }
+    .thumb-disliked {
+      color: #cd5c5c;
+    }
+    .comment-dark {
+      color: #354A5F;
+    }
+
     .totals__total {
       &.totals__total--likes {
         color: @light-green;
         background-image: url('/images/like-grey.png'); }
-        
+
+
       &.totals__liked {
         background-image: url('/images/like.png'); }
 
@@ -41,7 +55,7 @@
         color: @dark-blue;
         background-image: url('/images/comment.png'); }
     }
-    
+
     .list-item__detail {
       > .totals {
         position: absolute;

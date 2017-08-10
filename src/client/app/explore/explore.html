@@ -66,7 +66,8 @@
         subtitle="{{vm.formatDate(vm.currentObservation.updated_at)}}"
         avatar-url="{{$root.users[vm.currentObservation.observer].avatar}}">
       </nn-badge>
-      <a class="sidebar__close" href="#" ng-click="vm.hideSidebar()"></a>
+      <a style="float: right; font-size:1.65em;" class="fa fa-close" href="#" ng-click="vm.hideSidebar()">
+      </a>
     </header>
 
     <nn-observation

@@ -67,7 +67,7 @@
         #subproject #water #pollution
       </p>
 
-      <form class="container-fluid clearfix" ng-submit="vm.createProject()">
+      <form class="clearfix" ng-submit="vm.createProject()">
         <div class="form-group">
           <label for="name">Project Title:</label>
           <input ng-model="vm.name" placeholder="Tracking duck populations" class="form-control" id="name">
@@ -76,7 +76,7 @@
           <label for="description">Project Description:</label>
           <textarea type="text" ng-model="vm.description" rows="5" placeholder="Because ducks are able to fly it can be extremely challenging to keep track of their populations and their migratory patterns. By taking photos of ducks around #Charlotte and #ReedyCreek we get a better understanding of their movements #ducks #birds #population #migration" class="form-control" id="description" />
         </div>
-        <div class="row">
+        <div>
           <button class="btn btn-success" value="submit">Submit</button>
         </div>
       </form>

@@ -1,46 +1,71 @@
-<form novalidate class="auth__form auth__form--register"
-  ng-submit="vm.apply()">
+<form novalidate ng-submit="vm.apply()">
 
   <div class="auth__text">
     You are invited to participate in NatureNet, a research project being conducted by the researchers listed at <a href="http://research.nature-net.org/people.html" target="_blank">http://research.nature-net.org/people.html</a>. Researchers are interested in seeing what kind of information is posted to NatureNet and how it is used and shared. Your name and email will not be visible to any other participants unless you so choose, and we will not provide it to any third party.
   </div>
 
-  <div class="auth__form">
-    <input class="auth__field field-private"
+  <div style="padding-top: 15px;" class="input-group">
+    <span class="input-group-addon">
+      <i class="fa fa-fw fa-envelope"></i>
+    </span>
+    <input class="form-control"
+    required
+    placeholder="Email"
+    type="text"
+    ng-model="vm.email" />
+  </div>
+
+    <div style="padding-top: 15px;" class="input-group">
+      <span class="input-group-addon">
+        <i class="fa fa-fw fa-lock"></i>
+      </span>
+      <input class="form-control"
       required
-      placeholder="email"
+      placeholder="Really secure password"
       type="text"
-      ng-model="vm.email" />
-
-    <input class="auth__field field-private"
-      required
-      placeholder="password"
-      type="password"
       ng-model="vm.password" />
+    </div>
 
-    <input class="auth__field field-private"
+    <div style="padding-top: 15px;" class="input-group">
+      <span class="input-group-addon">
+        <i class="fa fa-fw fa-id-card"></i>
+      </span>
+      <input class="form-control"
       required
-      placeholder="Name"
+      placeholder="Real name (private)"
       type="text"
       ng-model="vm.realname" />
+    </div>
 
-    <input class="auth__field field-public"
+    <div style="padding-top: 15px;" class="input-group">
+      <span class="input-group-addon">
+        <i class="fa fa-fw fa-user"></i>
+      </span>
+      <input class="form-control"
       required
       placeholder="Username"
       type="text"
       ng-model="vm.name" />
+    </div>
 
-    <select class="auth__field field-public"
-      required
-      placeholder="Site Affiliation"
-      type="text"
-      ng-model="vm.affiliation"
-      ng-options="s.name for s in vm.sites" >
-      <option disabled selected hidden value="">Site Affiliation</option>
-    </select>
+    <div style="padding-top: 15px;" class="input-group">
+      <span class="input-group-addon">
+        <i class="fa fa-fw fa-map-marker"></i>
+      </span>
+      <select class="form-control"
+        required
+        placeholder="Site Affiliation"
+        ng-model="vm.affiliation"
+        ng-options="s.name for s in vm.sites" >
+        <option disabled selected hidden value="">Site Affiliation</option>
+      </select>
+    </div>
 
-    <input class="button button--auth"
-      value="join"
-      type="submit" />
+    <div style="text-align:center;">
+      <input style="margin-top:30px;" class="button button--auth"
+        value="join"
+        type="submit" />
+    </div>
+
   </div>
 </form>

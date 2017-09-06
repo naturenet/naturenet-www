@@ -1,52 +1,77 @@
 <!-- ProjectsController as vm -->
 
-<div class="sidebar sidebar--projects">
 
-  <header class="sidebar__heade sidebar__header--projectsr">
-    <div class="nn-dropdown nn-dropdown--ideas nn-dropdown--show-list">
 
-      <div class="nn-dropdown__display">
-        <span>Projects</span>
-      </div>
 
-      <div class="nn-dropdown__options">
-
-        <div class="nn-dropdown__option">
-          <form>
-            <input class="form-control" type="text" placeholder="search" ng-model="vm.query">
-          </form>
+<div style="height:100%;" class="panel panel-default has-inner-drawer">
+    <div id="drawerExample2" class="drawer drawer-inside dw-xs-10 dw-sm-6 dw-md-4 fold" aria-labelledby="drawerExample2">
+        <div class="drawer-controls">
+            <a ng-click="vm.updateDrawer()" data-toggle="drawer" aria-foldedopen="false" class="btn btn-primary btn-sm"><i class="fa fa-search"></i></a>
         </div>
 
-        <div ng-if="!!vm.localSite">Projects at {{vm.localSite}}</div>
-        <div class="nn-dropdown__option"
-          ng-if="!!vm.localProjects"
-          ng-repeat="p in vm.localProjects | filter: {name:vm.query} | orderBy: '-latest_contribution'"
-          ng-click="vm.updateProjectId(p.id)">
-          <nn-badge class="nn-badge"
-            title="{{(p.name | limitTo: 18) + (p.name > 18 ? '...' : '')}}"
-            subtitle=""
-            avatar-url="{{p.icon_url}}">
-          </nn-badge>
-        </div>
+        <div class="drawer-contents">
 
-        <div>All Projects</div>
-        <div class="nn-dropdown__option"
-          ng-repeat="p in vm.projects | filter: {name:vm.query} | orderBy: '-latest_contribution'"
-          ng-click="vm.updateProjectId(p.id)">
-          <nn-badge class="nn-badge"
-            title="{{p.name}}"
-            subtitle=""
-            avatar-url="{{p.icon_url}}">
-          </nn-badge>
+          <div style="width:100%;" class="sidebar sidebar--projects">
+
+            <header class="sidebar__heade sidebar__header--projectsr">
+              <div class="nn-dropdown nn-dropdown--ideas nn-dropdown--show-list">
+
+                <div class="nn-dropdown__display">
+                  <span>Projects</span>
+                </div>
+
+                <div class="nn-dropdown__options">
+
+                  <div class="nn-dropdown__option">
+                    <form>
+                      <input class="form-control" type="text" placeholder="search" ng-model="vm.query">
+                    </form>
+                  </div>
+
+                  <div ng-if="!!vm.localSite">Projects at {{vm.localSite}}</div>
+                  <div class="nn-dropdown__option"
+                    ng-if="!!vm.localProjects"
+                    ng-repeat="p in vm.localProjects | filter: {name:vm.query} | orderBy: '-latest_contribution'"
+                    ng-click="vm.updateProjectId(p.id)">
+                    <nn-badge class="nn-badge"
+                      title="{{(p.name | limitTo: 18) + (p.name > 18 ? '...' : '')}}"
+                      subtitle=""
+                      avatar-url="{{p.icon_url}}">
+                    </nn-badge>
+                  </div>
+
+                  <div>All Projects</div>
+                  <div class="nn-dropdown__option"
+                    ng-repeat="p in vm.projects | filter: {name:vm.query} | orderBy: '-latest_contribution'"
+                    ng-click="vm.updateProjectId(p.id)">
+                    <nn-badge class="nn-badge"
+                      title="{{p.name}}"
+                      subtitle=""
+                      avatar-url="{{p.icon_url}}">
+                    </nn-badge>
+                  </div>
+                </div>
+              </div>
+            </header>
+          </div>
+            <!--div class="drawer-heading">
+                <h2 class="drawer-title">Menu</h2>
+            </div>
+            <ul class="drawer-nav">
+                <li role="presentation" class="active"><a href="#">Link</a></li>
+                <li role="presentation"><a href="#">Link</a></li>
+                <li role="presentation"><a href="#">Link</a></li>
+            </ul-->
         </div>
-      </div>
     </div>
-  </header>
 </div>
 
-<div class="main main--with-sidebar main--projects">
 
-  <section class="main__section masthead" ng-show="!vm.show">
+
+
+<div style="left:0px;" class="main main--with-sidebar main--projects">
+
+  <section class="main__section masthead">
     <div class="masthead__text">
       <p class="masthead__description">
         <b style="font-size:1.25em;">Projects in NatureNet are a call to action!</b> They identify a question,
@@ -83,13 +108,14 @@
     </div>
   </section>
 
-
-  <nn-project-modal
-    url="$root.projects[vm.projectId].icon_url"
-    title="$root.projects[vm.projectId].name"
-    description="$root.projects[vm.projectId].description"
-    observations="vm.projectObservations"
-    limit="vm.displayLimit"
-    show="vm.show">
-  </nn-project-modal>
+  <div ng-show="vm.show" ng-click="vm.showDetail=false" style="position:absolute; background-color: rgba(60, 100, 100, 0.95);" class="main main--with-sidebar main--projects">
+      <nn-project-modal
+        url="$root.projects[vm.projectId].icon_url"
+        title="$root.projects[vm.projectId].name"
+        description="$root.projects[vm.projectId].description"
+        observations="vm.projectObservations"
+        limit="vm.displayLimit"
+        show="vm.show">
+      </nn-project-modal>
+  </div>
 </div>

@@ -1,8 +1,8 @@
 <!-- ProjectsController as vm -->
 
-<div class="sidebar sidebar--ideas">
+<div class="sidebar sidebar--projects">
 
-  <header class="sidebar__header">
+  <header class="sidebar__heade sidebar__header--projectsr">
     <div class="nn-dropdown nn-dropdown--ideas nn-dropdown--show-list">
 
       <div class="nn-dropdown__display">
@@ -18,7 +18,7 @@
         </div>
 
         <div ng-if="!!vm.localSite">Projects at {{vm.localSite}}</div>
-        <div style="margin-left: 15px;" class="nn-dropdown__option"
+        <div class="nn-dropdown__option"
           ng-if="!!vm.localProjects"
           ng-repeat="p in vm.localProjects | filter: {name:vm.query} | orderBy: '-latest_contribution'"
           ng-click="vm.updateProjectId(p.id)">
@@ -30,7 +30,7 @@
         </div>
 
         <div>All Projects</div>
-        <div style="margin-left: 15px;" class="nn-dropdown__option"
+        <div class="nn-dropdown__option"
           ng-repeat="p in vm.projects | filter: {name:vm.query} | orderBy: '-latest_contribution'"
           ng-click="vm.updateProjectId(p.id)">
           <nn-badge class="nn-badge"
@@ -74,7 +74,7 @@
         </div>
         <div class="form-group">
           <label for="description">Project Description:</label>
-          <textarea type="text" ng-model="vm.description" rows="5" placeholder="Because ducks are able to fly it can be extremely challenging to keep track of their populations and their migratory patterns. By taking photos of ducks around #Charlotte and #ReedyCreek we get a better understanding of their movements #ducks #birds #population #migration" class="form-control" id="description" />
+          <textarea type="text" ng-model="vm.description" rows="4" placeholder="Because ducks are able to fly it can be extremely challenging to keep track of their populations and their migratory patterns. By taking photos of ducks around #Charlotte and #ReedyCreek we get a better understanding of their movements #ducks #birds #population #migration" class="form-control" id="description" />
         </div>
         <div>
           <button class="btn btn-success" value="submit">Submit</button>

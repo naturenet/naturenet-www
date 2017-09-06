@@ -45,6 +45,8 @@
     vm.currentIdeaId = void 0;
     vm.comments = void 0;
     vm.showDetail = false;
+    vm.filterType = '!deleted';
+    vm.filters = { 'doing': 0, 'done':0, 'testing':0, 'developing':0};
 
     vm.ideasDisplayLimit = vm.sidebarDisplayLimit;
 
@@ -55,6 +57,7 @@
     vm.formatDate = utility.formatDate;
     vm.selectIdea = selectIdea;
     vm.tag = tag;
+    vm.setFilter = setFilter;
 
     activate();
 
@@ -101,6 +104,12 @@
       return dataservice.getArray('ideas')
         .then(function (data) {
           vm.ideas = data;
+
+          data.map(function(x) {
+            vm.filters[x.status] = vm.filters[x.status]+1;
+            return x.status
+          })
+          vm.filters['all']=vm.filters['done']+vm.filters['doing']+vm.filters['developing']+vm.filters['testing']
           return vm.ideas;
         });
     }
@@ -148,6 +157,11 @@
     function tag(tag) {
       vm.content += ' #' + tag;
     }
+
+    function setFilter(filterType) {
+      vm.filterType = filterType;
+    }
+
   }
 
 })();

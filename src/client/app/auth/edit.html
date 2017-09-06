@@ -1,56 +1,78 @@
-<form novalidate class="auth__form auth__form--register"
-  ng-submit="vm.apply()">
 
-  <div class="auth__form">
 
-    <label>Username</label>
-    <input class="auth__field field-public"
-      required
-      placeholder="Username"
-      type="text"
-      ng-model="vm.name" />
+<form class="form-horizontal" novalidate ng-submit="vm.apply()">
 
-    <label>Real Name (private)</label>
-    <input class="auth__field field-private"
-      required
-      placeholder="Name"
-      type="text"
-      ng-model="vm.realname" />
+  <div style="padding-top: 15px;" class="input-group">
+    <span class="input-group-addon">
+      <i class="fa fa-fw fa-user"></i>
+    </span>
+    <input class="form-control"
+    required
+    placeholder="Username"
+    type="text"
+    ng-model="vm.name" />
+  </div>
 
-    <label>Bio</label>
-    <input class="auth__field field-public"
-      placeholder="Bio"
-      type="text"
-      ng-model="vm.bio" />
+  <div style="padding-top: 15px;" class="input-group">
+    <span class="input-group-addon">
+      <i class="fa fa-fw fa-id-card"></i>
+    </span>
+    <input class="form-control"
+    required
+    placeholder="Real Name (private)"
+    type="text"
+    ng-model="vm.realname" />
+  </div>
 
-    <label>Site Affiliation</label>
-    <select class="auth__field field-public"
+  <div style="padding-top: 15px;" class="input-group">
+    <span class="input-group-addon">
+      <i class="fa fa-fw fa-info"></i>
+    </span>
+    <input class="form-control"
+    required
+    placeholder="Describe yourself"
+    type="text"
+    ng-model="vm.bio" />
+  </div>
+
+  <div style="padding-top: 15px;" class="input-group">
+    <span class="input-group-addon">
+      <i class="fa fa-fw fa-map-marker"></i>
+    </span>
+    <select class="form-control"
       required
       placeholder="Site Affiliation"
       ng-model="vm.affiliation"
       ng-options="s.name for s in vm.sites" >
       <option disabled selected hidden value="">Site Affiliation</option>
     </select>
+  </div>
 
-    <div class="auth__form">
-      <label>Groups</label>
-      <label ng-repeat="g in vm.groups">
-        <input class="auth__field field-public"
-          type="checkbox"
-          ng-model="vm.membership[g.id]">
-        </input>
-      {{g.name}}</label>
+  <label style="padding-top:15px;">Groups</label>
+  <div  ng-repeat="g in vm.groups">
+    <div class="row" ng-if="$even">
+       <div class="col-sm-offset-2 col-xs-5">
+         <input type="checkbox"
+            ng-hide="vm.groups[$index].id == null"
+            ng-model="vm.membership[vm.groups[$index].id]">&nbsp;<span>{{vm.groups[$index].name}}</span>
+      </div>
+      <div class="col-xs-5">
+        <input type="checkbox"
+          ng-hide="vm.groups[$index + 1].id == null"
+          ng-model="vm.membership[vm.groups[$index + 1].id]">&nbsp;<span>{{vm.groups[$index + 1].name}}</span>
+      </div>
     </div>
   </div>
 
-  <div class="auth__text" style="text-align: center;">
+  <h2 style="font-size: 1.5em; padding-top:40px; text-align: center;">
     Optional. This data will be visible to researchers only.
-  </div>
+  </h2>
 
   <div class="auth__form">
     <div class="auth__form">
-      <p>What is your age range?</p>
-      <select class="auth__field field-private"
+
+      <h3 style="padding-top:15px;">What is your age range?</h3>
+      <select class="form-control"
         required
         placeholder="Age"
         ng-model="vm.age"
@@ -58,8 +80,8 @@
         <option disabled selected hidden value="">Age</option>
       </select>
 
-      <p>What is your gender?</p>
-      <select class="auth__field field-private"
+      <h3 style="padding-top:15px;">What is your gender?</h3>
+      <select class="form-control"
         required
         placeholder="Gender"
         ng-model="vm.gender"
@@ -68,20 +90,27 @@
       </select>
     </div>
 
-    <div class="auth__form">
-      <p>What is your primary racial identity?</p>
-      <label ng-repeat="r in vm.raceOptions">
-        <input class="auth__field field-private"
-          placeholder="Race"
+    <!--div class="checkbox">
+      <label>
+        <input type="checkbox" value="">
+        Option one is this and that&mdash;be sure to include why it's great
+      </label>
+    </div-->
+
+      <h3>What is your primary racial identity?</h3>
+      <div ng-repeat="r in vm.raceOptions">
+        <input
           type="checkbox"
           ng-model="vm.race[r]">
         </input>
-      {{r}}</label>
-    </div>
+        {{r}}
+      </div>
   </div>
 
-  <input class="button button--auth"
-    value="apply"
-    type="submit" />
+  <div style="text-align:center;" class="row">
+    <input class="button button--auth"
+      value="apply"
+      type="submit" />
+  </div>
 
 </form>

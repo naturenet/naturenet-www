@@ -1,25 +1,35 @@
-<form class="auth__form auth__form--signin" 
-  ng-submit="vm.login(vm.email, vm.password)">
+<div class="modal-dialog -center"   ng-click="$event.stopPropagation()" data-backdrop="true">
+  <div style="width:450px;" class="-center modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" ng-click="vm.close()" aria-hidden="true">&times;</button>
+      <div class="modal-title">
 
-  <!-- TODO: placeholder logo until correct is available
-    check _layout.auth.less -->
+        <form class="auth__form auth__form--signin"
+          ng-submit="vm.login(vm.email, vm.password)">
 
-  <div class="auth__logo"></div>
+          <!-- TODO: placeholder logo until correct is available
+            check _layout.auth.less -->
 
-  <input class="auth__field"
-    placeholder="email"
-    type="text"
-    ng-model="vm.email" />
+          <div class="auth__logo"></div>
 
-  <input class="auth__field"
-    placeholder="password"
-    type="password"
-    ng-model="vm.password" />
+          <input class="form-control"
+            placeholder="email"
+            type="text"
+            ng-model="vm.email" />
 
-  <p class="auth__reset" ng-click="vm.reset()">Reset my password</p>
+          <input class="form-control"
+            placeholder="password"
+            type="password"
+            ng-model="vm.password" />
 
-  <input class="button button--auth"
-    value="sign in"
-    type="submit" />
+          <p class="auth__reset" ng-click="vm.reset()">Reset my password</p>
 
-</form>
+          <input class="button button--auth"
+            value="sign in"
+            type="submit" />
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

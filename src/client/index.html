@@ -26,6 +26,8 @@
   <link rel="stylesheet" href="/bower_components/toastr/toastr.css" />
   <link rel="stylesheet" href="/bower_components/bootstrap-css-only/css/bootstrap.css" />
   <link rel="stylesheet" href="/bower_components/angular-ui-select/dist/select.css" />
+  <link rel="stylesheet" href="/bower_components/angular-google-places-autocomplete/src/autocomplete.css" />
+  <link rel="stylesheet" href="/bower_components/angular-google-places-autocomplete/dist/autocomplete.min.css" />
   <!-- endbower -->
   <!-- endbuild -->
 
@@ -61,8 +63,7 @@
       ga('send', 'pageview');
     </script>
     <!-- google maps js -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQFqNCV7kdLHzkiBhtFzMmYoQLdlivNFU&libraries=geometry"></script>
-
+    <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAQFqNCV7kdLHzkiBhtFzMmYoQLdlivNFU&libraries=geometry,places"></script>
     <!-- build:js js/lib.js -->
     <!-- bower:js -->
     <script src="/bower_components/jquery/dist/jquery.js"></script>
@@ -84,7 +85,8 @@
     <script src="/bower_components/ngGeolocation/ngGeolocation.js"></script>
     <script src="/bower_components/geofire/dist/geofire.js"></script>
     <script src="/bower_components/jquery-cycle2/build/jquery.cycle2.js"></script>
-    <script src="/bower_components/angular-search/dist/search.js"></script>
+    <script src="/bower_components/angular-google-places-autocomplete/src/autocomplete.js"></script>
+    <script src="/bower_components/angular-google-places-autocomplete/dist/autocomplete.min.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
     <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.2.0.js"></script>

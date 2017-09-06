@@ -110,7 +110,9 @@
       });
     }
 
-    $geolocation.getCurrentPosition();
+    $geolocation.getCurrentPosition().catch(function(err){
+      throw new Error(err.error.message);
+    });
     var geoQuery = new GeoFire($firebaseRef.geo).query({
       center: [0, 0],
       radius: 1.0,
@@ -737,11 +739,22 @@
         newObservation.site = user.affiliation;
         newObservation.source = 'web';
 
-        if (useLocation && !!$geolocation.position.coords) {
+        if(newObservation.l && newObservation.l.length==2) {
+          console.log('autocomplete');
+          var lat = newObservation.l[0];
+          var lon = newObservation.l[1];
+        } else if (useLocation && !!$geolocation.position.coords) {
+          console.log('provide location');
           var lat = $geolocation.position.coords.latitude;
           var lon = $geolocation.position.coords.longitude;
-          newObservation.l = { 0: lat, 1: lon };
+        } else { //default
+          console.log('default'); //TODO should use site location.
+          var lat = 35.2617568;
+          var lon = -80.7215697;
         }
+        newObservation.l = { 0: lat, 1: lon };
+        console.log(newObservation);
+
 
         var newData = {};
         newData['/observations/' + id] = timestamp(newObservation);

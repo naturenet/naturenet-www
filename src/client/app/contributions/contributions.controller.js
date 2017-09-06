@@ -40,6 +40,8 @@
 
     // States
 
+    vm.place = {};
+
     // Function assignments
     vm.submit = submit;
     vm.reset = reset;
@@ -47,6 +49,9 @@
 
     /* Activate function
        ================================================== */
+
+
+
 
     function activate() {
       utility.showSplash();
@@ -106,8 +111,18 @@
       }
     }
 
+    var getCoordinates = function (place) {
+      if (!place || !place.geometry) return [];
+      var location = place.geometry.location;
+      return [ location.lat(), location.lng() ];
+    }
+
     function submitImage() {
+      var coordinates = getCoordinates(vm.place);
       cloudinary.upload(vm.file, {}).then(function (resp) {
+        console.log(coordinates);
+        if (coordinates[0]) vm.contribution.l = coordinates;
+        console.log(vm.contribution);
         vm.contribution.data.image = resp.data.secure_url;
         vm.contribution.activity = vm.contribution.activity || '-ACES_a38';
         dataservice.addObservation(vm.contribution, true).then(function () {
@@ -141,6 +156,7 @@
       vm.uploading = false;
       vm.contribution = { data: {} };
       vm.file = null;
+      vm.place = {};
     }
 
   }

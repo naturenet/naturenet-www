@@ -35,7 +35,7 @@
     vm.userUid = void 0;
     vm.newUserObject = void 0;
     vm.avatarFile = void 0;
-    vm.avatar = '';
+    vm.avatar = null;
     vm.email = '';
     vm.password = '';
     vm.name = '';
@@ -219,7 +219,7 @@
           .then(function (data) {
             var publicData = data[0];
             var privateData = data[1];
-            vm.avatar = publicData.avatar || '';
+            vm.avatar = publicData.avatar || null;
             vm.name = publicData.display_name;
             vm.realname = privateData.name;
             vm.affiliation = vm.sites.$getRecord(publicData.affiliation);
@@ -321,7 +321,7 @@
     function resetForm() {
       vm.mode = null;
       vm.avatarFile = null;
-      vm.avatar = '';
+      vm.avatar = null;
       vm.email = '';
       vm.password = '';
       vm.name = '';

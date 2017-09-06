@@ -18,6 +18,7 @@
       'ngFileUpload',
       'ngGeolocation',
       'angular-cloudinary',
+      'google.places',
     ]);
 
 })();

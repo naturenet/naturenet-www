@@ -1,121 +1,94 @@
 <!-- ProjectsController as vm -->
 
+<div id="wrapper" ng-class="{toggled:vm.isDrawerVisible}">
 
+  <!-- Sidebar -->
+  <div width="" id="sidebar-wrapper">
+    <div style="width:100%;" class="sidebar sidebar--projects">
 
+      <header class="sidebar__heade sidebar__header--projectsr">
+        <div class="nn-dropdown nn-dropdown--ideas nn-dropdown--show-list">
 
-<div style="height:100%;" class="panel panel-default has-inner-drawer">
-    <div id="drawerExample2" class="drawer drawer-inside dw-xs-10 dw-sm-6 dw-md-4 fold" aria-labelledby="drawerExample2">
-        <div class="drawer-controls">
-            <a ng-click="vm.updateDrawer()" data-toggle="drawer" aria-foldedopen="false" class="btn btn-primary btn-sm"><i class="fa fa-search"></i></a>
-        </div>
-
-        <div class="drawer-contents">
-
-          <div style="width:100%;" class="sidebar sidebar--projects">
-
-            <header class="sidebar__heade sidebar__header--projectsr">
-              <div class="nn-dropdown nn-dropdown--ideas nn-dropdown--show-list">
-
-                <div class="nn-dropdown__display">
-                  <span>Projects</span>
-                </div>
-
-                <div class="nn-dropdown__options">
-
-                  <div class="nn-dropdown__option">
-                    <form>
-                      <input class="form-control" type="text" placeholder="search" ng-model="vm.query">
-                    </form>
-                  </div>
-
-                  <div ng-if="!!vm.localSite">Projects at {{vm.localSite}}</div>
-                  <div class="nn-dropdown__option"
-                    ng-if="!!vm.localProjects"
-                    ng-repeat="p in vm.localProjects | filter: {name:vm.query} | orderBy: '-latest_contribution'"
-                    ng-click="vm.updateProjectId(p.id)">
-                    <nn-badge class="nn-badge"
-                      title="{{(p.name | limitTo: 18) + (p.name > 18 ? '...' : '')}}"
-                      subtitle=""
-                      avatar-url="{{p.icon_url}}">
-                    </nn-badge>
-                  </div>
-
-                  <div>All Projects</div>
-                  <div class="nn-dropdown__option"
-                    ng-repeat="p in vm.projects | filter: {name:vm.query} | orderBy: '-latest_contribution'"
-                    ng-click="vm.updateProjectId(p.id)">
-                    <nn-badge class="nn-badge"
-                      title="{{p.name}}"
-                      subtitle=""
-                      avatar-url="{{p.icon_url}}">
-                    </nn-badge>
-                  </div>
-                </div>
-              </div>
-            </header>
+          <div class="nn-dropdown__display">
+            <span>Projects</span>
           </div>
-            <!--div class="drawer-heading">
-                <h2 class="drawer-title">Menu</h2>
+
+          <div class="nn-dropdown__options">
+
+            <div class="nn-dropdown__option">
+              <form>
+                <input class="form-control" type="text" placeholder="search" ng-model="vm.query">
+              </form>
             </div>
-            <ul class="drawer-nav">
-                <li role="presentation" class="active"><a href="#">Link</a></li>
-                <li role="presentation"><a href="#">Link</a></li>
-                <li role="presentation"><a href="#">Link</a></li>
-            </ul-->
+
+            <div ng-if="!!vm.localSite">Projects at {{vm.localSite}}</div>
+            <div class="nn-dropdown__option" ng-if="!!vm.localProjects" ng-repeat="p in vm.localProjects | filter: {name:vm.query} | orderBy: '-latest_contribution'" ng-click="vm.updateProjectId(p.id)">
+              <nn-badge class="nn-badge" title="{{(p.name | limitTo: 18) + (p.name > 18 ? '...' : '')}}" subtitle="" avatar-url="{{p.icon_url}}">
+              </nn-badge>
+            </div>
+
+            <div>All Projects</div>
+            <div class="nn-dropdown__option" ng-repeat="p in vm.projects | filter: {name:vm.query} | orderBy: '-latest_contribution'" ng-click="vm.updateProjectId(p.id)">
+              <nn-badge class="nn-badge" title="{{p.name}}" subtitle="" avatar-url="{{p.icon_url}}">
+              </nn-badge>
+            </div>
+          </div>
         </div>
+      </header>
     </div>
-</div>
-
-
-
-
-<div style="left:0px;" class="main main--with-sidebar main--projects">
-
-  <section class="main__section masthead">
-    <div class="masthead__text">
-      <p class="masthead__description">
-        <b style="font-size:1.25em;">Projects in NatureNet are a call to action!</b> They identify a question,
-        a problem, or a topic that contributions can shed light on. Examples
-        might include: examples of rainwater run-off, how many geese are present
-        in our park, which non-native plants are invasive in our park.
-      </p>
-
-      <div class="masthead__storyboard" style="background-image: url('/images/project-storyboard.jpg')">
-        <a href="http://www.freepik.com" target="_blank">Designed by Dooder / Freepik</a>
-      </div>
-
-      <p class="masthead__subtext">NatureNet is a moderated site. Postings that are inappropriate or irrelevant will be deleted.</p>
-
-      <p class="masthead__directions">
-        Please give your project a short name (1-3 words) and a description. We
-        suggest you add hashtags to your description such as: #capstone
-        #subproject #water #pollution
-      </p>
-
-      <form class="clearfix" ng-submit="vm.createProject()">
-        <div class="form-group">
-          <label for="name">Project Title:</label>
-          <input ng-model="vm.name" placeholder="Tracking duck populations" class="form-control" id="name">
-        </div>
-        <div class="form-group">
-          <label for="description">Project Description:</label>
-          <textarea type="text" ng-model="vm.description" rows="4" placeholder="Because ducks are able to fly it can be extremely challenging to keep track of their populations and their migratory patterns. By taking photos of ducks around #Charlotte and #ReedyCreek we get a better understanding of their movements #ducks #birds #population #migration" class="form-control" id="description" />
-        </div>
-        <div>
-          <button class="btn btn-success" value="submit">Submit</button>
-        </div>
-      </form>
-    </div>
-  </section>
-
-  <div ng-show="vm.show" ng-click="vm.showDetail=false" style="position:absolute; background-color: rgba(60, 100, 100, 0.95);" class="main main--with-sidebar main--projects">
-      <nn-project-modal
-        url="$root.projects[vm.projectId].icon_url"
-        title="$root.projects[vm.projectId].name"
-        description="$root.projects[vm.projectId].description"
-        observations="vm.projectObservations"
-        limit="vm.displayLimit"
-        show="vm.show">
-      </nn-project-modal>
   </div>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+  </script>
+
+
+  <div id="page-content-wrapper"  class="clearfix">
+    <div class="main main--projects">
+
+    <a style="transform: translateX(-60px);" ng-click="vm.updateDrawer()" class="btn btn-primary" id="menu-toggle"><i class="fa fa-search"></i></a>
+    <section style="padding-bottom:100px;" class="main__section masthead">
+      <div class="masthead__text">
+        <p class="masthead__description">
+          <b style="font-size:1.25em;">Projects in NatureNet are a call to action!</b> They identify a question, a problem, or a topic that contributions can shed light on. Examples might include: examples of rainwater run-off, how many geese are present
+          in our park, which non-native plants are invasive in our park.
+        </p>
+
+        <div class="masthead__storyboard" style="background-image: url('/images/project-storyboard.jpg')">
+          <a href="http://www.freepik.com" target="_blank">Designed by Dooder / Freepik</a>
+        </div>
+
+        <p class="masthead__subtext">NatureNet is a moderated site. Postings that are inappropriate or irrelevant will be deleted.</p>
+
+        <p class="masthead__directions">
+          Please give your project a short name (1-3 words) and a description. We suggest you add hashtags to your description such as: #capstone #subproject #water #pollution
+        </p>
+
+        <form class="clearfix" ng-submit="vm.createProject()">
+          <div class="form-group">
+            <label for="name">Project Title:</label>
+            <input ng-model="vm.name" placeholder="Tracking duck populations" class="form-control" id="name">
+          </div>
+          <div class="form-group">
+            <label for="description">Project Description:</label>
+            <textarea type="text" ng-model="vm.description" rows="4" placeholder="Because ducks are able to fly it can be extremely challenging to keep track of their populations and their migratory patterns. By taking photos of ducks around #Charlotte and #ReedyCreek we get a better understanding of their movements #ducks #birds #population #migration"
+              class="form-control" id="description" />
+          </div>
+          <div>
+            <button class="btn btn-success" value="submit">Submit</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <div ng-show="vm.show" style="min-height:100vh; position:absolute; z-index=100; background-color: rgba(60, 100, 100, 0.95); height:100%;" class="main main--projects">
+      <nn-project-modal ng-click="event.stopPropagation();" url="$root.projects[vm.projectId].icon_url" title="$root.projects[vm.projectId].name" description="$root.projects[vm.projectId].description" observations="vm.projectObservations" limit="vm.displayLimit" show="vm.show">
+      </nn-project-modal>
+    </div>
+  </div>
+</div>
 </div>

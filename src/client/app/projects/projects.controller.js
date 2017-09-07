@@ -163,16 +163,20 @@
     }
 
     function updateDrawer() {
-      var container = $(".drawer"); //get the drawer
+      console.log(vm.isDrawerVisible);
+
       vm.isDrawerVisible=!vm.isDrawerVisible;
-      if (vm.isDrawerVisible) return container.drawer('show');
-      return container.drawer('hide');
+      //var container = $(".drawer"); //get the drawer
+      //vm.isDrawerVisible=!vm.isDrawerVisible;
+      //if (vm.isDrawerVisible) return container.drawer('show');
+      //return container.drawer('hide');
     }
 
     function closeDrawer() {
-      var container = $(".drawer"); //get the drawer
+      //var container = $(".drawer"); //get the drawer
+      console.log(vm.isDrawerVisible);
       vm.isDrawerVisible=false;
-      return container.drawer('hide');
+      //return container.drawer('hide');
     }
 
 

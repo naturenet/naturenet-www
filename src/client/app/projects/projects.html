@@ -38,19 +38,10 @@
     </div>
   </div>
 
-  <!-- Menu Toggle Script -->
-  <script>
-    $("#menu-toggle").click(function(e) {
-      e.preventDefault();
-      $("#wrapper").toggleClass("toggled");
-    });
-  </script>
-
-
   <div id="page-content-wrapper"  class="clearfix">
     <div class="main main--projects">
 
-    <a style="transform: translateX(-60px);" ng-click="vm.updateDrawer()" class="btn btn-primary" id="menu-toggle"><i class="fa fa-search"></i></a>
+    <a style="transform: translateX(-60px);" ng-click="vm.updateDrawer()" class="btn btn-primary" id="menu-toggle"><i ng-class="{'fa-arrow-right':!vm.isDrawerVisible, 'fa-arrow-left':vm.isDrawerVisible}" class="fa"></i></a>
     <section style="padding-bottom:100px;" class="main__section masthead">
       <div class="masthead__text">
         <p class="masthead__description">

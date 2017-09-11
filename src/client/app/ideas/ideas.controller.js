@@ -47,6 +47,7 @@
     vm.showDetail = false;
     vm.filterType = '!deleted';
     vm.filters = { 'doing': 0, 'done':0, 'testing':0, 'developing':0};
+    vm.isDrawerVisible=false;
 
     vm.ideasDisplayLimit = vm.sidebarDisplayLimit;
 
@@ -58,6 +59,7 @@
     vm.selectIdea = selectIdea;
     vm.tag = tag;
     vm.setFilter = setFilter;
+    vm.updateDrawer = updateDrawer;
 
     activate();
 
@@ -160,6 +162,14 @@
 
     function setFilter(filterType) {
       vm.filterType = filterType;
+    }
+
+    function updateDrawer() {
+      vm.isDrawerVisible=!vm.isDrawerVisible;
+    }``
+
+    function closeDrawer() {
+      vm.isDrawerVisible=false;
     }
 
   }

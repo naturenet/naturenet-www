@@ -164,7 +164,7 @@
 
     function updateDrawer() {
       vm.isDrawerVisible=!vm.isDrawerVisible;
-    }``
+    }
 
     function closeDrawer() {
       vm.isDrawerVisible=false;

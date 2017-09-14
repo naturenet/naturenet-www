@@ -86,6 +86,7 @@
       // Idea functions
       getIdeasByUserId: getIdeasByUserId,
       addIdea: addIdea,
+      addQuestion: addQuestion,
       updateIdea: updateIdea,
       getTags: getTags,
 
@@ -926,6 +927,40 @@
       var newData = {};
       newData['ideas/' + id] = idea;
       newData['users/' + auth.uid + '/latest_contribution'] = firebase.database.ServerValue.TIMESTAMP;
+
+      return $firebaseRef.default.update(newData).then(success).catch(fail);
+
+      function success(response) {
+        return response;
+      }
+
+      function fail(e) {
+        return exception.catcher('Unable to submit design idea')(e);
+      }
+    }
+
+    function addQuestion(content, email){
+      var auth = getAuth();
+
+      if (auth === null || !auth.uid) {
+        console.log('You must be signed in to do that!');
+        return $q.reject(new Error('You must be signed in to do that!'));
+      }
+
+      var id = $firebaseRef.questions.push().key;
+
+      var question = timestamp({
+        id: id,
+        content: content,
+        submitter: auth.uid,
+        email: firebase.auth().currentUser.email,
+        source: 'web',
+        status: 'doing',
+      });
+
+      var newData = {};
+      newData['questions/' + id] = question;
+      //newData['users/' + auth.uid + '/latest_contribution'] = firebase.database.ServerValue.TIMESTAMP;
 
       return $firebaseRef.default.update(newData).then(success).catch(fail);
 

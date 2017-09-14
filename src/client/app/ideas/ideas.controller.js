@@ -45,6 +45,7 @@
     vm.currentIdeaId = void 0;
     vm.comments = void 0;
     vm.showDetail = false;
+    vm.showQuestionForm = false;
 
     vm.ideasDisplayLimit = vm.sidebarDisplayLimit;
 
@@ -55,6 +56,7 @@
     vm.formatDate = utility.formatDate;
     vm.selectIdea = selectIdea;
     vm.tag = tag;
+    vm.openQuestionForm = openQuestionForm;
 
     activate();
 
@@ -134,6 +136,10 @@
       if (vm.content.length !== 0) {
         addIdeaObject(vm.content, vm.type);
       }
+    }
+
+    function openQuestionForm(){
+      vm.showQuestionForm = true;
     }
 
     function selectIdea(idea) {

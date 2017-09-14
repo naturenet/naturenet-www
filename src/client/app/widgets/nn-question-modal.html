@@ -1,0 +1,31 @@
+<div class="modal-dialog -center" style="width: auto; height: auto; margin: 10px;" ng-class="{show:show, hide:!show  }" data-backdrop="true">
+  <div class="modal-content" style="height: auto; min-height: 100%; border-radius: 0;">
+    <div class="modal-header">
+      <button type="button" class="close" ng-click="hide()" aria-hidden="true">&times;</button>
+
+      <div class="modal-title">
+        <section class="masthead__header">
+          <div class="masthead_question_title">
+            How can we help you today?
+          </div>
+          <br />
+          <div class="masthead_question_description">
+            Having trouble with NatureNet? Ask us a question and we'll be happy to reply straight to your e-mail.
+          </div>
+        </section>
+      </div>
+
+    </div>
+
+    <div class="modal-body">
+
+      <textarea class="detail__description" placeholder="Ask your question..." ng-model="content" style="resize:none"></textarea>
+      <button type="button" class="btn btn-default" ng-click="submitQuestion()">Submit</button>
+
+    </div>
+
+    <!-- <div class="modal-footer">
+    </div> -->
+
+  </div><!-- /.modal-content -->
+</div>

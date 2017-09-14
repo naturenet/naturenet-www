@@ -113,4 +113,22 @@
     </div>
   </section>
 
+  <div ng-if="vm.showQuestionForm">
+    <nn-question-modal
+      show="vm.showQuestionForm">
+    </nn-question-modal>
+  </div>
+
+</div>
+
+<div style="bottom: 0px;
+    position: absolute;
+    margin-bottom: 80px;
+    margin-right: 80px;
+    right: 0px;
+    font-size: 2em;
+    cursor:pointer;" type="button"  ng-click="vm.openQuestionForm()" aria-label="Ask a Question">
+
+  <i style="color:#4DB36A;" class="fa fa-question-circle fa-stack-2x"></i>
+
 </div>

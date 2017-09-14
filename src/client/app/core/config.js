@@ -93,6 +93,7 @@
       users: 'https://' + FirebaseName + '.firebaseio.com/users',
       usersPrivate: 'https://' + FirebaseName + '.firebaseio.com/users-private',
       usersRanks: 'https://' + FirebaseName + '.firebaseio.com/users-ranks',
+      questions: 'https://' + FirebaseName + '.firebaseio.com/questions',
     });
   });
 

@@ -1,37 +1,87 @@
+
+<style>
+  .list-item--square {
+    -webkit-box-shadow: 0px 2px 8px 1px rgba(199,199,199,1);
+    -moz-box-shadow: 0px 2px 8px 1px rgba(199,199,199,1);
+    box-shadow: 0px 2px 8px 1px rgba(199,199,199,1);
+  }
+</style>
+
 <section class="main__section masthead">
   <header class="masthead__header">
+    <div class="nn-badge nn-badge--banner">
+      <div ng-hide="!vm.userAvatar" class="nn-badge__avatar"
+        style="background-image: url('{{vm.userAvatar}}')">
+      </div>
+      <span ng-hide="vm.userAvatar" style="font-size:3.75em;" class="fa-stack fa-2x">
+        <i style="color:grey;" class="fa fa-circle fa-stack-2x"></i>
+        <i style="color:white;" class="fa fa-user fa-stack-1x"></i>
+      </span>
+      <div class="nn-badge__text" style="max-width:400px;">
+        <p style="font-size:42px; overflow:visible;" class="nn-badge__title">{{$root.users[vm.userId].display_name}}</p>
+        <p style="padding-top:5px;" class="nn-badge__subtitle"><i class="fa fa-map-marker"></i> {{vm.userSite}}</p>
+      </div>
+      <div style="height: 30px; width:100%; padding-top:20px; padding-bottom:10px;" class="masthead__text">{{$root.users[vm.userId].bio}}</div>
 
-    <nn-badge class="nn-badge nn-badge--banner"
-      title="{{$root.users[vm.userId].display_name}}"
-      subtitle="{{vm.userSite}}"
-      avatar-url="{{vm.userAvatar}}">
-    </nn-badge>
+    </div>
   </header>
 
-  <div class="masthead__text">{{$root.users[vm.userId].bio}}</div>
+  <hr style="margin-bottom: 10px; border-color:Silver;" />
 </section>
 
 
 
 <section class="main__section recent-contributions">
-  <div class="main__subtitle">Recent Contributions by {{$root.users[vm.userId].display_name}}</div>
-  <nn-observations-list observations="vm.observations[vm.userId]" limit="{{vm.mainDisplayLimit}}" expandable="true"></nn-observations-list>
+  <h3 class="main__subtitle">Recent Contributions</h3>
+  <nn-observations-list observations="vm.observations[vm.userId]" limit="{{vm.mainDisplayLimit}}" expandable="true" imageOnly="false"></nn-observations-list>
+  <h3 class="main__subtitle">Recent Design Ideas</h3>
   <nn-ideas-list ideas="vm.ideas[vm.userId]" limit="{{vm.mainDisplayLimit}}" expandable="true"></nn-ideas-list>
 </section>
 
+<!--div class="media">
+  <div class="media-left">
+    <a href="#">
+      <img class="media-object" src="..." alt="...">
+    </a>
+  </div>
+  <div class="media-body">
+    <h4 class="media-heading">Media heading</h4>
+    ...
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-6 col-md-3">
+    <a href="#" class="thumbnail">
+      <img src="..." alt="...">
+    </a>
+  </div>
+  <div class="col-xs-6 col-md-3">
+    <a href="#" class="thumbnail">
+      <img src="..." alt="...">
+    </a>
+    <div class="caption">
+        <h3>Thumbnail label</h3>
+      </div>
+  </div>
+</div>-->
 
 
 <section class="main__section main__section--groups">
-  <div class="main__subtitle">Groups</div>
+  <h3 class="main__subtitle">Groups</h3>
   <div class="main__groups">
-    <nn-badge class="nn-badge nn-badge--large clickable"
+    <div class="col-xs-4" ng-click="vm.updateGroupId(g.id)"
       ng-if="vm.userGroups.length > 0"
-      ng-repeat="g in vm.userGroups | orderBy: '-updated_at' | limitTo: vm.groupsDisplayLimit"
-      title="{{g.name}}"
-      avatar-url="{{g.avatar}}"
-      ng-click="vm.updateGroupId(g.id)">
-      <!-- TODO: once roles are sorted out add subtitle="{{g.role}}" -->
-    </nn-badge>
+      ng-repeat="g in vm.userGroups | orderBy: '-updated_at' | limitTo: vm.groupsDisplayLimit">
+
+      <div ng-hide="{{g.avatar}}" style="font-size:1.65em;" class="fa-stack fa-2x">
+        <i style="color:grey;" class="fa fa-circle fa-stack-2x"></i>
+        <i style="color:white;" class="fa fa-user fa-stack-1x"></i>
+      </div>
+      <div style="display:inline;">
+        {{g.name}}
+      </div>
+    </div>
     <div ng-if="vm.userGroups.length === 0">No groups.</div>
   </div>
 

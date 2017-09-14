@@ -1,39 +1,5 @@
 <!-- IdeasController as vm -->
 
-<div class="sidebar sidebar--ideas">
-
-  <header class="sidebar__header">
-    <div class="nn-dropdown nn-dropdown--contrib nn-dropdown--show-list">
-
-      <div class="nn-dropdown__display">
-        <span>Contributions</span>
-        <div class="nn-dropdown__action"></div>
-      </div>
-
-      <div class="nn-dropdown__options">
-
-        <div class="list-item" ng-repeat="o in vm.myObservations | orderBy: '-updated_at' | filter:{ status : '!deleted' }" ng-click="vm.showObservation(o)">
-          <nn-image class="list-item__image" image-url="{{o.data.image | img_preview}}">
-          </nn-image>
-          <div class="list-item__detail">
-            <nn-comment class="nn-badge list-item__comment"
-              name="{{$root.users[o.observer].display_name}}"
-              date="{{o.updated_at}}"
-              avatar-url="{{$root.users[o.observer].avatar}}"
-              comment="{{o.data.text}}">
-            </nn-comment>
-            <nn-social-totals class="totals" data="o"></nn-social-totals>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </header>
-
-</div>
-
-
 <style>
 
 .drop-box {
@@ -51,61 +17,94 @@
 </style>
 
 
-<div class="main main--with-sidebar main--ideas">
 
-  <section class="main__section masthead">
-    <div class="masthead__text">
-      <form class="masthead__form clearfix">
-        <div class="container-fluid">
+<div id="wrapper" ng-class="{toggled:vm.isDrawerVisible}">
 
-          <div ngf-drop ngf-select class="drop-box col-xs-12" style="height:200px" ng-drag-over-class="'dragover'" ngf-multiple="false" ngf-pattern="'image/*'" accept="image/*" ng-model="vm.file">
-            <span style="width: 100%; text-align:center;" ng-if="!vm.uploading && !vm.file" >
-              <i style="font-size:100px; color:#99A6B1;" class="fa fa-large fa-upload"></i>
-              <h3 class="drop-box-item">
-                Drag and Drop, Or Click
-              </h3>
-              <span style="font-size:.8em; color: #99A6B1;"  class="drop-box-item">
-                TO UPLOAD (PNG, JPG, PDF)
-              </span>
+  <!-- Sidebar -->
+  <div width="" id="sidebar-wrapper">
 
-            <img ng-if="!!vm.file[0] && vm.file[0].type.includes('image') && !vm.uploading" ngf-src="!vm.file[0].$error && vm.file[0]" style="display:block;margin:0 auto;max-width:100%;" />
-            {{vm.file[0].name}}
-            <uib-progressbar style="padding: 0 2em;" ng-if="vm.uploading" value="vm.progress" type="info" max="100" animate="true" title="Upload progress">Uploading...</uib-progressbar>
+    <div style="width:100%;" class="sidebar sidebar--projects">
+
+      <header class="sidebar__header">
+        <div class="nn-dropdown nn-dropdown--contrib nn-dropdown--show-list">
+
+          <div class="nn-dropdown__display">
+            <span>Contributions</span>
+            <div class="nn-dropdown__action"></div>
           </div>
 
-          <div style="padding-bottom:15px;" class="col-xs-12 col-lg-6">
-            <textarea  ng-model="vm.contribution.data.text" placeholder="Write a caption" class="form-control" rows="4" style="resize:vertical;"></textarea>
-          </div>
-          <div style="padding-bottom:15px;" class="col-xs-12 col-lg-6">
-            <div style="padding-bottom:15px;" class="input-group mb-2 mr-sm-2 mb-sm-0">
-                <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
-                <input class="form-control" placeholder="Add a Location" type="text" g-places-autocomplete ng-model="vm.place" />
+          <div class="nn-dropdown__options">
+
+            <div class="list-item" ng-repeat="o in vm.myObservations | orderBy: '-updated_at' | filter:{ status : '!deleted' }" ng-click="vm.showObservation(o)">
+              <nn-image class="list-item__image" image-url="{{o.data.image | img_preview}}">
+              </nn-image>
+              <div class="list-item__detail">
+                <nn-comment class="nn-badge list-item__comment"
+                  name="{{$root.users[o.observer].display_name}}"
+                  date="{{o.updated_at}}"
+                  avatar-url="{{$root.users[o.observer].avatar}}"
+                  comment="{{o.data.text}}">
+                </nn-comment>
+                <nn-social-totals class="totals" data="o"></nn-social-totals>
+              </div>
             </div>
-            <span class="masthead__directions">Project</span>
-            <!--<div uib-dropdown class="btn-group">
-              <button type="button" class="btn btn-secondary" uib-dropdown-toggle>
-                {{vm.contribution.activity}}<span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu" uib-dropdown-menu role="menu">
-                <li role="menuitem"><a href="#">Free Observation (Default)</a></li>
-                <li class="divider"></li>
-                <li ng-repeat="a in vm.allProjects" role="menuitem"><a href="#">{{a.name}}</a></li>
-              </ul>
-            </div>-->
-            <select
-              class="form-control"
-              ng-model="vm.contribution.activity"
-              ng-options="a.id as a.name for a in vm.allProjects" >
-              <option disabled selected hidden value="">Free Observation (Default)</option>
-            </select>
-          </div>
-          <div class="col-xs-12 text-right" style="margin-top: 1em">
-            <button class="btn btn-link" type="button" ng-click="vm.reset()">Clear</button>
-            <button class="btn btn-success" type="button" ng-click="vm.submit()">Submit</button>
           </div>
         </div>
-      </form>
-    </div>
-  </section>
+      </header>
 
+    </div>
+  </div>
+
+  <a class="drawer-icon btn btn-primary" ng-click="vm.updateDrawer()" id="menu-toggle"><i ng-class="{'fa-arrow-right':!vm.isDrawerVisible, 'fa-arrow-left':vm.isDrawerVisible}" class="fa"></i></a>
+
+  <!-- Content -->
+  <div id="page-content-wrapper" class="clearfix">
+    <div class="main main--projects">
+
+      <section style="padding-bottom:100px;" class="main__section masthead">
+          <div class="masthead__text">
+            <form class="masthead__form clearfix">
+              <div class="container-fluid">
+
+                <div ngf-drop ngf-select class="drop-box col-xs-12" style="height:200px" ng-drag-over-class="'dragover'" ngf-multiple="false" ngf-pattern="'image/*'" accept="image/*" ng-model="vm.file">
+                  <span style="width: 100%; text-align:center;" ng-if="!vm.uploading && !vm.file" >
+                    <i style="font-size:100px; color:#99A6B1;" class="fa fa-large fa-upload"></i>
+                    <h3 class="drop-box-item">
+                      Drag and Drop, Or Click
+                    </h3>
+                    <span style="font-size:.8em; color: #99A6B1;"  class="drop-box-item">
+                      TO UPLOAD (PNG, JPG, PDF)
+                    </span>
+
+                  <img ng-if="!!vm.file[0] && vm.file[0].type.includes('image') && !vm.uploading" ngf-src="!vm.file[0].$error && vm.file[0]" style="display:block;margin:0 auto;max-width:100%;" />
+                  {{vm.file[0].name}}
+                  <uib-progressbar style="padding: 0 2em;" ng-if="vm.uploading" value="vm.progress" type="info" max="100" animate="true" title="Upload progress">Uploading...</uib-progressbar>
+                </div>
+
+                <div style="padding-bottom:15px;" class="col-xs-12 col-lg-6">
+                  <textarea  ng-model="vm.contribution.data.text" placeholder="Write a caption" class="form-control" rows="4" style="resize:vertical;"></textarea>
+                </div>
+                <div style="padding-bottom:15px;" class="col-xs-12 col-lg-6">
+                  <div style="padding-bottom:15px;" class="input-group mb-2 mr-sm-2 mb-sm-0">
+                      <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
+                      <input class="form-control" placeholder="Add a Location" type="text" g-places-autocomplete ng-model="vm.place" />
+                  </div>
+                  <span class="masthead__directions">Project</span>
+                  <select
+                    class="form-control"
+                    ng-model="vm.contribution.activity"
+                    ng-options="a.id as a.name for a in vm.allProjects" >
+                    <option disabled selected hidden value="">Free Observation (Default)</option>
+                  </select>
+                </div>
+                <div class="col-xs-12 text-right" style="margin-top: 1em">
+                  <button class="btn btn-link" type="button" ng-click="vm.reset()">Clear</button>
+                  <button class="btn btn-success" type="button" ng-click="vm.submit()">Submit</button>
+                </div>
+              </div>
+            </form>
+          </div>
+      </section>
+    </div>
+  </div>
 </div>

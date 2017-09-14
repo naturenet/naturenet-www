@@ -160,6 +160,20 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://malsup.github.io/min/jquery.cycle2.min.js"></script>
+
+  <!-- work around for the drawer -->
+  <style>
+  .navbar-toggler {
+      z-index: 1;
+  }
+
+  @media (max-width: 576px) {
+      nav > .container {
+          width: 100%;
+      }
+  }
+  </style>
+
 </body>
 
 </html>

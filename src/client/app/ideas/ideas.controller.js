@@ -12,6 +12,7 @@
     '$q',
     '$rootScope',
     '$scope',
+    '$window',
     'logger',
     'utility',
     'dataservice',
@@ -21,6 +22,7 @@
     $q,
     $rootScope,
     $scope,
+    $window,
     logger,
     utility,
     dataservice
@@ -45,8 +47,10 @@
     vm.currentIdeaId = void 0;
     vm.comments = void 0;
     vm.showDetail = false;
+    vm.filterType = '!deleted';
+    vm.filters = { 'doing': 0, 'done':0, 'testing':0, 'developing':0};
+    vm.isDrawerVisible= $window.innerWidth > 750 ? true: false;
     vm.showQuestionForm = false;
-
     vm.ideasDisplayLimit = vm.sidebarDisplayLimit;
 
     // States
@@ -56,6 +60,8 @@
     vm.formatDate = utility.formatDate;
     vm.selectIdea = selectIdea;
     vm.tag = tag;
+    vm.setFilter = setFilter;
+    vm.updateDrawer = updateDrawer;
     vm.openQuestionForm = openQuestionForm;
 
     activate();
@@ -103,6 +109,12 @@
       return dataservice.getArray('ideas')
         .then(function (data) {
           vm.ideas = data;
+
+          data.map(function(x) {
+            vm.filters[x.status] = vm.filters[x.status]+1;
+            return x.status
+          })
+          vm.filters['all']=vm.filters['done']+vm.filters['doing']+vm.filters['developing']+vm.filters['testing']
           return vm.ideas;
         });
     }
@@ -145,6 +157,7 @@
     function selectIdea(idea) {
       vm.selectedIdea = idea;
       vm.showDetail = true;
+      closeDrawer();
     }
 
     function resetForm() {
@@ -154,6 +167,19 @@
     function tag(tag) {
       vm.content += ' #' + tag;
     }
+
+    function setFilter(filterType) {
+      vm.filterType = filterType;
+    }
+
+    function updateDrawer() {
+      vm.isDrawerVisible=!vm.isDrawerVisible;
+    }
+
+    function closeDrawer() {
+      vm.isDrawerVisible=false;
+    }
+
   }
 
 })();

@@ -52,7 +52,7 @@
     vm.query = '';
 
     // States
-    $scope.$parent.hasMap = false;
+    //$scope.$parent.hasMap = false;
     vm.hasSidebar = false;
     vm.isObservationsListVisible = true;
     vm.showDetail = false;
@@ -216,17 +216,17 @@
     }
 
     function toggleMap() {
-      $scope.$parent.hasMap = !$scope.$parent.hasMap;
+      //$scope.$parent.hasMap = !$scope.$parent.hasMap;
     }
 
     function showMap(event, o) {
       if (!!o) { vm.currentObservation = o; }
 
-      $scope.$parent.hasMap = true;
+      //$scope.$parent.hasMap = true;
     }
 
     function hideMap() {
-      $scope.$parent.hasMap = false;
+      //$scope.$parent.hasMap = false;
     }
 
     /* Sidebar functions

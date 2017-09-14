@@ -13,6 +13,7 @@
         observations: '=',
         limit: '@',
         expandable: '@',
+        imageOnly: '@',
       },
       link: link,
       templateUrl: 'app/widgets/nn-observations-list.html',
@@ -22,6 +23,8 @@
 
     function link(scope, element, attrs) {
       scope.$watch('observations', resetLimit);
+      console.log(scope.imageOnly);
+      console.log(scope);
 
       var limitIncrement = scope.limit.slice(0);
       scope.formatDate = utility.formatDate;

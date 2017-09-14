@@ -1,124 +1,182 @@
 <!-- IdeasController as vm -->
 
-<div class="sidebar sidebar--ideas">
+<style>
+  .full {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    color: rgba(60, 100, 100, 0);
+  }
 
-  <header class="sidebar__header">
-    <div class="nn-dropdown nn-dropdown--ideas nn-dropdown--show-list">
+  .errspan {
+    float: left;
+    margin-right: 6px;
+    margin-top: -20px;
+    position: relative;
+    z-index: 2;
+  }
 
-      <div class="nn-dropdown__display">
-        <span>Design Ideas</span>
-      </div>
+  .full:hover {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    color: white;
+    text-align: center;
+  }
 
-      <div class="nn-dropdown__options">
+  .masthead-storyboard-overlay {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    bottom: 0;
+    color: rgba(60, 100, 100, 0);
+  }
 
-        <div class="nn-dropdown__option">
-          <form>
-            <input class="form-control" type="text" placeholder="search" ng-model="vm.query">
-          </form>
-        </div>
+  .masthead-storyboard-overlay:hover {
+    background-color: rgba(60, 100, 100, 0.95);
+  }
 
-        <div class="list-item" ng-repeat="i in vm.ideas | filter:{ status : '!deleted', content: vm.query } | orderBy: '-updated_at' | limitTo: vm.ideasDisplayLimit"
-          ng-click="vm.selectIdea(i)">
-          <div class="list-item__detail list-item__noimage">
-            <nn-comment class="comment list-item__comment"
-              limit="140"
-              name="{{$root.users[i.submitter].display_name}}"
-              date="{{i.updated_at}}"
-              avatar-url="{{$root.users[i.submitter].avatar}}"
-              comment="{{i.content}}">
-            </nn-comment>
-            <nn-social-totals class="totals" data="i" show-dislikes="true"></nn-social-totals>
+  .comments {
+    -webkit-box-shadow: 0px 2px 8px 1px rgba(199, 199, 199, 1);
+    -moz-box-shadow: 0px 2px 8px 1px rgba(199, 199, 199, 1);
+    box-shadow: 0px 2px 8px 1px rgba(199, 199, 199, 1);
+  }
+
+  .filter-item.filter-item-bold {
+    font-weight: bold;
+  }
+
+  .filter-item {
+    font-size: 1.25em;
+    padding-bottom: 20px;
+  }
+
+  form#idea-form {
+    background-color: white;
+    border: solid;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+  }
+</style>
+
+<div id="wrapper" ng-class="{toggled:vm.isDrawerVisible}">
+
+  <!-- Sidebar -->
+  <div id="sidebar-wrapper">
+    <div style="width:100%;" class="sidebar sidebar--projects">
+
+      <header class="sidebar__header">
+        <div class="nn-dropdown nn-dropdown--ideas nn-dropdown--show-list">
+
+          <div class="nn-dropdown__display">
+            <span>Design Ideas</span>
+          </div>
+
+
+          <div class="nn-dropdown__options">
+
+            <div style="padding-bottom: 15px;" class="input-group">
+              <span class="input-group-addon">
+                <i class="fa fa-fw fa-search"></i>
+              </span>
+              <input class="form-control"
+              placeholder="Search for Projects"
+              type="text"
+              ng-model="vm.query" />
+            </div>
+
+            <div class="filter-item" ng-class="{'filter-item-bold': vm.filterType === '!deleted'}" ng-click="vm.setFilter('!deleted')">all <span class="badge">{{vm.filters.all}}</span></div>
+            <div class="filter-item" ng-class="{'filter-item-bold': vm.filterType === 'doing'}" ng-click="vm.setFilter('doing')">doing <span class="badge">{{vm.filters.doing}}</span></div>
+            <div class="filter-item" ng-class="{'filter-item-bold': vm.filterType === 'developing'}" ng-click="vm.setFilter('developing')">developing <span class="badge">{{vm.filters.developing}}</span></div>
+            <div class="filter-item" ng-class="{'filter-item-bold': vm.filterType === 'testing'}" ng-click="vm.setFilter('testing')">testing <span class="badge">{{vm.filters.testing}}</span></div>
+            <div class="filter-item" ng-class="{'filter-item-bold': vm.filterType === 'done'}" ng-click="vm.setFilter('done')">done <span class="badge">{{vm.filters.done}}</span></div>
           </div>
         </div>
-
-        <div class="sidebar__see-more" ng-if="vm.ideas.length > vm.ideasDisplayLimit">
-          <a href="#" ng-click="vm.ideasDisplayLimit = vm.ideasDisplayLimit + vm.sidebarDisplayLimit">Show More</a>
-        </div>
-
-      </div>
-
+      </header>
     </div>
-  </header>
+  </div>
 
+  <a class="drawer-icon btn btn-primary" ng-click="vm.updateDrawer()" id="menu-toggle"><i ng-class="{'fa-arrow-right':!vm.isDrawerVisible, 'fa-arrow-left':vm.isDrawerVisible}" class="fa"></i></a>
+
+  <div id="page-content-wrapper" class="clearfix">
+
+    <div ng-if="vm.showQuestionForm">
+        <nn-question-modal
+          show="vm.showQuestionForm">
+        </nn-question-modal>
+    </div>
+
+    <div class="main main--projects">
+
+      <section class="main__section masthead">
+        <div class="masthead__text">
+
+          <div class="masthead__storyboard" style="background-image: url('/images/design-storyboard.jpg')">
+            <a href="http://www.freepik.com" target="_blank">Designed by Dooder / Freepik</a>
+            <div class="masthead-storyboard-overlay">
+              <div class="full">
+                <p style="text-align: justify; padding:25px;">
+                  Crowdsourcing design is a way for anyone to contribute to the NatureNet experience. Designers change the world and the NatureNet project gives everyone a chance to be a designer. Your design idea can be a new way of using NatureNet in your community,
+                  a new way to use mobile technology for learning about sustainability or changes in the environment, or a new feature on the web site.
+                </p>
+                <p style="text-align: justify; padding:25px;">
+                  Join the discussion below with an idea of your own, comment on someone else's idea, or vote for your favorite idea.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Accordian -->
+
+          <form id="idea-form" ng-mouseover="vm.formVisible=true" ng-mouseleave="vm.formVisible=false" class="container-fluid clearfix" ng-submit="vm.addIdea()">
+            <div style="padding:15px; padding-bottom:0px;" class="row">
+              <div class="input-group">
+                <span style="border:none; background-color: white;" class="input-group-addon">
+                <i class="fa fa-2x fa-lightbulb-o"></i>
+              </span>
+                <textarea style="z-index:0; box-shadow:none; resize: vertical; border:none" class="form-control" required rows="2" placeholder="There should be a way for me to upload contributions that aren't photographs such as water test results #projects #contributions #testing"
+                  type="text" ng-model="vm.name" />
+              </div>
+            </div>
+            <div style="padding:15px; padding-top:0px;" class="row">
+              <div ng-show="vm.formVisible">
+                <hr />
+                <div class="col-xs-6">
+                  <select class="form-control" ng-options="item for item in vm.ideaTypes" ng-model="vm.type" />
+                </div>
+                <div class="col-xs-6 text-right">
+                  <button class="btn btn-success" value="submit">Submit</button>
+                </div>
+              </div>
+            </div>
+          </form>
+
+          <div style="padding-top:10px;">
+            <div class="comments list-item" ng-repeat="i in vm.ideas | filter:{ status : vm.filterType, content: vm.query } | orderBy: '-updated_at' | limitTo: vm.ideasDisplayLimit" ng-click="vm.selectIdea(i)">
+              <div class="list-item__detail list-item__noimage">
+                <nn-comment class="comment list-item__comment" limit="140" name="{{$root.users[i.submitter].display_name}}" date="{{i.updated_at}}" avatar-url="{{$root.users[i.submitter].avatar}}" comment="{{i.content}}">
+                </nn-comment>
+                <nn-social-totals context="ideas" class="totals" data="i" show-dislikes="true"></nn-social-totals>
+              </div>
+            </div>
+          </div>
+
+          <div class="sidebar__see-more" ng-if="vm.ideas.length > vm.ideasDisplayLimit">
+            <a style="color:black;" href="#" ng-click="vm.ideasDisplayLimit = vm.ideasDisplayLimit + vm.sidebarDisplayLimit">Show More</a>
+          </div>
+          <div style="height:150px;"></div>
+
+        </div>
+      </section>
+    </div>
+  </div>
 </div>
 
 
-
-
-
-<div class="main main--with-sidebar main--ideas">
-
-  <section class="main__section masthead">
-    <header class="masthead__header">
-      <div class="masthead__avatar" style="background-size: cover; background-image: url('/images/design-ideas.png')"></div>
-      <div class="masthead__title">Design Ideas</div>
-    </header>
-    <div class="masthead__text">
-      <p class="masthead__description">
-        Crowdsourcing design is a way for anyone to contribute to the NatureNet experience. Designers
-        change the world and the NatureNet project gives everyone a chance to be a designer. Your
-        design idea can be a new way of using NatureNet in your community, a new way to use mobile
-        technology for learning about sustainability or changes in the environment, or a new feature
-        on the web site.
-      </p>
-
-      <div class="masthead__storyboard" style="background-image: url('/images/design-storyboard.jpg')">
-        <a href="http://www.freepik.com" target="_blank">Designed by Dooder / Freepik</a>
-      </div>
-
-      <p class="masthead__directions">
-        Join the discussion below with an idea of your own, comment on someone
-        else's idea, or vote for your favorite idea.
-      </p>
-
-      <p class="masthead__subtext">NatureNet is a moderated site. Postings that are inappropriate or irrelevant will be deleted.</p>
-      <form class="container-fluid clearfix" ng-submit="vm.addIdea()">
-        <div class="row form-group">
-          <div class="col-xs-12 col-lg-8">
-            <textarea class="form-control" rows="8" style="width:100%;resize:vertical;"
-              placeholder="Write a design idea..."
-              ng-model="vm.content">
-            </textarea>
-          </div>
-          <div class="col-xs-12 col-lg-4">
-            <label>Tag Your idea</label>
-            <div class="nn-tags form-control">
-              <a href="#" class="nn-tag-item" ng-repeat="tag in vm.allTags | orderBy: 'tag'" ng-click="vm.tag(tag)">#{{tag}}</a>
-            </div>
-            <!-- interactive tag widget
-            <ui-select multiple tagging ng-model="vm.tags" on-select="vm.tag($item, $model)" theme="bootstrap" style="width:100%;" title="Select tags">
-              <ui-select-match placeholder="Select tags...">{{$item}}</ui-select-match>
-              <ui-select-choices repeat="tag in vm.allTags">{{tag}}</ui-select-choices>
-            </ui-select>
-            -->
-            <label>Choose Idea Type:</label>
-            <select class="form-control" ng-options="item for item in vm.ideaTypes" ng-model="vm.type" />
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-xs-12 text-right">
-            <button class="btn btn-success" value="submit">Submit</button>
-          </div>
-        </div>
-      </form>
-    </div>
-
-    <div ng-if="vm.selectedIdea && vm.showDetail">
-      <nn-idea-modal
-        editable="vm.selectedIdea.submitter === $root.currentUser || $root.userRank === 'admin'"
-        idea="vm.selectedIdea"
-        comments="vm.comments"
-        show="vm.showDetail">
-      </nn-idea-modal>
-    </div>
-  </section>
-
-  <div ng-if="vm.showQuestionForm">
-    <nn-question-modal
-      show="vm.showQuestionForm">
-    </nn-question-modal>
+<div ng-click="vm.showDetail=false" ng-if="vm.selectedIdea && vm.showDetail" style="min-height:100vh; position:absolute; z-index=100; background-color: rgba(60, 100, 100, 0.95); height:100%;" class="main main--projects">
+  <div ng-click="$event.stopPropagation()" ng-if="vm.selectedIdea && vm.showDetail">
+    <nn-idea-modal editable="vm.selectedIdea.submitter === $root.currentUser || $root.userRank === 'admin'" idea="vm.selectedIdea" comments="vm.comments" show="vm.showDetail">
+    </nn-idea-modal>
   </div>
-
 </div>
 
 <div style="bottom: 0px;

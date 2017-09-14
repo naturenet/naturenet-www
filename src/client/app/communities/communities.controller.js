@@ -34,7 +34,7 @@
 
     // Constants
     vm.sidebarDisplayLimit = 5;
-    vm.mainDisplayLimit = 6;
+    vm.mainDisplayLimit = 4;
 
     // Data
     vm.userId = void 0;
@@ -154,7 +154,7 @@
       if ($rootScope.users[id] && $rootScope.users[id].avatar) {
         vm.userAvatar = $rootScope.users[id].avatar;
       } else {
-        vm.userAvatar = 'images/default-avatar.png';
+        vm.userAvatar = '';
       }
     }
 

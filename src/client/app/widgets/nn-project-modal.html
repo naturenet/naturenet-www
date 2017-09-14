@@ -1,9 +1,9 @@
-  <div class="modal-dialog -center" ng-class="{show:show, hide:!show}" data-backdrop="true">
+  <div class="modal-dialog -center" style="z-index: 1000;" ng-class="{show:show, hide:!show}" data-backdrop="true">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" ng-click="hide()" aria-hidden="true">&times;</button>
         <div class="modal-title">
-          <section class="main__section masthead">
+          <section>
             <header class="masthead__header">
               <div class="masthead__avatar"
                 style="background-image: url('{{url}}')">
@@ -14,7 +14,7 @@
           </section>
         </div>
       </div>
-      <div class="modal-body">
+      <div style="text-align:center;" class="modal-body">
         <section class="main__section recent-contributions">
           <div class="main__subtitle">Recent Contributions</div>
           <nn-observations-list observations="observations" limit="9" expandable="true"></nn-observations-list>

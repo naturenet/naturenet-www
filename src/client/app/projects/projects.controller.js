@@ -48,11 +48,13 @@
     vm.localProjects = void 0;
     vm.projects = [];
     vm.projectObservations = [];
+    vm.isDrawerVisible=false;
 
     // States
     vm.isProjectsListVisible = true;
 
     // Function assignments
+    vm.updateDrawer = updateDrawer;
     vm.updateProjectId = updateProjectId;
     vm.formatDate = utility.formatDate;
     vm.createProject = createProject;
@@ -160,6 +162,14 @@
       vm.description = '';
     }
 
+    function updateDrawer() {
+      vm.isDrawerVisible=!vm.isDrawerVisible;
+    }
+
+    function closeDrawer() {
+      vm.isDrawerVisible=false;
+    }
+
 
     /* Project function
        ================================================== */
@@ -170,6 +180,7 @@
         .then(function () {
           vm.projectId = id;
           vm.show = true;
+          closeDrawer();
           logger.info('Updated Projects View based on new projectId');
         });
     }

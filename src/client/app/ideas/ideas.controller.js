@@ -12,6 +12,7 @@
     '$q',
     '$rootScope',
     '$scope',
+    '$window',
     'logger',
     'utility',
     'dataservice',
@@ -21,6 +22,7 @@
     $q,
     $rootScope,
     $scope,
+    $window,
     logger,
     utility,
     dataservice
@@ -47,7 +49,7 @@
     vm.showDetail = false;
     vm.filterType = '!deleted';
     vm.filters = { 'doing': 0, 'done':0, 'testing':0, 'developing':0};
-    vm.isDrawerVisible=false;
+    vm.isDrawerVisible= $window.innerWidth > 750 ? true: false;
 
     vm.ideasDisplayLimit = vm.sidebarDisplayLimit;
 
@@ -150,6 +152,7 @@
     function selectIdea(idea) {
       vm.selectedIdea = idea;
       vm.showDetail = true;
+      closeDrawer();
     }
 
     function resetForm() {
@@ -166,7 +169,7 @@
 
     function updateDrawer() {
       vm.isDrawerVisible=!vm.isDrawerVisible;
-    }``
+    }
 
     function closeDrawer() {
       vm.isDrawerVisible=false;

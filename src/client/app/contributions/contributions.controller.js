@@ -12,6 +12,7 @@
     '$q',
     '$rootScope',
     '$scope',
+    '$window',
     'cloudinary',
     'logger',
     'utility',
@@ -22,6 +23,7 @@
     $q,
     $rootScope,
     $scope,
+    $window,
     cloudinary,
     logger,
     utility,
@@ -37,6 +39,7 @@
     vm.contribution = { data: {} };
     vm.myObservations = [];
     vm.file = null;
+    vm.isDrawerVisible= $window.innerWidth > 750 ? true: false;
 
     // States
 
@@ -45,6 +48,8 @@
     // Function assignments
     vm.submit = submit;
     vm.reset = reset;
+    vm.updateDrawer = updateDrawer;
+
     activate();
 
     /* Activate function
@@ -151,6 +156,15 @@
         vm.uploading = false;
       });
     }
+
+    function updateDrawer() {
+      vm.isDrawerVisible=!vm.isDrawerVisible;
+    }
+
+    function closeDrawer() {
+      vm.isDrawerVisible=false;
+    }
+
 
     function reset() {
       vm.uploading = false;

@@ -17,7 +17,7 @@
       position: absolute;
       top: 0;
       left: 0;
-
+      background-color: rgba(150, 210, 210, 0.9);
       width: 100%;
       height: 100%;
       overflow: scroll;
@@ -28,13 +28,31 @@
     * Container
     */
 
-    .modal-dialog {
-      position: absolute;
-      height: 90%;
-      min-width: 50%;
-      max-width: 80%;
-      z-index: 990;
+    @media(max-width:768px) {
+      .modal-dialog {
+      }
+      .-center-nav {
+      }
     }
+    @media(min-width:768px) {
+      .modal-dialog {
+        position: absolute;
+        margin-bottom: 200px;
+        display: inline-block;
+        min-width: 50%;
+        max-width: 80%;
+        z-index: 990;
+      }
+      .-center-nav {
+      
+        position: absolute;
+        top: 0px;
+        left: 50%;
+        -webkit-transform: translateX(-50%);
+        transform: translateX(-50%);
+      }
+    }
+
 
   /**
     * Header

@@ -1,46 +1,192 @@
-﻿<a class="head-logo" href="/" ng-click="vm.toggleMap(false)">
-</a>
+
+<style>
+
+.navbar {
+  margin-bottom: 0px;
+  border-bottom: thin solid #4db26a;
+}
+
+.navbar-header {
+  height:100%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #4db26a
+}
+
+.navbar-nav li a {
+    line-height: 50px;
+}
+
+.navbar-toggle{
+  margin-top: 25px;
+}
+.nav > li.profile > a:hover, .nav > li.profile > a:focus {
+  color: #354a5f;
+  background-color: transparent;
+}
+
+.nav > li.nav-item > a:hover, .nav > li.nav-item > a:focus, .nav > li.nav-item > a.active {
+  color: #354a5f;
+  background-color:#30AB5F;
+}
+
+li.nav-item > a {
+  color: #354a5f;
+  font-weight: bolder;
+}
+
+#navbar {
+  padding-right:20px;
+}
+
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+  background-color: #30AB5F;
+}
+
+i#nav-dropdown {
+  color: #354a5f;
+  padding-top:20px;
+  line-height: 10px;
+}
+
+.collapse-only {
+  display: none !important;
+}
+
+.collapse-hide {
+  display: block !important;
+}
+
+@media (max-width: 768px){
+
+  .navbar-nav .open .dropdown-menu > li > a {
+    line-height: 20px;
+  }
+  .navbar-nav .open .dropdown-menu > li > a,
+  .navbar-nav .open .dropdown-menu .dropdown-header {
+    padding: 5px 15px 5px 25px;
+  }
+  .dropdown-menu > li > a {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: normal;
+    line-height: 1.42857143;
+    white-space: nowrap;
+  }
+  .navbar-header {
+    float: none;
+  }
+  .navbar-toggle {
+    display: block;
+  }
+  .navbar-collapse {
+    border-top: 1px solid transparent;
+    background-color: #E9EAEE;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+  }
+  .navbar-collapse.collapse {
+    display: none!important;
+  }
+  .navbar-nav {
+    float: none!important;
+    text-align: center;
+    font-size: 18px;
+    margin: 7.5px 50px 7.5px -15px
+  }
+  .navbar-nav>li {
+    float: none;
+  }
+  li.nav-item > a {
+    padding-left: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  .navbar-text {
+    float: none;
+    margin: 15px 0;
+  }
+
+  .navbar-collapse.collapse.in {
+    display: block!important;
+  }
+  .collapsing {
+    overflow: hidden!important;
+  }
+  .pull-right {
+    float: none !important;
+  }
+  .collapse-only {
+    display: block !important;
+  }
+  .collapse-hide {
+    display: none !important;
+  }
+}
+
+</style>
 
 
-
-
-
-<div class="head-menu">
-  <div class="head-menu__list">
-    <a class="head-menu__item item-explore"
-      ng-click="vm.toggleMap()"
-      ng-class="{'is-current': !!vm.isMapActive}"  href="/explore">Explore</a>
-    <a class="head-menu__item"
-      ng-repeat="r in vm.navRoutes"
-      ng-class="vm.getClasses(r)"
-      ng-bind-html="r.settings.content"
-      ng-click="vm.toggleMap(false)"
-      ui-sref="{{r.name}}">
-    </a>
-  </div>
-  <div class="head-menu__foot" style="display: none">
-    <!-- TODO: add reference to footer template here for mobile -->
-  </div>
-</div>
-
-<div class="head-user">
-  <div ng-hide="vm.isAuthenticated">
-    <a class="button head-user__item button--join" href="#" ng-click="vm.showRegister()">Join</a>
-    <a class="button head-user__item button--signin" href="#" ng-click="vm.showSignin()">Sign In</a>
-  </div>
-  <div ng-show="vm.isAuthenticated">
-    <nn-badge class="nn-badge head-user__item nn-badge--header"
-      avatar-url="{{$root.users[vm.userUid].avatar}}"
-      title="{{$root.users[vm.userUid].display_name}}"
-      ng-click="vm.showPopup = !vm.showPopup">
-    </nn-badge>
-    <div class="head-dropdown" ng-show="vm.showPopup">
-      <div class="head-dropdown__contents">
-        <div class="head-dropdown__avatar" ng-style="{ 'background-image' : 'url(' + $root.users[vm.userUid].avatar + ')' }"></div>
-        <div class="head-dropdown__text">{{$root.users[vm.userUid].display_name}}</div>
-        <div class="head-dropdown__button button button--edit" ng-click="vm.showEdit()">Edit Profile</div>
-        <div class="head-dropdown__button button button--signout" ng-click="vm.signOut()">Sign Out</div>
+<nav class="navbar navbar-static-top" style="height:80px;" role="navigation">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
+          <span class="sr-only">Toggle navigation</span>
+          <span style="background-color:white;" class="icon-bar"></span>
+          <span style="background-color:white;" class="icon-bar"></span>
+          <span style="background-color:white;" class="icon-bar"></span>
+        </button>
+        <a href="/" style="height:80px; padding: 5px 10px;" class="navbar-brand" >
+          <img src="/images/logo-color.png" style="height:70px" href="/" ng-click="vm.toggleMap(false)"></a>
+        </a>
       </div>
-    </div>
-  </div>
-</div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div style="width:100%;" id="navbar" class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'" ng-click="navCollapsed = true" collapse="navCollapsed">
+        <ul class="nav navbar-nav">
+          <li class="nav-item">
+            <a class="item-explore"
+              ng-click="vm.toggleMap()"
+              href="/explore"><i class="fa"></i>
+              Explore</a>
+            </a>
+          </li>
+          <li ng-repeat="r in vm.navRoutes" class="nav-item">
+            <a class=""
+              ng-class="vm.getClasses(r)"
+              ng-click="vm.toggleMap(false)"
+              ui-sref="{{r.name}}">
+                <i class="{{r.settings.icon}}"></i>
+                <span class="header-icon {{r.settings.icon}}"/>
+                <span>{{r.settings.content}}</span>
+            </a>
+          </li>
+          <li ng-show="vm.isAuthenticated" class="nav-item collapse-only"><a ng-click="vm.showEdit()"><i class="fa fa-edit"></i> Edit Profile</a></li>
+          <li ng-show="vm.isAuthenticated" class="nav-item collapse-only"><a ng-click="vm.signOut()">Sign Out</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="nav-item" ng-hide="vm.isAuthenticated">
+              <a href="#" ng-click="vm.showRegister()">
+                <i class="fa"></i> Join</a>
+          </li>
+          <li class="nav-item" ng-hide="vm.isAuthenticated">
+              <a href="#" ng-click="vm.showSignin()">
+                <i class="fa fa-user"></i> Sign In</a>
+          </li>
+          <li class="collapse-hide profile" ng-show="vm.isAuthenticated">
+            <a class="dropdown-toggle" ng-click="vm.toggleDropdown=!vm.toggleDropdown"data-toggle="dropdown" href="#">
+              <nn-badge class="nn-badge nn-badge--header"
+                avatar-url="{{$root.users[vm.userUid].avatar}}"
+                title="{{$root.users[vm.userUid].display_name}}"
+                ng-click="vm.showPopup = !vm.showPopup">
+              </nn-badge>
+                 <i id="nav-dropdown" ng-class="{'fa fa-chevron-down': vm.toggleDropdown, 'fa fa-chevron-right': !vm.toggleDropdown}"></i>
+            </a>
+            <ul class="dropdown-menu" ng-class="{'show': vm.toggleDropdown}">
+              <li><a ng-click="vm.showEdit()"><i class="fa fa-edit"></i> Edit Profile</a></li>
+              <li><a ng-click="vm.signOut()">Sign Out</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+    </nav>

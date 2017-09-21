@@ -7,11 +7,13 @@
 </style>
 
 
-<div ng-if="vm.mode === 'signin'" class="auth__content"
-  ng-include="'app/auth/signin.html'">
+<div ng-if="vm.mode === 'signin'"  style="" class="modal-body">
+  <div class="auth__content"
+    ng-include="'app/auth/signin.html'">
+  </div>
 </div>
 
-<div class="modal-dialog -center"  ng-if="vm.mode !== 'signin'" ng-click="$event.stopPropagation()" data-backdrop="true">
+<div class="modal-dialog -center-nav"  ng-if="vm.mode !== 'signin'" ng-click="$event.stopPropagation()" data-backdrop="true">
   <div class="modal-content">
     <div class="modal-header">
       <button type="button" class="close" ng-click="vm.close()" aria-hidden="true">&times;</button>
@@ -48,42 +50,3 @@
     </div>
   </div><!-- /.modal-content -->
 </div>
-
-
-
-
-
-<!--div class="auth -center"
-  ng-class="{ 'auth--wrap': vm.mode === 'signin', 'auth--tall': vm.mode === 'update' }"
-  ng-click="$event.stopPropagation()">
-
-  <div class="auth__header">
-    <div class="auth__avatar -centerh">
-      <img ng-src="{{vm.avatar}}" ngf-src="!vm.avatarFile[0].$error && vm.avatarFile[0]"/>
-      <div ng-if="vm.mode === 'update'" ngf-drop ngf-select ng-drag-over-class="'dragover'"
-        ngf-multiple="false" ngf-pattern="'image/*'" accept="image/*"
-        ng-model="vm.avatarFile" style="width:100%;height:100%">
-        <div class="auth__upload"></div>
-      </div>
-    </div>
-    <div class="auth__close"
-      ng-click="vm.close()">
-    </div>
-  </div>
-
-
-  <div class="auth__wrapper">
-    <div ng-if="vm.mode === 'register'" class="auth__content"
-      ng-include="'app/auth/register.html'">
-    </div>
-
-    <div ng-if="vm.mode === 'signin'" class="auth__content"
-      ng-include="'app/auth/signin.html'">
-    </div>
-
-    <div ng-if="vm.mode === 'update'" class="auth__content"
-      ng-include="'app/auth/edit.html'">
-    </div>
-  </div>
-
-</div-->

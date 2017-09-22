@@ -12,6 +12,7 @@
     '$rootScope',
     '$q',
     '$filter',
+    '$window',
     'logger',
     'utility',
     'dataservice',
@@ -22,6 +23,7 @@
     $rootScope,
     $q,
     $filter,
+    $window,
     logger,
     utility,
     dataservice
@@ -48,7 +50,7 @@
     vm.localProjects = void 0;
     vm.projects = [];
     vm.projectObservations = [];
-    vm.isDrawerVisible=false;
+    vm.isDrawerVisible= $window.innerWidth > 750 ? true: false;
 
     // States
     vm.isProjectsListVisible = true;

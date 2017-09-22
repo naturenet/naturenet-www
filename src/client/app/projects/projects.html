@@ -7,8 +7,8 @@
 
     <div style="width:100%;" class="sidebar sidebar--projects">
 
-      <header class="sidebar__heade sidebar__header--projectsr">
-        <div class="nn-dropdown nn-dropdown--ideas nn-dropdown--show-list">
+      <header class="sidebar__heade sidebar__header--projects">
+        <div class="nn-dropdown nn-dropdown--projects nn-dropdown--show-list">
 
           <div class="nn-dropdown__display">
             <span>Projects</span>
@@ -16,7 +16,15 @@
 
           <div class="nn-dropdown__options">
 
-            <input class="form-control" type="text" placeholder="search" ng-model="vm.query" style="margin-bottom: 15px;" >
+            <div style="padding-bottom: 15px;" class="input-group">
+              <span class="input-group-addon">
+                <i class="fa fa-fw fa-search"></i>
+              </span>
+              <input class="form-control"
+              placeholder="Search for Projects"
+              type="text"
+              ng-model="vm.query" />
+            </div>
 
             <div ng-if="!!vm.localSite">Projects at {{vm.localSite}}</div>
             <div class="nn-dropdown__option" ng-if="!!vm.localProjects" ng-repeat="p in vm.localProjects | filter: {name:vm.query} | orderBy: '-latest_contribution'" ng-click="vm.updateProjectId(p.id)">
@@ -34,10 +42,11 @@
     </div>
   </div>
 
+  <a class="drawer-icon btn btn-primary" ng-click="vm.updateDrawer()" id="menu-toggle"><i ng-class="{'fa-arrow-right':!vm.isDrawerVisible, 'fa-arrow-left':vm.isDrawerVisible}" class="fa"></i></a>
+
   <!-- Content -->
   <div id="page-content-wrapper" class="clearfix">
     <div class="main main--projects">
-      <a style="transform: translateX(-60px);" ng-click="vm.updateDrawer()" class="btn btn-primary" id="menu-toggle"><i ng-class="{'fa-arrow-right':!vm.isDrawerVisible, 'fa-arrow-left':vm.isDrawerVisible}" class="fa"></i></a>
 
       <section style="padding-bottom:100px;" class="main__section masthead">
         <div class="masthead__text">
@@ -67,11 +76,12 @@
           </form>
         </div>
       </section>
-
-      <div ng-show="vm.show" style="min-height:100vh; position:absolute; z-index=100; background-color: rgba(60, 100, 100, 0.95); height:100%;" class="main main--projects">
-        <nn-project-modal ng-click="event.stopPropagation();" url="$root.projects[vm.projectId].icon_url" title="$root.projects[vm.projectId].name" description="$root.projects[vm.projectId].description" observations="vm.projectObservations" limit="vm.displayLimit" show="vm.show">
-        </nn-project-modal>
-      </div>
+      <div style="height:100px;"></div>
     </div>
   </div>
+</div>
+
+<div ng-show="vm.show" style="min-height:100vh; position:absolute; z-index=100; background-color: rgba(60, 100, 100, 0.95); height:100%;" class="main main--projects">
+  <nn-project-modal  url="$root.projects[vm.projectId].icon_url" title="$root.projects[vm.projectId].name" description="$root.projects[vm.projectId].description" observations="vm.projectObservations" limit="vm.displayLimit" show="vm.show">
+  </nn-project-modal>
 </div>

@@ -7,7 +7,8 @@
     ng-click="showObservation(o)">
     <nn-image class="list-item__image" image-url="{{o.data.image | img_thumb}}">
     </nn-image>
-    <div class="list-item__detail">
+    {{imageOnly}}
+    <div ng-if="imageOnly!=='true'" class="list-item__detail">
       <nn-badge class="nn-badge item__user"
         title="{{$root.users[o.observer].display_name}}"
         subtitle="{{formatDate(o.updated_at)}}"
@@ -18,10 +19,6 @@
   <div ng-if="observations.length === 0">No Observations.</div>
 </div>
 
-
-
-
-
-<div class="" ng-if="expandable && (observations.length > limit)">
+<div style="margin-bottom:20px;" class="" ng-if="expandable && (observations.length > limit)">
   <a href="#" ng-click="incrementLimit()">Show More</a>
 </div>

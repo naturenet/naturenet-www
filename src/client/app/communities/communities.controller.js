@@ -12,6 +12,7 @@
     '$q',
     '$rootScope',
     '$filter',
+    '$window',
     'logger',
     'utility',
     'dataservice',
@@ -22,6 +23,7 @@
     $q,
     $rootScope,
     $filter,
+    $window,
     logger,
     utility,
     dataservice
@@ -60,6 +62,8 @@
     // States
     vm.isPeopleListVisible = true;
     vm.isGroupsListVisible = true;
+    vm.isDrawerVisible= $window.innerWidth > 750 ? true: false;
+    console.log($window.innerWidth);
 
     // Function assignments
     vm.updateUserId = updateUserId;
@@ -67,6 +71,7 @@
     vm.showUpdate = showUpdate;
     vm.showMore = showMore;
     vm.formatDate = utility.formatDate;
+    vm.updateDrawer = updateDrawer;
 
     activate();
 
@@ -205,6 +210,14 @@
             getObservationsByUserId(m);
           }
         });
+    }
+
+    function updateDrawer() {
+      vm.isDrawerVisible=!vm.isDrawerVisible;
+    }
+
+    function closeDrawer() {
+      vm.isDrawerVisible=false;
     }
 
     function showUpdate() {

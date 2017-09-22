@@ -1,92 +1,104 @@
-<!-- CommunitiesController as vm -->
+<!-- ProjectsController as vm -->
 
-<div class="sidebar sidebar--communities">
+<div id="wrapper" ng-class="{toggled:vm.isDrawerVisible}">
 
-  <header class="sidebar__header sidebar__header--people">
-    <div class="nn-dropdown nn-dropdown--people" ng-class="{ 'nn-dropdown--show-list': !!vm.isPeopleListVisible }">
+  <!-- Sidebar -->
+  <div width="" id="sidebar-wrapper">
 
-      <div class="nn-dropdown__display"
-        ng-click="vm.isPeopleListVisible = !vm.isPeopleListVisible">
-        <span>People</span>
-        <div class="nn-dropdown__action"></div>
-      </div>
+    <div style="width:100%;" class="sidebar sidebar--projects">
 
-      <div style="padding-top:0px; padding-left:15px;" class="nn-dropdown__options">
-        <div style="padding-top: 15px;" class="input-group">
-          <span class="input-group-addon">
-            <i class="fa fa-fw fa-search"></i>
-          </span>
-          <input class="form-control"
-          placeholder="Search for People"
-          type="text"
-          ng-model="vm.query" />
+      <header class="sidebar__header sidebar__header--people">
+        <div class="nn-dropdown nn-dropdown--people" ng-class="{ 'nn-dropdown--show-list': !!vm.isPeopleListVisible }">
+
+          <div class="nn-dropdown__display"
+            ng-click="vm.isPeopleListVisible = !vm.isPeopleListVisible">
+            <span>People</span>
+            <div class="nn-dropdown__action"></div>
+          </div>
+
+          <div style="padding-bottom: 50px; padding-top:0px; padding-left:15px;" class="nn-dropdown__options">
+            <div style="padding-top: 15px;" class="input-group">
+              <span class="input-group-addon">
+                <i class="fa fa-fw fa-search"></i>
+              </span>
+              <input class="form-control"
+              placeholder="Search for People"
+              type="text"
+              ng-model="vm.query" />
+            </div>
+
+            <div class="nn-dropdown__option"
+              ng-repeat="u in vm.users | filter:{ display_name:vm.query } | orderBy: '-created_at' | orderBy: '-latest_contribution' | emptyToEnd: 'latest_contribution' | limitTo: vm.peopleDisplayLimit"
+              ng-click="vm.updateUserId(u.id)">
+              <nn-badge class="nn-badge"
+                title="{{u.display_name}}"
+                subtitle="{{vm.sites[u.affiliation].name}}"
+                avatar-url="{{u.avatar}}">
+              </nn-badge>
+            </div>
+
+            <div class="sidebar__see-more" ng-if="vm.users.length > vm.peopleDisplayLimit">
+              <a href="#" ng-click="vm.showMore()">Show More</a>
+            </div>
+          </div>
         </div>
+      </header>
 
-        <div class="nn-dropdown__option"
-          ng-repeat="u in vm.users | filter:{ display_name:vm.query } | orderBy: '-created_at' | orderBy: '-latest_contribution' | emptyToEnd: 'latest_contribution' | limitTo: vm.peopleDisplayLimit"
-          ng-click="vm.updateUserId(u.id)">
-          <nn-badge class="nn-badge"
-            title="{{u.display_name}}"
-            subtitle="{{vm.sites[u.affiliation].name}}"
-            avatar-url="{{u.avatar}}">
-          </nn-badge>
+      <header class="sidebar__header sidebar__header--groups">
+        <div class="nn-dropdown nn-dropdown--groups" ng-class="{ 'nn-dropdown--show-list': !!vm.isGroupsListVisible }">
+
+          <div class="nn-dropdown__display"
+            ng-click="vm.isGroupsListVisible = !vm.isGroupsListVisible">
+            <span>Groups</span>
+            <div class="nn-dropdown__action"></div>
+          </div>
+
+          <div style="padding-top:0px; padding-left:15px;" class="nn-dropdown__options">
+            <div style="padding-top: 15px;" class="input-group">
+              <span class="input-group-addon">
+                <i class="fa fa-fw fa-search"></i>
+              </span>
+              <input class="form-control"
+              placeholder="Search for Groups"
+              type="text"
+              ng-model="vm.groupQuery" />
+            </div>
+
+            <!-- TODO: add ng-click to above markup for displaying groups -->
+            <div class="nn-dropdown__option"
+              ng-repeat="g in vm.groups | filter:{ name:vm.groupQuery } | orderBy: '-updated_at' | limitTo: vm.groupsDisplayLimit"
+              ng-click="vm.updateGroupId(g.id)">
+              <nn-badge class="nn-badge"
+                title="{{g.name}}"
+                subtitle="{{vm.sites[g.affiliation].name}}"
+                avatar-url="{{g.avatar}}">
+              </nn-badge>
+            </div>
+
+            <div class="sidebar__see-more" ng-if="vm.groups.length > vm.groupsDisplayLimit">
+              <a href="#" ng-click="vm.groupsDisplayLimit = vm.groupsDisplayLimit + vm.sidebarDisplayLimit">Show More</a>
+            </div>
+          </div>
         </div>
+      </header>
+    </div>
+  </div>
 
-        <div class="sidebar__see-more" ng-if="vm.users.length > vm.peopleDisplayLimit">
-          <a href="#" ng-click="vm.showMore()">Show More</a>
+  <a class="drawer-icon btn btn-primary" ng-click="vm.updateDrawer()" id="menu-toggle"><i ng-class="{'fa-arrow-right':!vm.isDrawerVisible, 'fa-arrow-left':vm.isDrawerVisible}" class="fa"></i></a>
+
+
+  <!-- Content -->
+  <div id="page-content-wrapper" class="clearfix">
+    <div class="main main--projects">
+
+      <section style="padding-bottom:100px;" class="main__section masthead">
+        <div class="masthead__text">
+          <div  ng-show="vm.userId" ng-include="'app/communities/user.html'"></div>
+          <div  ng-show="vm.groupId" ng-include="'app/communities/group.html'"></div>
         </div>
-
-      </div>
+        <div style="height:250px;"></div>
+      </section>
 
     </div>
-  </header>
-
-
-
-  <header class="sidebar__header sidebar__header--groups">
-    <div class="nn-dropdown nn-dropdown--groups" ng-class="{ 'nn-dropdown--show-list': !!vm.isGroupsListVisible }">
-
-      <div class="nn-dropdown__display"
-        ng-click="vm.isGroupsListVisible = !vm.isGroupsListVisible">
-        <span>Groups</span>
-        <div class="nn-dropdown__action"></div>
-      </div>
-
-      <div style="padding-top:0px; padding-left:15px;" class="nn-dropdown__options">
-        <div style="padding-top: 15px;" class="input-group">
-          <span class="input-group-addon">
-            <i class="fa fa-fw fa-search"></i>
-          </span>
-          <input class="form-control"
-          placeholder="Search for Groups"
-          type="text"
-          ng-model="vm.groupQuery" />
-        </div>
-
-        <!-- TODO: add ng-click to above markup for displaying groups -->
-        <div class="nn-dropdown__option"
-          ng-repeat="g in vm.groups | filter:{ name:vm.groupQuery } | orderBy: '-updated_at' | limitTo: vm.groupsDisplayLimit"
-          ng-click="vm.updateGroupId(g.id)">
-          <nn-badge class="nn-badge"
-            title="{{g.name}}"
-            subtitle="{{vm.sites[g.affiliation].name}}"
-            avatar-url="{{g.avatar}}">
-          </nn-badge>
-        </div>
-
-        <div class="sidebar__see-more" ng-if="vm.groups.length > vm.groupsDisplayLimit">
-          <a href="#" ng-click="vm.groupsDisplayLimit = vm.groupsDisplayLimit + vm.sidebarDisplayLimit">Show More</a>
-        </div>
-
-      </div>
-
-    </div>
-  </header>
-
-</div>
-
-<div class="main main--with-sidebar main--communities" ng-show="vm.userId" ng-include="'app/communities/user.html'"></div>
-
-<div class="main main--with-sidebar main--communities" ng-show="vm.groupId" ng-include="'app/communities/group.html'"></div>
-
+  </div>
 </div>

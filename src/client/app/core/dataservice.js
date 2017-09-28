@@ -785,7 +785,7 @@
     /* Project functions
        ================================================== */
 
-    function createProject(name, description, url) { //add sites - checkboxes
+    function createProject(name, description, sites, url) { //add sites - checkboxes
       var auth = getAuth();
       //return true;
       if (auth === null || !auth.uid) {
@@ -802,7 +802,7 @@
         submitter: auth.uid,
         icon_url: url ? url : '',
         latest_contribution: 0,
-        //sites: [ "aws": true, "rcns": true ],
+        sites: sites,
         source: 'web',
         status: ''
       });

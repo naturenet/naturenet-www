@@ -50,7 +50,7 @@
     vm.filterType = '!deleted';
     vm.filters = { 'doing': 0, 'done':0, 'testing':0, 'developing':0};
     vm.isDrawerVisible= $window.innerWidth > 750 ? true: false;
-
+    vm.showQuestionForm = false;
     vm.ideasDisplayLimit = vm.sidebarDisplayLimit;
 
     // States
@@ -62,6 +62,7 @@
     vm.tag = tag;
     vm.setFilter = setFilter;
     vm.updateDrawer = updateDrawer;
+    vm.openQuestionForm = openQuestionForm;
 
     activate();
 
@@ -147,6 +148,10 @@
       if (vm.content.length !== 0) {
         addIdeaObject(vm.content, vm.type);
       }
+    }
+
+    function openQuestionForm(){
+      vm.showQuestionForm = true;
     }
 
     function selectIdea(idea) {

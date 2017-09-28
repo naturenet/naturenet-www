@@ -97,7 +97,14 @@
 
   <a class="drawer-icon btn btn-primary" ng-click="vm.updateDrawer()" id="menu-toggle"><i ng-class="{'fa-arrow-right':!vm.isDrawerVisible, 'fa-arrow-left':vm.isDrawerVisible}" class="fa"></i></a>
 
+  <div ng-if="vm.showQuestionForm">
+      <nn-question-modal
+        show="vm.showQuestionForm">
+      </nn-question-modal>
+  </div>
+
   <div id="page-content-wrapper" class="clearfix">
+
     <div class="main main--projects">
 
       <section class="main__section masthead">
@@ -164,9 +171,22 @@
   </div>
 </div>
 
+
 <div ng-click="vm.showDetail=false" ng-if="vm.selectedIdea && vm.showDetail" style="min-height:100vh; position:absolute; z-index=100; background-color: rgba(60, 100, 100, 0.95); height:100%;" class="main main--projects">
   <div ng-click="$event.stopPropagation()" ng-if="vm.selectedIdea && vm.showDetail">
     <nn-idea-modal editable="vm.selectedIdea.submitter === $root.currentUser || $root.userRank === 'admin'" idea="vm.selectedIdea" comments="vm.comments" show="vm.showDetail">
     </nn-idea-modal>
   </div>
+</div>
+
+<div style="bottom: 0px;
+    position: absolute;
+    margin-bottom: 80px;
+    margin-right: 80px;
+    right: 0px;
+    font-size: 2em;
+    cursor:pointer;" type="button"  ng-click="vm.openQuestionForm()" aria-label="Ask a Question">
+
+  <i style="color:#4DB36A;" class="fa fa-question-circle fa-stack-2x"></i>
+
 </div>

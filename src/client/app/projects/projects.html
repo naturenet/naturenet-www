@@ -67,11 +67,22 @@
               <label for="name">Project Title:</label>
               <input ng-model="vm.name" placeholder="Tracking duck populations" class="form-control" id="name">
             </div>
+
             <div class="form-group">
               <label for="description">Project Description:</label>
               <textarea type="text" ng-model="vm.description" rows="4" placeholder="Because ducks are able to fly it can be extremely challenging to keep track of their populations and their migratory patterns. By taking photos of ducks around #Charlotte and #ReedyCreek we get a better understanding of their movements #ducks #birds #population #migration"
                 class="form-control" id="description" />
             </div>
+
+            <div class="form-group">
+              <label for="name">Site:</label>
+              <div  ng-repeat="g in vm.sites">
+              <input type="checkbox"
+                ng-hide="vm.sites[$index].name == null"
+                ng-model="vm.affiliations[vm.sites[$index].id]">&nbsp;<span>{{vm.sites[$index].name}}</span>
+              </div>
+            </div>
+
             <button class="btn btn-success" value="submit">Submit</button>
           </form>
         </div>

@@ -51,6 +51,7 @@
     vm.projects = [];
     vm.projectObservations = [];
     vm.isDrawerVisible= $window.innerWidth > 750 ? true: false;
+    vm.affiliations = {};
 
     // States
     vm.isProjectsListVisible = true;
@@ -74,7 +75,7 @@
     function activate() {
       utility.showSplash();
 
-      var promises = [getProjectRecentId(), getProjectsArray(), getLocalProjects()];
+      var promises = [getProjectRecentId(), getProjectsArray(), getLocalProjects(), getSites()];
       return $q.all(promises)
         .then(function () {
           var promises = [getObservationsByProjectId(vm.projectId)];
@@ -148,8 +149,9 @@
 
       var name = vm.name; //bound value
       var description = vm.description; //bound value
+      var sites = vm.affiliations;
 
-      return dataservice.createProject(name, description, url)
+      return dataservice.createProject(name, description, sites, url)
         .then(function (data) {
           getProjectsArray()
         .then(function () {
@@ -161,6 +163,7 @@
 
     function resetForm() {
       vm.name = '';
+      vm.affiliations = {};
       vm.description = '';
     }
 
@@ -172,6 +175,12 @@
       vm.isDrawerVisible=false;
     }
 
+    function getSites() {
+      return dataservice.getArray('sites')
+        .then(function (data) {
+          vm.sites = data;
+        });
+    }
 
     /* Project function
        ================================================== */

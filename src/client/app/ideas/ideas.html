@@ -23,13 +23,15 @@
     color: white;
     text-align: center;
   }
-
-  .masthead-storyboard-overlay {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    bottom: 0;
-    color: rgba(60, 100, 100, 0);
+  @media only screen and (min-width: 480px) {
+    .masthead-storyboard-overlay {
+      overflow: scroll;
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      bottom: 0;
+      color: rgba(60, 100, 100, 0);
+    }
   }
 
   .masthead-storyboard-overlay:hover {
@@ -44,6 +46,10 @@
 
   .filter-item.filter-item-bold {
     font-weight: bold;
+    color: rgb(77, 178, 106);
+  }
+  .badge.filter-item-badge {
+    background: rgb(77, 178, 106);
   }
 
   .filter-item {
@@ -84,24 +90,35 @@
               ng-model="vm.query" />
             </div>
 
-            <div class="filter-item" ng-class="{'filter-item-bold': vm.filterType === '!deleted'}" ng-click="vm.setFilter('!deleted')">all <span class="badge">{{vm.filters.all}}</span></div>
-            <div class="filter-item" ng-class="{'filter-item-bold': vm.filterType === 'doing'}" ng-click="vm.setFilter('doing')">doing <span class="badge">{{vm.filters.doing}}</span></div>
-            <div class="filter-item" ng-class="{'filter-item-bold': vm.filterType === 'developing'}" ng-click="vm.setFilter('developing')">developing <span class="badge">{{vm.filters.developing}}</span></div>
-            <div class="filter-item" ng-class="{'filter-item-bold': vm.filterType === 'testing'}" ng-click="vm.setFilter('testing')">testing <span class="badge">{{vm.filters.testing}}</span></div>
-            <div class="filter-item" ng-class="{'filter-item-bold': vm.filterType === 'done'}" ng-click="vm.setFilter('done')">done <span class="badge">{{vm.filters.done}}</span></div>
+            <div class="filter-item" ng-class="{'filter-item-bold': vm.filterType === '!deleted'}" ng-click="vm.setFilter('!deleted')">
+              all <span class="badge" ng-class="{'filter-item-badge': vm.filterType === '!deleted'}">{{vm.filters.all}}</span>
+            </div>
+            <div class="filter-item" ng-class="{'filter-item-bold': vm.filterType === 'doing'}" ng-click="vm.setFilter('doing')">
+              discussing <span class="badge" ng-class="{'filter-item-badge': vm.filterType === 'doing'}">{{vm.filters.doing}}</span>
+            </div>
+            <div class="filter-item" ng-class="{'filter-item-bold': vm.filterType === 'developing'}" ng-click="vm.setFilter('developing')">
+              developing <span class="badge" ng-class="{'filter-item-badge': vm.filterType === 'developing'}">{{vm.filters.developing}}</span>
+            </div>
+            <div class="filter-item" ng-class="{'filter-item-bold': vm.filterType === 'testing'}" ng-click="vm.setFilter('testing')">
+              testing <span class="badge" ng-class="{'filter-item-badge': vm.filterType === 'testing'}">{{vm.filters.testing}}</span>
+            </div>
+            <div class="filter-item" ng-class="{'filter-item-bold': vm.filterType === 'done'}" ng-click="vm.setFilter('done')">
+              done <span class="badge" ng-class="{'filter-item-badge': vm.filterType === 'done'}">{{vm.filters.done}}</span>
+            </div>
           </div>
         </div>
       </header>
     </div>
   </div>
 
+  <div ng-click="vm.showDetail=false" ng-if="vm.showQuestionForm" style="min-height:100vh; position:absolute; z-index=100; background-color: rgba(60, 100, 100, 0.95); height:100%;" class="main main--projects">
+    <nn-question-modal show="vm.showQuestionForm">
+    </nn-question-modal>
+  </div>
+
   <a class="drawer-icon btn btn-primary" ng-click="vm.updateDrawer()" id="menu-toggle"><i ng-class="{'fa-arrow-right':!vm.isDrawerVisible, 'fa-arrow-left':vm.isDrawerVisible}" class="fa"></i></a>
 
-  <div ng-if="vm.showQuestionForm">
-      <nn-question-modal
-        show="vm.showQuestionForm">
-      </nn-question-modal>
-  </div>
+
 
   <div id="page-content-wrapper" class="clearfix">
 
@@ -177,16 +194,4 @@
     <nn-idea-modal editable="vm.selectedIdea.submitter === $root.currentUser || $root.userRank === 'admin'" idea="vm.selectedIdea" comments="vm.comments" show="vm.showDetail">
     </nn-idea-modal>
   </div>
-</div>
-
-<div style="bottom: 0px;
-    position: absolute;
-    margin-bottom: 80px;
-    margin-right: 80px;
-    right: 0px;
-    font-size: 2em;
-    cursor:pointer;" type="button"  ng-click="vm.openQuestionForm()" aria-label="Ask a Question">
-
-  <i style="color:#4DB36A;" class="fa fa-question-circle fa-stack-2x"></i>
-
 </div>

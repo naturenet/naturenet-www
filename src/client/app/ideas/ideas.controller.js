@@ -152,6 +152,7 @@
 
     function openQuestionForm(){
       vm.showQuestionForm = true;
+      closeDrawer();
     }
 
     function selectIdea(idea) {

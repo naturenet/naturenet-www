@@ -47,6 +47,7 @@
     vm.currentProject = void 0;
     vm.comments = void 0;
     vm.maxPoints = 100;
+    vm.dynMarkers = [];
 
     //Search
     vm.query = '';
@@ -56,6 +57,8 @@
     vm.hasSidebar = false;
     vm.isObservationsListVisible = true;
     vm.showDetail = false;
+    vm.isDrawerVisible=true;
+    vm.limit = 8;
 
     // Function assignments
     vm.toggleMap = toggleMap;
@@ -64,6 +67,8 @@
     vm.formatDate = utility.formatDate;
     vm.onMapMoved = onMapMoved;
     vm.select = select;
+    vm.updateDrawer = updateDrawer;
+    vm.openDetails = openDetails;
 
     activate();
 
@@ -78,10 +83,11 @@
         .then(function (map) {
           logger.info('Google Maps Ready');
           vm.map = map;
-          initializeMap();
+
 
           $q.all(promises)
             .then(function () {
+              initializeMap();
               utility.hideSplash();
               logger.info('Activated Map View');
             });
@@ -136,17 +142,85 @@
     /* Map functions
        ================================================== */
 
+    /*function selectObservation (one, two) {
+      //console.log(one);
+      //console.log(two);
+      console.log(two.data.text);
+      console.log(two.data.image);
+      one.icon={
+          path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z M -2,-30 a 2,2 0 1,1 4,0 2,2 0 1,1 -4,0',
+          fillColor: '#354a5f',
+          fillOpacity: 1,
+          strokeColor: '#4db26a',
+          strokeWeight: 3,
+          scale: 1,
+     }
+   }*/
+
+   function openDetails() {
+     vm.showDetail = true;
+     closeDrawer();
+   }
+
+   vm.showDetail = function(e, shop) {
+     vm.currentObservation = shop;
+     vm.map.showInfoWindow('bar', shop.id);
+   };
+
+   vm.hideDetail = function() {
+     vm.map.hideInfoWindow('bar');
+   };
+
+
     function initializeMap() {
+
       var coords = dataservice.getGeolocation();
 
       if (!!coords) {
         config.mapOptions.center = new google.maps.LatLng(coords.latitude, coords.longitude);
         config.mapOptions.zoom = 12;
       }
-
-      config.mapOptions.mapTypeId = google.maps.MapTypeId.HYBRID;
-
       vm.map.setOptions(config.mapOptions);
+
+      initMarkerClusterer();
+
+      function  createMarkerForCity (observation) {
+
+        function pinSymbol() {
+        //Function code taken from:
+        //https://stackoverflow.com/questions/7095574/google-maps-api-3-custom-marker-color-for-default-dot-marker
+            return {
+                path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z M -2,-30 a 2,2 0 1,1 4,0 2,2 0 1,1 -4,0',
+                fillColor: '#4db26a',
+                fillOpacity: 1,
+                strokeColor: '#354a5f',
+                strokeWeight: 3,
+                scale: 1,
+           };
+        }
+
+        var position = observation.l
+
+        var marker = new google.maps.Marker({
+          position: new google.maps.LatLng(position[0], position[1]),
+          title: observation.data.text,
+          id: observation['$id'],
+          icon: pinSymbol('#354a5f')
+        });
+        google.maps.event.addListener(marker, 'click', function () {
+          vm.currentObservation = observation;
+          vm.map.showInfoWindow('bar', this);
+        });
+        return marker;
+      }
+
+      function initMarkerClusterer () {
+        vm.markers = vm.observations.map(function (city) {
+           return createMarkerForCity(city);
+        });
+        var mcOptions = { cssClass: 'custom-pin', maxZoom: 13, imagePath: '/bower_components/gmaps-marker-clusterer/images/m' };
+        return new MarkerClusterer(vm.map, vm.markers, mcOptions);
+      };
 
       $scope.$broadcast('map:init');
 
@@ -158,10 +232,10 @@
 
     function onMapMoved() {
       if (!!vm.map) {
-        dataservice.getObservationsNear(vm.map.getCenter(), getMapRadiusKm(), vm.maxPoints)
-          .then(function (response) {
-            vm.localObservationIds = response;
-          });
+        //dataservice.getObservationsNear(vm.map.getCenter(), getMapRadiusKm(), vm.maxPoints)
+        //  .then(function (response) {
+        //    vm.localObservationIds = response;
+        //  });
       }
     }
 
@@ -171,8 +245,9 @@
       var center = vm.map.getCenter();
       if (bounds && center) {
         var ne = bounds.getNorthEast();
+
         var radius = google.maps.geometry.spherical.computeDistanceBetween(center, ne);
-        radius = Math.floor(radius / 1000);
+        radius = Math.floor(radius * 10);
       }
 
       return radius;
@@ -200,7 +275,7 @@
     function updateMap(o) {
       if (!!vm.map) {
         if (!o || !o.l || angular.equals(o.l, [0, 0])) {
-          return resetMap();
+      //    return resetMap();
         }
 
         var newCenter = new google.maps
@@ -209,8 +284,8 @@
 
         vm.map.panTo(newCenter);
 
-        if (currentZoom < 18) {
-          vm.map.setZoom(18);
+        if (currentZoom < 14) {
+          vm.map.setZoom(14);
         }
       }
     }
@@ -233,18 +308,27 @@
        ================================================== */
 
     function showSidebar(o) {
-      vm.currentObservation = o;
-      vm.hasSidebar = true;
-      vm.showDetail = false;
 
-      vm.currentProject = void 0;
+      vm.currentObservation = o;
+
       if (!!o) {
         dataservice.getProjectById(o.activity).then(function (data) {
           vm.currentProject = data;
         });
       }
+      if (vm.markers) {
+        var selected = vm.markers.filter(function(marker) {
+          return marker.id == o['$id'];
+        })
 
-      loadComments(vm.currentObservation);
+        //the best solution I could come up with to
+        //deal with a glitch in ng-maps.
+        setTimeout(function() {
+          google.maps.event.trigger(selected[0], 'click')
+        }, 600)
+
+        loadComments(vm.currentObservation);
+      }
     }
 
     function hideSidebar() {
@@ -260,6 +344,20 @@
             return vm.comments;
           });
       }
+    }
+
+    function updateDrawer() {
+      console.log('close');
+      vm.isDrawerVisible=!vm.isDrawerVisible;
+      setTimeout(function() {
+        google.maps.event.trigger(vm.map, "resize");
+      }, 1500);
+    }
+
+    function closeDrawer() {
+      console.log('close');
+      vm.isDrawerVisible=false;
+      google.maps.event.trigger(vm.map, "resize");
     }
 
   }

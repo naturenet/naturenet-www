@@ -1,97 +1,168 @@
 <!-- ExploreController as vm -->
 
-<ng-map
-  nn-map-contain
-  class="map"
-  default-style="false"
-  center="United States of America"
-  on-idle="vm.onMapMoved()"
-  ng-class="{'has-sidebar': !!vm.hasSidebar}">
+<style>
+  .toggled-map {
+    width: calc(100% - 70px);
+    margin-left: -250px;
+  }
 
-  <div class="main main--with-sidebar main--explore" ng-if="!!vm.currentObservation && vm.showDetail">
-    <nn-observation-modal observation="vm.currentObservation" comments="vm.comments" show="vm.showDetail"></nn-observation-modal>
-  </div>
+  .untoggled-map {
+    width: calc(100% + 250px);
+    margin-left: -250px;
+  }
 
-  <div class="sidebar sidebar--map-list">
+  .custom-pin {
+    height: 25px;
+    line-height: .25;
+    width: 55px;
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
+    color: white;
+    background: #354a5f;
+    position: absolute;
+    border-radius: 25px;
+    border: 3px solid #4db26a;
+    font-size: 1em;
+    font-weight: bold;
+    transition: all 500ms;
+  }
 
-    <header class="sidebar__header">
-      <div class="nn-dropdown nn-dropdown--explore"
-        ng-class="{ 'nn-dropdown--show-list': !!vm.isObservationsListVisible }">
+  .custom-pin::after {
+    position: absolute;
+    top: 99%;
+    left: calc(50% - .5em);
+  }
 
-        <div class="nn-dropdown__display"
-          ng-click="vm.isObservationsListVisible = !vm.isObservationsListVisible">
-          <span>Observations</span>
-          <div class="nn-dropdown__action"></div>
-        </div>
+  .custom-pin:hover {
+    transform: scale(1.15);
+  }
+</style>
 
-        <div class="nn-dropdown__options">
 
-          <div class="nn-dropdown__option">
-            <form>
-              <input class="form-control" type="text" placeholder="search" ng-model="vm.query">
-            </form>
+<div id="wrapper" ng-class="{toggled:vm.isDrawerVisible}">
+
+  <!-- Sidebar -->
+  <div width="" id="sidebar-wrapper">
+
+    <div style="width:100%;" class="sidebar sidebar--projects">
+
+      <header class="sidebar__header">
+        <div class="nn-dropdown nn-dropdown--explore" ng-class="{ 'nn-dropdown--show-list': !!vm.isObservationsListVisible }">
+
+          <div class="nn-dropdown__display" ng-click="vm.isObservationsListVisible = !vm.isObservationsListVisible">
+            <span>Observations</span>
           </div>
 
-          <div class="list-item" ng-repeat="o in vm.observations | filter: {data: {text: vm.query}} | orderBy: '-updated_at' | filter:{ status : '!deleted' }" ng-click="vm.showSidebar(o)">
-            <nn-image class="list-item__image" image-url="{{o.data.image | img_preview}}">
-            </nn-image>
-            <div class="list-item__detail">
-              <nn-comment class="nn-badge list-item__comment"
-                limit="80"
-                name="{{$root.users[o.observer].display_name}}"
-                date="{{o.updated_at}}"
-                avatar-url="{{$root.users[o.observer].avatar}}"
-                comment="{{o.data.text}}">
-              </nn-comment>
-              <nn-social-totals class="totals" data="o"></nn-social-totals>
+          <div class="nn-dropdown__options">
+
+            <div class="nn-dropdown__option">
+              <form>
+                <input class="form-control" type="text" placeholder="search" ng-model="vm.query">
+              </form>
+            </div>
+
+            <div class="list-item" ng-repeat="o in vm.observations | filter: {data: {text: vm.query} } | orderBy: '-updated_at' | limitTo: vm.limit" ng-click="vm.showSidebar(o)">
+              <nn-image class="list-item__image" image-url="{{o.data.image | img_preview}}">
+              </nn-image>
+              <div class="list-item__detail">
+                <nn-comment class="nn-badge list-item__comment" limit="80" name="{{$root.users[o.observer].display_name}}" date="{{o.updated_at}}" avatar-url="{{$root.users[o.observer].avatar}}" comment="{{o.data.text}}">
+                </nn-comment>
+                <nn-social-totals class="totals" data="o"></nn-social-totals>
+              </div>
+            </div>
+            <div style="padding-top:15px;" ng-if="vm.observations.length > vm.limit">
+              <a style="color:white;" href="#" ng-click="vm.limit=vm.limit+5">Show More</a>
+            </div>
+
+          </div>
+
+        </div>
+      </header>
+
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div id="page-content-wrapper" style="position:absolute;" class="clearfix">
+    <a style="transform: translateX(0px); z-index:1000; top:50px; position:absolute;" ng-click="vm.updateDrawer()" class="btn btn-primary" id="menu-toggle"><i ng-class="{'fa-arrow-right':!vm.isDrawerVisible, 'fa-arrow-left':vm.isDrawerVisible}" class="fa"></i></a>
+
+    <div class="page-map ng-scope has-map" ng-class="{'toggled-map': vm.isDrawerVisible, 'untoggled-map':!vm.isDrawerVisible}">
+
+      <ng-map style="height: 100% !important;" class="map ng-scope has-sidebar" default-style="true" center="United States of America" on-idle="vm.onMapMoved()">
+
+        <!--custom-marker ng-repeat="(id, pos) in vm.observations" position="{{pos.l}}">
+          <div class="cm">
+             position:<br>
+             {{p[0]}}<br>
+             {{p[1]}}
+           </div>
+       </custom-marker-->
+
+        <!--div class="main main--with-sidebar main--explore" ng-if="!!vm.currentObservation && vm.showDetail">
+          <nn-observation-modal observation="vm.currentObservation" comments="vm.comments" show="vm.showDetail"></nn-observation-modal>
+        </div>
+
+
+        <div ng-if="!!vm.currentObservation" class="sidebar sidebar--slide sidebar--map-detail">
+
+          <header class="sidebar__header">
+            <nn-badge class="nn-badge sidebar__user"
+              title="{{$root.users[vm.currentObservation.observer].display_name}}"
+              subtitle="{{vm.formatDate(vm.currentObservation.updated_at)}}"
+              avatar-url="{{$root.users[vm.currentObservation.observer].avatar}}">
+            </nn-badge>
+            <a style="float: right; font-size:1.65em;" class="fa fa-close" href="#" ng-click="vm.hideSidebar()">
+            </a>
+          </header>
+
+          <nn-observation
+            observation="vm.currentObservation"
+            editable="vm.currentObservation.observer === $root.currentUser || $root.userRank === 'admin'">
+          </nn-observation>
+
+          <section class="sidebar__comments">
+            <nn-comment class="comment list-item__comment" ng-repeat="c in vm.comments | orderBy: 'updated_at'"
+              name="{{$root.users[c.commenter].display_name}}"
+              date="{{c.updated_at}}"
+              avatar-url="{{$root.users[c.commenter].avatar}}"
+              comment="{{c.comment}}">
+            </nn-comment>
+            <nn-comment-form class="nn-badge comment list-item__comment"
+              data="vm.currentObservation"
+              context="observations">
+            </nn-comment-form>
+          </section>
+
+        </div-->
+
+        <!-- more information here -->
+        <!-- pop up photo for detailed viewing -->
+        <!-- ability to comment directly and see comments -->
+        <!-- onclick make a popup -->
+
+        <info-window id="bar" max-width="200">
+          <div ng-non-bindable>
+            <div id="siteNotice"></div>
+
+            <div ng-click="vm.openDetails()" style="padding-left:20px;" id="bodyContent">
+              <h1 style="padding: 20px 0 10px 0; font-size:2em;" id="firstHeading" class="firstHeading">
+                  {{$root.users[vm.currentObservation.observer].display_name}}
+                </h1>
+              <img style="width:200px; height:200px" src="{{vm.currentObservation.data.image}}" />
+              <p ng-show="vm.currentObservation.where" style="margin-top:10px;"><i class="fa fa-map-marker"></i>{{vm.currentObservation.where}}</p>
+              <p style="margin:10px 0 10px 0;">{{vm.currentObservation.data.text}}</p>
+              <nn-social-totals class="totals" data="vm.currentObservation"></nn-social-totals>
+              {{vm.showDetail}}
             </div>
           </div>
+        </info-window>
 
-        </div>
-
-      </div>
-    </header>
-
+      </ng-map>
+    </div>
   </div>
+</div>
 
-
-
-
-
-  <div ng-if="!!vm.currentObservation" class="sidebar sidebar--slide sidebar--map-detail">
-
-    <header class="sidebar__header">
-      <nn-badge class="nn-badge sidebar__user"
-        title="{{$root.users[vm.currentObservation.observer].display_name}}"
-        subtitle="{{vm.formatDate(vm.currentObservation.updated_at)}}"
-        avatar-url="{{$root.users[vm.currentObservation.observer].avatar}}">
-      </nn-badge>
-      <a style="float: right; font-size:1.65em;" class="fa fa-close" href="#" ng-click="vm.hideSidebar()">
-      </a>
-    </header>
-
-    <nn-observation
-      observation="vm.currentObservation"
-      editable="vm.currentObservation.observer === $root.currentUser || $root.userRank === 'admin'">
-    </nn-observation>
-
-    <section class="sidebar__comments">
-      <nn-comment class="comment list-item__comment" ng-repeat="c in vm.comments | orderBy: 'updated_at'"
-        name="{{$root.users[c.commenter].display_name}}"
-        date="{{c.updated_at}}"
-        avatar-url="{{$root.users[c.commenter].avatar}}"
-        comment="{{c.comment}}">
-      </nn-comment>
-      <nn-comment-form class="nn-badge comment list-item__comment"
-        data="vm.currentObservation"
-        context="observations">
-      </nn-comment-form>
-    </section>
-
-  </div>
-
-  <custom-marker ng-repeat="(id, pos) in vm.localObservationIds | limitTo: vm.maxPoints" position="{{pos}}">
-    <div class="map-marker" ng-click="vm.select(id)"></div>
-  </custom-marker>
-
-</ng-map>
+<div ng-if="vm.currentObservation && vm.showDetail">
+  <nn-observation-modal observation="vm.currentObservation" comments="vm.comments" show="vm.showDetail"></nn-observation-modal>
+</div>

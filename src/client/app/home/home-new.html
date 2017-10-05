@@ -4,10 +4,8 @@
     <section class="home__page page--intro container-fluid" id="intro">
       <div class="page__content col-xs-12 col-md-7 col-md-offset-1">
         <div class="row content-row">
-          <div class="col-sm-4 hidden-xs">
-            <div class="homepage-icon icon-phone"></div>
-          </div>
-          <div class="col-xs-12 col-sm-8 content-col">
+
+          <div class="col-xs-12 col-sm-12 content-col">
             <div class="h1 center-block">Get NatureNet now!</div>
             <div style="display: block;">
               <a target="_blank" href="https://itunes.apple.com/us/app/naturenet/id1104382694?mt=8"
@@ -19,12 +17,13 @@
           </div>
         </div>
         <div class="row content-row">
-          <div class="col-sm-4 hidden-xs">
-            <div class="homepage-icon icon-tree"></div>
-          </div>
-          <div class="col-xs-12 col-sm-8 content-col">
-            <div class="h1 center-block">Contribute to NatureNet</div>
-            <a href="#intro" ng-click="vm.showMap()" class="page__goto button button--explore">Explore</a>
+          <div class="col-xs-12 col-sm-12 content-col">
+            <div class="embed-responsive embed-responsive-16by9">
+              <iframe class="embed-responsive-item" src="https://player.vimeo.com/video/214832263?byline=0&portrait=0" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+              <p><a href="https://vimeo.com/214832263">NatureNet: Technology for Community Environmental Learning</a> from <a href="https://vimeo.com/user37361955">videohall.com</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+            </div>
+            <!--div class="h1 center-block">Contribute to NatureNet</div>
+            <a href="#intro" ng-click="vm.showMap()" class="page__goto button button--explore">Explore</a-->
             <a href="#projects" class="page__next dark"></a>
           </div>
         </div>
@@ -43,7 +42,7 @@
     </section>
     <section class="home__page dark page--projects container-fluid" id="projects">
         <div class="page__content col-xs-12 col-md-4 col-md-offset-2">
-          <div class="page__title">
+          <div class="page__title centered">
             <h1>Join a citizen science project</h1>
           </div>
           <div class="page__blurb">

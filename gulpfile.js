@@ -37,13 +37,7 @@ gulp.task('default', ['help']);
 gulp.task('vet', function () {
   log('Analyzing source with JSHint and JSCS');
 
-  return gulp
-    .src(config.alljs)
-    .pipe($.if(args.verbose, $.print()))
-    .pipe($.jshint())
-    .pipe($.jshint.reporter('jshint-stylish', { verbose: true }))
-    .pipe($.jshint.reporter('fail'))
-    .pipe($.jscs());
+  
 });
 
 /**
@@ -215,7 +209,7 @@ gulp.task('optimize', ['inject', 'test'], function () {
   log('Optimizing the js, css, and html');
 
   var assets = $.useref.assets({ searchPath: './' });
-  
+
   // Filters are named for the gulp-useref path
   var cssFilter = $.filter('**/*.css');
   var jsAppFilter = $.filter('**/' + config.optimized.app);
@@ -228,31 +222,31 @@ gulp.task('optimize', ['inject', 'test'], function () {
     .pipe($.plumber())
     .pipe(inject(templateCache, 'templates'))
     .pipe(assets) // Gather all assets from the html with useref
-    
+
   // Get the css
     .pipe(cssFilter)
     .pipe($.minifyCss())
     .pipe(cssFilter.restore())
-    
+
   // Get the custom javascript
     .pipe(jsAppFilter)
     .pipe($.ngAnnotate({ add: true }))
     .pipe($.uglify())
     .pipe(getHeader())
     .pipe(jsAppFilter.restore())
-    
+
   // Get the vendor javascript
     .pipe(jslibFilter)
     .pipe($.uglify()) // another option is to override wiredep to use min files
     .pipe(jslibFilter.restore())
-    
+
   // Take inventory of the file names for future rev numbers
     .pipe($.rev())
-    
+
   // Apply the concat and file replacement with useref
     .pipe(assets.restore())
     .pipe($.useref())
-    
+
   // Replace the file names in the html with rev numbers
     .pipe($.revReplace())
     .pipe(gulp.dest(config.build));

@@ -1,5 +1,5 @@
 {
   "projects": {
-    "default": "firebase-naturenet"
+    "default": "naturenet-staging"
   }
 }

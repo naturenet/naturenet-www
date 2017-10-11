@@ -37,6 +37,8 @@
     // Function assignments
     vm.hideAuth = hideAuth;
     vm.broadcastHideAuth = broadcastHideAuth;
+    vm.openQuestionForm = openQuestionForm;
+
 
     activate();
 
@@ -54,6 +56,11 @@
         .then(function () {
           utility.hideSplash();
         });
+    }
+
+    function openQuestionForm(){
+      console.log("open form");
+      vm.showQuestionForm = true;
     }
 
     function animateSplash() {

@@ -25,8 +25,30 @@
     ui-view>
 </main>
 
+<div ng-controller="ShellController as vm">
+
+</div>
+
+<div ng-click="vm.showDetail=false" ng-if="vm.showQuestionForm" style="min-height:120vh; position:fixed; z-index=100; background-color: rgba(60, 100, 100, 0.95); height:100%;" class="main main--projects">
+    <nn-question-modal show="vm.showQuestionForm">
+    </nn-question-modal>
+</div>
 
 
+<div style="bottom: 0px;
+    position: absolute;
+    margin-bottom: 40px;
+    margin-right: 30px;
+    right: 0px;
+    font-size: 2em;
+    cursor:pointer;" type="button"  ng-click="vm.openQuestionForm()" aria-label="Ask a Question">
+
+    <span class="fa-stack">
+        <i style="color:#4DB36A;" class="fa fa-circle fa-stack-2x icon-a"></i>
+        <i style="color:white; font-size:1.65em" class="fa fa-question fa-stack-1x icon-b"></i>
+    </span>
+
+</div>
 
 
 <footer class="page-foot">

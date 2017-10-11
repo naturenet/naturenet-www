@@ -35,7 +35,8 @@
     "ngGeolocation": "^0.0.8",
     "geofire": "^4.1.2",
     "jquery-cycle2": "^2.1.6",
-    "angular-google-places-autocomplete": "latest"
+    "angular-google-places-autocomplete": "latest",
+    "gmaps-marker-clusterer": "1.0.0"
   },
   "resolutions": {
     "firebase": "4.1.3",

@@ -39,7 +39,6 @@
   }
 </style>
 
-
 <div id="wrapper" ng-class="{toggled:vm.isDrawerVisible}">
 
   <!-- Sidebar -->
@@ -91,56 +90,6 @@
 
       <ng-map style="height: 100% !important;" class="map ng-scope has-sidebar" default-style="true" center="United States of America" on-idle="vm.onMapMoved()">
 
-        <!--custom-marker ng-repeat="(id, pos) in vm.observations" position="{{pos.l}}">
-          <div class="cm">
-             position:<br>
-             {{p[0]}}<br>
-             {{p[1]}}
-           </div>
-       </custom-marker-->
-
-        <!--div class="main main--with-sidebar main--explore" ng-if="!!vm.currentObservation && vm.showDetail">
-          <nn-observation-modal observation="vm.currentObservation" comments="vm.comments" show="vm.showDetail"></nn-observation-modal>
-        </div>
-
-
-        <div ng-if="!!vm.currentObservation" class="sidebar sidebar--slide sidebar--map-detail">
-
-          <header class="sidebar__header">
-            <nn-badge class="nn-badge sidebar__user"
-              title="{{$root.users[vm.currentObservation.observer].display_name}}"
-              subtitle="{{vm.formatDate(vm.currentObservation.updated_at)}}"
-              avatar-url="{{$root.users[vm.currentObservation.observer].avatar}}">
-            </nn-badge>
-            <a style="float: right; font-size:1.65em;" class="fa fa-close" href="#" ng-click="vm.hideSidebar()">
-            </a>
-          </header>
-
-          <nn-observation
-            observation="vm.currentObservation"
-            editable="vm.currentObservation.observer === $root.currentUser || $root.userRank === 'admin'">
-          </nn-observation>
-
-          <section class="sidebar__comments">
-            <nn-comment class="comment list-item__comment" ng-repeat="c in vm.comments | orderBy: 'updated_at'"
-              name="{{$root.users[c.commenter].display_name}}"
-              date="{{c.updated_at}}"
-              avatar-url="{{$root.users[c.commenter].avatar}}"
-              comment="{{c.comment}}">
-            </nn-comment>
-            <nn-comment-form class="nn-badge comment list-item__comment"
-              data="vm.currentObservation"
-              context="observations">
-            </nn-comment-form>
-          </section>
-
-        </div-->
-
-        <!-- more information here -->
-        <!-- pop up photo for detailed viewing -->
-        <!-- ability to comment directly and see comments -->
-        <!-- onclick make a popup -->
-
         <info-window id="bar" max-width="200">
           <div ng-non-bindable>
             <div id="siteNotice"></div>
@@ -164,5 +113,5 @@
 </div>
 
 <div ng-if="vm.currentObservation && vm.showDetail">
-  <nn-observation-modal observation="vm.currentObservation" comments="vm.comments" show="vm.showDetail"></nn-observation-modal>
+  <nn-observation-modal editable="vm.currentObservation.observer === $root.currentUser || $root.userRank === 'admin'" observation="vm.currentObservation" avatar-url="{{$root.users[vm.currentObservation.observer].avatar}}" comments="vm.comments" show="vm.showDetail"></nn-observation-modal>
 </div>

@@ -1,7 +1,7 @@
 <!-- <nn-comment-form> -->
 <form class="nn-badge comment" ng-submit="doComment()">
 
-  <div class="col-xs-1">
+  <!--div ng-hide="!avatarUrl" class="col-xs-1">
     <div ng-hide="!avatarUrl" class="nn-badge__avatar"
       style="height:100%; background-image: url('{{avatarUrl}}')">
     </div>
@@ -9,9 +9,11 @@
       <i style="color:grey;" class="fa fa-circle fa-stack-2x"></i>
       <i style="color:white;" class="fa fa-user fa-stack-1x"></i>
     </span>
-  </div>
+  </div-->
   <div class="col-xs-10">
-    <textarea class="form-control comment__input" required="" placeholder="Write a comment..." ng-model="comment"/>
+    <textarea class="form-control" required="" placeholder="Write a comment..." ng-model="comment"/>
   </div>
-  <input type="submit" class="button button--edit" style="float:right;" value="Send" />
+  <div class="col-xs-2">
+    <input type="submit" class="button button--edit" style="float:right; margin-top: 15px;" value="Send" />
+  </div>
 </form>

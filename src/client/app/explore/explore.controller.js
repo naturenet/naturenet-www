@@ -162,10 +162,10 @@
      closeDrawer();
    }
 
-   vm.showDetail = function(e, shop) {
+   /*vm.showDetail = function(e, shop) {
      vm.currentObservation = shop;
      vm.map.showInfoWindow('bar', shop.id);
-   };
+   };*/
 
    vm.hideDetail = function() {
      vm.map.hideInfoWindow('bar');

@@ -5,9 +5,9 @@
     .module('app.widgets')
     .directive('nnObservationModal', nnObservationModal);
 
-  nnObservationModal.$inject = ['utility'];
+  nnObservationModal.$inject = ['utility', 'logger'];
   /* @ngInject */
-  function nnObservationModal(utility) {
+  function nnObservationModal(utility, logger) {
     // Usage:
     // Creates:
     var directive = {

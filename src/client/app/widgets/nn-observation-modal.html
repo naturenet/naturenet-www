@@ -24,10 +24,11 @@
 
           <div class="col-sm-6">
 
-            <nn-badge style="margin: 10px 0px 10px 0px;" class="nn-badge detail__user" title="{{$root.users[observation.observer].display_name}}" subtitle="{{formatDate(observation.updated_at)}}" avatar-url="{{avatarUrl}}" />
+            <nn-badge style="margin: 10px 0px 10px 0px;" class="nn-badge detail__user" title="{{$root.users[observation.observer].display_name}}" subtitle="{{formatDate(observation.updated_at)}}" avatar-url="{{avatarUrl}}">
+            </nn-badge>
 
             <div class="section-content">
-              <div >
+              <div>
                 <textarea ng-if="isEditMode" ng-model="observation.data.text" class="form-control section-content"></textarea>
                 <div ng-if="!isEditMode" class="detail__description" ng-if="observation.data.text">{{observation.data.text}}</div>
               </div>

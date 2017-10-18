@@ -66,7 +66,7 @@
             <form class="masthead__form clearfix">
               <div class="container-fluid">
 
-                <div ngf-drop ngf-select class="drop-box col-xs-12" style="height:200px" ng-drag-over-class="'dragover'" ngf-multiple="false" ngf-pattern="'image/*'" accept="image/*" ng-model="vm.file">
+                <div ngf-drop ngf-select class="drop-box col-xs-12" style="height:200px; overflow:scroll;" ng-drag-over-class="'dragover'" ngf-multiple="false" ngf-pattern="'image/*'" accept="image/*" ng-model="vm.file">
                   <span style="width: 100%; text-align:center;" ng-if="!vm.uploading && !vm.file" >
                     <i style="font-size:100px; color:#99A6B1;" class="fa fa-large fa-upload"></i>
                     <h3 class="drop-box-item">
@@ -75,8 +75,8 @@
                     <span style="font-size:.8em; color: #99A6B1;"  class="drop-box-item">
                       TO UPLOAD (PNG, JPG, PDF)
                     </span>
-
-                  <img ng-if="!!vm.file[0] && vm.file[0].type.includes('image') && !vm.uploading" ngf-src="!vm.file[0].$error && vm.file[0]" style="display:block;margin:0 auto;max-width:100%;" />
+                  </span>
+                  <img ng-if="vm.file" ngf-src="!vm.file[0].$error && vm.file[0]" style="display:block;margin:0 auto;width:100%;" />
                   {{vm.file[0].name}}
                   <uib-progressbar style="padding: 0 2em;" ng-if="vm.uploading" value="vm.progress" type="info" max="100" animate="true" title="Upload progress">Uploading...</uib-progressbar>
                 </div>

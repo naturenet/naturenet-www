@@ -29,8 +29,8 @@
 
 </div>
 
-<div ng-click="vm.showDetail=false" ng-if="vm.showQuestionForm" style="min-height:120vh; position:fixed; z-index=100; background-color: rgba(60, 100, 100, 0.95); height:100%;" class="main main--projects">
-    <nn-question-modal show="vm.showQuestionForm">
+<div ng-click="vm.showQuestionForm=false" ng-if="vm.showQuestionForm" style="min-height:120vh; position:fixed; z-index=100; background-color: rgba(60, 100, 100, 0.95); height:100%;" class="main main--projects">
+    <nn-question-modal ng-click="$event.stopPropagation()" show="vm.showQuestionForm">
     </nn-question-modal>
 </div>
 

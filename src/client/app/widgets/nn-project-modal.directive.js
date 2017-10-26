@@ -15,6 +15,7 @@
         url: '=',
         title: '=',
         description: '=',
+        observation: '=',
         observations: '=',
         displayLimit: '=',
         show: '=',
@@ -29,12 +30,18 @@
     function link(scope, element, attrs) {
       scope.formatDate = utility.formatDate;
       scope.hide = hide;
-  
+
       scope.open = function () {
+        scope.resetObservation();
         scope.show = true;
       };
 
+      scope.resetObservation = function () {
+        scope.observation = {};
+      }
+
       function hide() {
+        scope.resetObservation();
         scope.show = false;
       }
     }

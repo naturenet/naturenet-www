@@ -94,6 +94,6 @@
 
 <div ng-click="vm.show=false" ng-show="vm.show" style="min-height:100vh; position:absolute; z-index=100; background-color: rgba(60, 100, 100, 0.95); height:100%;" class="main main--projects">
   <div ng-click="$event.stopPropagation()">
-  <nn-project-modal  url="$root.projects[vm.projectId].icon_url" title="$root.projects[vm.projectId].name" description="$root.projects[vm.projectId].description" observations="vm.projectObservations" limit="vm.displayLimit" show="vm.show" />
+  <nn-project-modal  url="$root.projects[vm.projectId].icon_url" title="$root.projects[vm.projectId].name" description="$root.projects[vm.projectId].description" observations="vm.projectObservations" observation="vm.projectObservation" limit="vm.displayLimit" show="vm.show" />
   </div>
 </div>

@@ -10,19 +10,85 @@
               </div>
               <div class="masthead__title">{{title}}</div>
             </header>
-            <div class="masthead__text">{{description}}</div>
+            <div style="margin:15px;" class="masthead__text">{{description}}</div>
           </section>
         </div>
       </div>
-      <div style="text-align:center;" class="modal-body">
-        <section class="main__section recent-contributions">
+      <div class="modal-body">
+
+        <section style="text-align:center;" ng-if="!observation || !observation.observer" class="main__section recent-contributions">
           <div class="main__subtitle">Recent Contributions</div>
           <nn-observations-list observations="observations" limit="9" expandable="true"></nn-observations-list>
+
         </section>
+
+        <div ng-if="observation && observation.observer" style="padding:0px;" class="detail">
+
+          <div class="row">
+            <a class="drawer-icon btn btn-primary" ng-click="resetObservation()" id="menu-toggle"><i class="fa fa-arrow-left" style=""></i></a>
+          </div>
+
+          <div class="col-sm-6" style="padding:0px 0px 10px 0px;">
+            <a ng-if="!!observation.data.image" ng-href="{{observation.data.image}}" target="_new">
+              <img style="padding:0px;" class="detail__image img-responsive" src="{{observation.data.image | img_large }}" ng-if="observation.data.image"></img>
+            </a>
+            <a ng-if="!!observation.data.doc" ng-href="{{observation.data.doc}}" target="_new">Download Document</a>
+          </div>
+
+          <div class="col-sm-6">
+
+            <nn-badge style="margin: 10px 0px 10px 0px;" class="nn-badge detail__user" title="{{$root.users[observation.observer].display_name}}" subtitle="{{formatDate(observation.updated_at)}}" avatar-url="{{avatarUrl}}">
+            </nn-badge>
+
+            <div class="section-content">
+              <div>
+                <textarea ng-if="isEditMode" ng-model="observation.data.text" class="form-control section-content"></textarea>
+                <div ng-if="!isEditMode" class="detail__description" ng-if="observation.data.text">{{observation.data.text}}</div>
+              </div>
+              <div class="grouped-content">
+                <p ng-if="!isEditMode">
+                  <b>{{allProjects.$getRecord(observation.activity).name}}</b>
+                </p>
+                <select style="width:100%;" ng-if="isEditMode" ng-model="observation.activity" ng-options="a.id as a.name for a in allProjects" />
+              </div>
+            </div>
+
+            <!--nn-badge ng-if="!isEditMode" class="sidebar__title nn-badge" title="{{allProjects.$getRecord(observation.activity).name}}" subtitle="" avatar-url="{{allProjects.$getRecord(observation.activity).icon_url}}" /-->
+
+            <hr style="margin:5px 0px 0px 0px;" />
+            <section align="left" style="overflow-y:scroll; max-height:200px;">
+                <p style="margin: 10px 0px 10px 0px;" ng-repeat="c in comments | orderBy: 'updated_at'">
+                  <b>{{$root.users[c.commenter].display_name}}</b> {{c.comment}}
+                </p>
+              <!--nn-comment class="comment detail__comment" name="{{$root.users[c.commenter].display_name}}" date="{{c.updated_at}}" avatar-url="{{$root.users[c.commenter].avatar}}" comment="{{c.comment}}" /-->
+            </section>
+            <hr ng-show="comments.length!=0" style="margin-top:0px"  />
+
+            <div class="section-content">
+
+              <div style="margin-top:10px; margin-bottom: 10px">
+                <nn-social-totals class="totals detail__totals" data="observation" context="observations" show-dislikes="false"></nn-social-totals>
+              </div>
+
+              <div ng-if="!isEditMode" style="display:inline;">
+                <input ng-if="editable" class="button button--edit" ng-click="edit()" value="edit" type="submit" />
+                <input ng-if="editable" class="button button--delete" ng-click="delete()" value="delete" type="submit" />
+              </div>
+              <div ng-if="isEditMode" style="display:inline;">
+                <input class="button button--cancel" ng-click="cancel()" value="cancel" type="submit" />
+                <input class="button button--save" ng-click="saveChanges()" value="save" type="submit" />
+              </div>
+            </div>
+            <nn-comment-form class="nn-badge comment list-item__comment" data="observation" context="observations" />
+          </div>
+        </div>
+
       </div>
+
+
       <div class="modal-footer">
         <button type="button" class="btn btn-default" ng-click="show=false" data-dismiss="modal">Close</button>
       </div>
     </div><!-- /.modal-content -->
   </div>
-  <div style="height:100px"></div>
+  <div style="height:175px"></div>

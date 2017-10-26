@@ -55,6 +55,7 @@
 
     // States
     vm.isProjectsListVisible = true;
+    vm.projectObservation = {};
 
     // Function assignments
     vm.updateDrawer = updateDrawer;
@@ -180,6 +181,12 @@
         .then(function (data) {
           vm.sites = data;
         });
+    }
+
+    $rootScope.$on('map:show', showObservation);
+
+    function showObservation (event, o) {
+      if (!!o) { vm.projectObservation = o; }
     }
 
     /* Project function

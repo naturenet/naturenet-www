@@ -50,7 +50,10 @@
     vm.userGroups = [];
     vm.groupId = void 0;
     vm.group = {};
+    vm.showDetail=false;
+    vm.observation = {};
     vm.observations = {};
+    vm.comments = void 0;
     vm.ideas = {};
 
     vm.peopleDisplayLimit = vm.sidebarDisplayLimit;
@@ -227,6 +230,26 @@
     function showMore() {
       vm.query = '';
       vm.peopleDisplayLimit = vm.peopleDisplayLimit + vm.sidebarDisplayLimit;
+    }
+
+    $rootScope.$on('map:show', showObservation);
+
+    function showObservation (event, o) {
+      console.log(o);
+      vm.showDetail=true;
+      loadComments(o);
+      if (!!o) { vm.observation = o; }
+    }
+
+    function loadComments(currentObservation) {
+      vm.comments = void 0;
+      if (!!currentObservation) {
+        return dataservice.getCommentsForRecord(currentObservation)
+          .then(function (data) {
+            vm.comments = data;
+            return vm.comments;
+          });
+      }
     }
 
   }

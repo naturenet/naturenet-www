@@ -15,6 +15,7 @@
         url: '=',
         title: '=',
         description: '=',
+        comments: '=',
         observation: '=',
         observations: '=',
         displayLimit: '=',

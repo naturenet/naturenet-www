@@ -52,6 +52,7 @@
     vm.projectObservations = [];
     vm.isDrawerVisible= $window.innerWidth > 750 ? true: false;
     vm.affiliations = {};
+    vm.comments = void 0;
 
     // States
     vm.isProjectsListVisible = true;
@@ -186,7 +187,21 @@
     $rootScope.$on('map:show', showObservation);
 
     function showObservation (event, o) {
-      if (!!o) { vm.projectObservation = o; }
+
+      if (!!o) {
+        loadComments(o);
+        vm.projectObservation = o;
+      }
+    }
+    function loadComments(currentObservation) {
+      vm.comments = void 0;
+      if (!!currentObservation) {
+        return dataservice.getCommentsForRecord(currentObservation)
+          .then(function (data) {
+            vm.comments = data;
+            return vm.comments;
+          });
+      }
     }
 
     /* Project function

@@ -12,10 +12,10 @@
     <div class="modal-content">
       <div class="modal-body">
         <div style="padding:0px;" class="detail">
-
-          <button type="button" class="close" ng-click="hide()" aria-hidden="true">&times;</button>
-
-          <div class="col-sm-6" style="padding:0px 0px 10px 0px;">
+          <div class="col-xs-12">
+            <button style="padding:5px;" type="button" class="close" ng-click="hide()" aria-hidden="true">&times;</button>
+          </div>
+          <div class="col-sm-6" style="margin:0px 0px 10px 0px;">
             <a ng-if="!!observation.data.image" ng-href="{{observation.data.image}}" target="_new">
               <img style="padding:0px;" class="detail__image img-responsive" src="{{observation.data.image | img_large }}" ng-if="observation.data.image"></img>
             </a>

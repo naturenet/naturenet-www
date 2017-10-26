@@ -102,3 +102,7 @@
     </div>
   </div>
 </div>
+
+<div ng-if="vm.observation && vm.showDetail">
+  <nn-observation-modal editable="vm.observation.observer === $root.currentUser || $root.userRank === 'admin'" observation="vm.observation" avatar-url="{{$root.users[vm.observation.observer].avatar}}" comments="vm.comments" show="vm.showDetail"></nn-observation-modal>
+</div>

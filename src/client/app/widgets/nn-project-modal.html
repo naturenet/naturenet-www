@@ -10,7 +10,7 @@
               </div>
               <div class="masthead__title">{{title}}</div>
             </header>
-            <div style="margin:15px;" class="masthead__text">{{description}}</div>
+            <div ng-bind-html="description | linky:'_blank'" style="margin:15px;" class="masthead__text"></div>
           </section>
         </div>
       </div>

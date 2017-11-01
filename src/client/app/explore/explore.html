@@ -95,13 +95,14 @@
             <div id="siteNotice"></div>
 
             <div ng-click="vm.openDetails()" style="cursor: pointer; padding-left:20px;" id="bodyContent">
-              <h1 style="padding: 20px 0 10px 0; font-size:2em;" id="firstHeading" class="firstHeading">
+              <h1 style="padding: 20px 0 5px 0; font-size:2em;" id="firstHeading" class="firstHeading">
                   {{$root.users[vm.currentObservation.observer].display_name}}
                 </h1>
+                <h3 style="color: slate; padding: 0px 0 10px 0;">{{vm.currentProject.name}}</h3>
               <img style="width:200px; height:200px" src="{{vm.currentObservation.data.image}}" />
               <p ng-show="vm.currentObservation.where" style="margin-top:10px;"><i class="fa fa-map-marker"></i> {{vm.currentObservation.where}}</p>
               <p style="margin:10px 0 10px 0;">{{vm.currentObservation.data.text}}</p>
-              <nn-social-totals class="totals" data="vm.currentObservation"></nn-social-totals>
+              <nn-social-totals class="totals detail__totals" data="vm.currentObservation" context="observations" show-dislikes="false"></nn-social-totals>
 
             </div>
           </div>

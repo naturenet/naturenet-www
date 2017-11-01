@@ -28,16 +28,20 @@
             </nn-badge>
 
             <div class="section-content">
-              <div>
-                <textarea ng-if="isEditMode" ng-model="observation.data.text" class="form-control section-content"></textarea>
-                <div ng-if="!isEditMode" class="detail__description" ng-if="observation.data.text">{{observation.data.text}}</div>
-              </div>
               <div class="grouped-content">
                 <p ng-if="!isEditMode">
                   <b>{{allProjects.$getRecord(observation.activity).name}}</b>
                 </p>
                 <select style="width:100%;" ng-if="isEditMode" ng-model="observation.activity" ng-options="a.id as a.name for a in allProjects" />
               </div>
+              <p ng-show="observation.where" style="margin-top:10px;"><i class="fa fa-map-marker"></i> {{observation.where}}</p>
+
+              <div>
+                <textarea ng-if="isEditMode" ng-model="observation.data.text" class="form-control section-content"></textarea>
+                <div ng-if="!isEditMode" class="detail__description" ng-if="observation.data.text">{{observation.data.text}}</div>
+              </div>
+
+
             </div>
 
             <!--nn-badge ng-if="!isEditMode" class="sidebar__title nn-badge" title="{{allProjects.$getRecord(observation.activity).name}}" subtitle="" avatar-url="{{allProjects.$getRecord(observation.activity).icon_url}}" /-->

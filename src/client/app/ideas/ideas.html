@@ -168,7 +168,7 @@
           </form>
 
           <div style="padding-top:10px;">
-            <div class="comments list-item" ng-repeat="i in vm.ideas | filter:{ status : vm.filterType, content: vm.query } | orderBy: '-updated_at' | limitTo: vm.ideasDisplayLimit" ng-click="vm.selectIdea(i)">
+            <div class="comments list-item" ng-repeat="i in filtered = (vm.ideas | filter:{ status : vm.filterType, content: vm.query } | orderBy: '-updated_at' ) | limitTo: vm.ideasDisplayLimit" ng-click="vm.selectIdea(i)">
               <div class="list-item__detail list-item__noimage">
                 <nn-comment class="comment list-item__comment" limit="140" name="{{$root.users[i.submitter].display_name}}" date="{{i.updated_at}}" avatar-url="{{$root.users[i.submitter].avatar}}" comment="{{i.content}}">
                 </nn-comment>
@@ -177,7 +177,7 @@
             </div>
           </div>
 
-          <div class="sidebar__see-more" ng-if="vm.ideas.length > vm.ideasDisplayLimit">
+          <div class="sidebar__see-more" ng-if="filtered.length > vm.ideasDisplayLimit">
             <a style="color:black;" href="#" ng-click="vm.ideasDisplayLimit = vm.ideasDisplayLimit + vm.sidebarDisplayLimit">Show More</a>
           </div>
           <div style="height:300px;"></div>

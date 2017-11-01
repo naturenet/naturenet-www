@@ -67,7 +67,7 @@
               <div class="list-item__detail">
                 <nn-comment class="nn-badge list-item__comment" limit="80" name="{{$root.users[o.observer].display_name}}" date="{{o.updated_at}}" avatar-url="{{$root.users[o.observer].avatar}}" comment="{{o.data.text}}">
                 </nn-comment>
-                <nn-social-totals class="totals" data="o"></nn-social-totals>
+                <nn-social-totals class="totals detail__totals" data="o" context="observations" show-dislikes="false"></nn-social-totals>
               </div>
             </div>
             <div style="padding-top:15px;" ng-if="vm.observations.length > vm.limit">

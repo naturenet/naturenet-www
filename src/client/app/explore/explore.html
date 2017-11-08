@@ -101,7 +101,7 @@
                 <h3 style="color: slate; padding: 0px 0 10px 0;">{{vm.currentProject.name}}</h3>
               <img style="width:200px; height:200px" src="{{vm.currentObservation.data.image}}" />
               <p ng-show="vm.currentObservation.where" style="margin-top:10px;"><i class="fa fa-map-marker"></i> {{vm.currentObservation.where}}</p>
-              <p style="margin:10px 0 10px 0;">{{vm.currentObservation.data.text}}</p>
+              <p ng-if="vm.currentObservation.data.text" ng-bind-html="vm.currentObservation.data.text" hashtagify term-click="vm.search($event); $event.stopPropagation();" style="margin:10px 0 10px 0;"></p>
               <nn-social-totals class="totals detail__totals" data="vm.currentObservation" context="observations" show-dislikes="false"></nn-social-totals>
 
             </div>

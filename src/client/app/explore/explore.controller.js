@@ -31,7 +31,8 @@
     config,
     utility,
     dataservice,
-    NgMap
+    NgMap,
+    hashtagify
   ) {
     var vm = this;
     vm.title = 'Explore';
@@ -171,6 +172,13 @@
      vm.map.hideInfoWindow('bar');
    };
 
+   vm.search = function (e) {
+     var tagText = e.target.innerText;
+     console.log(tagText);
+     $rootScope.$broadcast('search', tagText);
+   };
+
+
 
     function initializeMap() {
 
@@ -228,6 +236,12 @@
       $rootScope.$on('map:show', showMap);
       $rootScope.$on('map:hide', hideMap);
       $rootScope.$on('auth:success', showSite);
+      $rootScope.$on('search', function(event, tag) {
+        console.log(tag);
+        vm.query = tag;
+        vm.showDetail=false;
+        vm.isDrawerVisible=true;
+      });
     }
 
     function onMapMoved() {

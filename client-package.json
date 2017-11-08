@@ -1,0 +1,17 @@
+{
+  "name": "naturenet",
+  "description": "nature-net.org website",
+  "version": "0.0.1",
+  "main": "src/server/app.js",
+  "scripts": {
+  },
+  "engines": {
+    "node": "5.5.0",
+    "npm": "3.5.3"
+  },
+  "dependencies": {
+    "angular-hashtagify": "0.0.2"
+  },
+  "devDependencies": {
+  }
+}

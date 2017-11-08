@@ -47,7 +47,7 @@
       }
     }
 
-    function controller($scope, dataservice) {
+    function controller($scope, dataservice, hashtagify) {
     }
   }
 })();

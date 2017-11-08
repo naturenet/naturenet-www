@@ -13,6 +13,9 @@
       margin:0px 0px 10px 0px;
     }
   }
+  .hashtag {
+    cursor:pointer;
+  }
 
 </style>
 
@@ -49,7 +52,7 @@
 
               <div>
                 <textarea ng-if="isEditMode" ng-model="observation.data.text" class="form-control section-content"></textarea>
-                <div ng-if="!isEditMode" class="detail__description" ng-if="observation.data.text">{{observation.data.text}}</div>
+                <div ng-if="!isEditMode" class="detail__description" ng-if="observation.data.text" ng-bind-html="observation.data.text" hashtagify term-click="search($event)"></div>
               </div>
 
 
@@ -59,9 +62,10 @@
 
             <hr style="margin:5px 0px 0px 0px;" />
             <section align="left" style="overflow-y:scroll; max-height:200px;">
-                <p style="margin: 10px 0px 10px 0px;" ng-repeat="c in comments | orderBy: 'updated_at'">
-                  <b>{{$root.users[c.commenter].display_name}}</b> {{c.comment}}
-                </p>
+                <div style="margin: 10px 0px 10px 0px;" ng-repeat="c in comments | orderBy: 'updated_at'">
+                  <b>{{$root.users[c.commenter].display_name}}</b>
+                  <b style="font-weight:normal" ng-bind-html="c.comment" hashtagify term-click="search($event)"></b>
+                </div>
               <!--nn-comment class="comment detail__comment" name="{{$root.users[c.commenter].display_name}}" date="{{c.updated_at}}" avatar-url="{{$root.users[c.commenter].avatar}}" comment="{{c.comment}}" /-->
             </section>
             <hr ng-show="comments.length!=0" style="margin-top:0px"  />

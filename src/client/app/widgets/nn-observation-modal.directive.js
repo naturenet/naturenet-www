@@ -5,9 +5,9 @@
     .module('app.widgets')
     .directive('nnObservationModal', nnObservationModal);
 
-  nnObservationModal.$inject = ['utility', 'logger'];
+  nnObservationModal.$inject = ['utility', 'logger', '$rootScope'];
   /* @ngInject */
-  function nnObservationModal(utility, logger) {
+  function nnObservationModal(utility, logger, $rootScope) {
     // Usage:
     // Creates:
     var directive = {
@@ -40,12 +40,18 @@
         scope.cache = angular.copy(scope.observation);
       };
 
+      scope.search = function (e) {
+        var tagText = e.target.innerText;
+        console.log(tagText);
+        $rootScope.$broadcast('search', tagText);
+      };
+
       scope.cancel = function () {
         scope.isEditMode = false;
         scope.observation = scope.cache;
       };
     }
-    function controller($scope, dataservice) {
+    function controller($scope, dataservice, hashtagify) {
 
       $scope.saveChanges = function () {
         $scope.isEditMode = false;

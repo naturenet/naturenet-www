@@ -13,6 +13,7 @@
       'app.contributions',
       'app.projects',
       'app.ideas',
+      'hashtagify',
     ]);
 
 })();

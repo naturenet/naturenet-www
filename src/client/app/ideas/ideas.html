@@ -189,7 +189,7 @@
 </div>
 
 
-<div ng-click="vm.showDetail=false" ng-if="vm.selectedIdea && vm.showDetail" style="min-height:100vh; position:absolute; z-index=100; background-color: rgba(60, 100, 100, 0.95); height:100%;" class="main main--projects">
+<div ng-click="vm.showDetail=false" ng-if="vm.selectedIdea && vm.showDetail" style=" z-index:1000; min-height:100vh; position:absolute; background-color: rgba(60, 100, 100, 0.95); height:100%;" class="main main--projects">
   <div ng-click="$event.stopPropagation()" ng-if="vm.selectedIdea && vm.showDetail">
     <nn-idea-modal editable="vm.selectedIdea.submitter === $root.currentUser || $root.userRank === 'admin'" idea="vm.selectedIdea" comments="vm.comments" show="vm.showDetail">
     </nn-idea-modal>

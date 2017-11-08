@@ -213,7 +213,7 @@
         .then(function () {
           vm.projectId = id;
           vm.show = true;
-          closeDrawer();
+          //closeDrawer();
           logger.info('Updated Projects View based on new projectId');
         });
     }

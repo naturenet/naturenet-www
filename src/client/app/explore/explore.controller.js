@@ -160,7 +160,7 @@
 
    function openDetails() {
      vm.showDetail = true;
-     closeDrawer();
+     //closeDrawer();
    }
 
    /*vm.showDetail = function(e, shop) {

@@ -158,7 +158,7 @@
     function selectIdea(idea) {
       vm.selectedIdea = idea;
       vm.showDetail = true;
-      closeDrawer();
+      //closeDrawer();
     }
 
     function resetForm() {

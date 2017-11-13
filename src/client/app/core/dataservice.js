@@ -78,6 +78,7 @@
 
       // Project functions
       createProject: createProject,
+      updateProject: updateProject,
       getProjects: getProjects,
       getProjectsRecent: getProjectsRecent,
       getProjectById: getProjectById,
@@ -828,6 +829,52 @@
       }
     }
 
+    function updateProject(projectid, title, description) { //add sites - checkboxes
+      var auth = getAuth();
+      var d = $q.defer();
+
+      //return true;
+      if (auth === null || !auth.uid) {
+        console.log('You must be signed in to do that!');
+        return d.reject(new Error('You must be signed in to do that!'));
+      }
+      console.log($firebaseRef.projects);
+
+      var newData = {};
+
+      if (!projectid) {
+        console.log('Project has no ID');
+        return $q.when(null);
+      }
+
+
+      console.log(title);
+      console.log(description);
+
+
+      newData['activities/' + projectid + '/name'] = title;
+      newData['activities/' + projectid + '/description'] = description;
+      newData['activities/' + projectid + '/updated_at'] = firebase.database.ServerValue.TIMESTAMP;
+
+      $firebaseRef.default.update(newData, function (error) {
+        if (error) {
+          fail(error);
+        } else {
+          success();
+        }
+      });
+
+      return d.promise;
+
+      function success(response) {
+        d.resolve('success');
+      }
+
+      function fail(e) {
+        d.reject(exception.catcher('Unable to update project!')(e));
+      }
+    }
+
     function getProjects() {
 
       return $firebaseObject($firebaseRef.projects).$loaded()
@@ -927,6 +974,8 @@
       var newData = {};
       newData['ideas/' + id] = idea;
       newData['users/' + auth.uid + '/latest_contribution'] = firebase.database.ServerValue.TIMESTAMP;
+
+      console.log(newData);
 
       return $firebaseRef.default.update(newData).then(success).catch(fail);
 

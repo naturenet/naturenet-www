@@ -151,7 +151,7 @@
                 <i class="fa fa-2x fa-lightbulb-o"></i>
               </span>
                 <textarea style="z-index:0; box-shadow:none; resize: vertical; border:none" class="form-control" required rows="2" placeholder="There should be a way for me to upload contributions that aren't photographs such as water test results #projects #contributions #testing"
-                  type="text" ng-model="vm.name" />
+                  type="text" ng-model="vm.content" />
               </div>
             </div>
             <div style="padding:15px; padding-top:0px;" class="row">
@@ -161,7 +161,7 @@
                   <select class="form-control" ng-options="item for item in vm.ideaTypes" ng-model="vm.type" />
                 </div>
                 <div class="col-xs-6 text-right">
-                  <button class="btn btn-success" value="submit">Submit</button>
+                  <input class="btn btn-success" ng-click="vm.addIdea()" value="Submit"></input>
                 </div>
               </div>
             </div>

@@ -1,4 +1,5 @@
 
+
   <div class="modal-dialog -center-nav" style="z-index: 1000;" ng-class="{show:show, hide:!show}" data-backdrop="true">
     <div class="modal-content">
       <div class="modal-header">
@@ -10,10 +11,11 @@
                 style="background-image: url('{{url}}')">
               </div>
               <div ng-if="!isEditMode" class="masthead__title">{{project.name}}</div>
-              <input ng-if="isEditMode" style="width:75%; display:inline-block; margin-top:15px" class="masthead__title form-control" ng-model="project.name" />
+              <input ng-if="isEditMode" style="width:75%; display:inline-block; margin-top:15px" class="masthead__title form-control" ng-model="project.name"></input>
+              <div ng-if="!isEditMode" hashtagify ng-bind-html="project.description | linky:'_blank'" style="margin:15px;" class="masthead__text"></div>
+              <textarea ng-if="isEditMode" rows="3" style="display:inline-block; margin-top:15px" class="masthead__text form-control" ng-model="project.description"></textarea>
+
             </header>
-            <div ng-if="!isEditMode" hashtagify ng-bind-html="project.description | linky:'_blank'" style="margin:15px;" class="masthead__text"></div>
-            <textarea ng-if="isEditMode" rows="3" style="display:inline-block; margin-top:15px" class="masthead__text form-control" ng-model="project.description" />
           <div style="width:100%; text-align:center;" ng-if="editable">
             <div ng-if="!isEditMode" style="margin-left:2em; display:inline;">
               <input class="button button--edit" ng-click="edit()" value="edit" type="submit" />

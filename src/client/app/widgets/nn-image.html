@@ -1,14 +1,28 @@
 <!-- <nn-image> -->
 <style>
-.nn-image:focus, .nn-image:hover {
-    color: #23527c;
-    text-decoration: underline;
-}
+
+  .nn-thumbnail {
+    position: relative;
+    overflow: hidden;
+  }
+  .nn-thumbnail > img {
+    max-width: 100%;
+
+    -moz-transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+  }
+  .nn-thumbnail:hover > img {
+    -moz-transform: scale(1.25);
+    -webkit-transform: scale(1.25);
+    transform: scale(1.25);
+  }
+
 </style>
 
-<div class="nn-image" ng-if="showDefault"
-  style="background-image: url('/images/default-image.png')">
-</div>
-<div class="nn-image" ng-if="!showDefault"
-  style="background-image: url('{{imageUrl}}')">
+<div class="">
+
+  <img style="padding:0px;" class="img-responsive nn-image" src="/images/default-image.png" ng-if="showDefault"></img>
+  <img style="padding:0px;" class="img-responsive nn-image" src="{{imageUrl}}" ng-if="!showDefault"></img>
+
 </div>

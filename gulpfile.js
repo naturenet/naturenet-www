@@ -8,6 +8,7 @@ var path = require('path');
 var Server = require('karma').Server;
 var _ = require('lodash');
 var $ = require('gulp-load-plugins')({ lazy: true });
+var gnf = require('gulp-npm-files');
 
 var colors = $.util.colors;
 var envenv = $.util.env;
@@ -37,7 +38,13 @@ gulp.task('default', ['help']);
 gulp.task('vet', function () {
   log('Analyzing source with JSHint and JSCS');
 
-  
+
+});
+
+gulp.task('copyNpmDependenciesAtDifferentFolder', function() {
+  gulp
+    .src(gnf(null, './client-package.json'), {base:'./'})
+    .pipe(gulp.dest('./build'));
 });
 
 /**
@@ -187,7 +194,7 @@ gulp.task('build-specs', ['templatecache'], function (done) {
  * This is separate so we can run tests on
  * optimize before handling image or fonts
  */
-gulp.task('build', ['optimize', 'images', 'fonts'], function () {
+gulp.task('build', ['optimize', 'images', 'fonts', 'copyNpmDependenciesAtDifferentFolder'], function () {
   log('Building everything');
 
   var msg = {
@@ -434,7 +441,7 @@ function orderSrc(src, order) {
  * @param  {Boolean} specRunner - server spec runner html
  */
 function serve(isDev, specRunner) {
-  var debugMode = '--debug';
+  var debugMode = '--inspect';
   var nodeOptions = getNodeOptions(isDev);
 
   nodeOptions.nodeArgs = [debugMode + '=5858'];

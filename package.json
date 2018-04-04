@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "angular-hashtagify": "0.0.2",
+    "async-each": "^1.0.1",
     "body-parser": "^1.17.2",
     "bower": "^1.7.7",
     "express": "^4.15.4",

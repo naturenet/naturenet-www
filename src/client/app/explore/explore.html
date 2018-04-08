@@ -48,8 +48,9 @@
       <header class="sidebar__header">
         <div class="nn-dropdown nn-dropdown--explore" ng-class="{ 'nn-dropdown--show-list': !!vm.isObservationsListVisible }">
 
-          <div class="nn-dropdown__display" ng-click="vm.isObservationsListVisible = !vm.isObservationsListVisible">
+          <div class="nn-dropdown__display">
             <span>Observations</span>
+            <a class="small-device drawer-icon btn btn-primary" ng-click="vm.updateDrawer()" id="menu-toggle"><i ng-class="{'fa-arrow-right':!vm.isDrawerVisible, 'fa-arrow-left':vm.isDrawerVisible}" class="fa"></i></a>
           </div>
 
           <div class="nn-dropdown__options">

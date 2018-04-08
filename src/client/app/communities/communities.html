@@ -10,10 +10,10 @@
       <header class="sidebar__header sidebar__header--people">
         <div class="nn-dropdown nn-dropdown--people" ng-class="{ 'nn-dropdown--show-list': !!vm.isPeopleListVisible }">
 
-          <div class="nn-dropdown__display"
-            ng-click="vm.isPeopleListVisible = !vm.isPeopleListVisible">
+          <div class="nn-dropdown__display">
             <span>People</span>
-            <div class="nn-dropdown__action"></div>
+            <a class="small-device drawer-icon btn btn-primary" ng-click="vm.updateDrawer()" id="menu-toggle"><i ng-class="{'fa-arrow-right':!vm.isDrawerVisible, 'fa-arrow-left':vm.isDrawerVisible}" class="fa"></i></a>
+
           </div>
 
           <div style="padding-bottom: 50px; padding-top:0px; padding-left:15px;" class="nn-dropdown__options">

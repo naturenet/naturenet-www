@@ -48,7 +48,7 @@
     vm.comments = void 0;
     vm.showDetail = false;
     vm.filterType = '!deleted';
-    vm.filters = { 'doing': 0, 'done':0, 'testing':0, 'developing':0};
+    vm.filters = { 'doing': 0, 'done':0, 'testing':0, 'developing':0, 'superceded': 0};
     vm.isDrawerVisible= $window.innerWidth > 750 ? true: false;
     vm.showQuestionForm = false;
     vm.ideasDisplayLimit = vm.sidebarDisplayLimit;
@@ -114,7 +114,7 @@
             vm.filters[x.status] = vm.filters[x.status]+1;
             return x.status
           })
-          vm.filters['all']=vm.filters['done']+vm.filters['doing']+vm.filters['developing']+vm.filters['testing']
+          vm.filters['all']=vm.filters['done']+vm.filters['doing']+vm.filters['developing']+vm.filters['testing']+vm.filters['superceded']
           return vm.ideas;
         });
     }

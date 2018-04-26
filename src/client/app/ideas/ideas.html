@@ -114,6 +114,9 @@
             <div class="filter-item" ng-class="{'filter-item-bold': vm.filterType === 'done'}" ng-click="vm.setFilter('done')">
               done <span class="badge" ng-class="{'filter-item-badge': vm.filterType === 'done'}">{{vm.filters.done}}</span>
             </div>
+            <div class="filter-item" ng-class="{'filter-item-bold': vm.filterType === 'superceded'}" ng-click="vm.setFilter('superceded')">
+              superceded <span class="badge" ng-class="{'filter-item-badge': vm.filterType === 'superceded'}">{{vm.filters.superceded}}</span>
+            </div>
           </div>
         </div>
       </header>
@@ -164,7 +167,7 @@
               </div>
             </div>
             <div style="padding:15px; padding-top:0px;" class="row">
-              <div ng-show="vm.formVisible">
+              <div ng-show="true">
                 <hr />
                 <div class="col-xs-6">
                   <select class="form-control" ng-options="item for item in vm.ideaTypes" ng-model="vm.type" />
@@ -177,9 +180,9 @@
           </form>
 
           <div style="padding-top:10px;">
-            <div class="comments list-item" ng-repeat="i in filtered = (vm.ideas | filter:{ status : vm.filterType, content: vm.query } | orderBy: '-updated_at' ) | limitTo: vm.ideasDisplayLimit" ng-click="vm.selectIdea(i)">
+            <div class="comments list-item" ng-repeat="i in filtered = (vm.ideas | filter:{ status : vm.filterType, content: vm.query } | orderBy: '-created_at' ) | limitTo: vm.ideasDisplayLimit" ng-click="vm.selectIdea(i)">
               <div class="list-item__detail list-item__noimage">
-                <nn-comment class="comment list-item__comment" limit="140" name="{{$root.users[i.submitter].display_name}}" date="{{i.updated_at}}" avatar-url="{{$root.users[i.submitter].avatar}}" comment="{{i.content}}">
+                <nn-comment class="comment list-item__comment" limit="140" name="{{$root.users[i.submitter].display_name}}" date="{{i.created_at}}" avatar-url="{{$root.users[i.submitter].avatar}}" comment="{{i.content}}">
                 </nn-comment>
                 <nn-social-totals context="ideas" class="totals" data="i" show-dislikes="true"></nn-social-totals>
               </div>

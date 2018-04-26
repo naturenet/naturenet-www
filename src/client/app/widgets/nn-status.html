@@ -1,5 +1,16 @@
 <!-- <nn-status class="status"> -->
-<div ng-switch on="status">
+
+
+<div ng-if="item" class="status">
+  <div class="status__text">
+    <select ng-model="cache_.status">
+      <option value="{{option.val}}" ng-repeat="option in options">{{option.lab}}</option>
+    </select>
+  </div>
+</div>
+
+
+<div ng-if="!item" ng-switch on="idea_.status">
   <!-- Doing (Discussing) -->
   <div class="status status__discussing" ng-switch-when="doing">
     <div class="status__text">
@@ -27,10 +38,19 @@
       style="background-image: url('images/testing.png')">
     </div>
   </div>
+  <!-- Superceded -->
+  <div class="status status__discussing" ng-switch-when="superceded">
+    <div class="status__text">
+      <p class="status__title">Superceded</p>
+    </div>
+    <div class="status__icon"
+      style="background-image: url('images/completed.png')">
+    </div>
+  </div>
   <!-- Completed -->
   <div class="status status__completed" ng-switch-when="done">
     <div class="status__text">
-      <p class="status__title">Completed</p>
+      <p class="status__title">Done</p>
     </div>
     <div class="status__icon"
       style="background-image: url('images/completed.png')">

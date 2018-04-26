@@ -16,6 +16,7 @@
         comments: '=',
         show: '=',
         editable: '=',
+        isEditMode: '@',
       },
       link: link,
       templateUrl: 'app/widgets/nn-idea-modal.html',
@@ -53,7 +54,7 @@
       $scope.saveChanges = function () {
         $scope.isEditMode = false;
         console.log($scope.cache);
-        dataservice.updateIdea($scope.cache.id, $scope.cache.content, $scope.cache.group, $scope.cache.type)
+        dataservice.updateIdea($scope.cache.id, $scope.cache.content, $scope.cache.status)
           .then(function (result) {
             logger.success('Your idea has been updated.');
           });

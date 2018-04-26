@@ -6,10 +6,10 @@
       <div class="modal-title">
         <nn-badge style="inline"
           class="nn-badge detail__user"
-          title="{{$root.users[idea.submitter].display_name}}" subtitle="{{formatDate(idea.updated_at)}}"
+          title="{{$root.users[idea.submitter].display_name}}" subtitle="{{formatDate(idea.created_at)}}"
           avatar-url="{{$root.users[idea.submitter].avatar}}">
         </nn-badge>
-        <nn-status class="detail__status" status="idea.status"></nn-status>
+        <nn-status class="detail__status" idea_="idea" cache_="cache" item="isEditMode"></nn-status>
 
         <div class="detail__header" ng-if="idea.type">{{idea.type}}</div>
       </div>

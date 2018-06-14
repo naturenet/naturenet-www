@@ -13,6 +13,7 @@
     '$q',
     '$rootScope',
     '$scope',
+    '$state',
     '$timeout',
     'logger',
     'config',
@@ -26,6 +27,7 @@
     $q,
     $rootScope,
     $scope,
+    $state,
     $timeout,
     logger,
     config,
@@ -50,9 +52,6 @@
     vm.maxPoints = 100;
     vm.dynMarkers = [];
 
-    //Search
-    vm.query = '';
-
     // States
     //$scope.$parent.hasMap = false;
     vm.hasSidebar = false;
@@ -60,6 +59,19 @@
     vm.showDetail = false;
     vm.isDrawerVisible=true;
     vm.limit = 8;
+
+
+    //Search
+    vm.query = "";
+    if ($state.params) {
+      if ($state.params.query) vm.query = $state.params.query
+      if ($state.params.id) {
+        select($state.params.id);
+        vm.showDetail=true;
+      }
+    }
+
+    console.log(vm.query);
 
     // Function assignments
     vm.toggleMap = toggleMap;
@@ -109,8 +121,11 @@
     function select(id) {
       if (!!id) {
         dataservice.getObservationById(id).then(function (o) {
+          console.log(o);
           if (o.$value !== null) {
             vm.currentObservation = o;
+            console.log(vm.currentObservation);
+            console.log(vm.showDetail);
           } else {
             logger.warning('This observation cannot be displayed.');
           }
@@ -282,7 +297,7 @@
 
     function resetMap() {
       config.mapOptions.center = new google.maps.LatLng({ lat: 37.2758365, lng: -104.6536539, });
-      config.mapOptions.zoom = 4;
+      config.mapOptions.zoom = 5;
       vm.map.setOptions(config.mapOptions);
     }
 
@@ -320,6 +335,27 @@
 
     /* Sidebar functions
        ================================================== */
+
+
+    //var filteredData;
+
+    //{{o.data.text}} -
+    //{{o.id}} -
+    //{{o.observer}} -
+    //or search comments...
+
+    //filteredData = $filter('filter')(data, function(data) {
+    // if (vm.query || vm.id ) {
+         //match the username
+    //   if (vm.query[0]=="@") { return data.name.toString().indexOf(vm.query) > -1 }
+
+         //match the id or the content of items
+    //   return data.id.toString().indexOf(vm.id) > -1 || data.text.toString().indexOf(vm.query) > -1;
+    // } else {
+    //   return true;
+    // }
+    //});
+
 
     function showSidebar(o) {
 

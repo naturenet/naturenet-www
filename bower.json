@@ -37,7 +37,7 @@
     "jquery-cycle2": "^2.1.6",
     "angular-google-places-autocomplete": "latest",
     "gmaps-marker-clusterer": "1.0.0",
-    "hashtagify": "1.0.2"
+    "angular-directive.g-signin": "^0.1.2"
   },
   "resolutions": {
     "firebase": "4.1.3",

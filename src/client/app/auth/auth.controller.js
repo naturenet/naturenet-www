@@ -10,6 +10,7 @@
 
   AuthController.$inject = [
     '$q',
+    '$scope',
     '$rootScope',
     '$filter',
     'cloudinary',
@@ -20,6 +21,7 @@
   /* @ngInject */
   function AuthController(
     $q,
+    $scope,
     $rootScope,
     $filter,
     cloudinary,
@@ -80,6 +82,7 @@
     vm.apply = apply;
     vm.close = close;
     vm.reset = reset;
+    vm.loginGoogle = authWithGoogle;
 
     activate();
 
@@ -92,6 +95,30 @@
         .then(function () {
           onAuth();
           logger.info('Authentication Ready');
+        })
+        .then(function() {
+          var user = firebase.auth().currentUser;
+          console.log(user);
+          if (!$rootScope.users[user.uid]) {
+            //if user doesn't exist...
+            //photoURL https://lh3.googleusercontent.com/-iSyUykvv0co/AAAAAAAAAAI/AAAAAAAAAAA/AB6qoq3nqiQ2EjoUr7SKseqy2BiNMRGomA/mo/photo.jpg
+
+            var profile = {
+              avatar: user.photoURL,
+              display_name: user.displayName,
+              bio: "",
+              affiliation: "rcnc",
+              groups: vm.membership,
+              id: user.uid,
+              demographics: {
+                age: vm.age || null,
+                gender: vm.gender || null,
+                race: vm.race || null,
+              },
+            };
+
+            dataservice.createProvider(profile)
+          }
         });
     }
 
@@ -114,7 +141,7 @@
         name: vm.realname,
         bio: vm.bio,
         email: vm.email,
-        affiliation: vm.affiliation.$id,
+        affiliation: vm.affiliation.$id ? vm.affiliation.$id : "",
       };
       return dataservice.createUser(vm.email, vm.password)
         .then(function (data) {
@@ -176,7 +203,8 @@
     function authWithPassword(email, password) {
       return dataservice.authWithPassword(email, password)
         .then(function (data) {
-          vm.userUid = data.uid;
+          console.log(data);
+          vm.userUid = data.user;
 
           $rootScope.$broadcast('auth:success', vm.userUid);
           close();
@@ -185,6 +213,19 @@
           return vm.userUid;
         });
     }
+
+    function authWithGoogle(email, password) {
+      console.log("google");
+      return dataservice.authWithGoogle()
+        .then(function (data) {
+          vm.userUid = data.uid;
+          $rootScope.$broadcast('auth:success', vm.userUid);
+          close();
+          logger.success('You are now logged in!');
+          return vm.userUid;
+        });
+    }
+
 
     function unAuth() {
       return dataservice.unAuth();
@@ -256,6 +297,20 @@
     function showSignin() {
       vm.mode = 'signin';
     }
+
+    $scope.$on('event:google-plus-signin-success', function(evnt, authResult) {
+      console.log("success");
+      console.log(evnt);
+      //do something with this...
+      console.log(authResult);
+
+    });
+
+    $scope.$on('event:google-plus-signin-failure', function(evnt, authResult) {
+      console.log("failure");
+      console.log(evnt);
+      console.log(authResult);
+    });
 
     /* Click functions
        ================================================== */

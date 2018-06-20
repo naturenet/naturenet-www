@@ -45,8 +45,10 @@
       onAuthStateChanged: onAuthStateChanged,
       getAuth: getAuth,
       authWithPassword: authWithPassword,
+      authWithGoogle: authWithGoogle,
       unAuth: unAuth,
       createUser: createUser,
+      createProvider: createProvider,
       addUser: addUser,
       updateUser: updateUser,
       resetPassword: resetPassword,
@@ -195,12 +197,22 @@
     /* Authentication functions
        ================================================== */
 
+
+
+
     function onAuthStateChanged(callback) {
       return firebase.auth().onAuthStateChanged(callback);
     }
 
     function getAuth() {
       return firebase.auth().currentUser;
+    }
+
+    function authWithGoogle() {
+        console.log('inside GoogleAuth');
+        var provider = new firebase.auth.GoogleAuthProvider();
+        firebase.auth().signInWithRedirect(provider)
+        firebase.auth().getRedirectResult()
     }
 
     function authWithPassword(email, password) {
@@ -211,6 +223,7 @@
         .catch(fail);
 
       function success(response) {
+        console.log(response);
         return response;
       }
 
@@ -237,6 +250,25 @@
       return auth.$signOut();
     }
 
+
+    function createProvider(profile) {
+      profile.created_at=firebase.database.ServerValue.TIMESTAMP;
+      profile.updated_at=firebase.database.ServerValue.TIMESTAMP;
+
+      var uid = firebase.auth().currentUser.uid
+      console.log(uid);
+      //Create User
+      var usersRef = firebase.database().ref('users');
+      usersRef.child(uid).set(profile);
+      //Create Private User
+      var newUserData = {};
+      newUserData['users-private/' + uid] = timestamp({
+        id: uid,
+        name: profile.name || '',
+      });
+      $firebaseRef.default.update(newUserData, function (error) {});
+    }
+
     function createUser(email, password) {
       var auth = $firebaseAuth(firebase.auth());
       return auth.$createUserWithEmailAndPassword(email, password)
@@ -261,6 +293,7 @@
         }
       }
     }
+
 
     function addUser(profile) {
       var d = $q.defer();
@@ -301,7 +334,7 @@
 
     function updateUser(profile) {
       var d = $q.defer();
-
+      console.log(profile.uid);
       // Create the data we want to update
       var uid = profile.uid;
       var updatedUserData = {};
@@ -318,6 +351,8 @@
       updatedUserData['users/' + uid + '/bio'] = profile.bio || '';
       updatedUserData['users/' + uid + '/groups'] = profile.groups || null;
       updatedUserData['users/' + uid + '/updated_at'] = firebase.database.ServerValue.TIMESTAMP;
+
+      console.log(updatedUserData);
 
       for (var g in profile.groups) {
         updatedUserData['groups/' + g + '/members/' + uid] = profile.groups[g] || null;
@@ -441,6 +476,7 @@
         .catch(fail);
 
       function success(response) {
+        console.log(response);
         return response;
       }
 
@@ -1047,7 +1083,7 @@
       }
     }
 
-    function updateIdea(id, content, type) {
+    function updateIdea(id, content, status) {
       var d = $q.defer();
       var newData = {};
 
@@ -1057,7 +1093,8 @@
       }
 
       newData['ideas/' + id + '/content'] = content;
-      newData['ideas/' + id + '/type'] = type;
+      //newData['ideas/' + id + '/type'] = type;
+      newData['ideas/' + id + '/status'] = status;
       newData['ideas/' + id + '/updated_at'] = firebase.database.ServerValue.TIMESTAMP;
 
       $firebaseRef.default.update(newData, function (error) {

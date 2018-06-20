@@ -72,7 +72,8 @@
     //TODO: set value of database and logging in build
     firebase.initializeApp({
       apiKey: 'AIzaSyAm--uHylcDf4J5wGroMzPeKmw6uIDnVr8',
-      authDomain: FirebaseName + '.firebaseapp.com',
+      //authDomain: FirebaseName + '.firebaseapp.com',
+      authDomain: 'www.nature-net.org',
       databaseURL: 'https://' + FirebaseName + '.firebaseio.com',
       storageBucket: FirebaseName + '.appspot.com',
     });

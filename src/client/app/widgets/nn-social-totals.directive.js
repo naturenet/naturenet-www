@@ -36,7 +36,7 @@
       function findTotals() {
         scope.likes = findTotal('likes', true);
         scope.dislikes = findTotal('likes', false);
-        scope.comments = findTotal('comments');
+        scope.comments = findTotal('comments', true);
 
         scope.liked = (!!scope.data.likes && scope.data.likes[scope.uid] === true);
         scope.disliked = (!!scope.data.likes && scope.data.likes[scope.uid] === false);

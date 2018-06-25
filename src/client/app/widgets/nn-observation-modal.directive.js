@@ -70,6 +70,17 @@
         }
       };
 
+      $scope.deleteComment = function (comment) {
+        console.log(comment);
+        if (confirm('Are you sure you want to delete your comment?')) {
+          dataservice.deleteComment('comments', comment.id).then(function (result) {
+            $scope.$emit('delete', comment.id);
+            logger.success('The observation has been deleted.');
+          });
+        }
+      };
+
+
       $scope.getProjects = function () {
         dataservice.getArray('activities').then(function (data) {
           $scope.allProjects = data;

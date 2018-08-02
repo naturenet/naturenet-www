@@ -39,6 +39,7 @@
       // Utility functions
       getArray: getArray,
       deleteContent: deleteContent,
+      deleteComment: deleteComment,
       getGeolocation: getGeolocation,
 
       // Authentication functions
@@ -46,6 +47,7 @@
       getAuth: getAuth,
       authWithPassword: authWithPassword,
       authWithGoogle: authWithGoogle,
+      authWithFacebook: authWithFacebook,
       unAuth: unAuth,
       createUser: createUser,
       createProvider: createProvider,
@@ -162,6 +164,33 @@
       return data;
     }
 
+    function deleteComment(context, id) {
+      var d = $q.defer();
+
+      if (!context || !id) {
+        console.log('Invalid data');
+        return $q.reject(new Error("Invalid Data"));
+      }
+
+      $firebaseRef.default.child(context).child(id).child('status').set('deleted', function (error) {
+        if (error) {
+          fail(error);
+        } else {
+          success();
+        }
+      });
+
+      return d.promise;
+
+      function success(response) {
+        d.resolve('success');
+      }
+
+      function fail(e) {
+        d.reject(exception.catcher('Unable to delete this content.')(e));
+      }
+    }
+
     function deleteContent(context, id) {
       var d = $q.defer();
 
@@ -212,7 +241,14 @@
         console.log('inside GoogleAuth');
         var provider = new firebase.auth.GoogleAuthProvider();
         firebase.auth().signInWithRedirect(provider)
-        firebase.auth().getRedirectResult()
+        firebase.auth().getRedirectResult();
+    }
+
+    function authWithFacebook() {
+        console.log('inside FacebookAuth');
+        var provider = new firebase.auth.FacebookAuthProvider();
+        firebase.auth().signInWithPopup(provider)
+        firebase.auth().getRedirectResult()//.then((data)=>{console.log(data);})
     }
 
     function authWithPassword(email, password) {

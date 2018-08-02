@@ -5,4 +5,14 @@
   avatar-url="{{avatarUrl}}">
 </nn-badge>
 
-<div class="comment__text" title="{{comment}}">{{comment | limitTo: limit}}{{comment.length > limit ? '...' : ''}}</div>
+<!--
+<p ng-if="!isEditMode" class="sidebar__description">{{comment}}</p>
+<textarea ng-if="isEditMode" ng-model="observation.data.text" class="sidebar__description"></textarea>
+<i style="color:indianred" ng-click="alert()" class="fa fa-trash" editable="vm.currentObservation.observer === $root.currentUser || $root.userRank === 'admin'"></i>
+
+-->
+
+
+<div class="comment__text" title="{{comment}}">{{comment | limitTo: limit}}{{comment.length > limit ? '...' : ''}}
+
+</div>

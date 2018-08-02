@@ -34,6 +34,8 @@
     };
     return directive;
 
+    //Is it Editable??
+
     function link(scope, element, attrs) {
       scope.formatDate = utility.formatDate;
 

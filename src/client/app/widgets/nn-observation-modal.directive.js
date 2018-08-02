@@ -75,6 +75,10 @@
         if (confirm('Are you sure you want to delete your comment?')) {
           dataservice.deleteComment('comments', comment.id).then(function (result) {
             $scope.$emit('delete', comment.id);
+            $scope.comments.reduce(function(item) {
+              return item.id !== comment.id;
+            })
+            console.log($scope.comments);
             logger.success('The observation has been deleted.');
           });
         }

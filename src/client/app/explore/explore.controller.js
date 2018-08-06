@@ -13,6 +13,7 @@
     '$q',
     '$rootScope',
     '$scope',
+    '$location',
     '$state',
     '$timeout',
     'logger',
@@ -27,6 +28,7 @@
     $q,
     $rootScope,
     $scope,
+    $location,
     $state,
     $timeout,
     logger,
@@ -123,7 +125,9 @@
         dataservice.getObservationById(id).then(function (o) {
           console.log(o);
           if (o.$value !== null) {
+            console.log('test');
             vm.currentObservation = o;
+            loadComments(vm.currentObservation);
             console.log(vm.currentObservation);
             console.log(vm.showDetail);
           } else {
@@ -140,7 +144,16 @@
 
     function currentObservationUpdated() {
       showSidebar(vm.currentObservation);
-      updateMap(vm.currentObservation);
+      if (vm.currentObservation) {
+        if (vm.currentObservation.id) {
+          $location.path('/explore/observation/'+vm.currentObservation.id, false);
+          setTimeout(function() {
+            updateMap(vm.currentObservation);
+          }, 1000)
+        }
+      } else {
+        console.log('here');
+      }
     }
 
     $scope.$on('delete', function (event, id) {

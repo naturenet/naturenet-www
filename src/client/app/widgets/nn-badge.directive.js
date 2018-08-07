@@ -28,6 +28,8 @@
         avatarUrl: '@',
         title: '@',
         subtitle: '@',
+        active: '=?',
+        navbar: '=?',
       },
       link: link,
       templateUrl: 'app/widgets/nn-badge.html',

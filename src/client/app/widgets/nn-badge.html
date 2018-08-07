@@ -1,5 +1,16 @@
 <!-- <nn-badge class="nn-badge"> -->
-<div ng-hide="!avatarUrl" class="nn-badge__avatar"
+
+<style>
+.active-avatar {
+  border: 3px solid #34475F;
+}
+
+.inactive-avatar {
+  border: 3px solid #52B56A;
+}
+</style>
+
+<div ng-hide="!avatarUrl" class="nn-badge__avatar" ng-class="{'active-avatar': active&&navbar, 'inactive-avatar': !active&&navbar}"
   style="background-image: url('{{avatarUrl}}')">
 </div>
 <span ng-hide="avatarUrl" style="font-size:1.65em;" class="fa-stack fa-2x">

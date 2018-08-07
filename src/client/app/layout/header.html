@@ -123,6 +123,7 @@ i#nav-dropdown {
   }
 }
 
+
 </style>
 
 
@@ -172,13 +173,15 @@ i#nav-dropdown {
                 <i class="fa fa-user"></i> Sign In</a>
           </li>
           <li class="collapse-hide profile" ng-show="vm.isAuthenticated">
-            <a class="dropdown-toggle" ng-click="vm.toggleDropdown=!vm.toggleDropdown"data-toggle="dropdown" href="#">
+            <a class="dropdown-toggle" ng-class="{}" ng-click="vm.toggleDropdown=!vm.toggleDropdown"data-toggle="dropdown" href="#">
               <nn-badge class="nn-badge nn-badge--header"
                 avatar-url="{{$root.users[vm.userUid].avatar}}"
                 title=""
+                active="vm.toggleDropdown"
+                navbar="true"
                 ng-click="vm.showPopup = !vm.showPopup">
               </nn-badge>
-                 <i id="nav-dropdown" ng-class="{'fa fa-chevron-down': vm.toggleDropdown, 'fa fa-chevron-right': !vm.toggleDropdown}"></i>
+                 <!--i id="nav-dropdown" ng-class="{'fa fa-chevron-down': vm.toggleDropdown, 'fa fa-chevron-right': !vm.toggleDropdown}"></i-->
             </a>
             <ul class="dropdown-menu" ng-class="{'show': vm.toggleDropdown}">
               <li><a ng-click="vm.showEdit()"><i class="fa fa-edit"></i> Edit Profile</a></li>

@@ -236,7 +236,7 @@ gulp.task('optimize', ['inject', 'test'], function () {
     .pipe(cssFilter.restore())
 
   // Get the custom javascript
-    .pipe(jsAppFilter)
+    .pipe(jsAppFilter) //.pipe(gulp.dest('dest'))
     .pipe($.ngAnnotate({ add: true }))
     .pipe($.uglify())
     .pipe(getHeader())

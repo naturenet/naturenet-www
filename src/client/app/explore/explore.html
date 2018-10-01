@@ -36,6 +36,7 @@
   .custom-pin:hover {
     transform: scale(1.15);
   }
+
 </style>
 
 <div id="wrapper" ng-class="{toggled:vm.isDrawerVisible}">
@@ -97,18 +98,18 @@
 
     <div class="page-map ng-scope has-map" ng-class="{'toggled-map': vm.isDrawerVisible, 'untoggled-map':!vm.isDrawerVisible}">
 
-      <ng-map style="height: 100% !important;" class="map ng-scope has-sidebar" default-style="true" center="United States of America" on-idle="vm.onMapMoved()">
+      <ng-map style="height: 100% !important;" class="map ng-scope has-sidebar" default-style="true" zoom="4" center="United States of America" on-idle="vm.onMapMoved()">
 
         <info-window id="bar" max-width="200">
           <div ng-non-bindable>
             <div id="siteNotice"></div>
 
-            <div ng-click="vm.openDetails()" style="cursor: pointer; padding-left:20px;" id="bodyContent">
-              <h1 style="padding: 20px 0 5px 0; font-size:2em;" id="firstHeading" class="firstHeading">
+            <div ng-click="vm.openDetails()" style="cursor: pointer; padding-left:10px;" id="bodyContent">
+              <h1 style="padding: 10px 0 5px 0; font-size:1.7em;" id="firstHeading" class="firstHeading">
                   {{$root.users[vm.currentObservation.observer].display_name}}
                 </h1>
                 <h3 style="color: slate; padding: 0px 0 10px 0;">{{vm.currentProject.name}}</h3>
-              <img style="width:200px; height:200px" src="{{vm.currentObservation.data.image}}" />
+              <img style="padding-left: 15px; width:175px; height:175px" src="{{vm.currentObservation.data.image}}" />
               <p ng-show="vm.currentObservation.where" style="margin-top:10px;"><i class="fa fa-map-marker"></i> {{vm.currentObservation.where}}</p>
               <p ng-if="vm.currentObservation.data.text" ng-bind-html="vm.currentObservation.data.text" hashtagify term-click="vm.search($event); $event.stopPropagation();" style="margin:10px 0 10px 0;"></p>
               <nn-social-totals class="totals detail__totals" data="vm.currentObservation" context="observations" show-dislikes="false"></nn-social-totals>

@@ -20,10 +20,11 @@
           templateUrl: 'app/contributions/contributions.html',
           controller: 'ContributionsController',
           controllerAs: 'vm',
-          title: 'Contributions',
+          title: 'Contribute!',
           settings: {
             nav: 5,
-            content: 'Contributions',
+            icon: 'fa fa-plus',
+            content: 'Contribute',
           },
         },
       },

@@ -62,19 +62,6 @@
     vm.isDrawerVisible=true;
     vm.limit = 8;
 
-
-    //Search
-    vm.query = "";
-    if ($state.params) {
-      if ($state.params.query) vm.query = $state.params.query
-      if ($state.params.id) {
-        select($state.params.id);
-        vm.showDetail=true;
-      }
-    }
-
-    console.log(vm.query);
-
     // Function assignments
     vm.toggleMap = toggleMap;
     vm.showSidebar = showSidebar;
@@ -85,12 +72,57 @@
     vm.updateDrawer = updateDrawer;
     vm.openDetails = openDetails;
 
-    activate();
+    //Search
+    vm.query = "";
+
+    //for emails only (legacy)
+    var paramID=null;
+    if ($state.params) {
+      if ($state.params.query) vm.query = $state.params.query
+      if ($state.params.id) {
+        var paramID = $state.params.id //if loaded this way, pass to activate
+      }
+    }
+
+    activate(paramID);
+
+
+    /* Routes
+       ================================================== */
+
+    $rootScope.$on('$locationChangeSuccess', function(event){
+      console.log('there');
+            var url = $location.url(),
+                params = $location.search();
+                console.log(params);
+            routeHandler();
+    })
+
+    function routeHandler() {
+      // get observation or tagged
+      if ($location.search()) {
+        if ($location.search().observation) { //not also tagged (set id! delete tagged)
+          var paramID =$location.search().observation;
+          console.log(paramID);
+          select(paramID);
+        }
+        if ($location.search().tagged) { //not also id (set tagged! deleted id)
+          var id =$location.search().tagged;
+          console.log(tagged);
+        }
+      }
+    }
 
     /* Activate function
        ================================================== */
 
-    function activate() {
+    function activate(paramID) {
+
+      if (vm.map) {
+        console.log(vm.map);
+        return null;
+      }
+
       utility.showSplash();
 
       var promises = [getObservations()];
@@ -99,12 +131,15 @@
           logger.info('Google Maps Ready');
           vm.map = map;
 
-
           $q.all(promises)
             .then(function () {
               initializeMap();
               utility.hideSplash();
               logger.info('Activated Map View');
+              if (paramID) {
+                return select(paramID); //for emails only (legacy)
+               }
+              routeHandler();
             });
         });
     }
@@ -120,16 +155,27 @@
         });
     }
 
-    function select(id) {
+    function setUrl (context, id) {
+      vm.toggleNotifications=false;
+      if (context=="observations") {
+        var result = $location.path('explore');
+        $location.search('observation',id)
+      }
+    }
+
+    function select(id) { //close any boxes that are open!
+      console.log('select');
       if (!!id) {
         dataservice.getObservationById(id).then(function (o) {
-          console.log(o);
           if (o.$value !== null) {
-            console.log('test');
             vm.currentObservation = o;
             loadComments(vm.currentObservation);
             console.log(vm.currentObservation);
             console.log(vm.showDetail);
+            //center the map on the observation...
+            console.log('update');
+            currentObservationUpdated();
+            //updateMap(o);
           } else {
             logger.warning('This observation cannot be displayed.');
           }
@@ -140,16 +186,22 @@
     /* Listener Functions
        ================================================== */
 
-    $scope.$watch('vm.currentObservation', currentObservationUpdated);
+    $scope.$watch('vm.currentObservation', dataservice.debounce(function () {
+      $scope.$apply(function(){
+          console.log('debounce');
+          currentObservationUpdated();
+      })
+    }, 1000));
+//currentObservationUpdated);
 
-    function currentObservationUpdated() {
+    function currentObservationUpdated() { //updated twice quickly
       showSidebar(vm.currentObservation);
       if (vm.currentObservation) {
         if (vm.currentObservation.id) {
-          $location.path('/explore/observation/'+vm.currentObservation.id, false);
+          console.log($location);
           setTimeout(function() {
             updateMap(vm.currentObservation);
-          }, 1000)
+          }, 1500)
         }
       } else {
         console.log('here');
@@ -188,6 +240,10 @@
 
    function openDetails() {
      vm.showDetail = true;
+     //$location.path('/explore/observation/'+vm.currentObservation.id, false);
+     setTimeout(function () {
+       updateMap(vm.currentObservation);
+     }, 1000);
      //closeDrawer();
    }
 
@@ -214,7 +270,7 @@
 
       if (!!coords) {
         config.mapOptions.center = new google.maps.LatLng(coords.latitude, coords.longitude);
-        config.mapOptions.zoom = 12;
+        config.mapOptions.zoom = 11;
       }
       vm.map.setOptions(config.mapOptions);
 
@@ -317,7 +373,9 @@
     function updateMap(o) {
       if (!!vm.map) {
         if (!o || !o.l || angular.equals(o.l, [0, 0])) {
-      //    return resetMap();
+          // return resetMap();
+          //open modal with a warning...
+          //or use google API to place it.
         }
 
         var newCenter = new google.maps
@@ -388,6 +446,7 @@
         //deal with a glitch in ng-maps.
         setTimeout(function() {
           google.maps.event.trigger(selected[0], 'click')
+          setUrl('observations', vm.currentObservation.id);
         }, 600)
 
         loadComments(vm.currentObservation);

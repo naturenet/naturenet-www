@@ -47,7 +47,7 @@
     vm.currentIdeaId = void 0;
     vm.comments = void 0;
     vm.showDetail = false;
-    vm.filterType = '!deleted';
+    vm.filterType = 'doing';
     vm.filters = { 'doing': 0, 'done':0, 'testing':0, 'developing':0, 'superceded': 0};
     vm.isDrawerVisible= $window.innerWidth > 750 ? true: false;
     vm.showQuestionForm = false;
